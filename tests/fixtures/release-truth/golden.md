@@ -317,14 +317,14 @@ Product gaps with no `release.*` id. Each row says which gate it blocks through;
    - Owner: LOCAL-then-EXTERNAL (closable offline only up to an external predecessor) — offline part: Kernel online reservation/settlement and BulletGit positive authority (V1-S3); external predecessor: operator publishes the immutable `bullet-wire` tag
    - Next command: NONE — no typed command exists yet; `just contract` proves generated wire identity, not a published tag
    - Release-blocking: yes — through G2 (`release.transaction-demo`); no receipt here can count on its own
-2. **Recipes, archive, and promotion exist only as design; `evolutionary_authority=false` is the committed policy and no evolutionary run has ever happened.** — G11 Evolutionary runtime
-   - Why it matters: Any evolutionary product claim would today rest on prose, and flipping the policy bit before G2 would create authority without a transaction to govern it.
-   - Acceptance: After G2, implement recipes, archive, and promotion behind the evolutionary-control contract and register their exact receipts; the policy bit changes last, by operator ratification.
+2. **Self-tuning optimization and evolutionary campaigns are explicitly post-V1; `evolutionary_authority=false` is the committed V1 policy.** — G11 Evolutionary runtime
+   - Why it matters: The frozen V1 scope requires the minimum typed cognitive plane, not an authority-bearing evolutionary runtime. Treating a preview diagnostic as a GA gate would fork that contract.
+   - Acceptance: Keep evolutionary authority disabled through V1. A later release may implement recipes, archive, study, canary, and promotion behind the evolutionary-control contract; the policy bit changes last, by operator ratification.
    - Evidence class: COMPONENT_PROOF
    - Current evidence: design only — `docs/architecture/evolutionary-control.md` and policy `route_policy.evolutionary_authority=false`; no recipe, archive, study, canary, or promotion code path
-   - Owner: LOCAL (closable offline) — Wave 9 engineering after G2; never by flipping the policy bit first
-   - Next command: NONE — no typed command exists yet; do not start a campaign before G2; the typed durable study and canary surfaces do not exist
-   - Release-blocking: yes for `self-hosted-v1` — through profile gate `release.evolution-v1`; it does not alter the legacy `release.transaction-demo` gate
+   - Owner: LOCAL (closable offline) — post-V1 evolutionary-control engineering; never by flipping the policy bit first
+   - Next command: NONE — no typed command exists yet; do not start a V1 campaign; the typed durable study and canary surfaces do not exist
+   - Release-blocking: no for V1 — self-tuning optimization is post-V1; `linux-preview` surfaces an extra evolution diagnostic that cannot alter the canonical 26-gate GA contract
 3. **Six of fifteen Portal spec surfaces (Cognitive Router, Fusion Lab, Quota/Capacity, Struggle, Behavior, Workspace Hygiene) have no durable ledger subject and render explicit UNKNOWN, and the Portal is not packaged or embedded.** — G13 Portal product surfaces
    - Why it matters: A projection without a ledger subject cannot be truthful, and a Portal served from a Vite preview is not the released product surface.
    - Acceptance: After G2/G3, add the missing ledger subjects, project all fifteen surfaces with watermark-bound truth, and embed the built Portal in the Rust distribution.

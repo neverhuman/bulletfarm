@@ -26,16 +26,18 @@ pub(crate) const UNGATED: &[UngatedRow] = &[
     },
     UngatedRow {
         gap_id: "G11",
-        claim: "Recipes, archive, and promotion exist only as design; `evolutionary_authority=false` is the committed policy and no evolutionary run has ever happened.",
-        why: "Any evolutionary product claim would today rest on prose, and flipping the policy bit before G2 would create authority without a transaction to govern it.",
-        acceptance: "After G2, implement recipes, archive, and promotion behind the evolutionary-control contract and register their exact receipts; the policy bit changes last, by operator ratification.",
+        claim: "Self-tuning optimization and evolutionary campaigns are explicitly post-V1; `evolutionary_authority=false` is the committed V1 policy.",
+        why: "The frozen V1 scope requires the minimum typed cognitive plane, not an authority-bearing evolutionary runtime. Treating a preview diagnostic as a GA gate would fork that contract.",
+        acceptance: "Keep evolutionary authority disabled through V1. A later release may implement recipes, archive, study, canary, and promotion behind the evolutionary-control contract; the policy bit changes last, by operator ratification.",
         class: GateClass::Component,
         evidence: "design only — `docs/architecture/evolutionary-control.md` and policy `route_policy.evolutionary_authority=false`; no recipe, archive, study, canary, or promotion code path",
-        owner: Owner::Local("Wave 9 engineering after G2; never by flipping the policy bit first"),
-        next: none(
-            "do not start a campaign before G2; the typed durable study and canary surfaces do not exist",
+        owner: Owner::Local(
+            "post-V1 evolutionary-control engineering; never by flipping the policy bit first",
         ),
-        blocking: "yes for `self-hosted-v1` — through profile gate `release.evolution-v1`; it does not alter the legacy `release.transaction-demo` gate",
+        next: none(
+            "do not start a V1 campaign; the typed durable study and canary surfaces do not exist",
+        ),
+        blocking: "no for V1 — self-tuning optimization is post-V1; `linux-preview` surfaces an extra evolution diagnostic that cannot alter the canonical 26-gate GA contract",
     },
     UngatedRow {
         gap_id: "G13",
