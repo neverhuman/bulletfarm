@@ -286,8 +286,13 @@ prior authoritative generation or return typed `UNKNOWN`; none yields success.
 
 ## V1-S4 — runner, verifier, effects, and offline transaction
 
-Status: `LOCAL-BLOCKED` on `V1-S2/S3`; bounded transport exists, but farmd serves none of Runner's
-acquire/heartbeat/release/attempt-advance routes, and Runner plus `/v1/demo/run` remain synthetic.
+Status: `COMPONENT-COMPLETE` for the credential-free offline saga; the family
+`release.transaction-demo` catalog row stays `BLOCKED` until generated truth
+admits the receipt. Farmd now serves signed Unix acquire/heartbeat/release/readback
+(not public `/v1`). `just demo` drives `transaction_demo` children and writes a
+signed `TRANSACTION_PROOF`. `run_demo` remains the projection seeder.
+`demo-synthetic` remains a non-gating refusal. Production `bullet-gitd` still
+returns `AUTHORITY_CONTRACT_UNAVAILABLE`. Signed `advance` is still refused.
 
 The existing `HttpLeaseClient` is not safe to mount: it is unauthenticated,
 acquire self-asserts scheduling and runner identity fields, and release/advance

@@ -5,6 +5,7 @@ pub mod coord;
 pub mod deps_check;
 pub mod doctor;
 pub mod family_lock;
+pub mod forge;
 pub mod fuse;
 pub mod hub_check;
 mod process;
