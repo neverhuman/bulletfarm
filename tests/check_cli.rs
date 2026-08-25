@@ -293,6 +293,20 @@ fn release_inventory_is_stable_sorted_and_blocked() {
             .windows(2)
             .all(|pair| pair[0]["id"].as_str() < pair[1]["id"].as_str())
     );
+    for required_v1_gate in [
+        "release.provider.claude",
+        "release.provider.codex",
+        "release.provider.cursor",
+        "release.provider.antigravity",
+        "release.forge.jeryu",
+        "release.forge.github-app",
+        "release.package-matrix",
+    ] {
+        assert!(
+            gates.iter().any(|gate| gate["id"] == required_v1_gate),
+            "canonical V1 gate missing: {required_v1_gate}"
+        );
+    }
     let msrv = gates
         .iter()
         .find(|gate| gate["id"] == "release.rust-msrv-1-95")
@@ -323,20 +337,20 @@ fn release_profiles_are_named_independent_and_fail_closed() {
     fs::create_dir(&registry).unwrap();
     let registry = registry.to_str().unwrap();
 
-    let self_hosted = command(&[
+    let linux_preview = command(&[
         "check",
         "release",
         "--profile",
-        "self-hosted-v1",
+        "linux-preview",
         "--receipts",
         registry,
         "--json",
     ]);
-    assert_eq!(self_hosted.status.code(), Some(3));
-    assert!(self_hosted.stderr.is_empty());
-    let report: serde_json::Value = serde_json::from_slice(&self_hosted.stdout).unwrap();
+    assert_eq!(linux_preview.status.code(), Some(3));
+    assert!(linux_preview.stderr.is_empty());
+    let report: serde_json::Value = serde_json::from_slice(&linux_preview.stdout).unwrap();
     assert_eq!(report["schema_version"], 3);
-    assert_eq!(report["profile"], "self-hosted-v1");
+    assert_eq!(report["profile"], "linux-preview");
     assert_eq!(report["status"], "BLOCKED");
     let ids = report["gates"]
         .as_array()
@@ -344,6 +358,7 @@ fn release_profiles_are_named_independent_and_fail_closed() {
         .iter()
         .map(|gate| gate["id"].as_str().unwrap())
         .collect::<Vec<_>>();
+    assert_eq!(ids.len(), 25);
     for excluded in [
         "release.forge.github-app",
         "release.provider.codex",
@@ -423,7 +438,7 @@ fn profiled_release_rejects_ambiguous_or_relative_registry_arguments() {
             "check",
             "release",
             "--profile",
-            "self-hosted-v1",
+            "linux-preview",
             "--receipts",
             "relative",
         ],
@@ -439,9 +454,17 @@ fn profiled_release_rejects_ambiguous_or_relative_registry_arguments() {
             "check",
             "release",
             "--profile",
-            "self-hosted-v1",
+            "linux-preview",
             "--profile",
             "provider-codex",
+            "--receipts",
+            "/tmp/receipts",
+        ],
+        vec![
+            "check",
+            "release",
+            "--profile",
+            "self-hosted-v1",
             "--receipts",
             "/tmp/receipts",
         ],

@@ -152,8 +152,8 @@ const OWNER_LABELS: [&str; 3] = ["LOCAL (", "LOCAL-then-EXTERNAL (", "EXTERNAL (
 
 fn assert_fields_are_closed_vocabulary(page: &str) {
     assert_eq!(page.matches("   - Product gap: G").count(), 26);
-    assert_eq!(page.matches("   - Release-blocking: yes").count(), 26 + 5);
-    assert_eq!(page.matches("   - Release-blocking: no for V1").count(), 0);
+    assert_eq!(page.matches("   - Release-blocking: yes").count(), 26 + 4);
+    assert_eq!(page.matches("   - Release-blocking: no for V1").count(), 1);
     let mut owners = 0;
     for line in page.lines().filter(|line| line.starts_with("   - Owner: ")) {
         let owner = line.trim_start_matches("   - Owner: ");
@@ -227,6 +227,9 @@ fn portable_report_matches_the_golden_page_from_a_hub_only_checkout() {
             "{gap} missing from ungated section"
         );
     }
+    assert!(page.contains(
+        "Release-blocking: no for V1 — self-tuning optimization is post-V1; `linux-preview` surfaces an extra evolution diagnostic that cannot alter the canonical 26-gate GA contract"
+    ));
     for provider in ["claude", "codex", "cursor", "agy"] {
         assert!(page.contains(&format!(
             "BULLET_LIVE_PROVIDERS={provider} bash ops/ci/nightly.sh"

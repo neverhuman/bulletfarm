@@ -34,9 +34,9 @@ A newer subject invalidates its receipt until the mapped gate is replayed.
   an independent clean environment. The effect broker alone holds forge
   credentials. Portal is a sequence-bound projection and never an authority.
 - Initial source distribution is Jeryu-only from immutable signed tags. No
-  `neverhuman/bullet-*` GitHub namespace is assumed. GitHub is a separately
-  certified `github-adapter-v1` effect profile, not source authority or a
-  `self-hosted-v1` blocker.
+  `neverhuman/bullet-*` GitHub namespace is assumed. GitHub is not source
+  authority, but V1 GA still requires its independently reconciled effect
+  receipt in addition to Jeryu.
 - The shared wire uses RFC 8785 canonical JSON, domain-separated BLAKE3, full
   256-bit lowercase IDs, and algorithm-tagged Git OIDs. `ContentId` is distinct
   from provenance-bound `CandidateId`; Candidate and Integration proof roots
@@ -48,17 +48,16 @@ A newer subject invalidates its receipt until the mapped gate is replayed.
   versioned JSON-RPC 2.0 over JSONL stdio. Stdout is protocol-only.
 - Local V1 is single-user and loopback-only. PostgreSQL, distributed teams,
   remote runners, cross-repository sagas, and semantic merge synthesis close
-  only later profiles. The bounded Wave 9 study, router updates from
-  observation-surviving outcomes, and R0/R1 canary remain selected here;
-  speculative or authority-bearing learning does not.
+  only later profiles. Self-tuning optimization and evolutionary campaigns are
+  post-V1; the minimum typed cognitive plane remains required, with
+  `evolutionary_authority=false`.
 - Exactly **two** protocols are model-checked: lease/fence/reclaim and command/
   effect ambiguity under timeout. No third formal model is a V1 gate.
-- `self-hosted-v1` requires one conformant **Claude service/API** profile.
-  Codex, Cursor, and Antigravity retain fail-closed adapters and independent
-  `provider-*` certifications.
-- The first production package is Ubuntu 24.04 LTS x86_64 under native systemd.
-  Other operating systems and architectures are independent `platform-*`
-  profiles and fail closed until their native containment passes.
+- V1 GA requires conformant **Claude, Codex, Cursor, and Antigravity**
+  service/API profiles against the same frozen subject.
+- V1 GA ships exactly five signed archives: Linux x86_64/aarch64, macOS
+  x86_64/arm64, and Windows x64. Linux is the full production runner; the other
+  platforms fail closed on real mutation until native containment passes.
 - Pre-1.0 schemas are disposable. Unknown/legacy databases fail with typed
   `UNSUPPORTED_SCHEMA` plus explicit export/removal guidance.
 - Product comparison is [commit/date-pinned](competitor-snapshot.md); no performance
@@ -75,10 +74,11 @@ The committed subjects observed immediately before this plan edit were:
 | BulletGit | `4c508e4173aaee43083921ab457ff65744754176` | `d5e785e0d8934bde273d1044a02d3d33753e2a68` | Complete provenance-bound local Candidate identity and strict Hub canonical vectors are committed; immutable wire-tag consumption, online authority/settlement, Integration proof, and Jeryu remain blocked |
 | Portal | `3033b67074a1042362789b090e3226b1e0420e8e` | `9a3a386908b2ace6c623e56d4e0f3c1e70fb3530` | Revision-one Context Lineage is strictly runtime-validated, bringing the catalog to nine projected and six explicit UNKNOWN surfaces. Successor/compression lineage and package embedding remain open |
 
-There is no family transaction or release receipt. The named
-`self-hosted-v1` profile and the legacy 26-gate aggregate both report
-`BLOCKED` and name the missing transaction, live, recovery, package, security,
-evolution, operations, and signing evidence.
+There is no family transaction or release receipt. The canonical unprofiled
+26-gate V1 GA report remains 26/26 `BLOCKED`; the narrower non-release
+`linux-preview` diagnostic remains 25/25 `BLOCKED`. Neither can turn missing
+transaction, live, recovery, package, security, operations, or signing evidence
+green.
 
 | Receipt | Status | Exact evidence | Boundary |
 | --- | --- | --- | --- |
@@ -394,9 +394,9 @@ Required work:
    HOME, minimum provider OAuth, provider-only egress, and no SCM/cloud/SSH/host
    secrets. Persist exact binary/model/config/profile receipts.
 
-Exit gate: Claude passes the common conformance matrix for `self-hosted-v1` and
-routing/fusion decisions replay from persisted inputs. Codex, Cursor, and
-Antigravity use the same matrix but close only their independent profiles.
+Exit gate: Claude, Codex, Cursor, and Antigravity pass the same common
+conformance matrix for the frozen V1 subject, and routing/fusion decisions
+replay from persisted inputs.
 
 Mandatory negatives: missing/unknown quota, expired reservation, profile or
 model substitution, capability downgrade, malicious output, malformed/
@@ -423,7 +423,8 @@ bullet-family lock generate|verify
 bullet-family checkout verify
 bullet-family fuse --source local|lock
 bullet-family check fast|required
-bullet-family check release --profile <profile> --receipts <absolute-registry>
+bullet-family check release --json
+bullet-family check release --profile <diagnostic-profile> --receipts <absolute-registry>
 bullet-family coord claim|heartbeat|handoff|status
 ```
 
@@ -452,8 +453,8 @@ CI closure:
 | --- | --- |
 | `fast` | warm under 60s; fmt, strict Clippy/unit, TypeScript type/unit, production Portal build, generated drift, affected-path routing |
 | `required` | locked build/test/doc-test, contracts, migrations, real packaged browser E2E, transaction demo, pinned secret/dependency/license/workflow scans, family lock, Jankurai ratchet; no skip-green |
-| `self-hosted-v1` | Ubuntu x86_64 package, two-install/systemd lifecycle smoke, Rust 1.95 and pinned 1.97.1, SBOM/checksum/signature/provenance, backup/restore/faults, Jeryu + Claude, operations and Wave 9 canary/study gates, Jankurai >=90 with zero caps/hard findings |
-| independent profiles | one exact provider, GitHub adapter, additional platform, or team-mode certification; never inherited by `self-hosted-v1` or another profile |
+| canonical `release` | All 26 frozen gates: five signed archives and installer smoke, Rust 1.95 and pinned 1.97.1, SBOM/checksum/signature/provenance, backup/restore/faults, Jeryu + GitHub reconciliation, all four providers, operations, and Jankurai >=90 with zero caps/hard findings |
+| `linux-preview` and other named profiles | Non-release diagnostic slices only; omitted provider, forge, platform, or package subjects remain mandatory for canonical V1 GA |
 
 Jeryu CI must run the same local commands through workflow IR. GitHub workflows
 are a portable mirror, not release evidence until a public mirror exists.
@@ -472,11 +473,11 @@ Documentation closure follows executable ownership:
   platform refusal after the typed commands exist;
 - `docs/spec/` and `TEAM.md`: immutable hashed historical provenance.
 
-Exit gates: `bullet-family check fast|required` plus the selected named release
-profile, signed Ubuntu x86_64 installer smoke for `self-hosted-v1`, two-run
-hub-only setup, generated drift in a temporary directory,
-docs/link/source/license/workflow scans, and zero tracked changes. Other archive
-smokes belong to their independent `platform-*` profiles.
+Exit gates: `bullet-family check fast|required|release`, signed lifecycle smoke
+for all five V1 archives, two-run hub-only setup, generated drift in a temporary
+directory, docs/link/source/license/workflow scans, and zero tracked changes.
+`linux-preview` may diagnose Ubuntu/Jeryu/Claude readiness but cannot waive any
+canonical gate.
 
 Mandatory negatives: schema-2/future/corrupt lock, bad signature/checksum/tag/
 tree/lockfile/tool digest, PATH shim, credential/canary leak, offline cache miss,
@@ -496,20 +497,22 @@ Required order:
    The operator restores authentication; run read-only probes before protected
    integration and UNKNOWN/read-back reconciliation. Never alter the running
    forge to work around missing capability.
-2. After the offline gates pass, stop for the distinct signed Claude service
-   approval, run one bounded read-only turn, then stop again for separate Jeryu
-   broker/attestor/integrator credentials and an exact protected test repository.
-3. Run one low-risk Claude + Jeryu Candidate transaction with authoritative
-   read-back and observation. Failure remains evidence and cannot be relabeled.
-4. Build/smoke the signed Ubuntu x86_64 package, publish SBOM/checksums/
-   signatures/provenance, verify backup/restore and containment, then sign the
-   final non-circular release manifest. Certify GitHub, other providers, other
-   platforms, and team mode separately.
+2. After the offline gates pass, stop for distinct signed Claude, Codex, Cursor,
+   and Antigravity service approvals and run one bounded read-only turn per
+   provider against the same frozen subject.
+3. Stop again for separate Jeryu and GitHub broker/attestor/integrator
+   credentials and exact protected test repositories. Run low-risk Candidate
+   transactions with authoritative read-back and observation for both effects.
+   Failure remains evidence and cannot be relabeled.
+4. Build and smoke all five signed archives, publish SBOM/checksums/signatures/
+   provenance, verify backup/restore and containment, then sign the final
+   non-circular release manifest.
 
-Exit gate: `bullet-family check release --profile self-hosted-v1 --receipts
-<registry>` passes from exact signed tags with current Jeryu, Claude, Ubuntu
-x86_64/systemd, security, recovery, operations, evolution/canary, package, and
-signer receipts.
+Exit gate: after kind-specific semantic receipt admission exists for every row,
+`bullet-family check release --json` passes all 26 canonical gates from exact
+signed tags with current Jeryu and GitHub effects, all four providers, all five
+archives, security, recovery, operations, package, and signer receipts. The
+current CLI intentionally has no generic canonical `--receipts` shortcut.
 
 Mandatory negatives: lost remote response becomes `UNKNOWN`; read-back adopts
 the original exact OID without a second write. Wrong fence/OID/check/proof root,
@@ -529,23 +532,24 @@ may be neutral only when the requested release profile does not require them.
    consume the reviewed tagged `jeryu-gitd` capability.
 4. Produce the `V1-S4` credential-free five-plane transaction receipt; replace,
    rather than rename, synthetic success.
-5. Embed Portal; persist cognitive routing/fusion; close Claude for
-   `self-hosted-v1`, then retain separate Codex/Cursor/Antigravity profiles.
+5. Embed Portal; persist the minimum typed cognitive routing/fusion plane; close
+   the common live conformance matrix for all four providers. Keep evolutionary
+   campaigns and self-tuning optimization post-V1.
 6. Publish signed schema-3 install subjects and a prebuilt installer, then build
-   the Ubuntu x86_64 package with lifecycle smoke, SBOM, checksums, signatures,
+   all five archives with lifecycle smoke, SBOM, checksums, signatures,
    provenance, containment, and Jankurai/security evidence.
-7. Run `V1-S8` only with operator-provided Jeryu, Claude service, protected test
-   repository, and signing authority. GitHub, other providers/platforms, and
-   team mode remain separate certifications.
+7. Run `V1-S8` only with operator-provided Jeryu and GitHub credentials, all
+   four provider service approvals, protected test repositories, and
+   five-platform signing authority.
 
 ## Terminal definition of done
 
-`self-hosted-v1` is done only when every selected `V1-S0..S8` gate has a
-current independently verifiable receipt from the same signed subjects;
-setup/demo/fast/required/profiled-release and the two pinned models pass;
-Jankurai reaches 90 with zero caps/hard findings; the selected Claude, Jeryu,
-Ubuntu package, signature, recovery, fault, installer, operations,
-evolution/canary, and containment receipts are current; every checkout is
-clean; Portal has no synthetic authority; and no safety counterexample remains.
-Additional provider/forge/platform/team profiles do not inherit that result.
+V1 GA is done only when every canonical `V1-S0..S8` gate has a current
+independently verifiable receipt from the same signed subjects;
+setup/demo/fast/required/release and the two pinned models pass; Jankurai
+reaches 90 with zero caps/hard findings; Claude, Codex, Cursor, Antigravity,
+Jeryu, GitHub, all five archives, signature, recovery, fault, installer,
+operations, and containment receipts are current; every checkout is clean;
+Portal has no synthetic authority; and no safety counterexample remains.
+No diagnostic profile can substitute for that result.
 Until then: **pre-release, blocked**.

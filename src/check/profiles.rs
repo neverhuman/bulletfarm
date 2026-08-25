@@ -1,11 +1,11 @@
-//! Named release profiles. Profiles select gates; they never weaken them.
+//! Named diagnostic gate slices. Canonical V1 release authority is unprofiled.
 
 use std::{fs, path::Path};
 
 use super::model::{CheckModelError, GateClass, GateResult};
 use crate::coord::CoordError;
 
-const SELF_HOSTED_V1: &[&str] = &[
+const LINUX_PREVIEW: &[&str] = &[
     "release.backup-restore",
     "release.checksums",
     "release.fault-suite",
@@ -41,7 +41,7 @@ const PLATFORM: &[&str] = &[
 
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 pub(super) enum ReleaseProfile {
-    SelfHostedV1,
+    LinuxPreview,
     ProviderCodex,
     ProviderCursor,
     ProviderAntigravity,
@@ -55,7 +55,7 @@ pub(super) enum ReleaseProfile {
 
 impl ReleaseProfile {
     pub(super) const NAMES: &[&str] = &[
-        "self-hosted-v1",
+        "linux-preview",
         "provider-codex",
         "provider-cursor",
         "provider-antigravity",
@@ -69,7 +69,7 @@ impl ReleaseProfile {
 
     pub(super) fn parse(value: &str) -> Result<Self, CoordError> {
         match value {
-            "self-hosted-v1" => Ok(Self::SelfHostedV1),
+            "linux-preview" => Ok(Self::LinuxPreview),
             "provider-codex" => Ok(Self::ProviderCodex),
             "provider-cursor" => Ok(Self::ProviderCursor),
             "provider-antigravity" => Ok(Self::ProviderAntigravity),
@@ -91,7 +91,7 @@ impl ReleaseProfile {
 
     pub(super) const fn as_str(self) -> &'static str {
         match self {
-            Self::SelfHostedV1 => "self-hosted-v1",
+            Self::LinuxPreview => "linux-preview",
             Self::ProviderCodex => "provider-codex",
             Self::ProviderCursor => "provider-cursor",
             Self::ProviderAntigravity => "provider-antigravity",
@@ -106,7 +106,7 @@ impl ReleaseProfile {
 
     const fn gate_ids(self) -> &'static [&'static str] {
         match self {
-            Self::SelfHostedV1 => SELF_HOSTED_V1,
+            Self::LinuxPreview => LINUX_PREVIEW,
             Self::ProviderCodex => &["release.provider.codex", "release.receipt-contracts"],
             Self::ProviderCursor => &["release.provider.cursor", "release.receipt-contracts"],
             Self::ProviderAntigravity => {
@@ -143,22 +143,22 @@ pub(super) fn select(
     }
     replace_receipt_registry_gate(&mut selected, registry)?;
     match profile {
-        ReleaseProfile::SelfHostedV1 => {
-            replace_self_hosted_details(&mut selected)?;
-            selected.extend(self_hosted_specific_gates()?);
+        ReleaseProfile::LinuxPreview => {
+            replace_linux_preview_details(&mut selected)?;
+            selected.extend(linux_preview_specific_gates()?);
         }
         ReleaseProfile::TeamV1 => selected.push(blocked(
             "release.team-v1",
             GateClass::Release,
             "distributed PostgreSQL/workload-mTLS team mode has no exact partition, failover, freeze, restore, or admission receipt",
-            "certify team-v1 independently after self-hosted-v1; do not treat it as a self-hosted release blocker",
+            "certify team-v1 independently after canonical V1 GA; do not treat a Linux preview as release authority",
         )?),
         _ => {}
     }
     Ok(selected)
 }
 
-fn replace_self_hosted_details(gates: &mut [GateResult]) -> Result<(), CheckModelError> {
+fn replace_linux_preview_details(gates: &mut [GateResult]) -> Result<(), CheckModelError> {
     for (id, detail, repair) in [
         (
             "release.platform-containment",
@@ -187,7 +187,7 @@ fn replace_self_hosted_details(gates: &mut [GateResult]) -> Result<(), CheckMode
             .ok_or_else(|| {
                 CheckModelError::new(
                     "PROFILE_GATE_MISSING",
-                    format!("self-hosted-v1 is missing {id}"),
+                    format!("linux-preview is missing {id}"),
                 )
             })?;
         gates[index] = blocked(id, GateClass::Release, detail, repair)?;
@@ -239,12 +239,12 @@ fn replace_receipt_registry_gate(
     Ok(())
 }
 
-fn self_hosted_specific_gates() -> Result<Vec<GateResult>, CheckModelError> {
+fn linux_preview_specific_gates() -> Result<Vec<GateResult>, CheckModelError> {
     [
         (
             "release.evolution-v1",
-            "the preregistered T0-versus-T3 confirmation, deterministic MOME/ASHA controls, and R0/R1 rollback receipt are absent",
-            "run the frozen external study and bounded canary after transaction/live gates pass; R2+ must remain exact-human-approval only",
+            "post-V1 evolutionary study and canary evidence is absent, as expected while evolutionary_authority remains disabled for V1",
+            "retain this preview-only diagnostic without treating it as a canonical GA gate; schedule the frozen external study and bounded canary only after V1",
         ),
         (
             "release.operations-v1",
@@ -282,13 +282,13 @@ mod tests {
     use crate::check::{model::GateStatus, prerequisites};
 
     #[test]
-    fn self_hosted_excludes_deferred_adapters_and_platform_matrix() {
+    fn linux_preview_is_narrow_and_not_the_v1_gate_set() {
         let registry = std::env::temp_dir().join(format!(
             "bullet-release-profile-missing-{}",
             std::process::id()
         ));
         let gates = select(
-            ReleaseProfile::SelfHostedV1,
+            ReleaseProfile::LinuxPreview,
             prerequisites::report_release().unwrap().gates().to_vec(),
             &registry,
         )
@@ -301,7 +301,7 @@ mod tests {
             "release.provider.antigravity",
             "release.package-matrix",
         ] {
-            assert!(!ids.contains(&excluded), "deferred gate leaked: {excluded}");
+            assert!(!ids.contains(&excluded), "preview gate leaked: {excluded}");
         }
         for required in [
             "release.forge.jeryu",

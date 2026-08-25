@@ -192,11 +192,7 @@ mod tests {
             vec!["release".into(), "--portable".into()],
             vec!["release".into(), "--portable".into(), "--report".into()],
             vec!["release".into(), "--json".into(), "--report".into()],
-            vec![
-                "release".into(),
-                "--profile".into(),
-                "self-hosted-v1".into(),
-            ],
+            vec!["release".into(), "--profile".into(), "linux-preview".into()],
             vec![
                 "release".into(),
                 "--receipts".into(),
@@ -208,19 +204,19 @@ mod tests {
         let profiled = parse(&[
             "release".into(),
             "--profile".into(),
-            "self-hosted-v1".into(),
+            "linux-preview".into(),
             "--receipts".into(),
             "/tmp/receipts".into(),
             "--json".into(),
         ])
         .unwrap();
-        assert_eq!(profiled.profile.unwrap().as_str(), "self-hosted-v1");
+        assert_eq!(profiled.profile.unwrap().as_str(), "linux-preview");
         assert_eq!(profiled.mode, OutputMode::Json);
         assert_eq!(
             parse(&[
                 "release".into(),
                 "--profile".into(),
-                "self-hosted-v1".into(),
+                "linux-preview".into(),
                 "--receipts".into(),
                 "relative".into(),
             ])

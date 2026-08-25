@@ -30,10 +30,10 @@ tests, unsupported, skipped, flaky, or infrastructure error never equals
 
 | Stage | Required baseline | Additional requirement |
 | --- | --- | --- |
-| `self-hosted-v1` | Ubuntu 24.04 x86_64/systemd, exact offline transaction, and one separately admitted Claude service receipt | Local Jeryu protected integration plus install, operations, recovery, security, Linux package, and bounded Wave 9 study/canary gates |
-| `provider-{codex,cursor,antigravity}` | Independent adapter certification; not a `self-hosted-v1` blocker | Exact provider/profile isolation, protocol, settlement, teardown, and signed conformance receipt |
-| `github-adapter-v1` | `self-hosted-v1` baseline | Separately certified exact-subject GitHub effect, check, integration, read-back, and reconciliation receipts |
-| `platform-*` / `team-v1` | Explicitly deferred independent profiles | Native containment/package or PostgreSQL/workload-mTLS partition, failover, freeze, and restore receipts |
+| V1 GA | Exact offline transaction; conformant Claude, Codex, Cursor, and Antigravity receipts; protected Jeryu and GitHub effect receipts; five signed archives | Install, operations, recovery, security, containment, and supply-chain gates |
+| `linux-preview` | Ubuntu 24.04 x86_64/systemd, exact offline transaction, one Claude receipt, and local Jeryu integration | Non-release diagnostic slice only; it cannot authorize V1 or waive any omitted provider, GitHub, or package gate |
+| `provider-*`, `github-adapter-v1`, `platform-*` | One exact certification slice | Diagnostic evidence reusable by canonical V1 only when its exact gate also appears in the 26-gate release decision |
+| `team-v1` | Explicitly post-V1 | PostgreSQL/workload-mTLS partition, failover, freeze, and restore receipts |
 
 Multi-tenant SaaS is outside this roadmap. A provider/model/adapter/profile is
 eligible only under its own exact, unexpired certification; one provider's
@@ -48,24 +48,23 @@ receipt never certifies another provider or profile.
 | Production BulletGit transaction | `BLOCKED` | Durable CAS/journal, generation-atomic apply, preservation-bound cleanup, honest post-delete UNKNOWN outcomes, and a complete provenance-bound local Candidate identity are committed; positive online authority/settlement, complete Integration proof, immutable shared-wire tag consumption, and reviewed tagged `jeryu-gitd` remain |
 | Offline five-plane proof | `BLOCKED` | One signed `TRANSACTION_PROOF` covering authority, runner death/salvage, independent verification, ambiguous-effect reconciliation, protected integration, preservation, and truthful portal projection |
 | Jeryu live effect | `BLOCKED` | Operator-restored authentication and read-back/reconciliation receipt; the running forge must not be modified to work around missing capability |
-| GitHub live effect (`github-adapter-v1`) | `BLOCKED` | Configured GitHub App test repository and exact-subject integration/reconciliation receipt; not selected by `self-hosted-v1` |
-| Claude conformance (`self-hosted-v1`) | `BLOCKED` | The common policy→key→lease→admission→grant→egress→read-only-turn→canary→receipt path and deep fake-process coverage are committed. Current v1alpha1 policy yields neutral refusal and zero spawn. Real Claude service identity/profile admission, operator ratification, native behavior, resource settlement, teardown, and one signed live receipt remain |
-| Other provider certifications | `BLOCKED` | Codex, Cursor, and Antigravity retain fail-closed adapters but close only their independent `provider-*` profiles |
+| GitHub live effect | `BLOCKED` | Configured GitHub App test repository and exact-subject integration/reconciliation receipt; V1 GA requires this effect proof even though GitHub is not source authority |
+| Provider conformance | `BLOCKED` | The common policy→key→lease→admission→grant→egress→read-only-turn→canary→receipt path is committed for all four providers. Current v1alpha1 policy yields neutral refusal and zero spawn. Real Claude, Codex, Cursor, and Antigravity identity/profile admission, native behavior, settlement, teardown, and separately conformant live receipts remain mandatory for V1 GA |
 | Security quality | `BLOCKED` | The latest deterministic Hub Jankurai report is 58 (raw 58), with 10 caps and 44 findings: 29 high/hard and 15 medium/soft. The score, caps, and hard findings block release. Hosted CI also lacks a portable checksum-pinned Jankurai artifact; do not replace that gap with a machine-local or skip-green lane. Release needs at least 90, zero caps/hard findings, and all required scans |
 | Release supply chain | `BLOCKED` | A Linux component verifies an exact non-circular signed five-target manifest and every declared byte subject, then can safely materialize one exact signed archive at an absent destination. Portal now emits a deterministic clean-commit bundle manifest binding its lock, Git/Node/npm subjects, and emitted files. Neither component is a package builder, installer, activation/rollback mechanism, or release authority. Reproducible package production, Rust embedding, semantic binary/SBOM/provenance validation, package signatures from protected release keys, installer smoke, and tagged release receipts remain |
-| Platform containment | `BLOCKED` | `self-hosted-v1` needs Linux production containment. Every additional `platform-*` profile remains fail-closed until its equivalent native backend passes |
+| Platform containment | `BLOCKED` | Linux production containment plus fail-closed proof on every other packaged platform until an equivalent native backend passes |
 
 Missing credentials produce a neutral, unregistered live lane only when that
 lane is not required for the requested profile. Missing required tools,
 adapters, receipts, or signatures fail the release.
 
-The canonical first-profile command is
-`bullet-family check release --profile self-hosted-v1 --receipts <absolute-registry> --json`;
-it emits schema 3 with
-the selected profile and keeps exit code 3. The current read-only unprofiled
-command is a legacy aggregate containing 26 gates, all `BLOCKED`.
-`bullet-family check release --report` renders that aggregate during migration.
-No static placeholder or generic receipt envelope is counted as passing evidence. The portable generated
+The canonical V1 command is the unprofiled
+`bullet-family check release --json`; it contains exactly 26 gates and all are
+currently `BLOCKED`. `bullet-family check release --report` renders that same
+decision. Named profiles are fail-closed diagnostic slices only;
+`--profile linux-preview` deliberately omits frozen V1 requirements and can
+never authorize a release. No static placeholder or generic receipt envelope
+is counted as passing evidence. The portable generated
 copy is [`assurance/release-truth.generated.md`](assurance/release-truth.generated.md);
 it is a drift-checked projection, not a receipt.
 
@@ -134,7 +133,8 @@ just check-family
 just family-contract
 just security
 just audit
-bullet-family check release --profile self-hosted-v1 --receipts /absolute/registry --json
+bullet-family check release --json
+bullet-family check release --profile linux-preview --receipts /absolute/registry --json # non-release diagnostic
 ```
 
 These commands prove repository and family prerequisites only. The real browser
@@ -236,13 +236,14 @@ non-Git filesystem identity, or allowed-signers path. Public installer
 acceptance still requires a signed prebuilt and a two-run replay through
 production transport and validation.
 
-## Package profiles
+## Package matrix
 
-`self-hosted-v1` requires one Ubuntu 24.04 LTS x86_64 archive with the Portal
-embedded in the Rust distribution and native systemd assets. Linux aarch64,
-macOS x86_64/arm64, and Windows x64 are independent `platform-*` profiles; they
-do not block the first profile and must refuse real mutation until their native
-containment backend has equivalent evidence.
+V1 GA requires archives for Linux x86_64/aarch64, macOS x86_64/arm64, and
+Windows x64. The built Portal is embedded in the Rust distribution. Linux is
+the initial production runner. Other packages must refuse real mutation unless
+their native containment backend has equivalent release evidence. The
+`linux-preview` diagnostic covers only Ubuntu x86_64 and cannot waive the other
+four archives.
 
 Every certified archive is bound to the same hub tag and family lock and
 carries both SBOM formats, checksums, signatures, and provenance. The final
