@@ -47,6 +47,7 @@ pub struct MemoryLedger {
     effect_keys: BTreeMap<String, String>,
     effect_receipts: Vec<EffectReceiptRecord>,
     launch_grant_nonces: BTreeMap<String, StoredLaunchGrantNonce>,
+    lease_transport_grants: BTreeMap<String, LeaseGrant>,
     fail_after_writes: Option<u32>,
     simulation_clock_millis: i64,
 }
@@ -486,5 +487,32 @@ impl Ledger for MemoryLedger {
 
     fn unresolved_effects(&self) -> Result<Vec<EffectIntentRecord>, LedgerError> {
         self.unresolved_effects_impl()
+    }
+
+    fn put_lease_transport_grant(
+        &mut self,
+        idempotency_digest: &str,
+        grant: &LeaseGrant,
+    ) -> Result<(), LedgerError> {
+        self.tick()?;
+        match self.lease_transport_grants.get(idempotency_digest) {
+            Some(existing) if existing == grant => Ok(()),
+            Some(_) => Err(DomainError::Conflict(format!(
+                "lease transport grant {idempotency_digest} differs from the stored row"
+            ))
+            .into()),
+            None => {
+                self.lease_transport_grants
+                    .insert(idempotency_digest.to_string(), grant.clone());
+                Ok(())
+            }
+        }
+    }
+
+    fn get_lease_transport_grant(
+        &self,
+        idempotency_digest: &str,
+    ) -> Result<Option<LeaseGrant>, LedgerError> {
+        Ok(self.lease_transport_grants.get(idempotency_digest).cloned())
     }
 }

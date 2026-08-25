@@ -279,6 +279,18 @@ impl LeaseTransportSigningKey {
         &self.key_id
     }
 
+    /// Raw 64-byte secret for sealed local key files. Never log.
+    #[must_use]
+    pub fn secret_bytes(&self) -> &[u8] {
+        self.secret.as_bytes()
+    }
+
+    /// 64-hex public half. Farmd stores only this.
+    #[must_use]
+    pub fn public_hex(&self) -> &str {
+        &self.public_hex
+    }
+
     /// Matching verification key.
     ///
     /// # Errors

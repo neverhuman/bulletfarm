@@ -2,7 +2,7 @@
 //! stay absent; a valid permit is required before the ledger mutates.
 
 use bullet_application::lease_transport::{
-    issue_operation_permit, issue_permit, SignedAcquireBody, SignedLeaseService,
+    issue_operation_permit, issue_permit, sign_runner_permit, SignedAcquireBody, SignedLeaseService,
 };
 use bullet_application::records::{HeartbeatRequest, ReleaseRequest};
 use bullet_application::store::ProjectionReader;
@@ -62,7 +62,7 @@ fn acquire_then_readback_returns_the_same_grant() {
         now,
     )
     .unwrap();
-    let second = service.readback(&readback, &body, now).unwrap();
+    let second = service.readback(&ledger, &readback, &body, now).unwrap();
     assert_eq!(first.attempt.id, second.attempt.id);
     assert_eq!(first.lease.fence, second.lease.fence);
 }
@@ -134,7 +134,7 @@ fn acquire_permit_cannot_be_used_as_readback() {
         now,
     )
     .unwrap();
-    let error = service.readback(&acquire, &body, now).unwrap_err();
+    let error = service.readback(&ledger, &acquire, &body, now).unwrap_err();
     assert_eq!(error.reason_code(), "LEASE_TRANSPORT_OPERATION_MISMATCH");
     assert!(ledger.list_leases().unwrap().is_empty());
 }
@@ -276,6 +276,88 @@ fn signed_release_closes_the_lease() {
         )
         .unwrap();
     assert!(ledger.list_leases().unwrap().is_empty());
+}
+
+#[test]
+fn runner_issued_permit_is_admitted_without_pre_register() {
+    let (mut ledger, body) = seeded();
+    let key = LeaseTransportSigningKey::generate("kernel-local", "lease-1").unwrap();
+    let mut service = SignedLeaseService::new(key.verification_key().unwrap());
+    let now = 1_700_000_000_000;
+    let acquire = sign_runner_permit(
+        &key,
+        LeaseTransportOperation::Acquire,
+        &body.runner_id,
+        body.runner_epoch,
+        body.work_package_id.as_str(),
+        &body.idempotency_key,
+        &body,
+        now,
+    )
+    .unwrap();
+    let grant = service.acquire(&mut ledger, &acquire, &body, now).unwrap();
+    assert_eq!(grant.lease.fence, 1);
+}
+
+#[test]
+fn stale_permit_is_refused() {
+    let (mut ledger, body) = seeded();
+    let key = LeaseTransportSigningKey::generate("kernel-local", "lease-1").unwrap();
+    let mut service = SignedLeaseService::new(key.verification_key().unwrap());
+    let now = 1_700_000_000_000;
+    let acquire = sign_runner_permit(
+        &key,
+        LeaseTransportOperation::Acquire,
+        &body.runner_id,
+        body.runner_epoch,
+        body.work_package_id.as_str(),
+        &body.idempotency_key,
+        &body,
+        now,
+    )
+    .unwrap();
+    let error = service
+        .acquire(&mut ledger, &acquire, &body, now + 16_000)
+        .unwrap_err();
+    assert_eq!(error.reason_code(), "LEASE_TRANSPORT_EXPIRED");
+    assert!(ledger.list_leases().unwrap().is_empty());
+}
+
+#[test]
+fn restart_readback_uses_the_durable_grant_index() {
+    let (mut ledger, body) = seeded();
+    let key = LeaseTransportSigningKey::generate("kernel-local", "lease-1").unwrap();
+    let now = 1_700_000_000_000;
+    let acquire = sign_runner_permit(
+        &key,
+        LeaseTransportOperation::Acquire,
+        &body.runner_id,
+        body.runner_epoch,
+        body.work_package_id.as_str(),
+        &body.idempotency_key,
+        &body,
+        now,
+    )
+    .unwrap();
+    let first = {
+        let mut service = SignedLeaseService::new(key.verification_key().unwrap());
+        service.acquire(&mut ledger, &acquire, &body, now).unwrap()
+    };
+    let mut restarted = SignedLeaseService::new(key.verification_key().unwrap());
+    let readback = sign_runner_permit(
+        &key,
+        LeaseTransportOperation::Readback,
+        &body.runner_id,
+        body.runner_epoch,
+        body.work_package_id.as_str(),
+        &body.idempotency_key,
+        &body,
+        now,
+    )
+    .unwrap();
+    let second = restarted.readback(&ledger, &readback, &body, now).unwrap();
+    assert_eq!(first.attempt.id, second.attempt.id);
+    assert_eq!(first.lease.fence, second.lease.fence);
 }
 
 #[test]

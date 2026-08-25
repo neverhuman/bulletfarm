@@ -17,13 +17,16 @@ pub mod lease;
 pub mod scope;
 #[cfg(feature = "test-seams")]
 pub mod signed_lease;
+pub mod signed_lease_rpc;
 
 pub use attempt::{run_attempt, AttemptConfig, AttemptOutcome};
 pub use capsule::Capsule;
 pub use clock::{Clock, ManualClock, MonotonicClock, SelfKillDeadline};
 pub use error::RunnerError;
 pub use gate::{run_gate, GateRegistry, GateReport, REPOSITORY_GATE_ID};
-pub use gitd::{gitd_available, gitd_binary, CandidateReceipt, GitdSession, WorkspaceInfo};
+pub use gitd::{
+    gitd_available, gitd_binary, gitd_fixture_binary, CandidateReceipt, GitdSession, WorkspaceInfo,
+};
 pub use heartbeat::{start_heartbeat, FreezeReason, HeartbeatConfig, HeartbeatHandle};
 pub use http::HttpJson;
 pub use http_lease::HttpLeaseClient;
@@ -34,3 +37,4 @@ pub use lease::{
 };
 #[cfg(feature = "test-seams")]
 pub use signed_lease::SignedLeaseClient;
+pub use signed_lease_rpc::SignedLeaseRpcClient;

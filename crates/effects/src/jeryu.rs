@@ -3,6 +3,10 @@
 
 use crate::error::EffectsError;
 use crate::forge::{require_candidate_ref, ForgeDescriptor, ForgeEffects, PushRequest};
+use crate::integration::{
+    Capability, CheckPublication, CheckReceipt, ForgeIntegration, IntegrationDescriptor,
+    IntegrationSubject, IntegrationSubjectRequest, MergeGroupSubject, ProtectionState,
+};
 
 /// Default Jeryu base URL from ADR 0002.
 pub const JERYU_BASE_URL: &str = "http://127.0.0.1:8787";
@@ -50,5 +54,52 @@ impl ForgeEffects for JeryuForge {
     fn read_ref(&self, ref_name: &str) -> Result<Option<String>, EffectsError> {
         require_candidate_ref(ref_name)?;
         Err(self.refuse("read_ref"))
+    }
+}
+
+impl ForgeIntegration for JeryuForge {
+    fn integration_descriptor(&self) -> IntegrationDescriptor {
+        IntegrationDescriptor {
+            exact_oid_cas: Capability::Supported,
+            protected_refs: Capability::Supported,
+            check_runs: Capability::SupportedWithLimitations(
+                "PATCH check-runs and proof_root are Jeryu-family work",
+            ),
+            merge_group: Capability::Unsupported,
+            exact_oid_readback: Capability::Supported,
+            third_party_credential: Capability::Unsupported,
+        }
+    }
+
+    fn read_protection(&self, _target: &str) -> Result<ProtectionState, EffectsError> {
+        Err(self.refuse("read_protection"))
+    }
+
+    fn publish_check(&mut self, _req: &CheckPublication) -> Result<CheckReceipt, EffectsError> {
+        Err(self.refuse("publish_check"))
+    }
+
+    fn read_check(&self, _sha: &str, _name: &str) -> Result<Option<CheckReceipt>, EffectsError> {
+        Err(self.refuse("read_check"))
+    }
+
+    fn ensure_integration_subject(
+        &mut self,
+        _req: &IntegrationSubjectRequest,
+    ) -> Result<IntegrationSubject, EffectsError> {
+        Err(self.refuse("ensure_integration_subject"))
+    }
+
+    fn merge_group_subject(
+        &self,
+        _subject: &IntegrationSubject,
+    ) -> Result<Option<MergeGroupSubject>, EffectsError> {
+        Err(EffectsError::UnsupportedByAdapter(
+            "Jeryu has no merge queue today".into(),
+        ))
+    }
+
+    fn read_target(&self, _target: &str) -> Result<Option<String>, EffectsError> {
+        Err(self.refuse("read_target"))
     }
 }

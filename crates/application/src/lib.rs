@@ -15,6 +15,7 @@ pub mod leases;
 pub mod live_conformance;
 pub mod materializer;
 pub mod memory;
+pub mod mutation_reservation;
 pub mod policy_snapshot;
 pub mod queue;
 pub mod records;
@@ -22,6 +23,7 @@ pub mod simulators;
 pub mod store;
 
 pub use authority::{check_active_lease_snapshot, ActiveLeaseSubject};
+pub use bullet_harness_core::lease_transport::{LeaseTransportOperation, LeaseTransportSigningKey};
 pub use commands::{CommandRecord, CommandRequest};
 pub use context::{
     initial_context_capsules, validate_initial_context_set, ContextCapsule,
@@ -37,13 +39,20 @@ pub use launch_grant::{
 };
 #[cfg(any(test, feature = "test-seams"))]
 pub use lease_transport::{issue_operation_permit, issue_permit};
-pub use lease_transport::{SignedAcquireBody, SignedLeaseError, SignedLeaseService};
+pub use lease_transport::{
+    sign_runner_permit, wire_grant, LeaseTransportRpcError, LeaseTransportRpcRequest,
+    LeaseTransportRpcResponse, SignedAcquireBody, SignedLeaseError, SignedLeaseService,
+    SignedLeaseWireGrant,
+};
 pub use leases::LeaseService;
 pub use live_conformance::{
     run_live_conformance, LiveConformanceError, LiveConformanceOptions, LiveConformanceRun,
 };
 pub use materializer::{materialize_plan, PlanInput};
 pub use memory::MemoryLedger;
+pub use mutation_reservation::{
+    LeaseGate, MutationReservationStore, MutationReserveRequest, OneUsePermit, ReservationError,
+};
 pub use policy_snapshot::{load_policy, load_policy_from_environment, LoadedPolicy};
 pub use queue::{claim_ready, ready_queue, ReadyItem};
 pub use records::{

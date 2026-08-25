@@ -22,6 +22,18 @@ struct Args {
     /// internal command reconciler. Without it, the internal route is inert.
     #[arg(long)]
     worker_token_file: Option<PathBuf>,
+    /// farmd-internal Unix socket for signed lease transport. Not `/v1`.
+    #[arg(long)]
+    lease_transport_socket: Option<PathBuf>,
+    /// 64-hex verification key. Farmd never holds the signing secret.
+    #[arg(long)]
+    lease_transport_verify_hex: Option<String>,
+    /// Issuer label bound into the verification key.
+    #[arg(long, default_value = "kernel-local")]
+    lease_transport_issuer: String,
+    /// Key label bound into the verification key.
+    #[arg(long, default_value = "lease-1")]
+    lease_transport_key_id: String,
 }
 
 #[tokio::main]
@@ -59,6 +71,7 @@ async fn main() -> ExitCode {
     };
     let origin = args
         .portal_origin
+        .clone()
         .unwrap_or_else(|| format!("http://{bound}"));
     let worker_token = match args.worker_token_file.as_deref().map(read_worker_token) {
         Some(Ok(token)) => Some(token),
@@ -86,11 +99,47 @@ async fn main() -> ExitCode {
         tracing::info!("authenticated internal command reconciler enabled");
     }
     tracing::info!("bullet-farmd listening on {bound}");
-    if let Err(err) = axum::serve(listener, app).await {
+    let lease_task = match start_lease_transport(&args, &db) {
+        Ok(Some(task)) => Some(task),
+        Ok(None) => None,
+        Err(error) => {
+            eprintln!("bullet-farmd: lease-transport: {error}");
+            return ExitCode::FAILURE;
+        }
+    };
+    let serve = axum::serve(listener, app).await;
+    if let Some(task) = lease_task {
+        task.abort();
+    }
+    if let Err(err) = serve {
         eprintln!("bullet-farmd: serve: {err}");
         return ExitCode::FAILURE;
     }
     ExitCode::SUCCESS
+}
+
+fn start_lease_transport(
+    args: &Args,
+    db: &std::path::Path,
+) -> Result<Option<tokio::task::JoinHandle<()>>, String> {
+    let Some(public_hex) = args.lease_transport_verify_hex.as_deref() else {
+        return Ok(None);
+    };
+    let socket = args
+        .lease_transport_socket
+        .clone()
+        .unwrap_or_else(|| args.data_dir.join("lease-transport.sock"));
+    let state = bullet_farmd::lease_transport_rpc::LeaseTransportState::open(
+        db,
+        &args.lease_transport_issuer,
+        &args.lease_transport_key_id,
+        public_hex,
+    )?;
+    Ok(Some(tokio::spawn(async move {
+        if let Err(err) = bullet_farmd::lease_transport_rpc::serve(socket, state).await {
+            tracing::error!("lease-transport stopped: {err}");
+        }
+    })))
 }
 
 #[cfg(unix)]

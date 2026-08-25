@@ -9,8 +9,8 @@ mod supervisor;
 use bullet_domain::{RunnerId, WorkPackageId};
 use bullet_harness_core::HarnessAdapter;
 use bullet_runner_core::{
-    run_attempt, AcquireRequest, AttemptConfig, AttemptOutcome, HttpLeaseClient, JournalSink,
-    LeaseClient, MonotonicClock,
+    run_attempt, AcquireRequest, AttemptConfig, AttemptOutcome, JournalSink, LeaseClient,
+    MonotonicClock, SignedLeaseRpcClient,
 };
 use clap::Parser;
 use std::path::PathBuf;
@@ -61,6 +61,18 @@ struct Args {
     /// Lease TTL seconds (self-kill deadline is 4/5 of this).
     #[arg(long, default_value_t = bullet_runner_core::lease::MAX_LEASE_TTL_SECONDS)]
     ttl_seconds: i64,
+    /// farmd-internal signed lease Unix socket. Not `/v1/leases/*`.
+    #[arg(long)]
+    lease_socket: PathBuf,
+    /// 64-byte runner signing key. Farmd holds only the public half.
+    #[arg(long)]
+    lease_signing_key: PathBuf,
+    /// Issuer label bound into the signing key.
+    #[arg(long, default_value = "kernel-local")]
+    lease_issuer: String,
+    /// Key label bound into the signing key.
+    #[arg(long, default_value = "lease-1")]
+    lease_key_id: String,
 }
 
 fn adapter_for(provider: &str) -> Option<Arc<dyn HarnessAdapter>> {
@@ -130,7 +142,18 @@ async fn run(args: Args) -> ExitCode {
         );
         return ExitCode::from(2);
     };
-    let client = match HttpLeaseClient::new(&args.farmd) {
+    let key = match SignedLeaseRpcClient::load_key(
+        &args.lease_signing_key,
+        &args.lease_issuer,
+        &args.lease_key_id,
+    ) {
+        Ok(key) => key,
+        Err(err) => {
+            eprintln!("bullet-runner: {err}");
+            return ExitCode::from(2);
+        }
+    };
+    let client = match SignedLeaseRpcClient::new(args.lease_socket.clone(), key, &args.farmd) {
         Ok(client) => Arc::new(client),
         Err(err) => {
             eprintln!("bullet-runner: {err}");
@@ -177,7 +200,7 @@ async fn run(args: Args) -> ExitCode {
 
 async fn execute(
     args: Args,
-    client: Arc<HttpLeaseClient>,
+    client: Arc<SignedLeaseRpcClient>,
     adapter: Arc<dyn HarnessAdapter>,
     journal: Arc<SupervisorJournal>,
     runner_id: RunnerId,

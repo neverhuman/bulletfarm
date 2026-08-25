@@ -411,4 +411,25 @@ pub trait Ledger {
     /// # Errors
     /// Store failure.
     fn unresolved_effects(&self) -> Result<Vec<EffectIntentRecord>, LedgerError>;
+
+    /// Persist the last signed-lease acquire grant for one idempotency digest.
+    /// Identical replay is a no-op; a different grant under the same digest is
+    /// a typed conflict.
+    ///
+    /// # Errors
+    /// Conflict or store failure.
+    fn put_lease_transport_grant(
+        &mut self,
+        idempotency_digest: &str,
+        grant: &LeaseGrant,
+    ) -> Result<(), LedgerError>;
+
+    /// Load the durable grant for one idempotency digest.
+    ///
+    /// # Errors
+    /// Store failure.
+    fn get_lease_transport_grant(
+        &self,
+        idempotency_digest: &str,
+    ) -> Result<Option<LeaseGrant>, LedgerError>;
 }

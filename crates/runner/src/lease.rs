@@ -1,9 +1,9 @@
-//! `LeaseClient`: how the runner talks to writer-lease authority. A production
-//! signed transport is not implemented yet. `DirectLeaseClient` is unsigned
-//! and stays test/embedded-only. `HttpLeaseClient` talks to farmd
-//! `/v1/leases/*`, which is not mounted. The feature-gated
-//! `SignedLeaseClient` co-locates permit issuance and verification and is a
-//! simulator only, never an admission path.
+//! `LeaseClient`: how the runner talks to writer-lease authority.
+//! `SignedLeaseRpcClient` is the production signed Unix transport. Farmd
+//! never mounts `/v1/leases/*`. `DirectLeaseClient` is unsigned and stays
+//! test/embedded-only. `HttpLeaseClient` is leftover and unmounted. The
+//! feature-gated `SignedLeaseClient` co-locates issuance and verification
+//! and is a simulator only.
 
 use crate::error::RunnerError;
 use async_trait::async_trait;

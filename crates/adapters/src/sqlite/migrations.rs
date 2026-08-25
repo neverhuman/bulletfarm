@@ -80,6 +80,11 @@ const MIGRATIONS: &[Migration] = &[
         name: "0011_context_capsules.sql",
         sql: include_str!("../../../../db/migrations/0011_context_capsules.sql"),
     },
+    Migration {
+        version: 12,
+        name: "0012_lease_transport_grants.sql",
+        sql: include_str!("../../../../db/migrations/0012_lease_transport_grants.sql"),
+    },
 ];
 
 #[derive(Debug, PartialEq, Eq)]

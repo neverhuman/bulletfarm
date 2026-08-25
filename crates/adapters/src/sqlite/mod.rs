@@ -9,6 +9,7 @@ mod events;
 mod graph;
 mod launch_grants;
 mod lease_time;
+mod lease_transport;
 mod leases;
 mod materialization;
 mod migrations;
@@ -411,6 +412,21 @@ impl Ledger for SqliteLedger {
 
     fn unresolved_effects(&self) -> Result<Vec<EffectIntentRecord>, LedgerError> {
         effects::unresolved_effects(&self.conn)
+    }
+
+    fn put_lease_transport_grant(
+        &mut self,
+        idempotency_digest: &str,
+        grant: &LeaseGrant,
+    ) -> Result<(), LedgerError> {
+        lease_transport::put_grant(&mut self.conn, idempotency_digest, grant)
+    }
+
+    fn get_lease_transport_grant(
+        &self,
+        idempotency_digest: &str,
+    ) -> Result<Option<LeaseGrant>, LedgerError> {
+        lease_transport::get_grant(&self.conn, idempotency_digest)
     }
 }
 

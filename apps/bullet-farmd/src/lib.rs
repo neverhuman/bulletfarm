@@ -4,5 +4,6 @@ pub mod api;
 pub mod auth;
 mod commands;
 pub mod errors;
+pub mod lease_transport_rpc;
 pub mod leases;
 mod projections;
