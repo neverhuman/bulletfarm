@@ -92,6 +92,8 @@ pub struct Daemon {
     session: Option<Session>,
     authority: AuthorityGateway,
     mutation_frozen: bool,
+    #[cfg(feature = "fixture-authority")]
+    fixture_root: Option<std::path::PathBuf>,
 }
 
 impl Default for Daemon {
@@ -112,7 +114,28 @@ impl Daemon {
             session: None,
             authority: AuthorityGateway::unavailable(),
             mutation_frozen: false,
+            #[cfg(feature = "fixture-authority")]
+            fixture_root: None,
         }
+    }
+
+    /// Demo-only daemon bound to one pre-opened fixture root and test key.
+    ///
+    /// `new()` stays fail-closed. Compiled only under `fixture-authority`.
+    ///
+    /// # Errors
+    ///
+    /// Root is missing/unsafe, or the mutation ledger cannot open.
+    #[cfg(feature = "fixture-authority")]
+    pub fn fixture(ledger_root: &Path, fixture_root: &Path, key: [u8; 32]) -> Result<Self, String> {
+        let fixture_root = crate::fixture_permit::require_preopened_fixture_root(fixture_root)?;
+        Ok(Self {
+            session: None,
+            authority: AuthorityGateway::fixture(ledger_root, &fixture_root, key)
+                .map_err(|error| format!("{}: {error}", error.reason_code()))?,
+            mutation_frozen: false,
+            fixture_root: Some(fixture_root),
+        })
     }
 
     /// Handle one request line and produce one response line.
@@ -254,6 +277,18 @@ impl Daemon {
         let envelope = protocol::envelope(&req.token);
         let token = WireAuthorityToken::parse(&envelope.token).map_err(|e| auth(&e))?;
         let params: CloneParams = parse_params(&req.params)?;
+        #[cfg(feature = "fixture-authority")]
+        if let Some(fixture_root) = &self.fixture_root {
+            if !crate::fixture_permit::destination_is_fixture_root(
+                Path::new(&params.root),
+                fixture_root,
+            ) {
+                return Err((
+                    "FIXTURE_DESTINATION_REFUSED".into(),
+                    "clone root must be the pre-opened fixture root".into(),
+                ));
+            }
+        }
         let clone_req = CloneRequest {
             source_repo: Path::new(&params.source_repo),
             base_sha: &params.base_sha,
@@ -264,6 +299,11 @@ impl Daemon {
             nonce: token.workspace_nonce,
         };
         let permit = self.authorize_mutation(req, MutationOperation::CloneWorkspace, &token)?;
+        #[cfg(feature = "fixture-authority")]
+        if let Some(fixture_root) = &self.fixture_root {
+            crate::fixture_permit::consume_fixture_generation(fixture_root)
+                .map_err(|error| ("FIXTURE_GENERATION_CONSUMED".into(), error))?;
+        }
         let pending = self.consume_permit(req, MutationOperation::CloneWorkspace, permit)?;
         let result = (|| {
             let workspace = PrivateClone::create(&clone_req).map_err(|e| cap(&e))?;

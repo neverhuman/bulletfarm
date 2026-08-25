@@ -9,8 +9,14 @@ use crate::mutation_ledger::{
     MutationLedger, MutationLedgerError, MutationOperation, MutationOutcome, MutationSubject,
     ReplayDisposition,
 };
+#[cfg(feature = "fixture-authority")]
+use crate::protocol;
+#[cfg(feature = "fixture-authority")]
+use bullet_git_types::WireAuthorityToken;
 use bullet_git_types::{framed_digest, Digest};
 use serde_json::Value;
+#[cfg(feature = "fixture-authority")]
+use std::path::Path;
 use std::time::{SystemTime, UNIX_EPOCH};
 use thiserror::Error;
 
@@ -61,6 +67,117 @@ trait FinalAuthorityCheck: Send {
         &mut self,
         input: &FinalSettlementInput<'_>,
     ) -> Result<VerifiedSettlement, GatewayError>;
+}
+
+/// Demo-only checker: verify a MAC-bound fixture permit and copy subjects
+/// from those signed claims. Compiled only under `fixture-authority`.
+#[cfg(feature = "fixture-authority")]
+struct FixtureCheck {
+    key: [u8; 32],
+    fixture_root: std::path::PathBuf,
+}
+
+#[cfg(feature = "fixture-authority")]
+impl FinalAuthorityCheck for FixtureCheck {
+    fn check(&mut self, input: &FinalCheckInput<'_>) -> Result<VerifiedDecision, GatewayError> {
+        let permit = crate::fixture_permit::permit_from_authority(input.authority)
+            .map_err(GatewayError::Refused)?;
+        let now = SystemClock.now_unix_ms()?;
+        crate::fixture_permit::verify_fixture_permit(&self.key, &self.fixture_root, &permit, now)
+            .map_err(GatewayError::Refused)?;
+        let envelope = protocol::envelope(input.authority);
+        let token = WireAuthorityToken::parse(&envelope.token)
+            .map_err(|error| GatewayError::Refused(error.to_string()))?;
+        if permit.claims.attempt_id != token.attempt_id
+            || permit.claims.attempt_fence != token.attempt_fence
+            || permit.claims.workspace_nonce != hex::encode(token.workspace_nonce)
+        {
+            return Err(GatewayError::Refused(
+                "fixture permit does not bind the presented writer token".into(),
+            ));
+        }
+        let request = input.transport_fingerprint.to_hex();
+        let permit_digest = framed_digest(&[
+            b"bullet-gitd.fixture-permit.digest.v1",
+            permit.mac.as_bytes(),
+            request.as_bytes(),
+        ])
+        .to_hex();
+        Ok(VerifiedDecision {
+            subject: MutationSubject {
+                authority_envelope_digest: framed_digest(&[
+                    b"bullet-gitd.fixture-envelope.v1",
+                    &envelope.token,
+                ])
+                .to_hex(),
+                authority_token_nonce: permit.claims.workspace_nonce.clone(),
+                mutation_id: format!(
+                    "mut_{}",
+                    framed_digest(&[
+                        b"bullet-gitd.fixture-mutation.v1",
+                        permit.mac.as_bytes(),
+                        request.as_bytes(),
+                    ])
+                    .to_hex()
+                ),
+                reservation_id: format!(
+                    "rsv_{}",
+                    framed_digest(&[
+                        b"bullet-gitd.fixture-reservation.v1",
+                        permit.mac.as_bytes(),
+                        request.as_bytes(),
+                    ])
+                    .to_hex()
+                ),
+                operation: input.operation,
+                request_digest: request,
+                repository_id: format!(
+                    "rep_{}",
+                    framed_digest(&[
+                        b"bullet-gitd.fixture-repository.v1",
+                        permit.claims.fixture_root.as_bytes(),
+                    ])
+                    .to_hex()
+                ),
+                workspace_id: format!(
+                    "wsp_{}",
+                    framed_digest(&[
+                        b"bullet-gitd.fixture-workspace.v1",
+                        permit.claims.fixture_root.as_bytes(),
+                        permit.claims.workspace_nonce.as_bytes(),
+                    ])
+                    .to_hex()
+                ),
+                workspace_generation: permit.claims.workspace_generation,
+                workspace_nonce: permit.claims.workspace_nonce,
+                attempt_id: permit.claims.attempt_id,
+                attempt_fence: permit.claims.attempt_fence,
+                authority_epoch: 1,
+                freeze_generation: 0,
+                permit_nonce: framed_digest(&[
+                    b"bullet-gitd.fixture-permit-nonce.v1",
+                    permit.mac.as_bytes(),
+                ])
+                .to_hex(),
+                permit_digest,
+            },
+            operation: input.operation,
+            transport_fingerprint: input.transport_fingerprint,
+            expires_at_unix_ms: now.saturating_add(MAX_MUTATION_PERMIT_TTL_MS / 2),
+        })
+    }
+
+    fn settle(
+        &mut self,
+        input: &FinalSettlementInput<'_>,
+    ) -> Result<VerifiedSettlement, GatewayError> {
+        Ok(VerifiedSettlement {
+            mutation_id: input.subject.mutation_id.clone(),
+            reservation_id: input.subject.reservation_id.clone(),
+            result_digest: input.result_digest.to_owned(),
+            settlement_fingerprint: input.settlement_fingerprint,
+        })
+    }
 }
 
 struct UnavailableFinalCheck;
@@ -205,6 +322,26 @@ impl AuthorityGateway {
             clock: Box::new(SystemClock),
             ledger: None,
         }
+    }
+
+    /// Fixture-only gateway for one disposable workspace generation.
+    ///
+    /// Production `unavailable()` stays the default. Compiled only under
+    /// `fixture-authority`. Never a frozen-contract substitute.
+    #[cfg(feature = "fixture-authority")]
+    pub(crate) fn fixture(
+        ledger_root: &Path,
+        fixture_root: &Path,
+        key: [u8; 32],
+    ) -> Result<Self, GatewayError> {
+        Ok(Self {
+            checker: Box::new(FixtureCheck {
+                key,
+                fixture_root: fixture_root.to_path_buf(),
+            }),
+            clock: Box::new(SystemClock),
+            ledger: Some(MutationLedger::open(ledger_root)?),
+        })
     }
 
     pub(crate) fn authorize(
