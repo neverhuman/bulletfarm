@@ -304,6 +304,22 @@ fn admitted_tools_ignore_ambient_path_and_environment() {
         );
     }
     tool_fixtures(&fixture);
+    let repository_target = fixture.join("target");
+    let repository_target_debug = repository_target.join("debug");
+    fs::create_dir_all(&repository_target_debug).expect("ignored repository target");
+    let repository_target_marker = fixture.join("repository-target-executed");
+    let hostile_contract = executable(
+        &repository_target_debug,
+        "bullet-contract",
+        &format!(
+            "#!/bin/sh\nprintf executed > '{}'\n",
+            repository_target_marker.display()
+        ),
+    );
+    let ambient_target = fixture.join("ambient-target");
+    fs::create_dir(&ambient_target).expect("ambient target");
+    let ambient_sentinel = ambient_target.join("sentinel");
+    fs::write(&ambient_sentinel, "preserve ambient target\n").expect("ambient target sentinel");
 
     let output = Command::new(std::env::current_exe().expect("test executable"))
         .args([
@@ -314,6 +330,11 @@ fn admitted_tools_ignore_ambient_path_and_environment() {
         .env(CHILD, "1")
         .env(ROOT, &fixture)
         .env("BULLET_INSTALL_CANARY_SECRET", "must-not-leak")
+        .env("CARGO_TARGET_DIR", &ambient_target)
+        .env("RUSTFLAGS", "--cfg hostile_rustflags")
+        .env("RUSTC_WRAPPER", shim.join("cargo"))
+        .env("RUSTC_WORKSPACE_WRAPPER", shim.join("node"))
+        .env("CARGO_BUILD_TARGET", "hostile-target-triple")
         .env("PATH", &shim)
         .output()
         .expect("spawn isolated test child");
@@ -323,11 +344,25 @@ fn admitted_tools_ignore_ambient_path_and_environment() {
         String::from_utf8_lossy(&output.stderr)
     );
     assert!(!shim_marker.exists(), "ambient PATH shim executed");
+    assert!(
+        hostile_contract.exists(),
+        "ignored repository target changed"
+    );
+    assert!(
+        !repository_target_marker.exists(),
+        "ignored repository target executable ran"
+    );
+    assert_eq!(
+        fs::read_to_string(ambient_sentinel).unwrap(),
+        "preserve ambient target\n"
+    );
     fs::remove_dir_all(fixture).expect("remove tool environment fixture");
 }
 
 #[cfg(unix)]
 fn admitted_tool_child(fixture: &Path) {
+    use std::os::unix::fs::PermissionsExt;
+
     let toolchain = Toolchain::admit(
         Some(&fixture.join("cargo-real")),
         Some(&fixture.join("node-real")),
@@ -337,6 +372,12 @@ fn admitted_tool_child(fixture: &Path) {
     let root = AdmittedRoot::open(fixture).expect("admit command fixture root");
     let environment = SetupEnvironment::create(&root, &toolchain).expect("isolated setup HOME");
     let home = environment.home_path().to_path_buf();
+    let cargo_target = environment.cargo_target_path().to_path_buf();
+    assert_eq!(
+        fs::metadata(&cargo_target).unwrap().permissions().mode() & 0o777,
+        0o700,
+        "Cargo target must be private"
+    );
     toolchain
         .run_cargo(fixture, &["fetch", "--locked", "--offline"], &environment)
         .expect("run admitted Cargo");
@@ -352,8 +393,28 @@ fn admitted_tool_child(fixture: &Path) {
         assert!(!observed.contains("/shim"), "{observed}");
         assert!(observed.contains(&format!("home={}\n", home.display())));
     }
+    let cargo_observed = fs::read_to_string(fixture.join("cargo-observed")).unwrap();
+    assert!(
+        cargo_observed.contains(&format!("cargo_target={}\n", cargo_target.display())),
+        "{cargo_observed}"
+    );
+    for variable in [
+        "rustflags",
+        "rustc_wrapper",
+        "rustc_workspace_wrapper",
+        "cargo_build_target",
+    ] {
+        assert!(
+            cargo_observed.contains(&format!("{variable}=unset\n")),
+            "{cargo_observed}"
+        );
+    }
     environment.finish().expect("remove ephemeral setup HOME");
     assert!(!home.exists(), "ephemeral setup HOME survived drop");
+    assert!(
+        !cargo_target.exists(),
+        "ephemeral Cargo target survived finish"
+    );
 }
 
 #[cfg(target_os = "linux")]
@@ -522,9 +583,11 @@ fn tool_fixtures(root: &Path) {
         concat!(
             "#!/bin/sh\n",
             "if [ \"${1-}\" = --version ]; then printf 'cargo 1.97.1\\n'; exit 0; fi\n",
-            "printf 'canary=%s\\nchild=%s\\nargs=%s\\npath=%s\\nhome=%s\\n' \\\n",
+            "printf 'canary=%s\\nchild=%s\\nargs=%s\\npath=%s\\nhome=%s\\ncargo_target=%s\\nrustflags=%s\\nrustc_wrapper=%s\\nrustc_workspace_wrapper=%s\\ncargo_build_target=%s\\n' \\\n",
             "  \"${BULLET_INSTALL_CANARY_SECRET-unset}\" \\\n",
             "  \"${BULLET_SETUP_TOOL_TEST_CHILD-unset}\" \"$*\" \"$PATH\" \"$HOME\" \\\n",
+            "  \"${CARGO_TARGET_DIR-unset}\" \"${RUSTFLAGS-unset}\" \"${RUSTC_WRAPPER-unset}\" \\\n",
+            "  \"${RUSTC_WORKSPACE_WRAPPER-unset}\" \"${CARGO_BUILD_TARGET-unset}\" \\\n",
             "  > cargo-observed\n",
         ),
     );

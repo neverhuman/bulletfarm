@@ -7,12 +7,14 @@ use crate::{
 };
 
 const HOME_COMPONENT: &str = "home";
+const CARGO_TARGET_COMPONENT: &str = "cargo-target";
 
 #[derive(Debug)]
 pub(in crate::setup) struct SetupEnvironment {
     staging: Option<Staging>,
     home: PathBuf,
     cargo_home: PathBuf,
+    cargo_target: PathBuf,
     npm_cache: PathBuf,
     temporary: PathBuf,
     trusted_path: OsString,
@@ -26,15 +28,17 @@ impl SetupEnvironment {
         let staging = family_root.create_staging(HOME_COMPONENT)?;
         let home = staging.path().join("home");
         let cargo_home = staging.path().join("cargo");
+        let cargo_target = staging.path().join(CARGO_TARGET_COMPONENT);
         let npm_cache = staging.path().join("npm-cache");
         let temporary = staging.path().join("tmp");
-        for name in ["home", "cargo", "npm-cache", "tmp"] {
+        for name in ["home", "cargo", CARGO_TARGET_COMPONENT, "npm-cache", "tmp"] {
             staging.create_private_dir(name)?;
         }
         Ok(Self {
             staging: Some(staging),
             home,
             cargo_home,
+            cargo_target,
             npm_cache,
             temporary,
             trusted_path: toolchain.trusted_path().to_owned(),
@@ -65,6 +69,7 @@ impl SetupEnvironment {
             .env_clear()
             .env("HOME", &self.home)
             .env("CARGO_HOME", &self.cargo_home)
+            .env("CARGO_TARGET_DIR", &self.cargo_target)
             .env("npm_config_cache", &self.npm_cache)
             .env("TMPDIR", &self.temporary)
             .env("PATH", &self.trusted_path)
@@ -78,5 +83,10 @@ impl SetupEnvironment {
     #[cfg(test)]
     pub(super) fn home_path(&self) -> &std::path::Path {
         &self.home
+    }
+
+    #[cfg(test)]
+    pub(super) fn cargo_target_path(&self) -> &std::path::Path {
+        &self.cargo_target
     }
 }

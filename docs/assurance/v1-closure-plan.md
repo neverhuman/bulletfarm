@@ -313,10 +313,14 @@ credential-free demo remains a component-only CLI path rather than an API.
 The existing `HttpLeaseClient` is not safe to mount: it is unauthenticated,
 acquire self-asserts scheduling and runner identity fields, and release/advance
 are not full-subject atomic operations. Keep public `/api/v1` lease routes
-absent. The signed UDS prototype already binds runner, authority epoch, request
-digest, operation, and lease subject and persists server-side grant/nonce state.
-It still needs peer-credential admission, descriptor-bound socket/key identity,
-durable client recovery/read-back, and product Runner wiring before it can own
+absent. The signed UDS component already binds runner, authority epoch, request
+digest, operation, and lease subject; checks each registered Runner ID/epoch
+against the connected `SO_PEERCRED` UID; pins farmd UID plus socket GID/device/inode
+across connect; and persists server grant/nonce state. Production admission still
+needs an operator-admitted durable peer registry and signing-key custody in place
+of debug-only registry injection and the ephemeral farmd process key, durable
+client acquire/read-back recovery instead of process-local metadata, product
+Runner wiring, and a connected `TRANSACTION_PROOF` before it can own
 reserve/acquire/advance/release or lost-response reconciliation.
 
 Required work:
@@ -548,7 +552,7 @@ may be neutral only when the requested release profile does not require them.
 
 ## Immediate closure queue
 
-1. Harden and admit the existing signed UDS Runner lease transport described in
+1. Promote the component-proved signed UDS Runner lease transport described in
    V1-S4, then extend offline command reconciliation into signed dispatch,
    effect read-back, and independent verification without synthetic APPLIED or VERIFIED.
 2. Complete `V1-S1` immutable publication/runtime-consumer convergence and
