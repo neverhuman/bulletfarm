@@ -1,0 +1,197 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bullet.farm/schemas/bullet.family-ci-observation.v1.schema.json",
+  "title": "Bullet deterministic unsigned clean-family observation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "observation_id",
+    "subjects",
+    "reports",
+    "sole_writer_daemon",
+    "tool_versions",
+    "signed",
+    "evidence_class",
+    "release_authority"
+  ],
+  "properties": {
+    "schema_version": { "const": "bullet.family-ci-observation.v1" },
+    "observation_id": { "$ref": "#/$defs/blake3" },
+    "subjects": {
+      "type": "object",
+      "required": ["bullet-farm", "bullet-git", "bullet-kernel", "bullet-portal"],
+      "properties": {
+        "bullet-farm": { "$ref": "#/$defs/subject" },
+        "bullet-git": { "$ref": "#/$defs/subject" },
+        "bullet-kernel": { "$ref": "#/$defs/subject" },
+        "bullet-portal": { "$ref": "#/$defs/subject" }
+      },
+      "additionalProperties": false
+    },
+    "reports": {
+      "type": "array",
+      "minItems": 11,
+      "maxItems": 11,
+      "items": {
+        "type": "object",
+        "required": ["id", "repository", "summary"],
+        "properties": {
+          "id": {
+            "enum": [
+              "bullet-git-fast",
+              "bullet-git-contract",
+              "bullet-kernel-fast",
+              "bullet-kernel-contract",
+              "bullet-kernel-family",
+              "bullet-portal-vitest",
+              "bullet-portal-playwright",
+              "bullet-portal-real-farmd",
+              "bullet-farm-contract",
+              "bullet-farm-formal",
+              "bullet-farm-formal-log"
+            ]
+          },
+          "repository": {
+            "enum": ["bullet-farm", "bullet-kernel", "bullet-git", "bullet-portal"]
+          },
+          "summary": {
+            "oneOf": [
+              { "$ref": "#/$defs/junitSummary" },
+              { "$ref": "#/$defs/vitestSummary" },
+              { "$ref": "#/$defs/formalSummary" },
+              { "$ref": "#/$defs/formalLogSummary" }
+            ]
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "sole_writer_daemon": {
+      "type": "object",
+      "required": ["repository", "commit_oid", "build"],
+      "properties": {
+        "repository": { "const": "bullet-git" },
+        "commit_oid": { "$ref": "#/$defs/oid" },
+        "build": {
+          "type": "object",
+          "required": [
+            "cargo_locked",
+            "incremental",
+            "fresh_target",
+            "offline",
+            "toolchain",
+            "binary_hash_verified_during_run"
+          ],
+          "properties": {
+            "cargo_locked": { "const": true },
+            "incremental": { "const": false },
+            "fresh_target": { "const": true },
+            "offline": { "const": true },
+            "toolchain": { "const": "1.97.1" },
+            "binary_hash_verified_during_run": { "const": true }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "tool_versions": {
+      "type": "object",
+      "required": [
+        "hub_rustc",
+        "hub_cargo",
+        "bullet_git_rustc",
+        "bullet_git_cargo",
+        "node",
+        "npm",
+        "b3sum"
+      ],
+      "properties": {
+        "hub_rustc": { "$ref": "#/$defs/rustcVersion" },
+        "hub_cargo": { "$ref": "#/$defs/cargoVersion" },
+        "bullet_git_rustc": { "$ref": "#/$defs/rustcVersion" },
+        "bullet_git_cargo": { "$ref": "#/$defs/cargoVersion" },
+        "node": { "const": "v22.23.2" },
+        "npm": { "const": "10.9.8" },
+        "b3sum": { "const": "b3sum 1.8.2" }
+      },
+      "additionalProperties": false
+    },
+    "signed": { "const": false },
+    "evidence_class": { "const": "DIAGNOSTIC_ONLY" },
+    "release_authority": { "const": false }
+  },
+  "$defs": {
+    "oid": { "type": "string", "pattern": "^(sha1:[0-9a-f]{40}|sha256:[0-9a-f]{64})$" },
+    "blake3": { "type": "string", "pattern": "^blake3:[0-9a-f]{64}$" },
+    "subject": {
+      "type": "object",
+      "required": ["commit_oid", "tree_oid", "clean"],
+      "properties": {
+        "commit_oid": { "$ref": "#/$defs/oid" },
+        "tree_oid": { "$ref": "#/$defs/oid" },
+        "clean": { "const": true }
+      },
+      "additionalProperties": false
+    },
+    "rustcVersion": {
+      "type": "string",
+      "pattern": "^rustc [0-9]+\\.[0-9]+\\.[0-9]+ \\([0-9a-f]{9,40} [0-9]{4}-[0-9]{2}-[0-9]{2}\\)$"
+    },
+    "cargoVersion": {
+      "type": "string",
+      "pattern": "^cargo [0-9]+\\.[0-9]+\\.[0-9]+ \\([0-9a-f]{9,40} [0-9]{4}-[0-9]{2}-[0-9]{2}\\)$"
+    },
+    "junitSummary": {
+      "type": "object",
+      "required": ["kind", "tests", "executed", "failures", "errors", "skipped"],
+      "properties": {
+        "kind": { "const": "junit" },
+        "tests": { "type": "integer", "minimum": 1 },
+        "executed": { "type": "integer", "minimum": 1 },
+        "failures": { "const": 0 },
+        "errors": { "const": 0 },
+        "skipped": { "const": 0 }
+      },
+      "additionalProperties": false
+    },
+    "vitestSummary": {
+      "type": "object",
+      "required": ["kind", "tests", "passed", "failed", "pending", "todo"],
+      "properties": {
+        "kind": { "const": "vitest" },
+        "tests": { "type": "integer", "minimum": 1 },
+        "passed": { "type": "integer", "minimum": 1 },
+        "failed": { "const": 0 },
+        "pending": { "const": 0 },
+        "todo": { "const": 0 }
+      },
+      "additionalProperties": false
+    },
+    "formalSummary": {
+      "type": "object",
+      "required": ["kind", "models", "completed_models", "pinned_summary_present", "status"],
+      "properties": {
+        "kind": { "const": "formal" },
+        "models": { "const": 2 },
+        "completed_models": { "const": 2 },
+        "pinned_summary_present": { "const": true },
+        "status": { "const": "PASS" }
+      },
+      "additionalProperties": false
+    },
+    "formalLogSummary": {
+      "type": "object",
+      "required": ["kind", "models", "completed_without_error", "pinned_summary_present", "exit_code"],
+      "properties": {
+        "kind": { "const": "formal-log" },
+        "models": { "const": 2 },
+        "completed_without_error": { "const": 2 },
+        "pinned_summary_present": { "const": true },
+        "exit_code": { "const": 0 }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

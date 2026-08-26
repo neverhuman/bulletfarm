@@ -1,0 +1,131 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bullet.farm/schemas/bullet.ci-observation.v1.schema.json",
+  "title": "Bullet unsigned CI observation",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "repository",
+    "commit_oid",
+    "tree_oid",
+    "clean",
+    "commands",
+    "tool_versions",
+    "outcomes",
+    "artifact_hashes",
+    "signed",
+    "evidence_class"
+  ],
+  "properties": {
+    "schema_version": { "const": "bullet.ci-observation.v1" },
+    "repository": {
+      "enum": ["bullet-farm", "bullet-kernel", "bullet-git", "bullet-portal"]
+    },
+    "commit_oid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "tree_oid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+    "clean": { "type": "boolean" },
+    "commands": {
+      "type": "array",
+      "items": { "type": "string", "minLength": 1 }
+    },
+    "tool_versions": {
+      "type": "object",
+      "properties": {
+        "actionlint": { "$ref": "#/$defs/plainSemver" },
+        "b3sum": { "$ref": "#/$defs/b3sumVersion" },
+        "cargo": { "$ref": "#/$defs/cargoVersion" },
+        "cargo_deny": { "$ref": "#/$defs/cargoDenyVersion" },
+        "cargo_nextest": { "$ref": "#/$defs/cargoNextestVersion" },
+        "cargo_llvm_cov": { "$ref": "#/$defs/cargoLlvmCovVersion" },
+        "cargo_pinned": { "$ref": "#/$defs/cargoVersion" },
+        "docker": { "$ref": "#/$defs/dockerVersion" },
+        "file": { "$ref": "#/$defs/fileVersion" },
+        "git": { "$ref": "#/$defs/gitVersion" },
+        "gitleaks": { "$ref": "#/$defs/plainSemver" },
+        "jankurai": { "$ref": "#/$defs/jankuraiVersion" },
+        "java": { "$ref": "#/$defs/javaVersion" },
+        "jsonschema": { "$ref": "#/$defs/plainSemver" },
+        "lychee": { "$ref": "#/$defs/lycheeVersion" },
+        "node": { "$ref": "#/$defs/nodeVersion" },
+        "npm": { "$ref": "#/$defs/plainSemver" },
+        "python": { "$ref": "#/$defs/pythonVersion" },
+        "rustc": { "$ref": "#/$defs/rustcVersion" },
+        "rustc_pinned": { "$ref": "#/$defs/rustcVersion" },
+        "rustup": { "$ref": "#/$defs/rustupVersion" },
+        "shellcheck": { "$ref": "#/$defs/plainSemver" },
+        "zizmor": { "$ref": "#/$defs/zizmorVersion" }
+      },
+      "additionalProperties": false
+    },
+    "outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["lane", "status", "exit_code"],
+        "properties": {
+          "lane": { "type": "string", "minLength": 1 },
+          "status": { "enum": ["PASS", "FAIL"] },
+          "exit_code": { "type": "integer", "minimum": 0, "maximum": 255 }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "status": { "const": "PASS" } } },
+            "then": { "properties": { "exit_code": { "const": 0 } } }
+          },
+          {
+            "if": { "properties": { "status": { "const": "FAIL" } } },
+            "then": { "properties": { "exit_code": { "minimum": 1 } } }
+          }
+        ],
+        "additionalProperties": false
+      }
+    },
+    "artifact_hashes": {
+      "type": "array",
+      "uniqueItems": true,
+      "x-bullet-unique-by": "path",
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256"],
+        "properties": {
+          "path": {
+            "type": "string",
+            "description": "Repository-relative sanitized output below .ci-artifacts; path uniqueness is also enforced semantically.",
+            "pattern": "^\\.ci-artifacts/[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$"
+          },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "signed": { "const": false },
+    "evidence_class": { "const": "DIAGNOSTIC_ONLY" }
+  },
+  "$defs": {
+    "toolVersion": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 160,
+      "not": { "pattern": "[^ -~]" }
+    },
+    "plainSemver": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "gitVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^git version [0-9]+\\.[0-9]+(\\.[0-9]+)?(\\.windows\\.[0-9]+)?$" }] },
+    "rustcVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^rustc [0-9]+\\.[0-9]+\\.[0-9]+ \\([0-9a-f]{9,40} [0-9]{4}-[0-9]{2}-[0-9]{2}\\)$" }] },
+    "cargoVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^cargo [0-9]+\\.[0-9]+\\.[0-9]+ \\([0-9a-f]{9,40} [0-9]{4}-[0-9]{2}-[0-9]{2}\\)$" }] },
+    "cargoNextestVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^cargo-nextest [0-9]+\\.[0-9]+\\.[0-9]+ \\([0-9a-f]{9,40} [0-9]{4}-[0-9]{2}-[0-9]{2}\\)$" }] },
+    "b3sumVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^b3sum [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "cargoDenyVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^cargo-deny [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "cargoLlvmCovVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^cargo-llvm-cov [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "dockerVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^Docker version [0-9]+\\.[0-9]+\\.[0-9]+, build [0-9a-f]{7,40}$" }] },
+    "fileVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^file[- ][0-9]+\\.[0-9]+$" }] },
+    "jankuraiVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^jankurai [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "javaVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^(openjdk|java) version \"21\\.[0-9]+(\\.[0-9]+)?\"( [0-9]{4}-[0-9]{2}-[0-9]{2})?( LTS)?$" }] },
+    "lycheeVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^lychee [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "nodeVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "pythonVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^Python [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
+    "rustupVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^rustup [0-9]+\\.[0-9]+\\.[0-9]+ \\([0-9a-f]{9,40} [0-9]{4}-[0-9]{2}-[0-9]{2}\\)$" }] },
+    "zizmorVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^zizmor [0-9]+\\.[0-9]+\\.[0-9]+$" }] }
+  },
+  "additionalProperties": false
+}

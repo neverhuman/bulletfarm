@@ -1,0 +1,11 @@
+# Reproducible README media
+
+These assets are unsigned component observations, not Bullet Evidence, live-provider receipts, install receipts, or release authority.
+
+`snapshot.json` freezes four clean commit/tree subjects. `just readme-record` creates ordinary no-hardlink local clones of those subjects, removes ambient provider homes and Cargo credentials/configuration from the execution environment, exposes only an explicit build-tool PATH, enters a privileged network namespace, drops immediately to the invoking UID/GID, runs the real credential-free component and provider-safety scenarios, and writes normalized transcripts plus typed observations. Raw command logs, credentials, provider state, random receipts, and absolute paths are never committed.
+
+`just readme-render` first admits the exact playback, tapes, and transcripts and copies only those five ordinary files into a closed read-only input mount. It then executes each tape with [VHS v0.11.0](https://github.com/charmbracelet/vhs/releases/tag/v0.11.0) from the pinned container digest and `--network none`; the live Hub, provider homes, credentials, build outputs, and Git metadata never enter the container. Because Chromium glyph rasterization is not byte-stable, FFmpeg 7.1.3 from that same image then canonically draws the committed transcript line by line with fixed timing, geometry, font, colors, frame rate, locale, timezone, and source epoch. The manifest names this `committed-transcript-drawtext` pipeline; the raw VHS preview is validation input, not a committed artifact. The renderer derives each static fallback, normalized frame hashes, and `bullet.readme-demo.v1` manifest. Each unsigned manifest byte-binds the exact playback, snapshot, schema, checker, input checker, recorder, renderer, and schema-checker inputs by SHA-256; it is deliberately not an immutable commit-bound receipt or release authority.
+
+`just readme-check` validates subjects, claims, links, redaction, MIME, dimensions, duration, rate, size, hashes, frame hashes, and two independent renders. A successful check does not change the release decision.
+
+Install media stays absent until two clean signed schema-3 installations exist. Live-agent task media stays absent until exact runtime probing, provider onboarding, sealed live receipts, and a connected `TRANSACTION_PROOF` exist.

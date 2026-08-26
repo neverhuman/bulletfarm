@@ -1,0 +1,12 @@
+disallowed-methods = [
+  { path = "str::parse", reason = "production parsing must use an exact typed constructor; the canonical decoder owns the only reviewed exception" },
+  { path = "std::str::FromStr::from_str", reason = "production parsing must use an exact typed constructor; generic FromStr dispatch can select a JSON document type across files" },
+  { path = "serde_json::from_str", reason = "route production JSON input through bullet_wire::decode_unique_value or decode_canonical" },
+  { path = "serde_json::from_slice", reason = "route production JSON input through bullet_wire::decode_unique_value or decode_canonical" },
+  { path = "serde_json::from_reader", reason = "read through a bounded input first, then use BulletWire's strict decoder" },
+  { path = "serde_json::de::Deserializer::from_str", reason = "streaming serde_json decoders bypass BulletWire's uniqueness and canonicality policy" },
+  { path = "serde_json::de::Deserializer::from_slice", reason = "streaming serde_json decoders bypass BulletWire's uniqueness and canonicality policy" },
+  { path = "serde_json::de::Deserializer::from_reader", reason = "streaming serde_json decoders bypass BulletWire's uniqueness and canonicality policy" },
+  { path = "serde_json::de::Deserializer::new", reason = "custom serde_json readers bypass BulletWire's uniqueness and canonicality policy" },
+  { path = "serde_json::de::StreamDeserializer::new", reason = "streaming serde_json decoders bypass BulletWire's uniqueness and canonicality policy" },
+]

@@ -1,0 +1,686 @@
+@misc{bulletOverview,
+  author = {{Bullet Farm Maintainers}},
+  title = {Architecture Overview},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/architecture/overview.md}},
+  note = {Last reviewed 2026-08-25; normative orientation, pre-release},
+  keywords = {internal}
+}
+
+@misc{bulletClosure,
+  author = {{Bullet Farm Maintainers}},
+  title = {Bullet Farm Safety-Complete V1 Closure Plan},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/assurance/v1-closure-plan.md}},
+  note = {Authoritative documentation plan; runtime and generated evidence win},
+  keywords = {internal}
+}
+
+@misc{bulletRelease,
+  author = {{Bullet Farm Maintainers}},
+  title = {Release Evidence Contract and Current Gate Inventory},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/release.md}},
+  note = {Status BLOCKED; last reviewed 2026-08-25},
+  keywords = {internal}
+}
+
+@misc{bulletRegistry,
+  author = {{Bullet Farm Maintainers}},
+  title = {Invariant Registry Contract},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/assurance/invariant-registry.md} and generated registry JSON},
+  note = {Machine-validated crosswalk; planned rows are not implemented evidence},
+  keywords = {internal}
+}
+
+@misc{bulletFormal,
+  author = {{Bullet Farm Maintainers}},
+  title = {Bounded Formal Model Contract},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{formal/README.md} and \path{formal/model-lock.json}},
+  note = {Exactly two bounded safety models; no product-wide proof},
+  keywords = {internal}
+}
+
+@misc{bulletGitArch,
+  author = {{Bullet Farm Maintainers}},
+  title = {BulletGit Architecture and Trust Boundary},
+  year = {2026},
+  howpublished = {BulletGit source, \path{docs/architecture.md}},
+  note = {Component architecture; positive online authority remains blocked},
+  keywords = {internal}
+}
+
+@misc{bulletWorkplan,
+  author = {{Bullet Farm Maintainers}},
+  title = {Bullet Farm Opportunity Workplan},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/workplan.md}},
+  note = {Non-authoritative backlog; V1 closure plan wins},
+  keywords = {internal}
+}
+
+@misc{paperEvidence,
+  author = {{Bullet Farm Maintainers}},
+  title = {Bullet Paper Evidence Snapshot, bullet.paper-evidence.v1},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/paper/evidence.json}},
+  note = {Shared machine-readable input for the paper and executive brief},
+  keywords = {internal}
+}
+
+@inproceedings{gray1981,
+  author = {Jim Gray},
+  title = {The Transaction Concept: Virtues and Limitations},
+  booktitle = {Proceedings of the 7th International Conference on Very Large Data Bases},
+  year = {1981},
+  pages = {144--154},
+  url = {https://www.vldb.org/conf/1981/P144.PDF},
+  urldate = {2026-08-25}
+}
+
+@book{gray1993,
+  author = {Jim Gray and Andreas Reuter},
+  title = {Transaction Processing: Concepts and Techniques},
+  publisher = {Morgan Kaufmann},
+  year = {1993},
+  isbn = {978-1-55860-190-1},
+  url = {https://www.sciencedirect.com/book/9781558601901/transaction-processing},
+  urldate = {2026-08-25}
+}
+
+@article{helland2012,
+  author = {Pat Helland},
+  title = {Idempotence Is Not a Medical Condition},
+  journal = {Communications of the ACM},
+  volume = {55},
+  number = {5},
+  pages = {56--65},
+  year = {2012},
+  doi = {10.1145/2160718.2160734},
+  url = {https://doi.org/10.1145/2160718.2160734},
+  urldate = {2026-08-25}
+}
+
+@misc{kleppmann2016,
+  author = {Martin Kleppmann},
+  title = {How to Do Distributed Locking},
+  year = {2016},
+  url = {https://martin.kleppmann.com/2016/02/08/how-to-do-distributed-locking.html},
+  urldate = {2026-08-25},
+  note = {Discussion of fencing tokens checked by the storage service}
+}
+
+@misc{gitWorktree,
+  author = {{Git Project}},
+  title = {git-worktree Documentation},
+  year = {2026},
+  url = {https://git-scm.com/docs/git-worktree},
+  urldate = {2026-08-25},
+  note = {Official linked-worktree contract; Git documentation license applies}
+}
+
+@misc{borsRule,
+  author = {Graydon Hoare},
+  title = {Not Rocket Science: The Bors Merge Bot},
+  year = {2014},
+  url = {https://graydon2.dreamwidth.org/1597.html},
+  urldate = {2026-08-25}
+}
+
+@misc{githubMergeQueue,
+  author = {{GitHub}},
+  title = {Managing a Merge Queue},
+  year = {2026},
+  url = {https://docs.github.com/en/repositories/configuring-branches-and-merges-in-your-repository/configuring-pull-request-merges/managing-a-merge-queue},
+  urldate = {2026-08-25}
+}
+
+@misc{gastownV121,
+  author = {{Gas Town Maintainers}},
+  title = {Gas Town v1.2.1},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/releases/tag/v1.2.1},
+  urldate = {2026-08-25},
+  note = {MIT; peeled commit 319d33a91b2deca59bba6dd26be6b9daf8eaacf6}
+}
+
+@misc{gastownReadme,
+  author = {{Gas Town Maintainers}},
+  title = {Gas Town README at v1.2.1},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/blob/319d33a91b2deca59bba6dd26be6b9daf8eaacf6/README.md},
+  urldate = {2026-08-25},
+  note = {Pinned public architecture and operating contract}
+}
+
+@misc{gascityV141,
+  author = {{Gas City Maintainers}},
+  title = {Gas City v1.4.1},
+  year = {2026},
+  url = {https://github.com/gastownhall/gascity/releases/tag/v1.4.1},
+  urldate = {2026-08-25},
+  note = {MIT; peeled commit 58ef17e3bd685fd5cf7f21286277b208d3324590}
+}
+
+@misc{gascityReadme,
+  author = {{Gas City Maintainers}},
+  title = {Gas City Repository at v1.4.1},
+  year = {2026},
+  url = {https://github.com/gastownhall/gascity/tree/58ef17e3bd685fd5cf7f21286277b208d3324590},
+  urldate = {2026-08-25},
+  note = {Pinned source and documentation tree}
+}
+
+@misc{dshV011,
+  author = {{DeepSeek AI}},
+  title = {DeepSeek Harness dsh-v0.1.1-rc.2},
+  year = {2026},
+  url = {https://github.com/deepseek-ai/DeepSeek-Harness/releases/tag/dsh-v0.1.1-rc.2},
+  urldate = {2026-08-25},
+  note = {MIT; commit b150a551b8d465e31e418e1b2eaf5e79bbb7d28e}
+}
+
+@misc{dshArch,
+  author = {{DeepSeek AI}},
+  title = {DeepSeek Harness Architecture at dsh-v0.1.1-rc.2},
+  year = {2026},
+  url = {https://github.com/deepseek-ai/DeepSeek-Harness/tree/b150a551b8d465e31e418e1b2eaf5e79bbb7d28e},
+  urldate = {2026-08-25},
+  note = {Pinned Cordis plugin and session-log documentation}
+}
+
+@misc{dshTeams,
+  author = {{DeepSeek AI}},
+  title = {Experimental Agent Teams Documentation},
+  year = {2026},
+  url = {https://github.com/deepseek-ai/DeepSeek-Harness/tree/b150a551b8d465e31e418e1b2eaf5e79bbb7d28e},
+  urldate = {2026-08-25},
+  note = {Pinned experimental roster, task-board, mailbox, and scope contract}
+}
+
+@misc{omnigentV010,
+  author = {{Omnigent Maintainers}},
+  title = {Omnigent v0.10.0},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/releases/tag/v0.10.0},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; commit 40755dd8dddb07e1eb6e4055d1d9936e184ceb9b}
+}
+
+@misc{omnigentReadme,
+  author = {{Omnigent Maintainers}},
+  title = {Omnigent Repository at v0.10.0},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/tree/40755dd8dddb07e1eb6e4055d1d9936e184ceb9b},
+  urldate = {2026-08-25},
+  note = {Pinned runner, sandbox, collaboration, and proxy documentation}
+}
+
+@misc{omnigentPolicy,
+  author = {{Omnigent Maintainers}},
+  title = {Omnigent Contextual Policy Contract},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/tree/40755dd8dddb07e1eb6e4055d1d9936e184ceb9b},
+  urldate = {2026-08-25},
+  note = {Pinned ALLOW, DENY, and ASK policy vocabulary}
+}
+
+@misc{omnigentProxy,
+  author = {{Omnigent Maintainers}},
+  title = {Omnigent L7 Credential Proxy},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/tree/40755dd8dddb07e1eb6e4055d1d9936e184ceb9b},
+  urldate = {2026-08-25},
+  note = {Pinned L7 egress and request-transformation documentation}
+}
+
+@misc{omnigentPolly,
+  author = {{Omnigent Maintainers}},
+  title = {Omnigent Polly Documentation},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/tree/40755dd8dddb07e1eb6e4055d1d9936e184ceb9b},
+  urldate = {2026-08-25},
+  note = {Pinned parallel-worktree and cross-vendor review material}
+}
+
+@misc{gastown4094,
+  author = {{Gas Town Maintainers}},
+  title = {Issue 4094: Background Checkout at Town Root Deletes Operational Files},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/issues/4094},
+  urldate = {2026-08-25},
+  note = {Open when observed; reporter states affected version 1.1.0}
+}
+
+@misc{gastown742,
+  author = {{Gas Town Maintainers}},
+  title = {Issue 742: settings.json Written to Wrong Directory},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/issues/742},
+  urldate = {2026-08-25},
+  note = {Closed when observed; contains no 687-respawn claim}
+}
+
+@misc{gascity1181,
+  author = {{Gas City Maintainers}},
+  title = {Issue 1181: Parallel Agents Share the Rig Path},
+  year = {2026},
+  url = {https://github.com/gastownhall/gascity/issues/1181},
+  urldate = {2026-08-25},
+  note = {Open when observed}
+}
+
+@misc{gascity5511,
+  author = {{Gas City Maintainers}},
+  title = {Issue 5511: Timeout Retry Creates Duplicate Workflows},
+  year = {2026},
+  url = {https://github.com/gastownhall/gascity/issues/5511},
+  urldate = {2026-08-25},
+  note = {Open when observed; reporter states affected version v1.4.1}
+}
+
+@misc{gascity1052,
+  author = {{Gas City Maintainers}},
+  title = {Issue 1052: Concurrent Sessions Execute the Same Bead},
+  year = {2026},
+  url = {https://github.com/gastownhall/gascity/issues/1052},
+  urldate = {2026-08-25},
+  note = {Closed via issue 2985; reporter states affected version 0.15.2}
+}
+
+@misc{omnigent1694,
+  author = {{Omnigent Maintainers}},
+  title = {Issue 1694: Polly Parallel-Worktree Session Failures},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/issues/1694},
+  urldate = {2026-08-25},
+  note = {Open when observed; reporter states affected version 0.2.0}
+}
+
+@misc{omnigent725,
+  author = {{Omnigent Maintainers}},
+  title = {Issue 725: External Changes Missing in Non-Git Workspace},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/issues/725},
+  urldate = {2026-08-25},
+  note = {Open when observed}
+}
+
+@misc{omnigent4318,
+  author = {{Omnigent Maintainers}},
+  title = {Pull Request 4318: Revert Approval Attribution Stack},
+  year = {2026},
+  url = {https://github.com/omnigent-ai/omnigent/pull/4318},
+  urldate = {2026-08-25},
+  note = {Merged 2026-08-07 and listed as a v0.10.0 breaking change}
+}
+
+@misc{openaiCodexCli,
+  author = {{OpenAI}},
+  title = {Codex CLI},
+  year = {2026},
+  url = {https://developers.openai.com/codex/cli},
+  urldate = {2026-08-25},
+  note = {Official OpenAI documentation; proprietary behavior is black-box limited}
+}
+
+@misc{openaiCodexCloud,
+  author = {{OpenAI}},
+  title = {Codex Cloud},
+  year = {2026},
+  url = {https://developers.openai.com/codex/cloud},
+  urldate = {2026-08-25},
+  note = {Official OpenAI documentation; hosted behavior is black-box limited}
+}
+
+@misc{claudeCode,
+  author = {{Anthropic}},
+  title = {Claude Code Overview},
+  year = {2026},
+  url = {https://docs.anthropic.com/en/docs/claude-code/overview},
+  urldate = {2026-08-25},
+  note = {Official documentation; proprietary behavior is black-box limited}
+}
+
+@misc{cursorAgent,
+  author = {{Cursor}},
+  title = {Cursor Agent Documentation},
+  year = {2026},
+  url = {https://docs.cursor.com/agent/overview},
+  urldate = {2026-08-25},
+  note = {Official documentation; proprietary behavior is black-box limited}
+}
+
+@misc{copilotAgent,
+  author = {{GitHub}},
+  title = {About GitHub Copilot Coding Agent},
+  year = {2026},
+  url = {https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent},
+  urldate = {2026-08-25},
+  note = {Official documentation; hosted behavior is black-box limited}
+}
+
+@misc{jules,
+  author = {{Google}},
+  title = {Jules Documentation},
+  year = {2026},
+  url = {https://jules.google/docs/},
+  urldate = {2026-08-25},
+  note = {Official documentation; hosted behavior is black-box limited}
+}
+
+@misc{devin,
+  author = {{Cognition}},
+  title = {Devin Documentation},
+  year = {2026},
+  url = {https://docs.devin.ai/},
+  urldate = {2026-08-25},
+  note = {Official documentation; hosted behavior is black-box limited}
+}
+
+@misc{kiro,
+  author = {{Amazon Web Services}},
+  title = {Kiro Documentation},
+  year = {2026},
+  url = {https://kiro.dev/docs/},
+  urldate = {2026-08-25},
+  note = {Official documentation; proprietary behavior is black-box limited}
+}
+
+@misc{geminiCli,
+  author = {{Google}},
+  title = {Gemini CLI at commit 812f7a2bcf20},
+  year = {2026},
+  url = {https://github.com/google-gemini/gemini-cli/tree/812f7a2bcf20b6e80e2e50c3c8fa8e26567bc1e8},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{openhands,
+  author = {{OpenHands Maintainers}},
+  title = {OpenHands at commit 150e76046db0},
+  year = {2026},
+  url = {https://github.com/All-Hands-AI/OpenHands/tree/150e76046db026dd944df0506642dc9b7b99391e},
+  urldate = {2026-08-25},
+  note = {MIT; exact commit observed 2026-08-25}
+}
+
+@misc{agentCanvas,
+  author = {{OpenHands Maintainers}},
+  title = {Agent Canvas Overview},
+  year = {2026},
+  url = {https://docs.openhands.dev/openhands/usage/agent-canvas},
+  urldate = {2026-08-25},
+  note = {Official project documentation observed with OpenHands commit 150e76046db0}
+}
+
+@misc{sweAgent,
+  author = {{SWE-agent Maintainers}},
+  title = {SWE-agent at commit 3ea751c087f3},
+  year = {2026},
+  url = {https://github.com/princeton-nlp/SWE-agent/tree/3ea751c087f32b16e039a2233dd6eefecef325d5},
+  urldate = {2026-08-25},
+  note = {MIT; exact commit observed 2026-08-25}
+}
+
+@misc{miniSweAgent,
+  author = {{mini-SWE-agent Maintainers}},
+  title = {mini-SWE-agent at commit 25941c89cfbc},
+  year = {2026},
+  url = {https://github.com/SWE-agent/mini-swe-agent/tree/25941c89cfbc91eb40b3f8756348c91d9977d57e},
+  urldate = {2026-08-25},
+  note = {MIT; exact commit observed 2026-08-25}
+}
+
+@misc{aider,
+  author = {{Aider Maintainers}},
+  title = {Aider at commit 5dc9490bb35f},
+  year = {2026},
+  url = {https://github.com/Aider-AI/aider/tree/5dc9490bb35f9729ef2c95d00a19ccd30c26339c},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{cline,
+  author = {{Cline Maintainers}},
+  title = {Cline at commit 4f5f2384076e},
+  year = {2026},
+  url = {https://github.com/cline/cline/tree/4f5f2384076e1eef461f53c8eb7d0ece6e0bb552},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{continue,
+  author = {{Continue Maintainers}},
+  title = {Continue at commit 5522c6f44ca0},
+  year = {2026},
+  url = {https://github.com/continuedev/continue/tree/5522c6f44ca0ac3528b37244818fbfa39b5af470},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{goose,
+  author = {{Block}},
+  title = {Goose at commit f1d32e8dbbdf},
+  year = {2026},
+  url = {https://github.com/block/goose/tree/f1d32e8dbbdf4c7265178904f00283af110ada1c},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{roo,
+  author = {{Roo Code Maintainers}},
+  title = {Roo Code at commit b867ec914575},
+  year = {2026},
+  url = {https://github.com/RooCodeInc/Roo-Code/tree/b867ec9145750d0ae1ff7f02d35406e9bf2a0b16},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{acp,
+  author = {{Agent Client Protocol Maintainers}},
+  title = {Agent Client Protocol at commit 5acaa3acda11},
+  year = {2026},
+  url = {https://github.com/agentclientprotocol/agent-client-protocol/tree/5acaa3acda11e29d523193bfb3401c8497f5a90e},
+  urldate = {2026-08-25},
+  note = {Apache-2.0; exact commit observed 2026-08-25}
+}
+
+@misc{mcp,
+  author = {{Model Context Protocol Maintainers}},
+  title = {Model Context Protocol at commit 57ac4a2ec742},
+  year = {2026},
+  url = {https://github.com/modelcontextprotocol/modelcontextprotocol/tree/57ac4a2ec742e0cb7622d899b0f5d3bcf769fd69},
+  urldate = {2026-08-25},
+  note = {MIT; exact commit observed 2026-08-25}
+}
+
+@misc{bulletEvo,
+  author = {{Bullet Farm Maintainers}},
+  title = {Evolutionary Multi-Agent Control},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{docs/architecture/evolutionary-control.md}},
+  note = {Normative V1 design; runtime coverage incomplete; not a claim that any evolutionary property is implemented},
+  keywords = {internal}
+}
+
+@misc{bulletPolicy,
+  author = {{Bullet Farm Maintainers}},
+  title = {Committed Gate-0 Policy Snapshot},
+  year = {2026},
+  howpublished = {Bullet Farm source, \path{policy/v1alpha1/policy.json}},
+  note = {v1alpha1, generation 1, live admission disabled, evolutionary authority disabled; hashed in the evidence manifest},
+  keywords = {internal}
+}
+
+@misc{gastown3584,
+  author = {{Gas Town Maintainers}},
+  title = {Issue 3584: Dead Polecats Go Undetected --- No Notification When a Polecat Session Dies Mid-Work},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/issues/3584},
+  urldate = {2026-08-25},
+  note = {Opened 2026-04-10; closed when observed; version not stated}
+}
+
+@misc{gastown4737,
+  author = {{Gas Town Maintainers}},
+  title = {Issue 4737: mol-deacon-patrol Cleanup Dog-Liveness Check Can Never Succeed, Guarded Only by an Accident of Worktree Layout},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/issues/4737},
+  urldate = {2026-08-25},
+  note = {Opened 2026-08-19; open when observed; reporter states affected version 1.1.0}
+}
+
+@misc{gastown4091,
+  author = {{Gas Town Maintainers}},
+  title = {Issue 4091: Daemon Refinery Aliveness Check Trusts Stale PID Files --- Dead Refineries Never Respawned},
+  year = {2026},
+  url = {https://github.com/gastownhall/gastown/issues/4091},
+  urldate = {2026-08-25},
+  note = {Opened 2026-05-21; open when observed; version not stated}
+}
+
+@misc{idempotencyKey,
+  author = {Jayadeba Jena and Sanjay Dalal},
+  title = {The Idempotency-Key {HTTP} Header Field},
+  year = {2025},
+  howpublished = {Internet-Draft draft-ietf-httpapi-idempotency-key-header-07, IETF HTTPAPI Working Group (expired)},
+  url = {https://datatracker.ietf.org/doc/draft-ietf-httpapi-idempotency-key-header/},
+  urldate = {2026-08-25}
+}
+
+@misc{landlock,
+  author = {Micka{\"e}l Sala{\"u}n},
+  title = {Landlock: Unprivileged Access Control},
+  year = {2025},
+  howpublished = {Linux kernel documentation},
+  url = {https://docs.kernel.org/userspace-api/landlock.html},
+  urldate = {2026-08-25}
+}
+
+@misc{seccomp,
+  author = {{Linux Kernel Contributors}},
+  title = {Seccomp {BPF} ({SECure} {COMPuting} with Filters)},
+  year = {2025},
+  howpublished = {Linux kernel documentation},
+  url = {https://docs.kernel.org/userspace-api/seccomp_filter.html},
+  urldate = {2026-08-25}
+}
+
+@misc{namespaces7,
+  author = {{Linux man-pages Project}},
+  title = {namespaces(7) --- Overview of {Linux} Namespaces},
+  year = {2025},
+  url = {https://man7.org/linux/man-pages/man7/namespaces.7.html},
+  urldate = {2026-08-25}
+}
+
+@misc{bubblewrap,
+  author = {{containers Contributors}},
+  title = {bubblewrap: Low-Level Unprivileged Sandboxing Tool},
+  year = {2026},
+  url = {https://github.com/containers/bubblewrap},
+  urldate = {2026-08-25},
+  note = {User-namespace sandbox used by Flatpak and by Omnigent's native Linux wrappers}
+}
+
+@article{rosenkrantz1978,
+  author = {Daniel J. Rosenkrantz and Richard E. Stearns and Philip M. Lewis},
+  title = {System Level Concurrency Control for Distributed Database Systems},
+  journal = {ACM Transactions on Database Systems},
+  volume = {3},
+  number = {2},
+  pages = {178--198},
+  year = {1978},
+  doi = {10.1145/320251.320260},
+  url = {https://doi.org/10.1145/320251.320260},
+  urldate = {2026-08-25},
+  note = {Wound-wait and wait-die}
+}
+
+@inproceedings{yu1999,
+  author = {Yuan Yu and Panagiotis Manolios and Leslie Lamport},
+  title = {Model Checking {TLA}+ Specifications},
+  booktitle = {Correct Hardware Design and Verification Methods (CHARME 1999), LNCS 1703},
+  pages = {54--66},
+  year = {1999},
+  doi = {10.1007/3-540-48153-2_6},
+  url = {https://doi.org/10.1007/3-540-48153-2_6},
+  urldate = {2026-08-25}
+}
+
+@misc{mouret2015,
+  author = {Jean-Baptiste Mouret and Jeff Clune},
+  title = {Illuminating Search Spaces by Mapping Elites},
+  year = {2015},
+  howpublished = {arXiv:1504.04909},
+  url = {https://arxiv.org/abs/1504.04909},
+  urldate = {2026-08-25}
+}
+
+@article{pugh2016,
+  author = {Justin K. Pugh and Lisa B. Soros and Kenneth O. Stanley},
+  title = {Quality Diversity: A New Frontier for Evolutionary Computation},
+  journal = {Frontiers in Robotics and AI},
+  volume = {3},
+  pages = {40},
+  year = {2016},
+  doi = {10.3389/frobt.2016.00040},
+  url = {https://doi.org/10.3389/frobt.2016.00040},
+  urldate = {2026-08-25}
+}
+
+@inproceedings{jamieson2016,
+  author = {Kevin Jamieson and Ameet Talwalkar},
+  title = {Non-stochastic Best Arm Identification and Hyperparameter Optimization},
+  booktitle = {Proceedings of the 19th International Conference on Artificial Intelligence and Statistics (AISTATS), PMLR 51},
+  year = {2016},
+  url = {https://proceedings.mlr.press/v51/jamieson16.html},
+  urldate = {2026-08-25}
+}
+
+@misc{li2020asha,
+  author = {Liam Li and Kevin Jamieson and Afshin Rostamizadeh and Ekaterina Gonina and Moritz Hardt and Benjamin Recht and Ameet Talwalkar},
+  title = {A System for Massively Parallel Hyperparameter Tuning},
+  year = {2020},
+  howpublished = {arXiv:1810.05934; Proceedings of Machine Learning and Systems (MLSys) 2020},
+  url = {https://arxiv.org/abs/1810.05934},
+  urldate = {2026-08-25},
+  note = {Asynchronous successive halving (ASHA)}
+}
+
+@article{alba2002,
+  author = {Enrique Alba and Marco Tomassini},
+  title = {Parallelism and Evolutionary Algorithms},
+  journal = {IEEE Transactions on Evolutionary Computation},
+  volume = {6},
+  number = {5},
+  pages = {443--462},
+  year = {2002},
+  doi = {10.1109/TEVC.2002.800880},
+  url = {https://doi.org/10.1109/TEVC.2002.800880},
+  urldate = {2026-08-25},
+  note = {Island models}
+}
+
+@inproceedings{li2010,
+  author = {Lihong Li and Wei Chu and John Langford and Robert E. Schapire},
+  title = {A Contextual-Bandit Approach to Personalized News Article Recommendation},
+  booktitle = {Proceedings of the 19th International Conference on World Wide Web (WWW 2010)},
+  year = {2010},
+  doi = {10.1145/1772690.1772758},
+  url = {https://arxiv.org/abs/1003.0146},
+  urldate = {2026-08-25}
+}
+
+@inproceedings{li2011,
+  author = {Lihong Li and Wei Chu and John Langford and Xuanhui Wang},
+  title = {Unbiased Offline Evaluation of Contextual-Bandit-Based News Article Recommendation Algorithms},
+  booktitle = {Proceedings of the 4th ACM International Conference on Web Search and Data Mining (WSDM 2011)},
+  year = {2011},
+  doi = {10.1145/1935826.1935878},
+  url = {https://arxiv.org/abs/1003.5956},
+  urldate = {2026-08-25}
+}

@@ -1,0 +1,25 @@
+[package]
+name = "bullet-wire"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "Apache-2.0"
+description = "Canonical cross-repository contracts for Bullet Farm"
+
+[dependencies]
+blake3 = "1"
+pasetors = { version = "=0.8.0", default-features = false, features = ["v4"] }
+serde = { version = "1", features = ["derive"] }
+serde_jcs = "0.2"
+serde_json = "1"
+sha2 = "0.10"
+unicode-normalization = "0.1"
+
+[dev-dependencies]
+hex = "0.4"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "deny"

@@ -1,0 +1,8 @@
+schema_version = "1.0.0"
+
+# The local audit lane invokes this tool directly and preserves all three
+# repair artifacts. Hosted CI evidence and portable artifact verification are
+# deliberately absent, so no other catalog tool is declared adopted here.
+[[tools]]
+id = "audit-ci"
+mode = "auto"

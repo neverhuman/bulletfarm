@@ -1,0 +1,56 @@
+minimum_score = 65
+fail_on = ["critical"]
+advisory_on = ["high", "medium", "low"]
+
+# Explicit cost-surface enumeration for HLT-026-COST-BUDGET-GAP. The Hub calls
+# no provider, model, or metered API from any lane: `just fast`, `just check`,
+# `just contract`, `just security`, `just audit` and `just family` are local and
+# offline, and the model-checking lane runs pinned local binaries. The word
+# "token" in this repository is an authority token, not an API billing unit.
+cost_surface = []
+
+# Accepted false positives for HLT-001-DEAD-MARKER.
+#
+# These three words are load-bearing contract, release-truth, and filesystem
+# vocabulary in this repository, not deferred-work markers. Listing a term here
+# suppresses only that exact word for the dead-marker heuristic; every other
+# dead-language, fallback-soup, secret and boundary check still runs over the
+# same files, and `todo`, `fixme`, `workaround`, `obsolete`, `deprecated`,
+# `best effort`, `dead code`, `cleanup later` and `remove later` stay enforced.
+#
+# `legacy` is the wire-contract field `legacy_aliases` on an invariant-registry
+# entry (`crates/bullet-wire/src/policy.rs`). It is the declared alias list an
+# invariant ID may not collide with, and the collision is refused with the
+# stable reason code `INVARIANT_ALIAS_COLLISION`. Renaming the field would break
+# the committed policy schema.
+#
+# `stale` is release-truth vocabulary. `Mechanical::Stale`
+# (`src/check/truth/facts.rs`) is the state where a gate result was recorded
+# against a subject other than the current HEADs, and `src/check/truth/render.rs`
+# renders it as the literal `STALE` row on the generated release-truth page --
+# the page's whole job is to say so out loud. `src/check/truth/rows/ungated.rs`
+# quotes the Portal's own `SSE STALE` evidence string, and
+# `src/check/release_evidence/verify.rs` refuses an MSRV receipt whose trusted
+# time is stale. Every one of those is the honest word for the condition.
+#
+# `temporary` names actual temporary filesystem objects, not deferred work:
+# `src/family_lock.rs` writes `.family.lock.<pid>.tmp` and renames it into place
+# (the standard atomic-write pattern), and `src/setup/command/environment.rs`
+# creates the sandboxed `TMPDIR` staging directory a setup run is confined to.
+[dead_language]
+allow_terms = ["legacy", "stale", "temporary"]
+
+[history]
+max_rows = 500
+max_bytes = 1048576
+dedupe = "consecutive-equivalent"
+mirror_env = "JANKURAI_HISTORY_MIRROR"
+mirror_required = false
+mirror_max_rows = 5000
+
+[scan]
+excluded_paths = []
+
+[smart_scan]
+full_scan_interval_secs = 3600
+roulette_rate = 0.10

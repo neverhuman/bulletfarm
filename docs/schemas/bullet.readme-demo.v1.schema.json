@@ -1,0 +1,340 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://bullet.farm/schemas/bullet.readme-demo.v1.schema.json",
+  "title": "Bullet README demo document",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "document_type",
+    "demo_id",
+    "observed_at",
+    "classification",
+    "release_authority",
+    "live_provider_spawned",
+    "network"
+  ],
+  "properties": {
+    "schema_version": { "const": "bullet.readme-demo.v1" },
+    "document_type": { "enum": ["observation", "manifest"] },
+    "demo_id": { "enum": ["component-preview", "provider-safety"] },
+    "observed_at": {
+      "type": "string",
+      "format": "date-time",
+      "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"
+    },
+    "classification": { "const": "UNSIGNED_COMPONENT_OBSERVATION" },
+    "release_authority": { "const": false },
+    "live_provider_spawned": { "const": false },
+    "network": { "enum": ["isolated", "disabled-during-render"] },
+    "subjects": {
+      "type": "object",
+      "required": ["bullet-farm", "bullet-git", "bullet-kernel", "bullet-portal"],
+      "properties": {
+        "bullet-farm": { "$ref": "#/$defs/subject" },
+        "bullet-git": { "$ref": "#/$defs/subject" },
+        "bullet-kernel": { "$ref": "#/$defs/subject" },
+        "bullet-portal": { "$ref": "#/$defs/subject" }
+      },
+      "additionalProperties": false
+    },
+    "outcomes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["name", "status", "exit_code"],
+        "properties": {
+          "name": {
+            "enum": [
+              "doctor", "hub-component-checks", "materialize-replay", "fence",
+              "stale-authority", "lost-response-effect", "claude-offline-contract",
+              "codex-offline-contract", "cursor-offline-contract", "antigravity-offline-contract",
+              "claude-live-admission", "codex-live-admission", "cursor-live-admission",
+              "antigravity-live-admission", "provider-spawn-count", "live-provider-proof"
+            ]
+          },
+          "status": { "type": "string", "minLength": 1 },
+          "exit_code": { "type": "integer", "minimum": 0, "maximum": 255 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "renderer": {
+      "type": "object",
+      "required": [
+        "name", "version", "image", "ffmpeg_version", "canonicalization", "width", "height",
+        "frames_per_second", "maximum_duration_seconds", "maximum_gif_bytes", "font", "locale",
+        "timezone", "source_date_epoch", "cursor_blink"
+      ],
+      "properties": {
+        "name": { "const": "VHS" },
+        "version": { "const": "0.11.0" },
+        "image": { "const": "ghcr.io/charmbracelet/vhs@sha256:9d5fc3dc0c160b0fb1d2212baff07e6bdf3fa9438c504a3237484567302fcf93" },
+        "ffmpeg_version": { "const": "7.1.3-0+deb13u1" },
+        "canonicalization": { "const": "committed-transcript-drawtext" },
+        "width": { "const": 1200 },
+        "height": { "const": 675 },
+        "frames_per_second": { "const": 12 },
+        "maximum_duration_seconds": { "const": 30 },
+        "maximum_gif_bytes": { "const": 3145728 },
+        "font": { "const": "JetBrains Mono" },
+        "locale": { "const": "C.UTF-8" },
+        "timezone": { "const": "UTC" },
+        "source_date_epoch": { "const": 1787616000 },
+        "cursor_blink": { "const": false }
+      },
+      "additionalProperties": false
+    },
+    "generation": {
+      "type": "object",
+      "required": ["name", "version", "command", "inputs"],
+      "properties": {
+        "name": { "const": "bullet-farm-readme-render" },
+        "version": { "const": 1 },
+        "command": { "const": "bash scripts/readme-render.sh" },
+        "inputs": {
+          "type": "array",
+          "minItems": 8,
+          "maxItems": 8,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": ["path", "sha256"],
+            "properties": {
+              "path": {
+                "enum": [
+                  "docs/readme-media/playback.sh",
+                  "docs/readme-media/snapshot.json",
+                  "docs/schemas/bullet.readme-demo.v1.schema.json",
+                  "scripts/readme-check.sh",
+                  "scripts/readme-input-check.sh",
+                  "scripts/readme-record.sh",
+                  "scripts/readme-render.sh",
+                  "scripts/readme-schema-check.sh"
+                ]
+              },
+              "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+            },
+            "additionalProperties": false
+          },
+          "allOf": [
+            { "$ref": "#/$defs/input-playback" },
+            { "$ref": "#/$defs/input-snapshot" },
+            { "$ref": "#/$defs/input-schema" },
+            { "$ref": "#/$defs/input-checker" },
+            { "$ref": "#/$defs/input-input-checker" },
+            { "$ref": "#/$defs/input-recorder" },
+            { "$ref": "#/$defs/input-renderer" },
+            { "$ref": "#/$defs/input-schema-checker" }
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "artifact_hashes": {
+      "type": "array",
+      "minItems": 1,
+      "uniqueItems": true,
+      "items": {
+        "type": "object",
+        "required": ["path", "sha256", "bytes"],
+        "properties": {
+          "path": { "type": "string", "pattern": "^(?!\\.\\.?$)[^/\\\\]+$" },
+          "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+          "bytes": { "type": "integer", "minimum": 1 }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": { "properties": { "document_type": { "const": "observation" } } },
+      "then": {
+        "required": ["subjects", "outcomes"],
+        "properties": {
+          "network": { "const": "isolated" },
+          "renderer": false,
+          "generation": false,
+          "artifact_hashes": false
+        }
+      }
+    },
+    {
+      "if": { "properties": { "document_type": { "const": "manifest" } } },
+      "then": {
+        "required": ["renderer", "generation", "artifact_hashes"],
+        "properties": {
+          "network": { "const": "disabled-during-render" },
+          "subjects": false,
+          "outcomes": false
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "document_type": { "const": "observation" },
+          "demo_id": { "const": "component-preview" }
+        },
+        "required": ["document_type", "demo_id"]
+      },
+      "then": { "properties": { "outcomes": { "$ref": "#/$defs/component-outcomes" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "document_type": { "const": "observation" },
+          "demo_id": { "const": "provider-safety" }
+        },
+        "required": ["document_type", "demo_id"]
+      },
+      "then": { "properties": { "outcomes": { "$ref": "#/$defs/provider-outcomes" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "document_type": { "const": "manifest" },
+          "demo_id": { "const": "component-preview" }
+        },
+        "required": ["document_type", "demo_id"]
+      },
+      "then": { "properties": { "artifact_hashes": { "$ref": "#/$defs/component-artifacts" } } }
+    },
+    {
+      "if": {
+        "properties": {
+          "document_type": { "const": "manifest" },
+          "demo_id": { "const": "provider-safety" }
+        },
+        "required": ["document_type", "demo_id"]
+      },
+      "then": { "properties": { "artifact_hashes": { "$ref": "#/$defs/provider-artifacts" } } }
+    }
+  ],
+  "$defs": {
+    "subject": {
+      "type": "object",
+      "required": ["commit_oid", "tree_oid"],
+      "properties": {
+        "commit_oid": { "type": "string", "pattern": "^[0-9a-f]{40}$" },
+        "tree_oid": { "type": "string", "pattern": "^[0-9a-f]{40}$" }
+      },
+      "additionalProperties": false
+    },
+    "input-playback": { "$ref": "#/$defs/input-contains-playback" },
+    "input-snapshot": { "$ref": "#/$defs/input-contains-snapshot" },
+    "input-schema": { "$ref": "#/$defs/input-contains-schema" },
+    "input-checker": { "$ref": "#/$defs/input-contains-checker" },
+    "input-input-checker": { "$ref": "#/$defs/input-contains-input-checker" },
+    "input-recorder": { "$ref": "#/$defs/input-contains-recorder" },
+    "input-renderer": { "$ref": "#/$defs/input-contains-renderer" },
+    "input-schema-checker": { "$ref": "#/$defs/input-contains-schema-checker" },
+    "input-contains-playback": {
+      "contains": { "properties": { "path": { "const": "docs/readme-media/playback.sh" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-snapshot": {
+      "contains": { "properties": { "path": { "const": "docs/readme-media/snapshot.json" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-schema": {
+      "contains": { "properties": { "path": { "const": "docs/schemas/bullet.readme-demo.v1.schema.json" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-checker": {
+      "contains": { "properties": { "path": { "const": "scripts/readme-check.sh" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-input-checker": {
+      "contains": { "properties": { "path": { "const": "scripts/readme-input-check.sh" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-recorder": {
+      "contains": { "properties": { "path": { "const": "scripts/readme-record.sh" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-renderer": {
+      "contains": { "properties": { "path": { "const": "scripts/readme-render.sh" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "input-contains-schema-checker": {
+      "contains": { "properties": { "path": { "const": "scripts/readme-schema-check.sh" } }, "required": ["path"] },
+      "minContains": 1,
+      "maxContains": 1
+    },
+    "component-outcomes": {
+      "const": [
+        { "name": "doctor", "status": "BLOCKED", "exit_code": 3 },
+        { "name": "hub-component-checks", "status": "PASS", "exit_code": 0 },
+        { "name": "materialize-replay", "status": "IDEMPOTENT", "exit_code": 0 },
+        { "name": "fence", "status": "1 -> 2", "exit_code": 0 },
+        { "name": "stale-authority", "status": "REFUSED", "exit_code": 0 },
+        { "name": "lost-response-effect", "status": "UNKNOWN", "exit_code": 0 }
+      ]
+    },
+    "provider-outcomes": {
+      "const": [
+        { "name": "claude-offline-contract", "status": "PASS", "exit_code": 0 },
+        { "name": "codex-offline-contract", "status": "PASS", "exit_code": 0 },
+        { "name": "cursor-offline-contract", "status": "PASS", "exit_code": 0 },
+        { "name": "antigravity-offline-contract", "status": "PASS", "exit_code": 0 },
+        { "name": "claude-live-admission", "status": "POLICY_LIVE_ADMISSION_DISABLED", "exit_code": 78 },
+        { "name": "codex-live-admission", "status": "POLICY_LIVE_ADMISSION_DISABLED", "exit_code": 78 },
+        { "name": "cursor-live-admission", "status": "POLICY_LIVE_ADMISSION_DISABLED", "exit_code": 78 },
+        { "name": "antigravity-live-admission", "status": "POLICY_LIVE_ADMISSION_DISABLED", "exit_code": 78 },
+        { "name": "provider-spawn-count", "status": "0", "exit_code": 0 },
+        { "name": "live-provider-proof", "status": "ABSENT", "exit_code": 0 }
+      ]
+    },
+    "component-artifacts": {
+      "minItems": 6,
+      "maxItems": 6,
+      "allOf": [
+        { "$ref": "#/$defs/artifact-component-preview-tape" },
+        { "$ref": "#/$defs/artifact-component-preview-gif" },
+        { "$ref": "#/$defs/artifact-transcript" },
+        { "$ref": "#/$defs/artifact-observation" },
+        { "$ref": "#/$defs/artifact-fallback" },
+        { "$ref": "#/$defs/artifact-frames" }
+      ]
+    },
+    "provider-artifacts": {
+      "minItems": 6,
+      "maxItems": 6,
+      "allOf": [
+        { "$ref": "#/$defs/artifact-provider-safety-tape" },
+        { "$ref": "#/$defs/artifact-provider-safety-gif" },
+        { "$ref": "#/$defs/artifact-transcript" },
+        { "$ref": "#/$defs/artifact-observation" },
+        { "$ref": "#/$defs/artifact-fallback" },
+        { "$ref": "#/$defs/artifact-frames" }
+      ]
+    },
+    "artifact-component-preview-tape": { "$ref": "#/$defs/artifact-contains-component-preview-tape" },
+    "artifact-component-preview-gif": { "$ref": "#/$defs/artifact-contains-component-preview-gif" },
+    "artifact-provider-safety-tape": { "$ref": "#/$defs/artifact-contains-provider-safety-tape" },
+    "artifact-provider-safety-gif": { "$ref": "#/$defs/artifact-contains-provider-safety-gif" },
+    "artifact-transcript": { "$ref": "#/$defs/artifact-contains-transcript" },
+    "artifact-observation": { "$ref": "#/$defs/artifact-contains-observation" },
+    "artifact-fallback": { "$ref": "#/$defs/artifact-contains-fallback" },
+    "artifact-frames": { "$ref": "#/$defs/artifact-contains-frames" },
+    "artifact-contains-component-preview-tape": { "contains": { "properties": { "path": { "const": "component-preview.tape" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-component-preview-gif": { "contains": { "properties": { "path": { "const": "component-preview.gif" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-provider-safety-tape": { "contains": { "properties": { "path": { "const": "provider-safety.tape" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-provider-safety-gif": { "contains": { "properties": { "path": { "const": "provider-safety.gif" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-transcript": { "contains": { "properties": { "path": { "const": "transcript.txt" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-observation": { "contains": { "properties": { "path": { "const": "observation.json" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-fallback": { "contains": { "properties": { "path": { "const": "fallback.png" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 },
+    "artifact-contains-frames": { "contains": { "properties": { "path": { "const": "frames.framemd5" } }, "required": ["path"] }, "minContains": 1, "maxContains": 1 }
+  },
+  "additionalProperties": false
+}

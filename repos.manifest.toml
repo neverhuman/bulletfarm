@@ -1,0 +1,14 @@
+# Hub copy of the family manifest. The container-level manifest is the family
+# index.
+# This file must not depend on sibling checkout paths.
+
+schema_version = "1.2.0"
+family = "bullet-farm"
+umbrella_repo = "bullet-farm"
+
+required_repos = [
+  "bullet-farm",
+  "bullet-kernel",
+  "bullet-git",
+  "bullet-portal",
+]

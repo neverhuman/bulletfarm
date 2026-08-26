@@ -1,0 +1,107 @@
+[[lane]]
+name = "source-scan"
+command = "bash scripts/ci-local.sh source-scan"
+purpose = "current-tree source and lockfile secret admission before dependency installation; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "fast"
+command = "just fast"
+purpose = "deterministic Hub metadata, setup refusal, and exact bullet-family test partition; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "lint"
+command = "just lint"
+purpose = "Rust format/Clippy, actionlint, ShellCheck, and CI negative meta-controls; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "required"
+command = "just check"
+purpose = "five atomic lanes sequentially and exactly once; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "contract-drift"
+command = "just contract-check"
+purpose = "canonical policy, schema, generated binding, and fixture drift proof; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "contract"
+command = "just contract"
+purpose = "contract drift plus exactly two pinned bounded formal models; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "security"
+command = "just security"
+purpose = "required secret, dependency, and workflow scans; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "docs"
+command = "just docs"
+purpose = "rustdoc, relative links, release truth, and reproducible README media; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "readme-media"
+command = "just readme-check"
+purpose = "schema, claims, redaction, hashes, limits, frame identity, and deterministic double rendering; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "audit"
+command = "just audit"
+purpose = "local Jankurai full-score ratchet with JSON, Markdown, and repair artifacts; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "family"
+command = "just family"
+purpose = "clean dependency-ordered BulletGit, Kernel, Portal, and Hub component proof; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "family-contract"
+command = "just family-contract"
+purpose = "compatibility alias for the same dependency-ordered family proof without duplicate Hub contract execution; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "history"
+command = "bash scripts/ci-local.sh history"
+purpose = "scheduled full-history secret scan over a non-shallow checkout; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "links"
+command = "bash scripts/ci-local.sh links"
+purpose = "scheduled external-link reachability diagnostic with a nonempty inventory; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "advisory"
+command = "bash scripts/ci-local.sh advisory"
+purpose = "scheduled RustSec refresh, freshness admission, and advisory-only dependency scan; unsigned component observation only; no release authority"
+requires_network = true
+
+[[lane]]
+name = "coverage"
+command = "bash scripts/ci-local.sh coverage"
+purpose = "scheduled full-workspace coverage with sanitized repository-relative Cobertura output; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "platform"
+command = "bash scripts/ci-local.sh platform"
+purpose = "scheduled macOS and Windows compile plus typed unsupported-mutation refusal; unsigned component observation only; no release authority"
+requires_network = false
+
+[[lane]]
+name = "toolchain-pinned"
+command = "just toolchain-pinned"
+purpose = "operator-local Rust 1.97.1 build and test observation; unsigned component observation only; no release authority"
+requires_network = false

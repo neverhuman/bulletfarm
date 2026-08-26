@@ -1,0 +1,36 @@
+schema_version = "2"
+family = "bullet-farm"
+tag = "v0.1.0-alpha.4"
+schema_bundle_hash = "blake3:c7240e1644dfdfe59b2f19fccd897417093971616d562d5bb2e2bfafaddeb3c7"
+
+[[member]]
+name = "bullet-farm"
+tag = "v0.1.0-alpha.4"
+commit_oid = "4d7f21731983e855f07d4a5a8e97fd5d743a3dc7"
+schema_bundle_hash = "blake3:c7240e1644dfdfe59b2f19fccd897417093971616d562d5bb2e2bfafaddeb3c7"
+release_signing_identity = "bot@jekko.ai|ed25519|SHA256:+FbqtZF+hPgrjJRh5Oq5gNUKUmtCykur2ZEUKAFRv+Y"
+generated_client_hash = "blake3:7c32a710809167c6af53cbc6c1fb6bf1a474b04abf2833369407c97a1607365c"
+
+[[member]]
+name = "bullet-kernel"
+tag = "v0.1.0-alpha.4"
+commit_oid = "d174334ca8e69ed6518430a291f5311663a48e5a"
+schema_bundle_hash = "blake3:c7240e1644dfdfe59b2f19fccd897417093971616d562d5bb2e2bfafaddeb3c7"
+release_signing_identity = "bot@jekko.ai|ed25519|SHA256:+FbqtZF+hPgrjJRh5Oq5gNUKUmtCykur2ZEUKAFRv+Y"
+generated_client_hash = "blake3:244fe449462b88563f49731f448c71bed4730fc02a11a19245001a4cb6d60355"
+
+[[member]]
+name = "bullet-git"
+tag = "v0.1.0-alpha.4"
+commit_oid = "ac44d7492b5f5211499cf16b7fc2793255ab1248"
+schema_bundle_hash = "blake3:c7240e1644dfdfe59b2f19fccd897417093971616d562d5bb2e2bfafaddeb3c7"
+release_signing_identity = "bot@jekko.ai|ed25519|SHA256:+FbqtZF+hPgrjJRh5Oq5gNUKUmtCykur2ZEUKAFRv+Y"
+generated_client_hash = "blake3:7c32a710809167c6af53cbc6c1fb6bf1a474b04abf2833369407c97a1607365c"
+
+[[member]]
+name = "bullet-portal"
+tag = "v0.1.0-alpha.4"
+commit_oid = "043bc72caec92ee4caf8e2f24336f65983fc6328"
+schema_bundle_hash = "blake3:c7240e1644dfdfe59b2f19fccd897417093971616d562d5bb2e2bfafaddeb3c7"
+release_signing_identity = "bot@jekko.ai|ed25519|SHA256:+FbqtZF+hPgrjJRh5Oq5gNUKUmtCykur2ZEUKAFRv+Y"
+generated_client_hash = "blake3:fcd3e7286cdeaeaf48d2576ebc2bc24d7dcc47991175da89928fa0acf24c1287"

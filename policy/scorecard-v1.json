@@ -1,0 +1,46 @@
+{
+  "schema_version": "scorecard-v1",
+  "rubric": "d2-v1",
+  "status": "instrumented",
+  "criterion_inventory_complete": true,
+  "blend": {
+    "architecture": 0.2,
+    "implemented": 0.6,
+    "stranger": 0.2
+  },
+  "dimensions": [
+    {"id": 1, "name": "Concurrency and authority kernel", "weight": 14, "design": 95, "implemented_floor": 64},
+    {"id": 2, "name": "Isolation and repository safety", "weight": 11, "design": 96, "implemented_floor": 78},
+    {"id": 3, "name": "Evidence and verification integrity", "weight": 12, "design": 94, "implemented_floor": 28},
+    {"id": 4, "name": "Integration and delivery authority", "weight": 11, "design": 92, "implemented_floor": 26},
+    {"id": 5, "name": "Identity, quota and cost governance", "weight": 8, "design": 90, "implemented_floor": 8},
+    {"id": 6, "name": "Multi-agent collaboration and roles", "weight": 8, "design": 88, "implemented_floor": 6},
+    {"id": 7, "name": "Evolutionary optimization", "weight": 5, "design": 86, "implemented_floor": 2},
+    {"id": 8, "name": "Operator truth and UX", "weight": 7, "design": 90, "implemented_floor": 48},
+    {"id": 9, "name": "Installability and release engineering", "weight": 8, "design": 94, "implemented_floor": 16},
+    {"id": 10, "name": "Security posture", "weight": 7, "design": 92, "implemented_floor": 58},
+    {"id": 11, "name": "Test and assurance depth", "weight": 6, "design": 90, "implemented_floor": 57},
+    {"id": 12, "name": "Documentation honesty", "weight": 3, "design": 94, "implemented_floor": 86}
+  ],
+  "architecture_design": 94.5,
+  "architecture_implemented_floor": 94.5,
+  "stranger_design": 100,
+  "stranger_implemented_floor": 3,
+  "rows": [
+    {"id": "d1.nonce-ledger", "dimension": 1, "kind": "ci-test", "claim": "Durable nonce issue/consume separated", "implemented_delta": 8, "evidence": {"source": "ci-observation", "subject_id": "scorecard.d1.nonce-ledger"}},
+    {"id": "d1.signed-transport", "dimension": 1, "kind": "receipt", "claim": "Signed lease transport mounted internally", "implemented_delta": 8, "evidence": null},
+    {"id": "d2.egress-ci", "dimension": 2, "kind": "ci-test", "claim": "Three egress proofs run every push", "implemented_delta": 6, "evidence": null},
+    {"id": "d3.proof-root-eight", "dimension": 3, "kind": "ci-test", "claim": "ProofRoot over eight inputs with tamper tests", "implemented_delta": 12, "evidence": {"source": "ci-observation", "subject_id": "scorecard.d3.proof-root-eight"}},
+    {"id": "d4.attestor", "dimension": 4, "kind": "receipt", "claim": "Attestor binary posts exact-SHA checks", "implemented_delta": 8, "evidence": null},
+    {"id": "d4.jeryu-live", "dimension": 4, "kind": "gate", "claim": "release.forge.jeryu admitted", "implemented_delta": 10, "evidence": null},
+    {"id": "d5.budgets", "dimension": 5, "kind": "ci-test", "claim": "Atomic dual-tree reservation/settlement", "implemented_delta": 10, "evidence": {"source": "ci-observation", "subject_id": "scorecard.d5.budgets"}},
+    {"id": "d6.two-providers", "dimension": 6, "kind": "receipt", "claim": "Two providers dispatch through the router", "implemented_delta": 12, "evidence": null},
+    {"id": "d7.evolution-off", "dimension": 7, "kind": "ci-test", "claim": "evolutionary_authority remains false until OD-H", "implemented_delta": 6, "evidence": {"source": "ci-observation", "subject_id": "scorecard.d7.evolution-off"}},
+    {"id": "d8.fifteen-surfaces", "dimension": 8, "kind": "ci-test", "claim": "Fifteen portal surfaces render durable subjects", "implemented_delta": 10, "evidence": null},
+    {"id": "d9.schema-3", "dimension": 9, "kind": "gate", "claim": "release.installable-lock admitted", "implemented_delta": 20, "evidence": null},
+    {"id": "d10.jankurai-90", "dimension": 10, "kind": "gate", "claim": "release.jankurai-90 admitted", "implemented_delta": 8, "evidence": null},
+    {"id": "d11.invariants-51", "dimension": 11, "kind": "ci-test", "claim": "51/51 invariants enforced", "implemented_delta": 8, "evidence": null},
+    {"id": "d12.signed-jeryu-tags", "dimension": 12, "kind": "source-receipt", "claim": "Jeryu tags are annotated and signed", "implemented_delta": 4, "evidence": null},
+    {"id": "g2.transaction-proof", "dimension": 1, "kind": "gate", "claim": "release.transaction-demo admitted", "implemented_delta": 8, "evidence": null}
+  ]
+}
