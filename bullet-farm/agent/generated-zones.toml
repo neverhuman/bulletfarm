@@ -1,0 +1,168 @@
+# Generated artifacts that must be repaired from their source, never hand-edited.
+[[zone]]
+path = "family.lock"
+source = "repos.manifest.toml + signed immutable member tags"
+command = "cargo run --locked --quiet --bin bullet-family -- lock generate --tag <version> --subjects <absolute-path>"
+read_only = true
+
+[[zone]]
+path = ".fusion/"
+source = "repos.manifest.toml + family.lock + exact member checkouts"
+command = "bash scripts/fuse.sh --source local"
+read_only = true
+
+[[zone]]
+path = "contracts/v1alpha1/schema-bundle.json"
+source = "contracts/v1alpha1/contract-catalog.json"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "contracts/v1alpha1/bundle-manifest.json"
+source = "contracts/v1alpha1/contract-catalog.json"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "contracts/generated/"
+source = "contracts/v1alpha1/contract-catalog.json + policy/v1alpha1/invariant-registry.json + policy/v1alpha1/policy-template.json"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "policy/v1alpha1/policy.json"
+source = "policy/v1alpha1/policy-template.json + policy/v1alpha1/invariant-registry.json + contracts/v1alpha1/contract-catalog.json"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "crates/bullet-wire/tests/fixtures/policy-v1alpha2-live-enabled.json"
+source = "policy/v1alpha1/policy-template.json + policy/v1alpha1/invariant-registry.json + contracts/v1alpha1/contract-catalog.json + crates/bullet-wire/src/contract_tool.rs"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "fixtures/hostile/cases/"
+source = "crates/bullet-wire/src/contract_tool.rs"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "fixtures/hostile/fixture-manifest.json"
+source = "fixtures/hostile/team-original.bin"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "fixtures/canonical/canonical-golden.json"
+source = "crates/bullet-wire/src/contract_tool.rs"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "fixtures/canonical/authority-golden.json"
+source = "crates/bullet-wire/src/contract_tool.rs"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "fixtures/canonical/launch-grant-golden.json"
+source = "crates/bullet-wire/src/contract_tool/launch.rs"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "docs/assurance/invariant-crosswalk.generated.md"
+source = "policy/v1alpha1/invariant-registry.json"
+command = "just contract-generate"
+read_only = true
+
+[[zone]]
+path = "docs/assurance/release-truth.generated.md"
+source = "src/check/prerequisites.rs + src/check/truth/rows.rs + family.lock + repos.manifest.toml + docs/release.md + docs/assurance/product-gaps.md"
+command = "just release-truth"
+read_only = true
+
+[[zone]]
+path = "docs/assurance/corpus-coverage.generated.md"
+source = "policy/corpus-coverage-v1.json + src/check/corpus/"
+command = "bash scripts/corpus-coverage.sh write"
+read_only = true
+
+[[zone]]
+path = "formal/traces/"
+source = "formal/*.tla + formal/*.cfg + formal/toolchain.lock.json + formal/model-lock.json"
+command = "just model-check"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/component-preview/transcript.txt"
+source = "docs/readme-media/snapshot.json + frozen credential-free component scenario"
+command = "just readme-record"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/component-preview/observation.json"
+source = "docs/readme-media/snapshot.json + frozen credential-free component scenario"
+command = "just readme-record"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/provider-safety/transcript.txt"
+source = "docs/readme-media/snapshot.json + four frozen offline suites + four live-admission refusals"
+command = "just readme-record"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/provider-safety/observation.json"
+source = "docs/readme-media/snapshot.json + four frozen offline suites + four live-admission refusals"
+command = "just readme-record"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/component-preview/component-preview.gif"
+source = "component-preview.tape + transcript.txt + pinned VHS/FFmpeg image"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/component-preview/fallback.png"
+source = "component-preview.gif"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/component-preview/frames.framemd5"
+source = "component-preview.gif"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/component-preview/manifest.json"
+source = "component-preview tape/transcript/observation + rendered artifacts + playback/snapshot/schema + readme check/input-check/record/render/schema-check scripts"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/provider-safety/provider-safety.gif"
+source = "provider-safety.tape + transcript.txt + pinned VHS/FFmpeg image"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/provider-safety/fallback.png"
+source = "provider-safety.gif"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/provider-safety/frames.framemd5"
+source = "provider-safety.gif"
+command = "just readme-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-media/provider-safety/manifest.json"
+source = "provider-safety tape/transcript/observation + rendered artifacts + playback/snapshot/schema + readme check/input-check/record/render/schema-check scripts"
+command = "just readme-render"
+read_only = true

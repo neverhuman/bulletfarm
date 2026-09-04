@@ -1,17 +1,44 @@
-# bullet-farm Agent Instructions
+# Bullet Farm Split Family
 
-Read `SPLIT.md` first. This repository is the public hub of the Bullet Farm
-split family.
-Discover the outermost family root from `repos.manifest.toml`. Read its
-`AGENT_CHAT.md` before every claim and edit, and use `bullet-family coord` for
-machine-enforced claims. Never commit a machine-local absolute chat path.
+`/home/ubuntu/bullet` is the split-family container. It is not a Git repository.
+Every product repo lives as an independent checkout under this directory.
 
-Read `agent/JANKURAI_STANDARD.md` next.
-Do not edit outside requested ownership. Run the mapped test lane before the
-final response.
+Read `repos.manifest.toml` first. Read and append `/home/ubuntu/bullet/AGENT_CHAT.md`
+before every claim, edit, and handoff. Re-read immediately before writing.
+Repository-local `AGENTS.md` files add path-specific rules; this family rule
+always remains in force.
 
-- Canonical local Jeryu slug: `root/bullet-farm`.
-- Do not add committed cross-repo `path = "../..."` dependencies.
-- Do not hand-edit generated artifacts listed in `agent/generated-zones.toml`.
-- Run `bash scripts/ci-local.sh required` before handing off changes.
-- Spec documents under `docs/spec/` are design corpus, not runtime authority.
+## Zero-new-worktree rule
+
+Do not create Git worktrees anywhere, for any reason. Work only in the claimed
+canonical primary checkout of each member repo.
+
+## Family map
+
+| Repo | Role |
+| --- | --- |
+| `bullet-farm` | Public hub, installer, onboarding, family lock, spec corpus. Public GitHub index: `https://github.com/neverhuman/bulletfarm` (not `neverhuman/bullet-farm`) |
+| `bullet-kernel` | Control-plane modular monolith and trust-boundary bins |
+| `bullet-git` | BulletGit types, capability API, journal, proof roots |
+| `bullet-portal` | Vite + React operations portal |
+
+## Jeryu
+
+Consume Jeryu through pinned tags. The only permitted Jeryu family is
+`/home/ubuntu/jain-split/jeryu-split`. Do not recreate `/home/ubuntu/jeryu-split`.
+Do not add committed `path = "../..."` dependencies.
+
+## Proof
+
+From the hub:
+
+```bash
+cargo run --locked --quiet --bin bullet-family -- doctor --json
+just fast
+just demo
+```
+
+`just setup` refuses first unless `BULLET_SETUP_ADMITTED_BIN` and the explicit absolute
+Cargo/Node/npm subjects are supplied. Once those bootstrap inputs exist, the selected external CLI
+rejects the checked-in schema-2 `family.lock` with `UNSUPPORTED_SCHEMA`; see
+`bullet-farm/docs/runbooks/source-setup.md`. The family index is `README.md` in this directory.

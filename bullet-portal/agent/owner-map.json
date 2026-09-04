@@ -1,0 +1,22 @@
+{
+  "workspace": "bullet-portal",
+  "owners": {
+    "AGENTS.md": "agent",
+    "SPLIT.md": "split",
+    "README.md": "docs",
+    "LICENSE": "workspace",
+    "Justfile": "ops",
+    "package.json": "workspace",
+    "package-lock.json": "workspace",
+    "ci.toml": "ops",
+    "docs/": "docs",
+    ".gitignore": "ops",
+    ".gitleaksignore": "ops",
+    "agent/": "agent",
+    "src/": "web",
+    "e2e/": "web",
+    "ops/": "ops",
+    "scripts/": "ops",
+    ".github/": "ops"
+  }
+}

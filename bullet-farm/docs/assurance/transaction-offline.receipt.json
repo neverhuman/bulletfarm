@@ -1,0 +1,32 @@
+{
+  "attempt_first": "atm_6d09b535b24539ce5dd27bd6b042dd9cac094d1086e3b5f10468706bff88265b",
+  "attempt_second": "atm_8e51e1cd5f5bc91717d78d0792de394eeb997f6746cd358a48d694d662ff48a2",
+  "base_oid": "c1ff087cef9006f691a4a88f44785cd8046f5889",
+  "candidate_id": "can_7eec1bafb9145e0991fc5a37270e51a1405f5d2fd36493930c42d3044c3beec2",
+  "children": {
+    "farmd": "bullet-farmd",
+    "gitd": "bullet-gitd",
+    "runner": "bullet-runner",
+    "verifier": "bullet-verifier-fixture"
+  },
+  "command_id": "cmd_44285d50af209c43abe1b5ad3085da40b627c709a4bf392996227b98b9cf68c6",
+  "command_phase": "pending",
+  "effect_settled": "COMMITTED",
+  "effect_unknown": "OUTCOME_UNKNOWN",
+  "evidence_class": "COMPONENT_PROOF",
+  "fence_first": 1,
+  "fence_second": 2,
+  "gitd_fixture": false,
+  "head_oid": "6ba3b3306cfbfe574d74e6d6f1251451ef27faaf",
+  "independent_evidence_eligible": false,
+  "product_runner_gate_passed": true,
+  "product_runner_outcome": "CANDIDATE_BINDING_REFUSED",
+  "schema_version": "v1alpha1",
+  "signing_trust": "UNSIGNED_FIXTURE",
+  "stale_refused": true,
+  "transaction_gate_eligible": false,
+  "tree_oid": "618430ce7ff8883985bf50af5c074b07626ddc4d",
+  "unknown_then_adopt": true,
+  "verifier_outcome": "PASS",
+  "writer_proof_refused": true
+}

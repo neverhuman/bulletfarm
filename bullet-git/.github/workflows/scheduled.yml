@@ -1,0 +1,304 @@
+name: Scheduled diagnostics
+
+on:
+  schedule:
+    - cron: "23 4 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: scheduled-${{ github.run_id }}
+  cancel-in-progress: false
+
+jobs:
+  source_scan:
+    name: scheduled source scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    outputs:
+      observation: ${{ steps.artifacts.outputs.observation }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install pinned gitleaks
+        run: bash ops/ci/install-gitleaks.sh
+      - name: Scan current source and lockfiles
+        run: bash scripts/ci-local.sh source-scan
+      - name: Validate sanitized observation
+        id: artifacts
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh source-scan "$EXPECTED_COMMIT"
+          echo "observation=present" >> "$GITHUB_OUTPUT"
+      - name: Stage exact source-scan diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh source-scan "$EXPECTED_COMMIT"
+      - name: Upload source-scan observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-scheduled-source-scan
+          path: target/ci-upload/source-scan/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  history:
+    name: Full-history secret scan
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install pinned gitleaks
+        run: bash ops/ci/install-gitleaks.sh
+      - name: Scan complete Git history
+        run: bash scripts/ci-local.sh history
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/artifact-check.sh history "$EXPECTED_COMMIT"
+      - name: Stage exact history diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh history "$EXPECTED_COMMIT"
+      - name: Upload history observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-history
+          path: target/ci-upload/history/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  links:
+    name: External links
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Check external links
+        run: bash scripts/ci-local.sh links
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/artifact-check.sh links "$EXPECTED_COMMIT"
+      - name: Stage exact links diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh links "$EXPECTED_COMMIT"
+      - name: Upload link observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-links
+          path: target/ci-upload/links/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  advisory:
+    name: RustSec advisories
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - uses: taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb # v2.62.45
+        with:
+          tool: cargo-deny@0.19.8
+          fallback: none
+      - name: Refresh and scan RustSec advisories
+        run: bash scripts/ci-local.sh advisory
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/artifact-check.sh advisory "$EXPECTED_COMMIT"
+      - name: Stage exact advisory diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh advisory "$EXPECTED_COMMIT"
+      - name: Upload advisory observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-advisory
+          path: target/ci-upload/advisory/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  coverage:
+    name: Workspace coverage
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+          components: llvm-tools-preview
+      - uses: taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb # v2.62.45
+        with:
+          tool: |
+            cargo-nextest@0.9.137
+            cargo-llvm-cov@0.8.7
+          fallback: none
+      - name: Generate LCOV report
+        run: bash scripts/ci-local.sh coverage
+      - name: Validate sanitized coverage artifact
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/artifact-check.sh coverage "$EXPECTED_COMMIT"
+      - name: Stage exact coverage diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh coverage "$EXPECTED_COMMIT"
+      - name: Upload coverage diagnostic
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-coverage
+          path: target/ci-upload/coverage/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  macos:
+    name: macOS compile and typed refusal
+    needs: source_scan
+    runs-on: macos-15
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - name: Compile and prove typed mutation refusal
+        shell: bash
+        run: bash scripts/ci-local.sh platform
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/artifact-check.sh platform "$EXPECTED_COMMIT"
+      - name: Stage exact platform diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh platform "$EXPECTED_COMMIT"
+      - name: Upload macOS observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-macos-refusal
+          path: target/ci-upload/platform/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  windows:
+    name: Windows compile and typed refusal
+    needs: source_scan
+    runs-on: windows-2025
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - name: Compile and prove typed mutation refusal
+        shell: bash
+        run: bash scripts/ci-local.sh platform
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/artifact-check.sh platform "$EXPECTED_COMMIT"
+      - name: Stage exact platform diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        shell: bash
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh platform "$EXPECTED_COMMIT"
+      - name: Upload Windows observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-windows-refusal
+          path: target/ci-upload/platform/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  audit:
+    name: Jankurai audit
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Resolve the pinned auditor or refuse neutral
+        run: |
+          command -v jankurai >/dev/null 2>&1 || {
+            echo "::error::AUDITOR_UNAVAILABLE_HOSTED: jankurai 1.6.11 is a machine-local build with no checksum-pinned hosted artifact; the audit lane did not run"
+            exit 78
+          }
+      - name: Run audit lane
+        id: lane
+        run: bash scripts/ci-local.sh audit
+      - name: Upload audit observation
+        if: ${{ !cancelled() && steps.lane.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-audit
+          path: .ci-artifacts/observations/audit.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14

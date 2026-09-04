@@ -1,0 +1,17 @@
+# Gitleaks configuration for bullet-farm's source scan (ops/ci/source-scan.sh).
+#
+# One allowlist entry only. `credential_projection_digest` is a public BLAKE3
+# digest of a credential-projection *profile* (bullet-wire dogfood records);
+# its value is never key material, but the field name contains "credential"
+# and the value is 64 high-entropy hex, so the generic-api-key rule fires on
+# committed test fixtures. The pattern admits exactly that JSON field with a
+# 64-hex value and nothing else. The secret canary (ops/ci/secret-canary.sh)
+# scans a directory outside this root and is unaffected by this file.
+
+[extend]
+useDefault = true
+
+[allowlist]
+description = "credential_projection_digest is a public BLAKE3 digest, not a secret"
+regexTarget = "match"
+regexes = ['''credential_projection_digest":"[0-9a-f]{64}''']

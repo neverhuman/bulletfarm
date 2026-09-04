@@ -1,0 +1,47 @@
+[package]
+name = "bullet-family"
+version = "0.1.0"
+edition = "2024"
+rust-version = "1.95"
+license = "Apache-2.0"
+description = "Bullet Farm family coordination and onboarding CLI"
+
+[workspace]
+members = ["crates/bullet-linux-lease", "crates/bullet-wire"]
+default-members = [".", "crates/bullet-linux-lease", "crates/bullet-wire"]
+resolver = "3"
+
+[dependencies]
+blake3 = "1"
+bullet-wire = { version = "=0.1.0", path = "crates/bullet-wire" }
+ed25519-compact = { version = "=2.4.2", default-features = false, features = ["std"] }
+fs2 = "0.4"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+sha2 = "=0.10.9"
+tar = { version = "=0.4.46", default-features = false }
+tempfile = "=3.19.1"
+toml = "0.9.12"
+zip = { version = "=2.4.2", default-features = false }
+zstd = { version = "=0.13.3", default-features = false }
+
+[target.'cfg(unix)'.dependencies]
+nix = { version = "=0.29.0", default-features = false, features = ["fs", "process", "signal"] }
+rustix = { version = "=1.1.4", default-features = false, features = ["fs", "process", "std", "time"] }
+
+[target.'cfg(target_os = "linux")'.dependencies]
+bullet-linux-lease = { version = "=0.1.0", path = "crates/bullet-linux-lease" }
+
+[lib]
+name = "bullet_family"
+path = "src/lib.rs"
+
+[[bin]]
+name = "bullet-family"
+path = "src/main.rs"
+
+[lints.rust]
+unsafe_code = "forbid"
+
+[lints.clippy]
+all = "deny"

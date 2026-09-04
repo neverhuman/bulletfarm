@@ -1,0 +1,282 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+  merge_group:
+    types: [checks_requested]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+env:
+  CARGO_TERM_COLOR: always
+  RUSTUP_AUTO_INSTALL: "0"
+
+jobs:
+  source_scan:
+    name: source scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install checksum-pinned gitleaks 8.21.2
+        run: bash ops/ci/install-gitleaks.sh
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Scan source and lockfiles before dependency installation
+        run: bash scripts/ci-local.sh source-scan
+      - name: Validate observation
+        if: ${{ always() }}
+        run: bash ops/ci/artifact-check.sh source-scan "$GITHUB_SHA"
+      - name: Stage exact sanitized diagnostics
+        id: stage
+        if: ${{ always() }}
+        run: bash ops/ci/stage-artifacts.sh source-scan "$GITHUB_SHA"
+      - name: Upload sanitized diagnostics
+        if: ${{ always() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hub-source-scan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-upload/source-scan/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  fast:
+    name: fast
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.95.0
+      - uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
+        with:
+          tool: cargo-nextest@0.9.137
+          fallback: none
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Hub component partition
+        run: bash scripts/ci-local.sh fast
+      - name: Validate sanitized JUnit and observation
+        if: ${{ always() }}
+        run: bash ops/ci/artifact-check.sh fast "$GITHUB_SHA"
+      - name: Stage exact sanitized diagnostics
+        id: stage
+        if: ${{ always() }}
+        run: bash ops/ci/stage-artifacts.sh fast "$GITHUB_SHA"
+      - name: Upload sanitized diagnostics
+        if: ${{ always() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hub-fast-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-upload/fast/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  lint:
+    name: lint
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.95.0
+          components: rustfmt, clippy
+      - uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
+        with:
+          tool: actionlint@1.7.8,shellcheck@0.10.0,cargo-nextest@0.9.137
+          fallback: none
+      - name: Install hash-locked Draft 2020-12 validator
+        run: |
+          bash ops/ci/install-readme-jsonschema.sh
+          echo "$GITHUB_WORKSPACE/target/.ci-tools/readme-jsonschema/bin" >> "$GITHUB_PATH"
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Rust, shell, workflow, and CI policy lint
+        run: bash scripts/ci-local.sh lint
+      - name: Validate observation
+        if: ${{ always() }}
+        run: bash ops/ci/artifact-check.sh lint "$GITHUB_SHA"
+      - name: Stage exact sanitized diagnostics
+        id: stage
+        if: ${{ always() }}
+        run: bash ops/ci/stage-artifacts.sh lint "$GITHUB_SHA"
+      - name: Upload sanitized diagnostics
+        if: ${{ always() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hub-lint-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-upload/lint/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  contract:
+    name: contract
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.95.0
+      - uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+        with:
+          distribution: temurin
+          java-version: "21"
+      - uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
+        with:
+          tool: cargo-nextest@0.9.137
+          fallback: none
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Wire contracts and pinned formal models
+        run: bash scripts/ci-local.sh contract
+      - name: Validate sanitized JUnit, formal diagnostics, and observation
+        if: ${{ always() }}
+        run: bash ops/ci/artifact-check.sh contract "$GITHUB_SHA"
+      - name: Stage exact sanitized diagnostics
+        id: stage
+        if: ${{ always() }}
+        run: bash ops/ci/stage-artifacts.sh contract "$GITHUB_SHA"
+      - name: Upload sanitized diagnostics
+        if: ${{ always() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hub-contract-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-upload/contract/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  security:
+    name: security
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.95.0
+      - name: Install checksum-pinned gitleaks 8.21.2
+        run: bash ops/ci/install-gitleaks.sh
+      - uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
+        with:
+          tool: cargo-deny@0.19.8,zizmor@1.25.2
+          fallback: none
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Secrets, supply chain, and workflow security
+        run: bash scripts/ci-local.sh security
+      - name: Validate observation
+        if: ${{ always() }}
+        run: bash ops/ci/artifact-check.sh security "$GITHUB_SHA"
+      - name: Stage exact sanitized diagnostics
+        id: stage
+        if: ${{ always() }}
+        run: bash ops/ci/stage-artifacts.sh security "$GITHUB_SHA"
+      - name: Upload sanitized diagnostics
+        if: ${{ always() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hub-security-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-upload/security/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  docs:
+    name: docs
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.95.0
+      - name: Preload exact VHS 0.11.0 renderer subject
+        run: docker pull ghcr.io/charmbracelet/vhs@sha256:9d5fc3dc0c160b0fb1d2212baff07e6bdf3fa9438c504a3237484567302fcf93
+      - name: Install hash-locked Draft 2020-12 validator
+        run: |
+          bash ops/ci/install-readme-jsonschema.sh
+          echo "$GITHUB_WORKSPACE/target/.ci-tools/readme-jsonschema/bin" >> "$GITHUB_PATH"
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Documentation, release truth, and deterministic media
+        run: bash scripts/ci-local.sh docs
+      - name: Validate observation
+        if: ${{ always() }}
+        run: bash ops/ci/artifact-check.sh docs "$GITHUB_SHA"
+      - name: Stage exact sanitized diagnostics
+        id: stage
+        if: ${{ always() }}
+        run: bash ops/ci/stage-artifacts.sh docs "$GITHUB_SHA"
+      - name: Upload sanitized diagnostics
+        if: ${{ always() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: hub-docs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-upload/docs/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  required:
+    name: required
+    if: ${{ always() }}
+    needs: [source_scan, fast, lint, contract, security, docs]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 8
+    env:
+      EXPECTED_COMMIT: ${{ github.sha }}
+      SOURCE_SCAN_RESULT: ${{ needs.source_scan.result }}
+      FAST_RESULT: ${{ needs.fast.result }}
+      LINT_RESULT: ${{ needs.lint.result }}
+      CONTRACT_RESULT: ${{ needs.contract.result }}
+      SECURITY_RESULT: ${{ needs.security.result }}
+      DOCS_RESULT: ${{ needs.docs.result }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Download atomic observations and sanitized reports
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: hub-*-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-atomic
+          merge-multiple: false
+      - name: Reject failed, skipped, cancelled, missing, dirty, or malformed predecessors
+        if: ${{ always() }}
+        run: |
+          bash ops/ci/checkout-subject.sh "$GITHUB_WORKSPACE" "$EXPECTED_COMMIT"
+          bash ops/ci/aggregate.sh "$RUNNER_TEMP/bullet-atomic" "$EXPECTED_COMMIT" \
+            "${{ github.run_id }}" "${{ github.run_attempt }}" \
+            "$SOURCE_SCAN_RESULT" "$FAST_RESULT" "$LINT_RESULT" \
+            "$CONTRACT_RESULT" "$SECURITY_RESULT" "$DOCS_RESULT"
+          bash ops/ci/checkout-subject.sh "$GITHUB_WORKSPACE" "$EXPECTED_COMMIT"

@@ -1,0 +1,284 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+  merge_group:
+    types: [checks_requested]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || github.run_id }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  source_scan:
+    name: source scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install pinned gitleaks
+        run: bash ops/ci/install-gitleaks.sh
+      - name: Scan source and lockfiles before dependency installation
+        run: bash scripts/ci-local.sh source-scan
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh source-scan "$EXPECTED_COMMIT"
+      - name: Stage exact source-scan diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh source-scan "$EXPECTED_COMMIT"
+      - name: Upload source-scan observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-source-scan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/ci-upload/source-scan/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  fast:
+    name: fast
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - uses: taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb # v2.62.45
+        with:
+          tool: cargo-nextest@0.9.137
+          fallback: none
+      - name: Run fast lane
+        run: bash scripts/ci-local.sh fast
+      - name: Validate sanitized JUnit and observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh fast "$EXPECTED_COMMIT"
+      - name: Stage exact fast diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh fast "$EXPECTED_COMMIT"
+      - name: Upload fast diagnostics
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-fast-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/ci-upload/fast/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  lint:
+    name: lint
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+          components: rustfmt, clippy
+      - name: Install pinned actionlint
+        run: bash ops/ci/install-actionlint.sh
+      - uses: taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb # v2.62.45
+        with:
+          tool: |
+            cargo-nextest@0.9.137
+            shellcheck@0.10.0
+            zizmor@1.25.2
+          fallback: none
+      - name: Run lint lane
+        run: bash scripts/ci-local.sh lint
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh lint "$EXPECTED_COMMIT"
+      - name: Stage exact lint diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh lint "$EXPECTED_COMMIT"
+      - name: Upload lint observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-lint-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/ci-upload/lint/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  contract:
+    name: contract
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - uses: taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb # v2.62.45
+        with:
+          tool: cargo-nextest@0.9.137
+          fallback: none
+      - name: Run contract lane
+        run: bash scripts/ci-local.sh contract
+      - name: Validate sanitized JUnit and observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh contract "$EXPECTED_COMMIT"
+      - name: Stage exact contract diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh contract "$EXPECTED_COMMIT"
+      - name: Upload contract diagnostics
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-contract-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/ci-upload/contract/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  security:
+    name: security
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - name: Install pinned gitleaks
+        run: bash ops/ci/install-gitleaks.sh
+      - uses: taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb # v2.62.45
+        with:
+          tool: cargo-deny@0.19.8
+          fallback: none
+      - name: Run security lane
+        run: bash scripts/ci-local.sh security
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh security "$EXPECTED_COMMIT"
+      - name: Stage exact security diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh security "$EXPECTED_COMMIT"
+      - name: Upload security observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-security-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/ci-upload/security/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  docs:
+    name: docs
+    needs: source_scan
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
+      - name: Run docs lane
+        run: bash scripts/ci-local.sh docs
+      - name: Validate sanitized observation
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: |
+          bash ops/ci/artifact-check.sh docs "$EXPECTED_COMMIT"
+      - name: Stage exact docs diagnostics
+        id: stage
+        if: ${{ !cancelled() }}
+        env:
+          EXPECTED_COMMIT: ${{ github.sha }}
+        run: bash ops/ci/stage-artifacts.sh docs "$EXPECTED_COMMIT"
+      - name: Upload docs observation
+        if: ${{ !cancelled() && steps.stage.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: bullet-git-docs-${{ github.run_id }}-${{ github.run_attempt }}
+          path: target/ci-upload/docs/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
+  required:
+    name: required
+    needs: [source_scan, fast, lint, contract, security, docs]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    env:
+      EXPECTED_COMMIT: ${{ github.sha }}
+      SOURCE_SCAN_RESULT: ${{ needs.source_scan.result }}
+      FAST_RESULT: ${{ needs.fast.result }}
+      LINT_RESULT: ${{ needs.lint.result }}
+      CONTRACT_RESULT: ${{ needs.contract.result }}
+      SECURITY_RESULT: ${{ needs.security.result }}
+      DOCS_RESULT: ${{ needs.docs.result }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Download this run's atomic observations and sanitized reports
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          pattern: bullet-git-*-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-artifacts/atomic
+          merge-multiple: true
+      - name: Converge exact CI / required context
+        if: ${{ always() }}
+        run: |
+          bash ops/ci/aggregate.sh .ci-artifacts/atomic "$EXPECTED_COMMIT" \
+            "$SOURCE_SCAN_RESULT" "$FAST_RESULT" "$LINT_RESULT" \
+            "$CONTRACT_RESULT" "$SECURITY_RESULT" "$DOCS_RESULT"

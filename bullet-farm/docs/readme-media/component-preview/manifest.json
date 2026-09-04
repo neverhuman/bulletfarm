@@ -1,0 +1,98 @@
+{
+  "schema_version": "bullet.readme-demo.v1",
+  "document_type": "manifest",
+  "demo_id": "component-preview",
+  "observed_at": "2026-08-25T14:26:25Z",
+  "classification": "UNSIGNED_COMPONENT_OBSERVATION",
+  "release_authority": false,
+  "live_provider_spawned": false,
+  "network": "disabled-during-render",
+  "renderer": {
+    "name": "VHS",
+    "version": "0.11.0",
+    "image": "ghcr.io/charmbracelet/vhs@sha256:9d5fc3dc0c160b0fb1d2212baff07e6bdf3fa9438c504a3237484567302fcf93",
+    "ffmpeg_version": "7.1.3-0+deb13u1",
+    "canonicalization": "committed-transcript-drawtext",
+    "width": 1200,
+    "height": 675,
+    "frames_per_second": 12,
+    "maximum_duration_seconds": 30,
+    "maximum_gif_bytes": 3145728,
+    "font": "JetBrains Mono",
+    "locale": "C.UTF-8",
+    "timezone": "UTC",
+    "source_date_epoch": 1787616000,
+    "cursor_blink": false
+  },
+  "generation": {
+    "name": "bullet-farm-readme-render",
+    "version": 1,
+    "command": "bash scripts/readme-render.sh",
+    "inputs": [
+      {
+        "path": "docs/readme-media/playback.sh",
+        "sha256": "3e7b7153bd85b89772ce1035b77d7a23db238a85aef9abf18be94f2853f9dcbc"
+      },
+      {
+        "path": "docs/readme-media/snapshot.json",
+        "sha256": "7b750ca2b0dede6ead7fd7b5f33cb0d91aba0000a56bdb68ebe4a008bbf5e313"
+      },
+      {
+        "path": "docs/schemas/bullet.readme-demo.v1.schema.json",
+        "sha256": "a67cdfe0618afe22b18fa4b9072317c72c225d9b427e71abd8fd1e974e14d42f"
+      },
+      {
+        "path": "scripts/readme-check.sh",
+        "sha256": "31d947934eba00dad7a645ca6e9737cd1fefcd02c7673df126b61cd1fe8d9db6"
+      },
+      {
+        "path": "scripts/readme-input-check.sh",
+        "sha256": "2285979017a6b26befd72422e5d9abaa29c2f737501bc9ccc13333ac2fcf0d5d"
+      },
+      {
+        "path": "scripts/readme-record.sh",
+        "sha256": "79b6bc033b6a35fa0c26350e85ca7e3d139516ae4c195d60aea9dd7a7041fdd8"
+      },
+      {
+        "path": "scripts/readme-render.sh",
+        "sha256": "1dc70a6135787e3903e815e892dbd2e6d74ed3fb6caaa9153a1ab23dda2a78c6"
+      },
+      {
+        "path": "scripts/readme-schema-check.sh",
+        "sha256": "4db6463a7f36d52b891de058a959e541bfa257d1c019644a0c4568b0443012ec"
+      }
+    ]
+  },
+  "artifact_hashes": [
+    {
+      "path": "component-preview.tape",
+      "sha256": "7b19d0d1b41b80c69710e412fec0a88117fc1f4dd73b9fcb4f633eb5c7db4ad4",
+      "bytes": 936
+    },
+    {
+      "path": "transcript.txt",
+      "sha256": "65c85d6c3cbd8698c57af39e2789dc961971e60eb667353fc3444aa512f56d7c",
+      "bytes": 224
+    },
+    {
+      "path": "observation.json",
+      "sha256": "cf1174ac542c53fc38abb87a3f00518f438bbef9482e4cb8b5e0b0600e1e9824",
+      "bytes": 1512
+    },
+    {
+      "path": "fallback.png",
+      "sha256": "5d0108d9c73f8fb8f3883925561c25099149527c6d51a4d8f4835f54ab0ded58",
+      "bytes": 43307
+    },
+    {
+      "path": "component-preview.gif",
+      "sha256": "856782b3fb2c276804efd264d8cd4f23a19997bd8b5c80d389355deb12795d44",
+      "bytes": 30248
+    },
+    {
+      "path": "frames.framemd5",
+      "sha256": "c3b78766a2754cbeacd4280234f584f68eb7e633559733c8edd7772ab62ab9f3",
+      "bytes": 7680
+    }
+  ]
+}

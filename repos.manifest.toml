@@ -1,10 +1,17 @@
-# Hub copy of the family manifest. The container-level manifest is the family
-# index.
-# This file must not depend on sibling checkout paths.
+# Bullet Farm split-family manifest (Jeryu-compatible).
+# The container is not a Git repository. Each member is an independent repo.
+# Committed manifests must not depend on sibling checkout paths.
+# Public GitHub index (discovery/PR mirror, not source authority):
+# https://github.com/neverhuman/bulletfarm
+# The hyphenated slug neverhuman/bullet-farm is not the public URL.
 
 schema_version = "1.2.0"
+workers = 8
+split_root = "/home/ubuntu/bullet"
 family = "bullet-farm"
+repo_family = "bullet-farm"
 umbrella_repo = "bullet-farm"
+onboarding_gates = ["ci-skeleton", "demo-green"]
 
 required_repos = [
   "bullet-farm",
@@ -12,3 +19,51 @@ required_repos = [
   "bullet-git",
   "bullet-portal",
 ]
+
+[[repo]]
+path = "/home/ubuntu/bullet/bullet-farm"
+name = "bullet-farm"
+slug = "bullet-farm"
+jeryu_slug = "root/bullet-farm"
+role = "portal"
+profile = "public-portal"
+branch = "main"
+default_branch = "main"
+has_jankurai_std = true
+note = "Public hub, installer, family lock, and onboarding."
+
+[[repo]]
+path = "/home/ubuntu/bullet/bullet-kernel"
+name = "bullet-kernel"
+slug = "bullet-kernel"
+jeryu_slug = "root/bullet-kernel"
+role = "core"
+profile = "rust-workspace"
+branch = "main"
+default_branch = "main"
+has_jankurai_std = true
+note = "Control-plane domain, ledger, API daemon, and trust-boundary bins."
+
+[[repo]]
+path = "/home/ubuntu/bullet/bullet-git"
+name = "bullet-git"
+slug = "bullet-git"
+jeryu_slug = "root/bullet-git"
+role = "git"
+profile = "rust-workspace"
+branch = "main"
+default_branch = "main"
+has_jankurai_std = true
+note = "BulletGit Change/Candidate graph, capability API, journal, proof roots."
+
+[[repo]]
+path = "/home/ubuntu/bullet/bullet-portal"
+name = "bullet-portal"
+slug = "bullet-portal"
+jeryu_slug = "root/bullet-portal"
+role = "web"
+profile = "vite-react"
+branch = "main"
+default_branch = "main"
+has_jankurai_std = true
+note = "Operations portal. Projection only; never an authority source."

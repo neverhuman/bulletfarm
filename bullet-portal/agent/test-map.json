@@ -1,0 +1,89 @@
+{
+  "workspace": "bullet-portal",
+  "tests": {
+    "src/": {
+      "command": "npm test",
+      "purpose": "prove observation rendering and Control Tower state"
+    },
+    "e2e/": {
+      "command": "bash scripts/ci-local.sh contract",
+      "purpose": "prove pending-to-verified and unknown-as-unknown"
+    },
+    "ops/": {
+      "command": "just check",
+      "purpose": "verify local CI parity"
+    },
+    ".github/": {
+      "command": "bash scripts/ci-local.sh required",
+      "purpose": "prove hosted lanes match local scripts"
+    },
+    "ci.toml": {
+      "command": "bash scripts/ci-local.sh docs",
+      "purpose": "prove prepared Jeryu jobs preserve the local lane boundary and remain activation-blocked"
+    },
+    "docs/": {
+      "command": "bash scripts/ci-local.sh docs",
+      "purpose": "validate local links and CI truth claims"
+    },
+    "README.md": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "documentation; the fast lane proves the commands it names"
+    },
+    "AGENTS.md": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "agent entrypoint; the fast lane proves the commands it names"
+    },
+    "SPLIT.md": {
+      "command": "bash scripts/ci-local.sh required",
+      "purpose": "split-family contract; the required lane is the check it names"
+    },
+    "Justfile": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "command surface; every recipe delegates to scripts/ci-local.sh"
+    },
+    ".gitignore": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "ignore rules; the fast lane proves the tree still builds"
+    },
+    ".gitleaksignore": {
+      "command": "bash scripts/ci-local.sh scheduled-hygiene",
+      "purpose": "prove the exact historical false-positive fingerprint while the current-tree scan and secret canary remain load-bearing"
+    },
+    "LICENSE": {
+      "command": "test -s LICENSE",
+      "purpose": "license text; no executable proof"
+    },
+    "agent/": {
+      "command": "bash ops/ci/audit.sh",
+      "purpose": "Jankurai metadata; the audit lane validates it"
+    },
+    "package.json": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "npm scripts and dependency manifest"
+    },
+    "package-lock.json": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "locked dependency graph"
+    },
+    "vite.config.ts": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "dev proxy and build configuration"
+    },
+    "tsconfig.json": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "TypeScript configuration checked by tsc"
+    },
+    "playwright.config.ts": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "mocked-farmd browser lane configuration"
+    },
+    "playwright.real.config.ts": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "real-farmd browser lane configuration"
+    },
+    "index.html": {
+      "command": "bash scripts/ci-local.sh fast",
+      "purpose": "application entry document"
+    }
+  }
+}
