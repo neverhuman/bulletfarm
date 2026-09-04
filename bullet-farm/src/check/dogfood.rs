@@ -104,6 +104,7 @@ const LEFTOVERS: &[LeftoverLane] = &[
 struct Board {
     schema_version: u32,
     kind: &'static str,
+    track: &'static str,
     authoritative: bool,
     scorecard: ScorecardView,
     release: ReleaseView,
@@ -159,7 +160,48 @@ struct LaneIdView {
     repo: &'static str,
 }
 
-pub(super) fn board_json(hub: &Path) -> Result<(String, u8), CoordError> {
+/// Which loop the board evaluates. The master plan's M0.2 split: the
+/// coordination track and the dogfood-policy track fail for their own
+/// reasons only, so a governance blocker on one can never be silenced by
+/// manufacturing an artifact for the other.
+#[derive(Clone, Copy, Debug, Eq, PartialEq)]
+pub(crate) enum BoardTrack {
+    Coord,
+    Dogfood,
+    All,
+}
+
+impl BoardTrack {
+    pub(crate) fn parse(value: &str) -> Result<Self, CoordError> {
+        match value {
+            "coord" => Ok(Self::Coord),
+            "dogfood" => Ok(Self::Dogfood),
+            "all" => Ok(Self::All),
+            other => Err(CoordError::new(
+                "USAGE",
+                format!("--track must be coord, dogfood, or all (got {other:?})"),
+            )),
+        }
+    }
+
+    const fn name(self) -> &'static str {
+        match self {
+            Self::Coord => "coord",
+            Self::Dogfood => "dogfood",
+            Self::All => "all",
+        }
+    }
+
+    const fn includes_coord(self) -> bool {
+        matches!(self, Self::Coord | Self::All)
+    }
+
+    const fn includes_dogfood(self) -> bool {
+        matches!(self, Self::Dogfood | Self::All)
+    }
+}
+
+pub(super) fn board_json(hub: &Path, track: BoardTrack) -> Result<(String, u8), CoordError> {
     let scorecard = scorecard::evaluate(hub)?;
     let admitted_row_count = scorecard.rows.iter().filter(|row| row.admitted).count();
     let receipts = tempfile::tempdir().map_err(CoordError::io)?;
@@ -167,21 +209,26 @@ pub(super) fn board_json(hub: &Path) -> Result<(String, u8), CoordError> {
     let (coord, next_free_lanes) = coord_view(hub);
     let root = family_root(hub);
     let mut loop_blockers = Vec::new();
-    if !coord.available {
-        loop_blockers.push("COORD_UNAVAILABLE");
+    if track.includes_coord() {
+        if !coord.available {
+            loop_blockers.push("COORD_UNAVAILABLE");
+        }
+        if wave0_dirty(&root) {
+            loop_blockers.push("WAVE0_DIRTY_SUBJECTS");
+        }
     }
-    if wave0_dirty(&root) {
-        loop_blockers.push("WAVE0_DIRTY_SUBJECTS");
-    }
-    match dogfood_binding_status() {
-        DogfoodBindingStatus::Missing => loop_blockers.push("DOGFOOD_POLICY_MISSING"),
-        DogfoodBindingStatus::Invalid => loop_blockers.push("DOGFOOD_BINDING_INVALID"),
-        DogfoodBindingStatus::Valid => {}
+    if track.includes_dogfood() {
+        match dogfood_binding_status() {
+            DogfoodBindingStatus::Missing => loop_blockers.push("DOGFOOD_POLICY_MISSING"),
+            DogfoodBindingStatus::Invalid => loop_blockers.push("DOGFOOD_BINDING_INVALID"),
+            DogfoodBindingStatus::Valid => {}
+        }
     }
     let loop_operable = loop_blockers.is_empty();
     let board = Board {
         schema_version: SCHEMA_VERSION,
         kind: "DIAGNOSTIC",
+        track: track.name(),
         authoritative: false,
         scorecard: ScorecardView {
             blended: scorecard.blended,

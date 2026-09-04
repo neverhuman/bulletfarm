@@ -1,11 +1,3 @@
-#![cfg_attr(
-    not(test),
-    expect(
-        dead_code,
-        reason = "COMPONENT_ONLY Wave-0 observer awaits independently reviewed claim truth"
-    )
-)]
-
 #[cfg(test)]
 mod tests;
 

@@ -1,11 +1,3 @@
-#![cfg_attr(
-    not(test),
-    expect(
-        dead_code,
-        reason = "COMPONENT_ONLY fresh-Genesis contracts await separately reviewed producers"
-    )
-)]
-
 use serde::{Deserialize, Serialize};
 
 use crate::coord::{CoordError, validate_field};

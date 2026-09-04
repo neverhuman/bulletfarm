@@ -40,6 +40,10 @@ pub(super) fn run(root: PathBuf, args: &[String], usage: &str) -> Result<String,
         "recovery-review" => recovery::review(&store, &options),
         "recovery-request" => recovery::request(&store, &options),
         "adopt" => recovery::adopt(&store, &options),
+        "wave0-observe" => wave0_observe(&store, &options),
+        "wave0-review" => wave0_review(&options),
+        "incident-observe" => incident_observe(&options),
+        "incident-verify" => incident_verify(&options),
         "status" => status(&store, &options),
         _ => Err(CoordError::new("USAGE", usage)),
     }
@@ -70,11 +74,39 @@ fn initialize(store: &CoordStore, options: &Options) -> Result<String, CoordErro
     match (wave0, inventory) {
         (None, None) => {}
         (Some(wave0), Some(inventory)) => {
-            crate::coord::consume_wave0_and_inventory(
+            let (validated_inventory, validated_wave0) = crate::coord::consume_wave0_and_inventory(
                 PathBuf::from(inventory).as_path(),
                 PathBuf::from(wave0).as_path(),
                 store.family_root(),
             )?;
+            // Persist what was just validated: ADR 0015 requires the exact
+            // W0 subject and incident inventory as durable, create-once
+            // authority records adjacent to Genesis -- validating and then
+            // discarding them left Genesis unable to prove what it consumed.
+            let sealed_dir = store.family_root().join(".bullet-family/fresh-genesis");
+            {
+                use std::os::unix::fs::DirBuilderExt;
+                let mut builder = std::fs::DirBuilder::new();
+                builder.recursive(true).mode(0o700);
+                builder
+                    .create(&sealed_dir)
+                    .or_else(|error| {
+                        if error.kind() == std::io::ErrorKind::AlreadyExists {
+                            Ok(())
+                        } else {
+                            Err(error)
+                        }
+                    })
+                    .map_err(CoordError::io)?;
+            }
+            let publication = crate::coord::fresh_genesis_publish(
+                store.family_root().join("bullet-farm").as_path(),
+                sealed_dir.join("incident-inventory.v1.json").as_path(),
+                sealed_dir.join("wave0-subject.v1.json").as_path(),
+                &validated_inventory,
+                &validated_wave0,
+            )?;
+            let _ = publication;
         }
         _ => {
             return Err(CoordError::new(
@@ -302,6 +334,66 @@ fn envelope<T>(options: &Options, command: T) -> Result<MutationEnvelope<T>, Coo
 pub(super) struct Options {
     values: BTreeMap<String, Vec<String>>,
     flags: Vec<String>,
+}
+
+/// Observe the four members plus the frozen claim ledger into unreviewed
+/// `Wave0FactsV1` (plan G1.1). Refuses dirty members and active claims.
+fn wave0_observe(store: &CoordStore, options: &Options) -> Result<String, CoordError> {
+    options.reject_flags()?;
+    options.reject_unknown_values(&["producer", "ledger", "out"])?;
+    let producer = options.one("producer")?;
+    let ledger = PathBuf::from(options.one("ledger")?);
+    let out = PathBuf::from(options.one("out")?);
+    let now = u64::try_from(chrono_now_ms())
+        .map_err(|_| CoordError::new("WAVE0_PRODUCER_INVALID", "clock before epoch"))?;
+    crate::coord::wave0_producer::produce_wave0_facts(store.root(), &ledger, &producer, now, &out)?;
+    Ok(format!("wave0 facts sealed at {}", out.display()))
+}
+
+/// Complete a reviewed `Wave0SubjectV1` from produced facts plus a second
+/// principal's review record. Reviewer == producer is refused by the type.
+fn wave0_review(options: &Options) -> Result<String, CoordError> {
+    options.reject_flags()?;
+    options.reject_unknown_values(&["facts", "reviewer", "record", "out"])?;
+    let facts = PathBuf::from(options.one("facts")?);
+    let reviewer = options.one("reviewer")?;
+    let record = PathBuf::from(options.one("record")?);
+    let out = PathBuf::from(options.one("out")?);
+    crate::coord::wave0_producer::produce_wave0_subject(&facts, &reviewer, &record, &out)?;
+    Ok(format!("wave0 subject sealed at {}", out.display()))
+}
+
+/// Seal the complete pre-move inventory of the frozen coordination directory.
+fn incident_observe(options: &Options) -> Result<String, CoordError> {
+    options.reject_flags()?;
+    options.reject_unknown_values(&["coord-dir", "destination-name", "out"])?;
+    let coord_dir = PathBuf::from(options.one("coord-dir")?);
+    let destination = options.one("destination-name")?;
+    let out = PathBuf::from(options.one("out")?);
+    crate::coord::wave0_producer::produce_incident_inventory(
+        &coord_dir,
+        std::ffi::OsStr::new(&destination),
+        &out,
+    )?;
+    Ok(format!("incident inventory sealed at {}", out.display()))
+}
+
+/// Prove the operator's relocation moved a byte-identical tree, using the
+/// sealed inventory: the source name must be absent and the destination
+/// exact. Run between the mv and `coord init`.
+fn incident_verify(options: &Options) -> Result<String, CoordError> {
+    options.reject_flags()?;
+    options.reject_unknown_values(&["inventory"])?;
+    let inventory = PathBuf::from(options.one("inventory")?);
+    crate::coord::wave0_producer::verify_incident_inventory(&inventory)?;
+    Ok("retired incident inventory verified".to_owned())
+}
+
+fn chrono_now_ms() -> i64 {
+    std::time::SystemTime::now()
+        .duration_since(std::time::UNIX_EPOCH)
+        .map(|duration| duration.as_millis() as i64)
+        .unwrap_or(0)
 }
 
 impl Options {

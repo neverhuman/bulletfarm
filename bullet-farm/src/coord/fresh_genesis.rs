@@ -1,11 +1,3 @@
-#![cfg_attr(
-    not(test),
-    expect(
-        dead_code,
-        reason = "COMPONENT_ONLY producer awaits an independently reviewed transition"
-    )
-)]
-
 use std::{fmt::Write as _, os::unix::ffi::OsStrExt, path::Path, process::Command};
 
 use serde::{Serialize, de::DeserializeOwned};

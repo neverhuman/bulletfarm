@@ -109,6 +109,70 @@ fn kill_process(pid: u32) {
         .status();
 }
 
+#[test]
+fn board_tracks_fail_for_their_own_reasons_only() {
+    // The M0.2 split: the coord track never mentions the dogfood binding, the
+    // dogfood track never mentions the coordinator, and `all` is their union.
+    let bin = env!("CARGO_BIN_EXE_bullet-family");
+    let run = |track: &str| {
+        let output = Command::new(bin)
+            .args(["check", "dogfood", "--json", "--track", track])
+            .current_dir(hub())
+            .env_remove("BULLET_DOGFOOD_BINDING")
+            .env_remove("BULLET_DOGFOOD_POLICY")
+            .output()
+            .expect("run board");
+        let board = decode_board(&output.stdout);
+        let blockers: Vec<String> = board["loop_blockers"]
+            .as_array()
+            .expect("blockers array")
+            .iter()
+            .map(|value| value.as_str().unwrap_or_default().to_owned())
+            .collect();
+        (
+            board["track"].as_str().unwrap_or_default().to_owned(),
+            blockers,
+        )
+    };
+
+    let (track, coord_blockers) = run("coord");
+    assert_eq!(track, "coord");
+    assert!(
+        !coord_blockers
+            .iter()
+            .any(|blocker| blocker.starts_with("DOGFOOD_")),
+        "coord track must not report dogfood blockers: {coord_blockers:?}"
+    );
+
+    let (track, dogfood_blockers) = run("dogfood");
+    assert_eq!(track, "dogfood");
+    assert!(
+        dogfood_blockers
+            .iter()
+            .all(|blocker| blocker.starts_with("DOGFOOD_")),
+        "dogfood track must report only dogfood blockers: {dogfood_blockers:?}"
+    );
+    // With no binding env, the dogfood track is exactly the policy blocker.
+    assert_eq!(dogfood_blockers, ["DOGFOOD_POLICY_MISSING"]);
+
+    let (track, all_blockers) = run("all");
+    assert_eq!(track, "all");
+    for blocker in coord_blockers.iter().chain(dogfood_blockers.iter()) {
+        assert!(
+            all_blockers.contains(blocker),
+            "all-track must be the union; missing {blocker}"
+        );
+    }
+
+    // An unknown track is refused, never defaulted.
+    let output = Command::new(bin)
+        .args(["check", "dogfood", "--track", "release"])
+        .current_dir(hub())
+        .output()
+        .expect("run board");
+    assert!(!output.status.success(), "unknown track must refuse");
+}
+
 #[cfg(unix)]
 #[test]
 fn compatibility_launcher_forwards_exact_rust_result() {

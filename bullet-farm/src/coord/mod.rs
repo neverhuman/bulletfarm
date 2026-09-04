@@ -1,6 +1,8 @@
 mod anonymous_link;
 mod fresh_genesis;
+pub(crate) mod wave0_producer;
 pub(crate) use fresh_genesis::consume_wave0_and_inventory;
+pub(crate) use fresh_genesis::publish_records as fresh_genesis_publish;
 mod generation;
 #[allow(
     unfulfilled_lint_expectations,

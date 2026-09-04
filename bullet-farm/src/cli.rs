@@ -7,7 +7,7 @@ use std::{ffi::OsString, path::PathBuf};
 
 use crate::coord::{CoordError, discover_family_root};
 
-const USAGE: &str = "usage: bullet-family [--root PATH] <doctor --json|setup --root PATH --source jeryu --cargo-bin ABSOLUTE_PATH --node-bin ABSOLUTE_PATH --npm-cli ABSOLUTE_PATH [--offline]|release <build|verify|extract|receipt-verify> [options]|checkout verify|hub check|deps check|lock <generate --tag VERSION --subjects ABSOLUTE_PATH|verify --tag VERSION>|fuse --source <local|lock>|check <fast|required|release|scorecard|dogfood> [options]|coord <init|claim|heartbeat|handoff|receipt|receipt-group|correct-receipt|correct-receipt-group|recovery-inspect|recovery-provenance|recovery-build-observe|recovery-authorization-draft|recovery-authorization-message|recovery-authorization-signature-import|recovery-manifest|recover-rollover|recovery-plan|recovery-proof|recovery-review|recovery-request|adopt|status> [options]>";
+const USAGE: &str = "usage: bullet-family [--root PATH] <doctor --json|setup --root PATH --source jeryu --cargo-bin ABSOLUTE_PATH --node-bin ABSOLUTE_PATH --npm-cli ABSOLUTE_PATH [--offline]|release <build|verify|extract|receipt-verify> [options]|checkout verify|hub check|deps check|lock <generate --tag VERSION --subjects ABSOLUTE_PATH|verify --tag VERSION>|fuse --source <local|lock>|check <fast|required|release|scorecard|dogfood> [options]|coord <init|claim|heartbeat|handoff|receipt|receipt-group|correct-receipt|correct-receipt-group|recovery-inspect|recovery-provenance|recovery-build-observe|recovery-authorization-draft|recovery-authorization-message|recovery-authorization-signature-import|recovery-manifest|recover-rollover|recovery-plan|recovery-proof|recovery-review|recovery-request|adopt|wave0-observe|wave0-review|incident-observe|incident-verify|status> [options]>";
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct CliOutcome {
@@ -91,11 +91,21 @@ fn execute_check(
         });
     }
     if args.get(1).map(String::as_str) == Some("dogfood") {
-        let rest = &args[2..];
-        if !rest.is_empty() && rest != ["--json"] {
-            return Err(CoordError::new("USAGE", USAGE));
+        let mut track = crate::check::BoardTrack::All;
+        let mut rest = args[2..].iter().peekable();
+        while let Some(arg) = rest.next() {
+            match arg.as_str() {
+                "--json" => {}
+                "--track" => {
+                    let value = rest
+                        .next()
+                        .ok_or_else(|| CoordError::new("USAGE", "--track needs a value"))?;
+                    track = crate::check::BoardTrack::parse(value)?;
+                }
+                _ => return Err(CoordError::new("USAGE", USAGE)),
+            }
         }
-        let (mut output, exit_code) = crate::check::dogfood_board(&hub)?;
+        let (mut output, exit_code) = crate::check::dogfood_board(&hub, track)?;
         if !output.ends_with('\n') {
             output.push('\n');
         }

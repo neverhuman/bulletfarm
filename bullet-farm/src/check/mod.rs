@@ -83,8 +83,13 @@ pub fn run(hub: &Path, args: &[String]) -> Result<CheckExecution, CoordError> {
     })
 }
 
-pub(crate) fn dogfood_board(hub: &Path) -> Result<(String, u8), CoordError> {
-    dogfood::board_json(hub)
+pub(crate) use dogfood::BoardTrack;
+
+pub(crate) fn dogfood_board(
+    hub: &Path,
+    track: dogfood::BoardTrack,
+) -> Result<(String, u8), CoordError> {
+    dogfood::board_json(hub, track)
 }
 
 #[derive(Debug)]
