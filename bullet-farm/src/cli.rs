@@ -81,9 +81,13 @@ fn execute_check(
         } else {
             crate::scorecard::render_markdown(&report)
         };
+        // A non-authoritative diagnostic is Neutral in the shared exit
+        // vocabulary (check::model): it must not exit 0 as though its numbers
+        // were authority. This is the same fail-closed rule ADR 0015 applied
+        // to `check dogfood`.
         return Ok(CliOutcome {
             output,
-            exit_code: 0,
+            exit_code: u8::from(!report.authoritative),
         });
     }
     if args.get(1).map(String::as_str) == Some("dogfood") {

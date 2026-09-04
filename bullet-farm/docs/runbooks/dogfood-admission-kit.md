@@ -368,7 +368,9 @@ canonical encoding before returning its digest:
 
 1. change only the top-level `schema_version` to `v1alpha2`;
 2. set `policy_generation` to `2`;
-3. set `sandbox_policy.live_admission_enabled` to `true`; and
+3. keep `sandbox_policy.live_admission_enabled` at `false` — the dogfood validator refuses `true`
+   (`DOGFOOD_REFUSES_LIVE_ADMISSION`, checked twice), because the dogfood binding is structurally
+   incapable of satisfying live admission and must never widen a live route; and
 4. append the one exact admitted `issuer_key_v1` record.
 
 Every nested policy `schema_version`, including `sandbox_policy.schema_version`, remains `v1alpha1`. Review the
