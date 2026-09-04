@@ -39,7 +39,8 @@ exception to the family `AGENT_CHAT.md` before you act on it, never after.
   `src/coord/state.rs:221-226`) but cannot see which process sent it, so the
   rule that no claim outlives its owner is enforced by discipline; product
   enforcement is `bullet-family check dogfood --json` (ADR 0015,
-  "Consequences"), unbuilt.
+  "Consequences"), built and fail-closed (non-zero exit with named
+  `loop_blockers` when the loop is inoperable).
 - **HOLD before stopping.** Before you stop for ANY reason — finished, blocked,
   interrupted, or out of provider budget — append a HOLD line naming every
   touched path with its `sha256sum`, so the next owner resumes from bytes
@@ -60,7 +61,7 @@ exception to the family `AGENT_CHAT.md` before you act on it, never after.
   honestly in one HOLD line. `--path` is repeatable and only requires at least
   one path (`PATH_REQUIRED`, `src/coord/state.rs:328-334`), with no upper bound
   in code, so the cap is enforced by discipline; product enforcement is
-  `bullet-family check dogfood --json` (ADR 0015), unbuilt.
+  `bullet-family check dogfood --json` (ADR 0015), built and fail-closed.
 - **Prove in a private `CARGO_TARGET_DIR`, never the shared target and never
   the shared proof-custody lock.** Export a target directory of your own,
   outside every worktree, before any `cargo` command

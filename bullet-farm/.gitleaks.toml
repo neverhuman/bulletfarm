@@ -12,6 +12,7 @@
 useDefault = true
 
 [allowlist]
-description = "credential_projection_digest is a public BLAKE3 digest, not a secret"
+description = "credential_projection_digest is a public BLAKE3 digest, not a secret; target/ is build output, not source"
 regexTarget = "match"
 regexes = ['''credential_projection_digest":"[0-9a-f]{64}''']
+paths = ['''^target/''']

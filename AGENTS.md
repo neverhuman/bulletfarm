@@ -22,6 +22,14 @@ canonical primary checkout of each member repo.
 | `bullet-git` | BulletGit types, capability API, journal, proof roots |
 | `bullet-portal` | Vite + React operations portal |
 
+## Dogfood track
+
+The multi-provider dogfood plan is [`DOGFOOD-MULTI-CLI-GATES.md`](DOGFOOD-MULTI-CLI-GATES.md)
+(M0–M4; per-provider closures for claude, codex, cursor-agent, agy). The operator board is
+`bullet-family check dogfood --json` — fail-closed, exits non-zero naming each blocker. Runbook:
+`bullet-farm/docs/runbooks/dogfood.md`; governing record: ADR 0015. Agents never write provider
+keys, enrollments, or operator-decision lines.
+
 ## Jeryu
 
 Consume Jeryu through pinned tags. The only permitted Jeryu family is

@@ -34,6 +34,8 @@ discovery/PR mirror, not source authority, and it does not make a trusted family
 | Why those choices — method rationale, role catalogue, fitness/selection design, work items, operator decisions? | `TEAM_PLAN_CLAUDE.md` (planning artifact; §10 is the 2026-08-25 addendum and scorecard) |
 | Which controls are enforced vs planned? | `bullet-farm/docs/assurance/invariant-registry.md` + generated crosswalk |
 | How do agents coordinate? | `bullet-farm/docs/runbooks/fleet.md` (claims, heartbeats, handoffs, receipts) |
+| How do we dogfood this, across all four provider CLIs? | `DOGFOOD-MULTI-CLI-GATES.md` (multi-provider closure plan, M0–M4), `bullet-farm/docs/runbooks/dogfood.md`, and ADR `bullet-farm/docs/decisions/0015-dogfood-track.md` |
+| Is the dogfood loop operable right now? | `bullet-family check dogfood --json` — fail-closed; non-zero exit names each `loop_blockers` entry |
 | How do I set up from source, and why is a hub-only install refused today? | `bullet-farm/docs/runbooks/source-setup.md` |
 
 ## Planning corpus at this root (provenance, not authority)

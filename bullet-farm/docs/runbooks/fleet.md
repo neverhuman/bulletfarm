@@ -118,7 +118,8 @@ Notes that follow from the code, not from habit:
   not the claim's owner (`src/coord/state.rs:221-226`). That checks the agent *string*; nothing in the
   product can see which process sent the beat, so "no claim outlives its owner" is enforced by
   discipline — product enforcement is `bullet-family check dogfood --json` (ADR 0015,
-  "Consequences"), which is not built.
+  "Consequences"), which is built and fail-closed: it exits non-zero whenever the
+  loop is inoperable, naming each blocker (`loop_blockers`).
 - The recovery actions — `recovery-inspect`, `recovery-provenance`, `recovery-manifest`,
   `recover-rollover`, `recovery-plan`, `recovery-proof`, `recovery-review`, `recovery-request`,
   `adopt` — take sealed-document paths (`--interrupted-capture`, `--tainted-generation`,
