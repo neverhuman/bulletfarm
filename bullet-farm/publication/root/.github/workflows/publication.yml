@@ -1,0 +1,93 @@
+# Canonical template: bullet-farm/publication/root/.github/workflows/publication.yml
+# This bootstrap proves publication integrity and runs one actual Hub source scan.
+# The complete 53-job/55-invocation inventory and family certification remain open.
+name: Publication bootstrap
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: publication-${{ github.event_name }}-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  publication_integrity:
+    name: Exact publication integrity
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    outputs:
+      bootstrap_completion_sha256: ${{ steps.prove.outputs.bootstrap_completion_sha256 }}
+      member_completion_sha256: ${{ steps.member.outputs.member_completion_sha256 }}
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Install checksum-pinned gitleaks 8.21.2
+        run: bash bullet-farm/ops/ci/install-gitleaks.sh
+      - name: Scan aggregate source before building
+        run: bash bullet-farm/publication/ci.sh source-scan
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.95.0
+      - id: prove
+        name: Prove publication and reconstruct exact split checkouts
+        run: bash bullet-farm/publication/ci.sh prove
+      - id: member
+        name: Execute and validate the exact Hub source-scan lane
+        run: bash bullet-farm/publication/ci.sh member-source-scan
+      - name: Retain the completed member scan and exact validation
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: publication-hub-source-scan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-member-report/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
+      - name: Retain sanitized bootstrap diagnostics
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: publication-bootstrap-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-report/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 30
+
+  publication_required:
+    name: Publication bootstrap required
+    needs: [publication_integrity]
+    if: ${{ always() }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download the exact bootstrap artifact from this attempt
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: publication-bootstrap-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-downloaded/publication-bootstrap-${{ github.run_id }}-${{ github.run_attempt }}/
+      - name: Download the exact member artifact from this attempt
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: publication-hub-source-scan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-downloaded/publication-hub-source-scan-${{ github.run_id }}-${{ github.run_attempt }}/
+      - name: Reject missing, stale, or unsuccessful bootstrap and member execution
+        if: ${{ always() }}
+        env:
+          INTEGRITY_RESULT: ${{ needs.publication_integrity.result }}
+          BOOTSTRAP_COMPLETION_SHA256: ${{ needs.publication_integrity.outputs.bootstrap_completion_sha256 }}
+          MEMBER_COMPLETION_SHA256: ${{ needs.publication_integrity.outputs.member_completion_sha256 }}
+        shell: bash
+        run: bash bullet-farm/publication/ci-required.sh required

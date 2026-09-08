@@ -125,6 +125,64 @@ printf 'node ops/ci/assert-report.mjs vitest "%s/coverage-tests.json" many\n' "$
 expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
 : >"$fixtures/coverage.sh"
 expect_refusal FAMILY_VITEST_SOURCE_MISSING vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+digest=f4805174c97eb600794e0105adfbbe0809392981cc2ad88cb1800fa711c525dd
+write_pinned_source() {
+  local path="$1" report_name="$2" count="$3" identity="$4"
+  printf 'node ops/ci/assert-report.mjs vitest "%s/%s" %s \\\n  %s\n' \
+    "$report_root" "$report_name" "$count" "$identity" >"$path"
+}
+write_pinned_source "$fixtures/fast.sh" vitest.json 131 "$digest"
+write_pinned_source "$fixtures/coverage.sh" coverage-tests.json 131 "$digest"
+[[ "$(bash ops/ci/family-report-check.sh vitest-source-pair \
+  "$fixtures/fast.sh" "$fixtures/coverage.sh")" == 131 ]]
+cp "$fixtures/coverage.sh" "$fixtures/pinned-coverage.sh"
+write_pinned_source "$fixtures/coverage.sh" coverage-tests.json 130 "$digest"
+expect_refusal FAMILY_VITEST_SOURCE_DRIFT vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+write_pinned_source "$fixtures/coverage.sh" coverage-tests.json 131 "0${digest:1}"
+expect_refusal FAMILY_VITEST_SOURCE_DRIFT vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+printf 'node ops/ci/assert-report.mjs vitest "%s/coverage-tests.json" 131\n' \
+  "$report_root" >"$fixtures/coverage.sh"
+expect_refusal FAMILY_VITEST_SOURCE_DRIFT vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+printf 'node ops/ci/assert-report.mjs vitest "%s/vitest.json" 131\n' \
+  "$report_root" >"$fixtures/fast.sh"
+cp "$fixtures/pinned-coverage.sh" "$fixtures/coverage.sh"
+expect_refusal FAMILY_VITEST_SOURCE_DRIFT vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+write_pinned_source "$fixtures/fast.sh" vitest.json 131 "$digest"
+substitution="$(printf '\044(touch %s/marker)' "$fixtures")"
+backticks="$(printf '\140touch %s/marker\140' "$fixtures")"
+variable="$(printf '\044DIGEST')"
+for invalid_digest in \
+  '' "${digest:1}" "${digest}0" "${digest^^}" "g${digest:1}" \
+  "$digest " "$digest extra" "$digest; touch $fixtures/marker" "$digest \\" \
+  "$substitution" "$backticks" "$variable"; do
+  write_pinned_source "$fixtures/coverage.sh" coverage-tests.json 131 "$invalid_digest"
+  expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+done
+for invalid_count in 0 0131 -1 1.31 many "131; touch $fixtures/marker" "$substitution"; do
+  write_pinned_source "$fixtures/coverage.sh" coverage-tests.json "$invalid_count" "$digest"
+  expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+done
+head -n 1 "$fixtures/pinned-coverage.sh" >"$fixtures/coverage.sh"
+expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+for alteration in \
+  '1s/ \\$/ \\ /' \
+  '1s/ \\$/ \\ # trailing/' \
+  '2s/^  //' \
+  '1s/^/:; /'; do
+  sed "$alteration" "$fixtures/pinned-coverage.sh" >"$fixtures/coverage.sh"
+  expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+done
+cat "$fixtures/pinned-coverage.sh" "$fixtures/pinned-coverage.sh" >"$fixtures/coverage.sh"
+expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+for duplicate in \
+  "node ops/ci/assert-report.mjs vitest \"$report_root/coverage-tests.json\" 131" \
+  "node ops/ci/assert-report.mjs vitest \"$report_root/coverage-tests.json\" malformed" \
+  "# node ops/ci/assert-report.mjs vitest \"$report_root/coverage-tests.json\" 131"; do
+  cp "$fixtures/pinned-coverage.sh" "$fixtures/coverage.sh"
+  printf '%s\n' "$duplicate" >>"$fixtures/coverage.sh"
+  expect_refusal FAMILY_VITEST_SOURCE_INVALID vitest-source-pair "$fixtures/fast.sh" "$fixtures/coverage.sh"
+done
+[[ ! -e "$fixtures/marker" ]]
 family_source="$(<ops/ci/family.sh)"
 [[ "$(grep -Fc 'bash scripts/sync-family-contracts.sh check' <<<"$family_source")" -eq 1 \
   && "$(grep -Fc 'bash ops/ci/contract.sh' <<<"$family_source")" -eq 1 \

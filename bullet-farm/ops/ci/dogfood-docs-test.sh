@@ -42,7 +42,7 @@ require_claim 'crates/bullet-wire/src/policy/live.rs' '"DOGFOOD_REFUSES_LIVE_ADM
 
 refuse_claim "$decision" "\`DOGFOOD_RUN\` and \`dogfood-local-v0\` appear in no Rust source"
 refuse_claim "$decision" 'No dogfood operational record exists yet'
-refuse_claim "$decision" 'scripts/dogfood-board.py`, which always exits 0'
+refuse_claim "$decision" 'tests/dogfood-board.py`, which always exits 0'
 refuse_claim "$runbook" 'A valid board exits 0 with'
 
 log 'dogfood documentation truth ratchet passed'

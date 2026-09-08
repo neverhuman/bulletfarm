@@ -6,64 +6,22 @@ use std::{
 };
 
 use rustix::fs::{AtFlags, Mode, OFlags, ResolveFlags, fchmod, open, openat, openat2, statat};
-use serde::{Serialize, de::DeserializeOwned};
+use serde::Serialize;
 
 use super::{CoordError, anonymous_link};
 
 #[path = "sealed/raw.rs"]
 mod raw;
+mod read;
 #[path = "sealed/runtime.rs"]
 mod runtime;
 
-pub(crate) use raw::write_raw;
+#[cfg(test)]
+pub(crate) use raw::with_directory_sync_failure;
+pub(crate) use raw::{read_synced_raw, write_raw};
+pub(crate) use read::{read, read_observation, read_root_runtime};
 
 const MAX_DOCUMENT_BYTES: u64 = bullet_wire::MAX_CANONICAL_DOCUMENT_BYTES as u64 + 1;
-
-pub(crate) fn read<T>(path: &Path) -> Result<T, CoordError>
-where
-    T: DeserializeOwned + Serialize,
-{
-    read_canonical(path, MAX_DOCUMENT_BYTES, ParentAdmission::Sealed)
-}
-
-pub(crate) fn read_root_runtime<T>(path: &Path, maximum: u64) -> Result<T, CoordError>
-where
-    T: DeserializeOwned + Serialize,
-{
-    if maximum == 0 {
-        return Err(invalid("root runtime document bound must be positive"));
-    }
-    read_canonical(path, maximum, ParentAdmission::RootRuntime)
-}
-
-fn read_canonical<T>(path: &Path, maximum: u64, admission: ParentAdmission) -> Result<T, CoordError>
-where
-    T: DeserializeOwned + Serialize,
-{
-    let bytes = read_bytes(path, maximum, admission)?;
-    if bytes.last() != Some(&b'\n') || bytes[..bytes.len() - 1].contains(&b'\n') {
-        return Err(invalid(
-            "sealed recovery document must end in exactly one LF",
-        ));
-    }
-    let body = &bytes[..bytes.len() - 1];
-    let value = bullet_wire::decode_canonical::<T>(body).map_err(|error| {
-        invalid(format!(
-            "sealed recovery document is not canonical: {error}"
-        ))
-    })?;
-    if bullet_wire::canonical_json(&value).map_err(|error| {
-        invalid(format!(
-            "cannot re-encode sealed recovery document: {error}"
-        ))
-    })? != body
-    {
-        return Err(invalid(
-            "sealed recovery document changed after strict decode",
-        ));
-    }
-    Ok(value)
-}
 
 pub(crate) fn write(path: &Path, value: &impl Serialize) -> Result<(), CoordError> {
     write_canonical(path, value, ParentAdmission::Sealed, false)
@@ -184,7 +142,7 @@ fn write_bytes_as(
             "anonymous recovery output changed while being published",
         ));
     }
-    parent.file.sync_all().map_err(CoordError::io)?;
+    raw::sync_parent(&parent.file)?;
     parent.verify_published(&mut anonymous, bytes, maximum, after_link)?;
     parent.revalidate_path(path)
 }
@@ -359,6 +317,7 @@ impl Parent {
 #[derive(Clone, Copy, Debug, Eq, PartialEq)]
 enum ParentAdmission {
     Sealed,
+    Observation,
     FrozenLegacy,
     RootRuntime,
 }
@@ -389,7 +348,7 @@ impl ParentIdentity {
 
     fn validate(self, admission: ParentAdmission) -> Result<(), CoordError> {
         let admitted_custody = match admission {
-            ParentAdmission::Sealed => {
+            ParentAdmission::Sealed | ParentAdmission::Observation => {
                 self.owner_uid == rustix::process::geteuid().as_raw() && self.mode == 0o700
             }
             ParentAdmission::FrozenLegacy => {
@@ -454,6 +413,9 @@ impl Identity {
         let admitted_custody = match admission {
             ParentAdmission::Sealed | ParentAdmission::FrozenLegacy => {
                 self.owner_uid == rustix::process::geteuid().as_raw() && self.mode == 0o400
+            }
+            ParentAdmission::Observation => {
+                self.owner_uid == rustix::process::geteuid().as_raw() && self.mode == 0o600
             }
             ParentAdmission::RootRuntime => {
                 self.owner_uid == 0 && self.owner_gid == 0 && self.mode == 0o444

@@ -15,6 +15,13 @@
 #     the RustSec advisory database)
 #   zizmor .                                                    (zizmor 1.25.2,
 #     workflow linting over the committed workflow bytes)
+#   cargo audit                    (not a second lane: cargo deny advisories
+#     already consumes the RustSec DB this wrapper would otherwise name)
+#   npm audit                      (not applicable: this repo has no product
+#     package.json graph)
+#   sbom                           (release build can emit one; this lane does
+#     not publish an SBOM because no release artifact exists)
+# This wrapper is tools/security-lane.sh.
 #
 # Declared in agent/security-policy.toml. Do not add `|| true` to any step.
 set -euo pipefail

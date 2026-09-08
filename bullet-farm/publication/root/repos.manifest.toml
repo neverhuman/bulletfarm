@@ -1,0 +1,26 @@
+# Portable public family manifest. The consumer explicitly admits its root.
+schema_version = "1.3.0"
+split_root = "."
+family = "bullet-farm"
+umbrella_repo = "bullet-farm"
+required_repos = ["bullet-farm", "bullet-kernel", "bullet-git", "bullet-portal"]
+
+[[repo]]
+name = "bullet-farm"
+path = "bullet-farm"
+jeryu_slug = "root/bullet-farm"
+
+[[repo]]
+name = "bullet-kernel"
+path = "bullet-kernel"
+jeryu_slug = "root/bullet-kernel"
+
+[[repo]]
+name = "bullet-git"
+path = "bullet-git"
+jeryu_slug = "root/bullet-git"
+
+[[repo]]
+name = "bullet-portal"
+path = "bullet-portal"
+jeryu_slug = "root/bullet-portal"

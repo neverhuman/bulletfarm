@@ -1,6 +1,7 @@
 //! Deterministic family lock generation from locally verified signed tags.
 
 mod git;
+pub(crate) mod manifest_paths;
 mod schema;
 #[cfg(test)]
 mod tests;
@@ -11,6 +12,8 @@ use std::io::Write;
 use std::path::{Path, PathBuf};
 
 use serde::Deserialize;
+
+pub use manifest_paths::validate_publication_family_root;
 
 pub use self::schema::{
     ExternalSubjectManifest, ExternalSubjects, FamilyLock, JeryuSubject, LOCK_SCHEMA_VERSION,
@@ -54,6 +57,8 @@ enum LockAction {
 
 #[derive(Deserialize)]
 struct Manifest {
+    #[serde(flatten)]
+    path_mode: manifest_paths::PathMode,
     family: String,
     required_repos: Vec<String>,
     #[serde(default)]
@@ -170,6 +175,9 @@ fn render(
         fs::read_to_string(root.join("repos.manifest.toml")).map_err(CoordError::io)?;
     let manifest: Manifest = toml::from_str(&manifest_text)
         .map_err(|error| CoordError::new("INVALID_FAMILY_MANIFEST", error.to_string()))?;
+    manifest
+        .path_mode
+        .validate_if_portable(manifest_text.as_bytes(), root)?;
     let repos = indexed_repos(root, &manifest)?;
     let sources = authenticated_sources(&manifest)?;
     let farm = repos.get("bullet-farm").ok_or_else(|| {
@@ -333,6 +341,9 @@ fn verification_repos(
         fs::read_to_string(root.join("repos.manifest.toml")).map_err(CoordError::io)?;
     let manifest: Manifest = toml::from_str(&manifest_text)
         .map_err(|error| CoordError::new("INVALID_FAMILY_MANIFEST", error.to_string()))?;
+    manifest
+        .path_mode
+        .validate_if_portable(manifest_text.as_bytes(), root)?;
     if manifest.family != "bullet-farm" {
         return Err(CoordError::new(
             "INVALID_FAMILY_MANIFEST",
@@ -340,6 +351,9 @@ fn verification_repos(
         ));
     }
     lock.validate_required_members(&manifest.required_repos)?;
+    if !manifest.repo.is_empty() {
+        return indexed_repos(root, &manifest);
+    }
     let mut repos = BTreeMap::new();
     repos.insert("bullet-farm".to_owned(), root.join("bullet-farm"));
     for member in &lock.member {
@@ -372,21 +386,8 @@ fn indexed_repos(
     let mut repos = BTreeMap::new();
     for entry in &manifest.repo {
         crate::coord::validate_repo_name(&entry.name)?;
-        if !entry.path.is_absolute()
-            || entry.path.file_name().and_then(|name| name.to_str()) != Some(entry.name.as_str())
-        {
-            return Err(CoordError::new(
-                "INVALID_MEMBER_PATH",
-                format!(
-                    "manifest path for {} must be absolute and end with its repository name",
-                    entry.name
-                ),
-            ));
-        }
-        if repos
-            .insert(entry.name.clone(), root.join(&entry.name))
-            .is_some()
-        {
+        let checkout = manifest.path_mode.resolve(root, &entry.name, &entry.path)?;
+        if repos.insert(entry.name.clone(), checkout).is_some() {
             return Err(CoordError::new(
                 "DUPLICATE_FAMILY_MEMBER",
                 format!("manifest repeats {}", entry.name),

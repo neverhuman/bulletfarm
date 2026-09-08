@@ -12,6 +12,7 @@ use crate::coord::{
     model::{GENERATION_SCHEMA_VERSION, Record},
 };
 
+mod admission;
 mod adoption;
 mod fs;
 mod genesis;
@@ -145,6 +146,7 @@ impl Ledger {
     where
         F: FnOnce() -> Result<u64, CoordError>,
     {
+        admission::require_pristine_context(&self.family_root)?;
         let probe = fs::probe(&self.coord_dir)?;
         let observed = probe.presence();
         if observed == fs::Presence::Legacy {
@@ -156,9 +158,12 @@ impl Ledger {
             fs::ensure_layout(&self.family_root, &self.coord_dir)?;
             fs::CoordLock::acquire(&self.coord_dir, true)?
         };
+        admission::require_pristine_context(&self.family_root)?;
         if let Some(existing) = lock.current()? {
             let loaded = self.load_locked(&lock, Some(&existing), false)?;
             genesis::ensure_manifest_matches(provenance, &loaded.manifest)?;
+            let prepared = genesis::decode_authority(&fs::published_genesis_intent(&lock)?)?;
+            admission::require_matching_journal(&self.family_root, &prepared)?;
             return Ok(loaded.view);
         }
         let locked_presence = lock.presence_without_current()?;
@@ -177,6 +182,7 @@ impl Ledger {
                     provenance,
                     locked_presence == fs::Presence::Retired,
                 )?;
+                admission::require_matching_journal(&self.family_root, &prepared)?;
                 fs::publish_genesis_intent(&lock, &bytes)?;
                 if fs::published_genesis_intent(&lock)? != bytes {
                     return Err(changed("published Genesis intent read-back differs"));
@@ -190,6 +196,7 @@ impl Ledger {
                     ));
                 }
                 let prepared = genesis::prepare(provenance, clock()?)?;
+                admission::require_matching_journal(&self.family_root, &prepared)?;
                 fs::publish_genesis_intent(&lock, &prepared.intent_bytes)?;
                 if fs::published_genesis_intent(&lock)? != prepared.intent_bytes {
                     return Err(changed("published Genesis intent read-back differs"));
@@ -197,6 +204,7 @@ impl Ledger {
                 prepared
             }
         };
+        admission::require_matching_journal(&self.family_root, &prepared)?;
         let manifest = &prepared.manifest;
         let pointer = &prepared.current;
         fs::preflight_genesis_fence(
@@ -250,6 +258,7 @@ impl Ledger {
             &request_id,
         )?;
         files.revalidate(&lock, true)?;
+        admission::require_matching_journal(&self.family_root, &prepared)?;
         files = fs::publish_generation(&lock, files)?;
         files.revalidate(&lock, true)?;
         let current_bytes = pointer.canonical_bytes()?;
@@ -424,75 +433,10 @@ impl Ledger {
     }
 }
 
-fn chain_genesis(pointer: &CurrentPointer) -> Result<String, CoordError> {
-    pointer
-        .manifest_blake3()
-        .strip_prefix("blake3:")
-        .map(ToOwned::to_owned)
-        .ok_or_else(|| invalid("CURRENT manifest digest is not tagged BLAKE3"))
-}
 
-fn genesis_request_id(pointer: &CurrentPointer) -> Result<String, CoordError> {
-    let digest = bullet_wire::hash_framed_bytes(
-        "bullet.coord.genesis-request-id.v2",
-        pointer.manifest_blake3().as_bytes(),
-    )
-    .map_err(|error| invalid(format!("cannot derive GENESIS request ID: {error}")))?;
-    Ok(format!("req_genesis_{}", digest.to_hex()))
-}
-
-fn uninitialized() -> CoordError {
-    CoordError::new(
-        "COORD_NOT_INITIALIZED",
-        "coordination generation has not been initialized",
-    )
-}
-
-fn recovery_required() -> CoordError {
-    CoordError::new(
-        "COORD_RECOVERY_REQUIRED",
-        "legacy events.jsonl exists without CURRENT; explicit recovery is required",
-    )
-}
-
-fn recovery_in_progress() -> CoordError {
-    CoordError::new(
-        "COORD_RECOVERY_IN_PROGRESS",
-        "legacy source is retired but CURRENT is not yet durably published",
-    )
-}
-
-fn invalid(reason: impl Into<String>) -> CoordError {
-    CoordError::new("INVALID_COORD_LEDGER", reason)
-}
-
-fn changed(reason: impl Into<String>) -> CoordError {
-    CoordError::new("COORD_SUBJECT_CHANGED", reason)
-}
-
-fn wire(error: bullet_wire::WireError) -> CoordError {
-    invalid(format!("canonical coordination record failed: {error}"))
-}
-
-fn fence_unknown(reason: impl Into<String>) -> CoordError {
-    CoordError::new("COORD_FENCE_UNKNOWN", reason)
-}
-
-fn validate_request_id(value: &str) -> Result<(), CoordError> {
-    if value.len() == 68
-        && value.starts_with("req_")
-        && value[4..]
-            .bytes()
-            .all(|byte| byte.is_ascii_digit() || (b'a'..=b'f').contains(&byte))
-    {
-        Ok(())
-    } else {
-        Err(CoordError::new(
-            "INVALID_COORD_REQUEST_ID",
-            "request ID must be req_ plus 64 lowercase hexadecimal digits",
-        ))
-    }
-}
+#[path = "ledger_ids.rs"]
+mod ledger_ids;
+use ledger_ids::*;
 
 #[cfg(test)]
 #[path = "ledger/tests.rs"]

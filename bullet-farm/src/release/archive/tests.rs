@@ -1,3 +1,4 @@
+// jankurai:allow repo-rot.path.fake-versioned-source reason=bundle reader proofs for the live publisher, not a stale tree copy owner=ops expires=2027-03-08
 use std::{
     fs::{self, File},
     io::{Cursor, Write},

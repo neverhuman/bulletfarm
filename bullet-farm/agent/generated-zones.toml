@@ -13,13 +13,13 @@ read_only = true
 
 [[zone]]
 path = "contracts/v1alpha1/schema-bundle.json"
-source = "contracts/v1alpha1/contract-catalog.json"
+source = "contracts/v1alpha1/contract-catalog.json + contracts/v1alpha1/schema-bundle.json"
 command = "just contract-generate"
 read_only = true
 
 [[zone]]
 path = "contracts/v1alpha1/bundle-manifest.json"
-source = "contracts/v1alpha1/contract-catalog.json"
+source = "contracts/v1alpha1/contract-catalog.json + contracts/v1alpha1/bundle-manifest.json"
 command = "just contract-generate"
 read_only = true
 
@@ -32,12 +32,6 @@ read_only = true
 [[zone]]
 path = "policy/v1alpha1/policy.json"
 source = "policy/v1alpha1/policy-template.json + policy/v1alpha1/invariant-registry.json + contracts/v1alpha1/contract-catalog.json"
-command = "just contract-generate"
-read_only = true
-
-[[zone]]
-path = "crates/bullet-wire/tests/fixtures/policy-v1alpha2-live-enabled.json"
-source = "policy/v1alpha1/policy-template.json + policy/v1alpha1/invariant-registry.json + contracts/v1alpha1/contract-catalog.json + crates/bullet-wire/src/contract_tool.rs"
 command = "just contract-generate"
 read_only = true
 
@@ -87,6 +81,12 @@ read_only = true
 path = "docs/assurance/corpus-coverage.generated.md"
 source = "policy/corpus-coverage-v1.json + src/check/corpus/"
 command = "bash scripts/corpus-coverage.sh write"
+read_only = true
+
+[[zone]]
+path = "docs/assurance/orphan-inventory.generated.md"
+source = "scripts/orphan-inventory.sh + tests/orphan_inventory/"
+command = "bash scripts/orphan-inventory.sh write"
 read_only = true
 
 [[zone]]

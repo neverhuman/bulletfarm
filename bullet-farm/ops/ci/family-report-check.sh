@@ -39,23 +39,43 @@ case "$kind" in
   vitest-source-pair)
     [[ "$#" -eq 3 && -f "$3" && ! -L "$3" && -s "$3" ]] \
       || { refuse FAMILY_VITEST_SOURCE_MISSING "fast/coverage source"; exit 1; }
-    source_count() {
-      local source="$1" report_name="$2"
-      local -a values=()
+    source_inventory() {
+      local source="$1" report_name="$2" inventory
       # The declaration being parsed contains the literal shell variable name `$reports`.
       # shellcheck disable=SC2016
-      mapfile -t values < <(sed -nE \
-        's#^node ops/ci/assert-report\.mjs vitest "\$reports/'"$report_name"'" ([0-9]+)$#\1#p' \
-        "$source")
-      [[ "${#values[@]}" -eq 1 && "${values[0]}" =~ ^[1-9][0-9]*$ ]] \
-        || { refuse FAMILY_VITEST_SOURCE_INVALID "$source:$report_name"; return 1; }
-      printf '%s\n' "${values[0]}"
+      if ! inventory="$(LC_ALL=C awk \
+        -v prefix='node ops/ci/assert-report.mjs vitest "$reports/'"$report_name"'" ' '
+        index($0, "assert-report.mjs") {
+          declarations++
+          if (index($0, prefix) != 1) { invalid = 1; next }
+          suffix = substr($0, length(prefix) + 1)
+          digest = "legacy"
+          if (suffix ~ /^[1-9][0-9]*$/) {
+            count = suffix
+          } else if (suffix ~ /^[1-9][0-9]* \\$/) {
+            count = substr(suffix, 1, length(suffix) - 2)
+            if ((getline digest) != 1 || digest !~ /^[ \t]+[0-9a-f]+$/) {
+              invalid = 1; next
+            }
+            sub(/^[ \t]+/, "", digest)
+            if (length(digest) != 64) invalid = 1
+          } else invalid = 1
+        }
+        END {
+          if (invalid || declarations != 1) exit 1
+          printf "%s\t%s\n", count, digest
+        }
+      ' "$source")"; then
+        refuse FAMILY_VITEST_SOURCE_INVALID "$source:$report_name"
+        return 1
+      fi
+      printf '%s\n' "$inventory"
     }
-    fast_count="$(source_count "$2" vitest.json)" || exit 1
-    coverage_count="$(source_count "$3" coverage-tests.json)" || exit 1
-    [[ "$fast_count" -eq "$coverage_count" ]] \
-      || { refuse FAMILY_VITEST_SOURCE_DRIFT "fast=$fast_count coverage=$coverage_count"; exit 1; }
-    printf '%s\n' "$fast_count"
+    fast_inventory="$(source_inventory "$2" vitest.json)" || exit 1
+    coverage_inventory="$(source_inventory "$3" coverage-tests.json)" || exit 1
+    [[ "$fast_inventory" == "$coverage_inventory" ]] \
+      || { refuse FAMILY_VITEST_SOURCE_DRIFT "fast=$fast_inventory coverage=$coverage_inventory"; exit 1; }
+    printf '%s\n' "${fast_inventory%%$'\t'*}"
     ;;
   junit)
     [[ "$#" -eq 4 ]] || { refuse FAMILY_REPORT_USAGE "junit FILE TESTS SKIPPED"; exit 2; }

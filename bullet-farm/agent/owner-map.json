@@ -5,6 +5,7 @@
     "SPLIT.md": "split",
     "README.md": "docs",
     "CHANGELOG.md": "docs",
+    "CLAUDE.md": "agent",
     "LICENSE": "workspace",
     "Justfile": "ops",
     "ci.toml": "ops",
@@ -44,6 +45,7 @@
     "ops/": "ops",
     "policy/": "policy",
     "release/": "ops",
+    "schemas/": "agent",
     "scripts/": "ops",
     "scripts/readme-input-check.sh": "contracts",
     "scripts/readme-schema-check.sh": "contracts",
@@ -51,6 +53,7 @@
     "tests/": "ops",
     "tools/": "ops",
     ".github/": "ops",
-    ".github/workflows/": "ops"
+    ".github/workflows/": "ops",
+    "publication/": "ops"
   }
 }

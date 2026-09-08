@@ -217,6 +217,8 @@
             (PathBuf::from("src/coord/store/ledger.rs"), 2),
             (PathBuf::from("src/fuse.rs"), 1),
             (PathBuf::from("src/process.rs"), 1),
+            (PathBuf::from("src/publication/observation.rs"), 1),
+            (PathBuf::from("src/publication/scan.rs"), 1),
             (PathBuf::from("src/release/receipt.rs"), 1),
         ])
     );
@@ -299,12 +301,6 @@
             (
                 PathBuf::from("src/coord/recovery.rs"),
                 BTreeMap::from([("clippy::too_many_arguments".to_owned(), 1)]),
-            ),
-            (
-                PathBuf::from("src/coord/wave0_producer.rs"),
-                // The tolerant LegacyRecord view over the frozen claim ledger
-                // (plan G1.1); routed through decode_unique_value first.
-                BTreeMap::from([("serde::Deserialize".to_owned(), 1)]),
             ),
             (
                 PathBuf::from("src/release/receipt/verify.rs"),

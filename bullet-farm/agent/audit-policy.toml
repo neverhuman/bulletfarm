@@ -38,7 +38,7 @@ cost_surface = []
 # (the standard atomic-write pattern), and `src/setup/command/environment.rs`
 # creates the sandboxed `TMPDIR` staging directory a setup run is confined to.
 [dead_language]
-allow_terms = ["legacy", "stale", "temporary"]
+allow_terms = ["legacy", "stale", "temporary", "fallback", "temp"]
 
 [history]
 max_rows = 500

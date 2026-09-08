@@ -47,9 +47,10 @@ The following component boundaries are implemented:
 
 - Hub source defines the hard-false `DOGFOOD_RUN` v0 template and refuses that kind at the semantic
   release registry. It is not a `GateClass` or a release receipt kind.
-- `bullet-family check dogfood --json` renders a diagnostic, never-authoritative board. It exits 1 while
-  any loop blocker remains and exits 0 only when its coordination loop inputs are operable; a blocked
-  release remains visible but does not become green.
+- `bullet-family check dogfood --json` renders a diagnostic, never-authoritative board. It retains `--track coord|dogfood|all`; each track exits 1 while its blockers remain. Configuration,
+  observed operation, and release status are separate. Unavailable enrollment, runtime, conformance,
+  containment, durable-launch, and operational read-back consumers block provider readiness; a binding
+  alone cannot pass. A blocked release remains visible independently.
 - Kernel source exposes `bullet dogfood read-only` for Claude. It can emit one create-once
   `DOGFOOD_READ_ONLY_RECEIPT` and proposal only after a contained turn succeeds. No such successful
   receipt is admitted today, and Codex, Cursor, and Antigravity compose paths do not exist.
@@ -104,21 +105,23 @@ requirements and the engineering predecessors below are implemented and independ
    environment-selected binding file is structural component machinery, not operator authority. General
    live and release paths must continue to refuse this binding.
 2. An operator-owned top-level v1alpha2 policy at an absolute path **outside every repository**, mode 0600,
-   with `policy_generation >= 2`, `sandbox_policy.live_admission_enabled = false`, and an
-   `authority-signing` / `paseto-v4.public` issuer key carrying the `provider-runner` audience, plus the
-   separate dogfood binding above. Every nested
+   with `policy_generation >= 2`, `sandbox_policy.live_admission_enabled = false`, and separate
+   `dogfood-launch-signing` and `provider-enrollment-signing` keys with their dedicated purposes, plus
+   the separate dogfood binding above. The prior `authority-signing` / `provider-runner` requirement
+   is superseded; the older Kernel consumer must migrate before this admission. Every nested
    policy `schema_version` stays `v1alpha1`. A separately admitted producer must encode the resulting
    `PolicySnapshotV1` as RFC 8785 canonical bytes, install it create-once, reopen it, and require byte-exact
    canonical read-back; pretty or sorted output from plain `jq` is not an admissible policy subject.
    `route_policy.evolutionary_authority` stays `false`.
-3. The private half of that key under operator custody in the data directory, plus exact provider enrollment,
+3. The private halves of those keys under operator custody in the data directory, plus exact provider enrollment,
    service identity, credential projection, invocation/spend bounds, validity, revocation, and containment.
 4. The canonical OD-K social witness in the family log, naming every field required by ADR 0013. The line
    itself supplies no runtime authority and cannot mechanically distinguish its same-UID author.
-5. Sanctioned recovery of the frozen coordinator generation under an independently reviewed authorization,
-   followed by a typed W0 subject that binds the recovered generation/manifest and replay watermark plus
-   the exact clean Hub, Kernel, BulletGit, and Portal subjects and zero unresolved claim state. No dogfood
-   track may substitute Fresh Genesis, ledger relocation, chmod, or deletion for that recovery.
+5. The reviewed preserved fresh-development transition described in the September 7 amendment below,
+   including complete two-location inventories, strict replay/dispositions and exact four-repository W0
+   durably bound into Genesis and checked under the final guard and on restart. Original-incident
+   recovery remains separate, unresolved and owed. This replaces the earlier recovery-only prerequisite
+   as a proposal; the Operating HOLD still prohibits execution before its engineering/review/operator acts.
 
 There is no environment-variable admission. ADR 0011 rejected `BULLET_LIVE_ADMISSION` and this ADR does
 not reintroduce it under another name: a shared token is not custody.
@@ -165,16 +168,60 @@ operator checkpoint remain open.
 `CURRENT`, or delete incident bytes. The family plan calls the desired independent recovery amendment
 “OD-L”, but that label is not accepted authority: checked-in ADR 0013 and this proposed ADR have not been
 reviewed and amended to ratify it. Until a reviewed decision amendment and its operator/reviewer acts
-exist, sanctioned recovery remains blocked and manual path-exact coordination remains the only honest
-board. DF-R7a and DF-R7b remain open packets, owed in full, on their own lane.
+exist, both real incident recovery and fresh initialization remain blocked; manual path-exact coordination
+remains the only available coordination protocol. DF-R7a and DF-R7b remain open packets, owed in full, on their own lane.
+
+### September 7 amendment proposal: preserved fresh development generation
+
+The selected implementation route is a **distinct internal-development generation**, followed by
+Codex, Claude, and Cursor subscription dogfood. This paragraph reconciles the proposed route with
+OD-K; it is not ratification, an operator checkpoint, or recovery of the old generation. The Operating
+HOLD above remains effective. The earlier recovery-only sequencing is superseded as a proposal;
+DF-R7a/R7b remain separate unresolved incident-recovery obligations.
+
+Before an operator can authorize retirement or initialization, the consuming transition must:
+
+1. Bind complete inventories of **both** the outer family coordinator and the Hub-local coordinator,
+   including original, interrupted, tainted, and quarantine bytes; preserve their original identities,
+   modes, and digests. Refuse unreviewed destinations, collisions, omissions, partial relocation, and
+   changed subjects. Verify retirement read-back for every inventoried location.
+2. Strictly replay the reviewed ledger with the same claim/heartbeat/handoff/receipt reducer used by
+   the coordinator. Expiry is not a disposition. Every abandoned claim and unresolved handoff needs
+   an exact reviewed disposition; unresolved work may be retained for later recovery only when the
+   admission explicitly quarantines it without adopting leases or implying integration.
+3. Bind all four exact commit/tree pairs, repository identities, cleanliness, replay watermark,
+   dispositions, and the independently authored review record. Revalidate them under the final
+   initialization guard. Missing/changed input must leave no new generation.
+4. Durably bind admission references into the new Genesis and enforce them on exact retry and restart.
+   Publishing unreferenced sidecar files is insufficient. Incident-derived initialization must not
+   fall back to pristine bootstrap when inputs are omitted.
+5. Pass conflict, owner-heartbeat, expiry, stale-generation, exact-retry, changed-request, handoff,
+   integration-receipt, and restart tests, including crashes and subject drift around publication.
+
+Only after engineering proof and independent review may the operator approve the exact amendment
+and admission packet. Provider enrollment/launch is a later, separate checkpoint after its consumers
+and refusal tests exist. Agents never write keys, enrollments, or operator decisions. A fresh
+coordinator alone cannot authorize provider spend or integration.
+
+Initial dogfood requires Codex App Server, Claude headless stream JSON, and Cursor ACP; Antigravity
+follows separately. Providers propose against a read-only exact snapshot. BulletGit applies the
+proposal in a private clone; sealed gates and separate review qualify an exact Candidate; a human
+approves integration. Subscription enrollment is per account, with private provider HOME and finite
+call/time/concurrency limits. Missing monetary cost remains `UNPRICED`; unknown quota is not unlimited.
+The shared wire uses separate dogfood launch and enrollment signing purposes. Kernel's older
+`provider-runner` consumer must migrate before admission; labels alone confer no launch authority.
+
+The September 7 source review found the initialization and inventory requirements above incomplete.
+The admission kit and family `CEREMONY-WAVE2.md` are **NOT EXECUTABLE**. The statement that only an
+operator ceremony remains is withdrawn; no operator is being asked to waive missing engineering.
 
 ## Consequences
 
 - Landed surface: `bullet-family check dogfood --json` reports coordinator state, repository dirtiness,
   release status, and dogfood binding state. It is always diagnostic and exits non-zero when a loop
-  blocker remains. `scripts/dogfood-board.py` forwards its bytes and status.
+  blocker remains. `tests/dogfood-board.py` forwards its bytes and status.
 - Required future authority inputs: an admitted RFC 8785 policy and binding producer/read-back, sanctioned
-  recovery authority, and an exact recovery-bound four-repository W0 subject. Every missing, changed,
+  transition authority, and an exact transition-bound four-repository W0 subject. Every missing, changed,
   incomplete, dirty, unresolved-claim, or replay-watermark mismatch must refuse.
 - Landed refusal: `check release --profile dogfood-local-v0` returns typed `NOT_A_RELEASE_PROFILE`.
 - Partial record surface: the hard-false `DOGFOOD_RUN` template and release-registry refusal exist, while

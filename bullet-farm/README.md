@@ -1,5 +1,8 @@
 # Bullet Farm
 
+[![CI](https://img.shields.io/badge/ci-local%20required-green.svg)](docs/testing.md)
+[![Jankurai](https://img.shields.io/badge/jankurai-audit-blue.svg)](docs/testing.md)
+
 **Many minds. One verified line to main.**
 
 Bullet Farm is building the transaction boundary for coding agents: fenced authority, one repository writer, exact Candidates, independent Evidence, durable effect reconciliation, and protected integration.

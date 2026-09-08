@@ -1,11 +1,11 @@
 # Fleet runbook
 
-Status: **the human protocol is active; every `coord` verb is suspended under coordinator recovery**
+Status: **the human protocol is active; every `coord` verb is suspended under the Operating HOLD**
 Owner: Bullet Farm maintainers
-Last reviewed: 2026-08-28
+Last reviewed: 2026-09-07
 Applies to: all bullet repos
 
-## Recovery notice: run no `coord` verb until recovery completes
+## Operating HOLD: run no `coord` verb before the admitted transition
 
 The 2026-08-26 incident left the live ledger frozen — `events.jsonl` at mode 0400 with no `CURRENT`
 (ADR 0015, "Coordinator"). That is the `Legacy` presence, and every ledger entry point refuses it
@@ -14,16 +14,23 @@ explicit recovery is required", `src/coord/store/ledger.rs:451-456`), reached fr
 (`ledger.rs:128-138`) and the guarded write path (`store/ledger/transaction.rs:132-141`). A retired
 source with no published `CURRENT` refuses `COORD_RECOVERY_IN_PROGRESS` instead.
 
-So: **no `bullet-family coord` verb may be run until recovery completes** — not `claim`, not
+So: **no `bullet-family coord` verb may be run while the Operating HOLD remains effective** — not `claim`, not
 `heartbeat`, not `handoff`, not `receipt`, and not `status`. Do not attempt `init` to "fix" it: a
 fresh Genesis over a retained incident is an operator act gated on OD-K ratification, its typed
 predecessors, and an independent reviewer distinct from the operator (ADR 0015, "Coordinator"). The
 recovery producers are the recovery owner's, are documented in `docs/runbooks/coordinator-recovery.md`,
 and remain blocked for the real incident.
 
+The September 7 amendment in ADR 0015 proposes a distinct preserved fresh development generation.
+It requires complete inventories of both incident locations, strict replay and reviewed dispositions,
+exact four-repository/review subjects, durable Genesis binding, final guarded validation, restart
+proof, independent review and the operator checkpoint. The current consumer is incomplete; a HOLD-lift
+line alone cannot authorize the transition. Original-incident recovery remains separate and unresolved.
+The family `CEREMONY-WAVE2.md` is NOT EXECUTABLE. No machine claim or heartbeat is available yet.
+
 While the freeze holds, coordination is the human protocol only: append-only entries in the family
-`AGENT_CHAT.md`, read-only design and test work on disjoint paths, HOLD lines carrying `sha256sum` for
-every touched path, and no claim, handoff, receipt, or commit by a worker. The fleet rules that this
+`AGENT_CHAT.md`, authorized bounded design, source repair and focused tests on disjoint claimed paths, HOLD lines carrying `sha256sum` for
+every touched path, and no machine claim, machine handoff, machine receipt, or commit by a worker. The fleet rules that this
 runbook's loop assumes are normative in [`../../AGENTS.md`](../../AGENTS.md), "Fleet discipline".
 
 ## Coordination surfaces

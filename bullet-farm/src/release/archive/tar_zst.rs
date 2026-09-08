@@ -1,3 +1,4 @@
+// jankurai:allow repo-rot.path.fake-versioned-source reason=strict TAR+Zstd reader for release bundles, not a stale tree copy owner=ops expires=2027-03-08
 //! Strict TAR+Zstandard reader for deterministic release materialization.
 
 use std::{

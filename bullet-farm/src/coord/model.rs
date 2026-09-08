@@ -6,6 +6,7 @@ pub use api::{
     RequestId, Status, StatusOrigin, Watermark,
 };
 mod fresh_genesis;
+mod fresh_preservation;
 #[allow(
     unused_imports,
     reason = "COMPONENT_ONLY contracts await their descriptor-bound producers"
@@ -16,6 +17,7 @@ pub(crate) use fresh_genesis::{
     IncidentInventorySubjectV1, IncidentInventoryV1, Wave0ClaimHighWaterV1, Wave0CleanStateV1,
     Wave0FactsV1, Wave0MemberRoleV1, Wave0MemberV1, Wave0ReviewBindingV1, Wave0SubjectV1,
 };
+pub(crate) use fresh_preservation::FreshPreservationSubjectV1;
 mod recovery_adoption;
 #[cfg(test)]
 pub(crate) use recovery_adoption::fixture_request as recovery_adoption_request_fixture;

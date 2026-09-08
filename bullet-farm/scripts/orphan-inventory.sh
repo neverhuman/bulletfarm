@@ -33,5 +33,5 @@ selected_binary="$("$realpath_executable" -- "$selected_binary")"
   exit 1
 }
 
-run_python_312 "$SCRIPT_DIR/orphan_inventory/main.py" "$mode" \
+run_python_312 "$REPO_ROOT/tests/orphan_inventory/main.py" "$mode" \
   --root "$REPO_ROOT" --bin "$selected_binary"

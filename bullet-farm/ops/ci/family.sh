@@ -74,6 +74,8 @@ run_member_ci() {
   set +e
   (
     cd "$root"
+    # Kernel owns its private target; its authority-marker refusals stay intact.
+    [[ "$member" != bullet-kernel ]] || unset CARGO_TARGET_DIR
     exec env BULLET_CI_PROOF_CUSTODY="$record" bash scripts/ci-local.sh "$lane"
   )
   status=$?
@@ -187,11 +189,16 @@ log "2/7 build the sole-writer daemon from the admitted BulletGit subject"
 # Start a clean non-login shell so Hub's sourced Cargo boundary cannot leak
 # across the repository boundary. The explicit rustup subject agrees with
 # BulletGit's checked-in primary toolchain and leaves Hub on Rust 1.95.0.
-(cd "$GIT_ROOT" && env -i HOME="${HOME:?}" PATH="$PATH" LC_ALL=C TZ=UTC \
-  CARGO_INCREMENTAL=0 CARGO_TARGET_DIR="$family_tmp/gitd-target" \
-  CARGO_NET_OFFLINE=true \
-  bash --noprofile --norc -c \
-    'exec rustup run 1.97.1 cargo build --locked -p bullet-gitd --bin bullet-gitd')
+(
+  # The retained executable must be private even when the invoking shell uses 0002.
+  umask 077
+  cd "$GIT_ROOT"
+  env -i HOME="${HOME:?}" PATH="$PATH" LC_ALL=C TZ=UTC \
+    CARGO_INCREMENTAL=0 CARGO_TARGET_DIR="$family_tmp/gitd-target" \
+    CARGO_NET_OFFLINE=true \
+    bash --noprofile --norc -c \
+      'exec rustup run 1.97.1 cargo build --locked -p bullet-gitd --bin bullet-gitd'
+)
 gitd_expected="$family_tmp/gitd-target/debug/bullet-gitd"
 gitd_bin="$(realpath -e -- "$gitd_expected")" \
   || { refuse BULLET_GITD_BIN_MISSING "$gitd_expected"; exit 1; }
@@ -213,7 +220,7 @@ kernel_custody="$(family_custody_record bullet-kernel)" || exit $?
 set +e
 (
   cd "$KERNEL_ROOT"
-  exec env BULLET_CI_PROOF_CUSTODY="$kernel_custody" \
+  exec env -u CARGO_TARGET_DIR BULLET_CI_PROOF_CUSTODY="$kernel_custody" \
     BULLET_GITD_BIN="$gitd_bin" BULLET_GITD_SHA256="$gitd_sha256" \
     bash scripts/ci-local.sh family
 )
@@ -231,7 +238,12 @@ run_member_ci bullet-portal required
 assert_family_subjects after-stage-5
 assert_family_subjects before-stage-6
 log "6/7 Portal real-farmd browser proof"
-run_member_ci bullet-portal family
+[[ "$(sha256_file "$gitd_bin")" == "$gitd_sha256" ]] \
+  || { refuse BULLET_GITD_BIN_CHANGED before-portal-family; exit 1; }
+BULLET_GITD_BIN="$gitd_bin" BULLET_GITD_SHA256="$gitd_sha256" \
+  run_member_ci bullet-portal family
+[[ "$(sha256_file "$gitd_bin")" == "$gitd_sha256" ]] \
+  || { refuse BULLET_GITD_BIN_CHANGED after-portal-family; exit 1; }
 assert_family_subjects after-stage-6
 
 assert_family_subjects before-stage-7

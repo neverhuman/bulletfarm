@@ -194,12 +194,14 @@ nor OD-I's receipt certifies the other. Ratification line:
 - Proposed decision: after every engineering predecessor and a fresh safety review pass, accept
   purpose-separated, non-evidence `DOGFOOD_RUN` operational observations under `dogfood-local-v0` for the
   family's own development on this host ([ADR 0015](0015-dogfood-track.md)); bind an operator-owned
-  generation-2 v1alpha2 policy and its `provider-runner` launch key to one separately typed dogfood
-  audience/operation, exact enrollment, credential projection, containment and budgets; and retain the
+  generation-2 v1alpha2 offline policy with separate dogfood launch/enrollment signing purposes to
+  exact dogfood scope, enrolled Codex/Claude/Cursor accounts, credential projection, containment and
+  finite budgets; migrate the older Kernel consumer before admission; and retain the
   frozen 2026-08-26 coordinator generation as **incident evidence, not recovered** under one complete
-  canonical inventory before permitting one fresh schema-2 Genesis. Because the current manifest binds only
-  its Hub bootstrap commit, a separate typed W0 subject consumed and revalidated by the init transition must
-  bind the exact Hub, Kernel, BulletGit, and Portal commit/tree subjects and clean state.
+  canonical admission packet covering both incident locations before permitting one distinct internal-development
+  Genesis. The September 7 amendment in ADR 0015 requires durable Genesis references to the complete
+  inventories, strict replay, reviewed unresolved-work dispositions, independent review, and all four
+  exact commit/tree subjects; final guarded validation and restart must refuse changed or missing inputs.
 - Trust boundary: this act admits nothing to the release program. It clears no gate, satisfies no
   profile condition, raises no scorecard floor, and creates no independent or transaction evidence.
   It does not consume OD-A: a future dogfood provider run would not be `release.provider.claude`. Today's
@@ -214,14 +216,18 @@ nor OD-I's receipt certifies the other. Ratification line:
 - Unblocks: nothing in the release catalog. If ratified after its predecessors, it would enable the first
   coordinated Bullet-on-Bullet change.
 - Procedure: [`../runbooks/dogfood-admission-kit.md`](../runbooks/dogfood-admission-kit.md).
-- Ratification line:
+- Historical ratification template — **SUPERSEDED; do not execute or copy as a decision.** It binds only
+  Claude and an older signing purpose and does not describe a complete two-location admission. Retained
+  below solely as disposition of the previous proposal; the operator checkpoint must follow the reviewed
+  amendment and complete engineering consumer, never this template:
   `## <UTC> — operator — OD-K — RATIFIED: dogfood-local-v0 admitted for internal use per ADR 0015; policy <absolute path> owner/mode 0600 digest <digest> generation <n> canonical read-back <producer/subject> scoped by <dogfood audience/operation binding>; provider-runner key <fingerprint> custody <path>; provider claude enrollment <path> digest <digest> executable <path/digest> protocol <exact> version <exact> model <exact> profile <exact> service identity <id> credential handle <handle> invocation/spend limits <limits> valid <interval> revocation <handle> rollback <owner>; frozen generation <path> retained mode 0400 complete inventory <absolute path/digest/entry count>, NOT recovered, DF-R7a/R7b remain OPEN; W0 subject <absolute path/digest> hub <commit/tree> kernel <commit/tree> git <commit/tree> portal <commit/tree> clean/zero-claim/review <facts>; Genesis operator <id> bootstrap commit <hub oid> W0 read-back <digest> (the current manifest binds only the Hub commit; the separately typed W0 subject binds all four); release/independent/transaction eligibility remain false; providers read-only per ADR 0001; Jeryu unmodified.`
 - Negative acceptance: an agent-created policy or key, a forged operator-looking line, or a dogfood
   operational record of any age can never qualify a release gate, a profile condition, or an independence
   claim. The social witness alone must never authorize the dogfood runtime either.
-- Status: `OPEN` — no ratification line exists, and the engineering predecessors in the dependency
-  DAG below are unbuilt. Ratifying before they land would widen live-execution authority globally on a
-  single-UID host where operator provenance is social rather than cryptographic.
+- Status: `OPEN` — no ratification line exists. The September 7 source review found partial components,
+  incomplete two-location/Genesis admission, and no durable three-provider launch path. The Operating HOLD
+  remains effective until reviewed engineering and operator checkpoints. This edit records a proposal,
+  not an operator decision; no authority changes.
 
 ## Dependency DAG
 
@@ -238,17 +244,15 @@ The graph is acyclic: `OD-D → OD-E → OD-A`; the live forge acts branch only 
 their offline contracts; and `self-hosted PASS → offline study → no-effect
 shadow → rollback readiness → OD-H → bounded canary → promotion/drift receipts
 → evolution PASS`. In particular there is no `OD-D → OD-B` edge.
-- A future ratified OD-K would grant only internal-use admission; forge/provider/signing/release authority
-  would remain exactly where OD-A through OD-J place them. It is **not** predecessor-free, contrary to an earlier draft: because
-  `PolicySnapshotV1` has no dogfood profile/audience field and `validate_live_admission` checks only a
-  global boolean, admitting it today would clear the POLICY step for every guarded live route. Its
-  engineering predecessors are (i) a separately typed dogfood audience/operation binding the general
-  live and release paths refuse, (ii) a dogfood provider enrollment binding the exact Claude model with
-  explicit credential projection and a filesystem boundary for the same-UID child, (iii) the `check dogfood` /
-  `NOT_A_RELEASE_PROFILE` / operational-record-refusal surfaces, (iv) an admitted RFC 8785 policy producer and
-  byte-exact read-back, and (v) a durable complete incident inventory plus an exact four-repository W0 subject
-  consumed and drift-refused by fresh Genesis. Until those land and a fresh safety review passes, OD-K must not
-  be ratified.
+- A future ratified OD-K grants only internal-use admission; OD-A through OD-J retain their separate
+  release/provider/forge/signing authority. Engineering predecessors are: the landed typed dogfood scope
+  and release refusal; generated and consumed launch/enrollment/runtime/context/budget/run contracts;
+  one-use durable command admission; account-specific credentials and containment; finite reservations;
+  admitted producers and exact read-back; and the complete two-location fresh-generation admission
+  described in ADR 0015. The initial required providers are Codex, Claude, and Cursor. The coordinator
+  checkpoint precedes provider enrollment/launch checkpoints; neither substitutes for the other.
+  `live_admission_enabled` remains false. Existing shape validators and create-once files do not finish
+  these consumers. OD-K stays OPEN until proof, independent review, and operator ratification.
 
 ## Reverse crosswalk
 

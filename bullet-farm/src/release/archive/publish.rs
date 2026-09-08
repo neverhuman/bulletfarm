@@ -1,3 +1,4 @@
+// jankurai:allow repo-rot.path.fake-versioned-source reason=live no-replace publisher for release bundles, not a stale tree copy owner=ops expires=2027-03-08
 //! Descriptor-pinned, no-replace publication of a fully durable staging tree.
 
 use std::{

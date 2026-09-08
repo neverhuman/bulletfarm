@@ -12,6 +12,7 @@ struct Document {
 
 #[test]
 fn anonymous_output_and_independent_reads_are_exact() {
+    observation_inputs_have_distinct_custody_and_framing();
     let root = tempfile::tempdir().unwrap();
     fs::set_permissions(root.path(), fs::Permissions::from_mode(0o700)).unwrap();
     let path = root.path().join("sealed.json");
@@ -207,4 +208,60 @@ fn root_runtime_mode_and_response_loss_adoption_are_exact() {
         b"exact\n",
         b"different\n"
     ));
+}
+
+fn observation_inputs_have_distinct_custody_and_framing() {
+    let root = tempfile::tempdir().unwrap();
+    fs::set_permissions(root.path(), fs::Permissions::from_mode(0o700)).unwrap();
+    let path = root.path().join("observation.json");
+    let expected = Document {
+        value: "observed".to_owned(),
+    };
+    let bytes = bullet_wire::canonical_json(&expected).unwrap();
+    fs::write(&path, &bytes).unwrap();
+    fs::set_permissions(&path, fs::Permissions::from_mode(0o600)).unwrap();
+    assert_eq!(read_observation::<Document>(&path).unwrap(), expected);
+    assert!(read::<Document>(&path).is_err());
+    assert_eq!(fs::read(&path).unwrap(), bytes);
+    for mode in [0o400, 0o440, 0o640, 0o660, 0o700] {
+        fs::set_permissions(&path, fs::Permissions::from_mode(mode)).unwrap();
+        assert!(read_observation::<Document>(&path).is_err());
+    }
+    fs::set_permissions(&path, fs::Permissions::from_mode(0o600)).unwrap();
+    let alias = root.path().join("alias.json");
+    fs::hard_link(&path, &alias).unwrap();
+    assert!(read_observation::<Document>(&path).is_err());
+    fs::remove_file(&alias).unwrap();
+    std::os::unix::fs::symlink(&path, &alias).unwrap();
+    assert!(read_observation::<Document>(&alias).is_err());
+    fs::remove_file(&alias).unwrap();
+    let parent_alias = tempfile::tempdir().unwrap();
+    std::os::unix::fs::symlink(root.path(), parent_alias.path().join("alias")).unwrap();
+    assert!(
+        read_observation::<Document>(&parent_alias.path().join("alias/observation.json")).is_err()
+    );
+    for mode in [0o750, 0o775, 0o777] {
+        fs::set_permissions(root.path(), fs::Permissions::from_mode(mode)).unwrap();
+        assert!(read_observation::<Document>(&path).is_err());
+    }
+    fs::set_permissions(root.path(), fs::Permissions::from_mode(0o700)).unwrap();
+    for malformed in [
+        b"{\"value\":\"observed\"}\n".as_slice(),
+        b"{ \"value\":\"observed\"}",
+        b"{\"value\":\"a\",\"value\":\"b\"}",
+        b"",
+    ] {
+        fs::write(&path, malformed).unwrap();
+        assert!(read_observation::<Document>(&path).is_err());
+        assert_eq!(fs::read(&path).unwrap(), malformed);
+    }
+    fs::write(
+        &path,
+        vec![b' '; bullet_wire::MAX_CANONICAL_DOCUMENT_BYTES + 1],
+    )
+    .unwrap();
+    assert!(read_observation::<Document>(&path).is_err());
+    fs::remove_file(&path).unwrap();
+    rustix::fs::mkfifoat(rustix::fs::CWD, &path, Mode::RUSR | Mode::WUSR).unwrap();
+    assert!(read_observation::<Document>(&path).is_err());
 }

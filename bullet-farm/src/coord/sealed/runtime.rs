@@ -13,6 +13,7 @@ impl super::ParentAdmission {
     pub(super) fn file_mode(self) -> Mode {
         match self {
             Self::Sealed | Self::FrozenLegacy => Mode::RUSR,
+            Self::Observation => Mode::RUSR | Mode::WUSR,
             Self::RootRuntime => Mode::RUSR | Mode::RGRP | Mode::ROTH,
         }
     }

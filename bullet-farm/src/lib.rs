@@ -9,6 +9,8 @@ pub mod forge;
 pub mod fuse;
 pub mod hub_check;
 mod process;
+#[cfg(target_os = "linux")]
+pub mod publication;
 pub mod release;
 pub mod scorecard;
 pub mod setup;

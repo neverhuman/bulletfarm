@@ -50,11 +50,11 @@
    },
    "partial": {
     "kind": "test",
-    "repo": "bullet-kernel",
-    "path": "crates/domain/tests/invariants.rs",
-    "symbol": "observation_kinds_do_not_grant_generic_destruction_authority"
+    "repo": "bullet-farm",
+    "path": "tests/dogfood_board.rs",
+    "symbol": "binding_alone_cannot_claim_a_usable_three_provider_loop"
    },
-   "note": "W0 classifies every status assertion; corpus is provenance (docs/spec/README.md)"
+   "note": "COMPONENT: board refuses binding-only readiness; W0 replay refuses unresolved work. Genesis/two-location admission remains open. G1/G3/G5/G10/G12."
   },
   {
    "id": "spec.s1.cognitive-execution-plane",
@@ -4378,7 +4378,7 @@
    "anchor": {
     "kind": "test",
     "repo": "bullet-git",
-    "path": "crates/bullet-git-types/src/change.rs",
+    "path": "crates/bullet-git-types/src/change_tests.rs",
     "symbol": "every_manifest_field_is_candidate_sensitive"
    }
   },
@@ -7054,7 +7054,7 @@
    "partial": {
     "kind": "test",
     "repo": "bullet-git",
-    "path": "crates/bullet-git-types/src/change.rs",
+    "path": "crates/bullet-git-types/src/change_tests.rs",
     "symbol": "every_manifest_field_is_candidate_sensitive"
    },
    "note": "audit 2026-08-26 (PARTIAL): Shows CandidateId sensitivity to manifest fields only; no stable ChangeId evolution graph or integration-authorization denial is tes"
@@ -8229,7 +8229,7 @@
    "anchor": {
     "kind": "test",
     "repo": "bullet-git",
-    "path": "crates/bullet-git-types/src/change.rs",
+    "path": "crates/bullet-git-types/src/change_tests.rs",
     "symbol": "every_manifest_field_is_candidate_sensitive"
    }
   },
@@ -10054,7 +10054,7 @@
    "anchor": {
     "kind": "test",
     "repo": "bullet-git",
-    "path": "crates/bullet-git-types/src/change.rs",
+    "path": "crates/bullet-git-types/src/change_tests.rs",
     "symbol": "every_manifest_field_is_candidate_sensitive"
    }
   },

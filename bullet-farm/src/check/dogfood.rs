@@ -10,8 +10,7 @@ use crate::{
 };
 
 const SCHEMA_VERSION: u32 = 1;
-const DOGFOOD_BINDING_ENV: &str = "BULLET_DOGFOOD_BINDING";
-const DOGFOOD_POLICY_ENV: &str = "BULLET_DOGFOOD_POLICY";
+mod readiness;
 const W0_REPOS: &[&str] = &[
     "bullet-farm",
     "bullet-kernel",
@@ -109,6 +108,8 @@ struct Board {
     scorecard: ScorecardView,
     release: ReleaseView,
     coord: CoordView,
+    configuration: readiness::ConfigurationView,
+    operation: readiness::OperationView,
     next_free_lanes: Vec<LaneView>,
     leftover_allowlist: Vec<LaneIdView>,
     loop_operable: bool,
@@ -217,12 +218,11 @@ pub(super) fn board_json(hub: &Path, track: BoardTrack) -> Result<(String, u8), 
             loop_blockers.push("WAVE0_DIRTY_SUBJECTS");
         }
     }
+    let configuration = readiness::configuration();
+    let operation = readiness::operation();
     if track.includes_dogfood() {
-        match dogfood_binding_status() {
-            DogfoodBindingStatus::Missing => loop_blockers.push("DOGFOOD_POLICY_MISSING"),
-            DogfoodBindingStatus::Invalid => loop_blockers.push("DOGFOOD_BINDING_INVALID"),
-            DogfoodBindingStatus::Valid => {}
-        }
+        loop_blockers.extend(configuration.blockers.iter().copied());
+        loop_blockers.extend(operation.blockers.iter().copied());
     }
     let loop_operable = loop_blockers.is_empty();
     let board = Board {
@@ -240,6 +240,8 @@ pub(super) fn board_json(hub: &Path, track: BoardTrack) -> Result<(String, u8), 
             status: release.status().as_str().to_owned(),
         },
         coord,
+        configuration,
+        operation,
         next_free_lanes,
         leftover_allowlist: LEFTOVERS
             .iter()
@@ -334,67 +336,6 @@ fn unavailable_coord(error: &CoordError) -> (CoordView, Vec<LaneView>) {
     )
 }
 
-#[derive(Clone, Copy, Debug, Eq, PartialEq)]
-enum DogfoodBindingStatus {
-    Missing,
-    Invalid,
-    Valid,
-}
-
-fn dogfood_binding_status() -> DogfoodBindingStatus {
-    let Some(path) = std::env::var_os(DOGFOOD_BINDING_ENV) else {
-        return DogfoodBindingStatus::Missing;
-    };
-    let path = Path::new(&path);
-    if !path.is_file() {
-        return DogfoodBindingStatus::Missing;
-    }
-    match load_and_validate_binding(path) {
-        Ok(()) => DogfoodBindingStatus::Valid,
-        Err(()) => DogfoodBindingStatus::Invalid,
-    }
-}
-
-fn load_and_validate_binding(path: &Path) -> Result<(), ()> {
-    let bytes = std::fs::read(path).map_err(|_| ())?;
-    let value = bullet_wire::decode_unique_value(&bytes).map_err(|_| ())?;
-    let object = value.as_object().ok_or(())?;
-    let schema = object
-        .get("schema_version")
-        .and_then(|value| value.as_str())
-        .ok_or(())?;
-    let audience = object
-        .get("audience")
-        .and_then(|value| value.as_str())
-        .ok_or(())?;
-    let operation = object
-        .get("operation")
-        .and_then(|value| value.as_str())
-        .ok_or(())?;
-    if schema != bullet_wire::DogfoodBindingV1::SCHEMA_VERSION
-        || audience != "dogfood-runner"
-        || operation != "read-only-propose"
-        || object.len() != 3
-    {
-        return Err(());
-    }
-    let binding = bullet_wire::DogfoodBindingV1::read_only_propose();
-    let Some(policy_path) = std::env::var_os(DOGFOOD_POLICY_ENV) else {
-        return match bullet_wire::refuse_dogfood_binding_as_live(&binding) {
-            Err(error) if error.code() == "LIVE_ADMISSION_REFUSES_DOGFOOD_BINDING" => Ok(()),
-            _ => Err(()),
-        };
-    };
-    let policy_path = Path::new(&policy_path);
-    if !policy_path.is_file() {
-        return Err(());
-    }
-    let policy_bytes = std::fs::read(policy_path).map_err(|_| ())?;
-    let policy: bullet_wire::PolicySnapshotV1 =
-        bullet_wire::decode_canonical(&policy_bytes).map_err(|_| ())?;
-    bullet_wire::validate_dogfood_admission(&policy, &binding).map_err(|_| ())
-}
-
 fn wave0_dirty(root: &Path) -> bool {
     W0_REPOS.iter().any(|repo| repo_dirty(&root.join(repo)))
 }
@@ -442,9 +383,7 @@ fn path_overlap(left: &str, right: &str) -> bool {
 
 #[cfg(test)]
 mod tests {
-    use super::{
-        LEFTOVERS, load_and_validate_binding, path_overlap, project_claims, unavailable_coord,
-    };
+    use super::{LEFTOVERS, path_overlap, project_claims, unavailable_coord};
     use crate::coord::{ClaimState, ClaimSummary, CoordError};
 
     fn claim(state: ClaimState, committed: bool, repo: &str, paths: &[&str]) -> ClaimSummary {
@@ -556,20 +495,5 @@ mod tests {
         assert_eq!(coord.error.as_deref(), Some("COORD_IO_FAILED"));
         assert!(coord.paths.is_empty());
         assert!(next_free.is_empty());
-    }
-
-    #[test]
-    fn malformed_binding_is_typed_refuse() {
-        let dir = tempfile::tempdir().unwrap();
-        let path = dir.path().join("binding.json");
-        std::fs::write(&path, b"{\"schema_version\":\"nope\"}\n").unwrap();
-        assert!(load_and_validate_binding(&path).is_err());
-        let ok = dir.path().join("ok.json");
-        std::fs::write(
-            &ok,
-            br#"{"audience":"dogfood-runner","operation":"read-only-propose","schema_version":"v1alpha1"}"#,
-        )
-        .unwrap();
-        assert!(load_and_validate_binding(&ok).is_ok());
     }
 }

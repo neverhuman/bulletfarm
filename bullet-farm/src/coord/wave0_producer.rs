@@ -16,7 +16,10 @@ use super::fresh_genesis::incident::{
     observe_incident_inventory, verify_retired_incident_inventory,
 };
 use super::git::wave0::observe_wave0_mechanical;
-use super::model::{IncidentInventoryV1, Wave0ClaimHighWaterV1, Wave0FactsV1, Wave0SubjectV1};
+use super::model::{
+    ClaimState, IncidentInventoryV1, Wave0ClaimHighWaterV1, Wave0FactsV1, Wave0SubjectV1,
+};
+use super::{state, store::legacy};
 use std::ffi::OsStr;
 use std::fs;
 use std::os::unix::ffi::OsStrExt;
@@ -60,64 +63,28 @@ fn write_canonical_once(path: &Path, bytes: &[u8]) -> Result<(), CoordError> {
     Ok(())
 }
 
-/// One legacy claim-ledger record, as far as the high-water projection needs
-/// it. Unknown fields are deliberately tolerated: the projection consumes the
-/// frozen generation's schema without claiming to validate it.
-#[derive(serde::Deserialize)]
-struct LegacyRecord {
-    kind: String,
-    #[serde(default)]
-    claim_id: Option<String>,
-    #[serde(default)]
-    expires_unix_ms: Option<u64>,
-}
-
-/// Replay the frozen claim ledger into its high-water mark. Refuses when any
-/// claim is still active at `now`: the W0 subject's own validator requires
-/// `active_claim_count == 0`, and observing a live claim means the ceremony
-/// is premature rather than the count being negotiable.
+/// Replay the exact frozen ledger with the coordinator's strict framing and
+/// semantic reducer. Expiry and handoff alone do not dispose of work: every
+/// claim must have a valid recorded commit receipt before W0 can proceed.
 fn claim_high_water(ledger: &Path, now_unix_ms: u64) -> Result<Wave0ClaimHighWaterV1, CoordError> {
     let bytes = fs::read(ledger)
         .map_err(|error| invalid(format!("cannot read {}: {error}", ledger.display())))?;
-    let mut entry_count: u64 = 0;
-    let mut active: std::collections::BTreeMap<String, u64> = std::collections::BTreeMap::new();
-    for line in bytes.split(|byte| *byte == b'\n') {
-        if line.is_empty() {
-            continue;
-        }
-        entry_count += 1;
-        // decode_unique_value refuses duplicate keys; the legacy records are
-        // then mapped through the tolerant LegacyRecord view.
-        let value = bullet_wire::decode_unique_value(line)
-            .map_err(|error| invalid(format!("frozen ledger line is not JSON: {error}")))?;
-        let record: LegacyRecord = serde_json::from_value(value)
-            .map_err(|error| invalid(format!("frozen ledger record is malformed: {error}")))?;
-        match record.kind.as_str() {
-            "claim" => {
-                let id = record
-                    .claim_id
-                    .ok_or_else(|| invalid("claim record without claim_id"))?;
-                let expires = record
-                    .expires_unix_ms
-                    .ok_or_else(|| invalid("claim record without expires_unix_ms"))?;
-                active.insert(id, expires);
-            }
-            "handoff" => {
-                if let Some(id) = record.claim_id {
-                    active.remove(&id);
-                }
-            }
-            _ => {}
-        }
-    }
-    active.retain(|_, expires| *expires > now_unix_ms);
-    if !active.is_empty() {
+    let records = legacy::read_record_bytes(&bytes)?;
+    let claims = state::summaries(&records, now_unix_ms)?;
+    if let Some(claim) = claims
+        .values()
+        .find(|claim| claim.state != ClaimState::HandedOff || claim.commit_oid.is_none())
+    {
         return Err(invalid(format!(
-            "{} claims are still active; the W0 subject requires zero",
-            active.len()
+            "claim {} remains {:?} without a recorded commit disposition; W0 requires every claim resolved",
+            claim.claim_id, claim.state
         )));
     }
-    let projection_ids: Vec<&String> = active.keys().collect();
+    let projection_ids: Vec<&String> = claims
+        .values()
+        .filter(|claim| claim.state == ClaimState::Active)
+        .map(|claim| &claim.claim_id)
+        .collect();
     let projection_bytes = serde_json::to_vec(&projection_ids).map_err(CoordError::json)?;
     let mut hasher = blake3::Hasher::new();
     hasher.update(CLAIM_PROJECTION_DOMAIN);
@@ -134,14 +101,14 @@ fn claim_high_water(ledger: &Path, now_unix_ms: u64) -> Result<Wave0ClaimHighWat
         claim_ledger_sha256: format!("sha256:{sha256}"),
         claim_projection_blake3: format!("blake3:{}", hasher.finalize().to_hex()),
         byte_length: bytes.len() as u64,
-        entry_count,
+        entry_count: records.len() as u64,
         active_claim_count: 0,
     })
 }
 
 /// Observe the four members mechanically plus the frozen claim ledger's
 /// high-water mark, and emit unreviewed `Wave0FactsV1` for a second
-/// principal to review. Refuses any dirty member and any active claim.
+/// principal to review. Refuses any dirty member or unresolved claim.
 pub(crate) fn produce_wave0_facts(
     family_root: &Path,
     ledger: &Path,
@@ -219,3 +186,6 @@ pub(crate) fn verify_incident_inventory(inventory_path: &Path) -> Result<(), Coo
         .map_err(|error| invalid(format!("inventory is not canonical: {error}")))?;
     verify_retired_incident_inventory(&inventory)
 }
+
+#[cfg(test)]
+mod tests;

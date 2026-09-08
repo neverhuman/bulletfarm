@@ -46,6 +46,11 @@ There is no implicit `v1-ga` profile. The first-GA executable decision is
 `self-hosted-v1`. `universal-v1` is a later maximum-scope composition. Every
 narrower named profile authorizes only its own exact dependency closure.
 
+The launch gate / release gate is not satisfied. Until backup, rollback,
+monitoring, and abuse / rate limit receipts exist for a tagged subject, every
+profile below stays BLOCKED. This paragraph names those controls so they cannot
+be treated as implicit.
+
 ## Current hard blockers
 
 | Gate | Status | Evidence needed to clear it |

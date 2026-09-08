@@ -47,11 +47,12 @@ jq -r '."rust-suites" | to_entries[] | select((.value.testcases | length) == 0) 
   "$inventory/all.json" | LC_ALL=C sort >"$inventory/zero-suites"
 printf '%s\n' \
   'bullet-family::bin/bullet-family' \
+  'bullet-family::bin/bullet-publish' \
   'bullet-family::ci_controls' \
   'bullet-wire::bin/bullet-contract' \
   | LC_ALL=C sort >"$inventory/expected-zero-suites"
 cmp -s "$inventory/zero-suites" "$inventory/expected-zero-suites" \
-  || { refuse ZERO_TEST_SUITE_INVENTORY_DRIFT "only two CLI bins and cfg-disabled ci_controls may be empty on Linux"; exit 1; }
+  || { refuse ZERO_TEST_SUITE_INVENTORY_DRIFT "only three CLI bins and cfg-disabled ci_controls may be empty on Linux"; exit 1; }
 ignored_count="$(jq '[."rust-suites"[].testcases[] | select(.ignored == true)] | length' "$inventory/all.json")"
 [[ "$ignored_count" -eq 0 ]] \
   || { refuse IGNORED_TESTS_FORBIDDEN "$ignored_count tests are ignored"; exit 1; }

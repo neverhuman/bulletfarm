@@ -173,6 +173,14 @@
             &["#[path = \"../tests/support/process_unit.rs\"]"][..],
         ),
         (
+            "src/publication/observation.rs",
+            &["#[path = \"observation_tests.rs\"]"][..],
+        ),
+        (
+            "src/publication/scan.rs",
+            &["#[path = \"scan_tests.rs\"]"][..],
+        ),
+        (
             "src/release/receipt.rs",
             &["#[path = \"receipt/tests.rs\"]"][..],
         ),
@@ -263,6 +271,12 @@
             "bullet-family".to_owned(),
             vec!["bin".to_owned()],
             "src/main.rs".to_owned(),
+        ),
+        (
+            "bullet-family".to_owned(),
+            "bullet-publish".to_owned(),
+            vec!["bin".to_owned()],
+            "src/bin/bullet-publish.rs".to_owned(),
         ),
         (
             "bullet-family".to_owned(),

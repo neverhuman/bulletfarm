@@ -1,4 +1,5 @@
 mod coord;
+mod preservation;
 
 #[cfg(test)]
 pub(crate) use coord::test_recovery_action;
@@ -7,7 +8,7 @@ use std::{ffi::OsString, path::PathBuf};
 
 use crate::coord::{CoordError, discover_family_root};
 
-const USAGE: &str = "usage: bullet-family [--root PATH] <doctor --json|setup --root PATH --source jeryu --cargo-bin ABSOLUTE_PATH --node-bin ABSOLUTE_PATH --npm-cli ABSOLUTE_PATH [--offline]|release <build|verify|extract|receipt-verify> [options]|checkout verify|hub check|deps check|lock <generate --tag VERSION --subjects ABSOLUTE_PATH|verify --tag VERSION>|fuse --source <local|lock>|check <fast|required|release|scorecard|dogfood> [options]|coord <init|claim|heartbeat|handoff|receipt|receipt-group|correct-receipt|correct-receipt-group|recovery-inspect|recovery-provenance|recovery-build-observe|recovery-authorization-draft|recovery-authorization-message|recovery-authorization-signature-import|recovery-manifest|recover-rollover|recovery-plan|recovery-proof|recovery-review|recovery-request|adopt|wave0-observe|wave0-review|incident-observe|incident-verify|status> [options]>";
+const USAGE: &str = "usage: bullet-family [--root PATH] <doctor --json|setup --root PATH --source jeryu --cargo-bin ABSOLUTE_PATH --node-bin ABSOLUTE_PATH --npm-cli ABSOLUTE_PATH [--offline]|release <build|verify|extract|receipt-verify> [options]|checkout verify|hub check|deps check|lock <generate --tag VERSION --subjects ABSOLUTE_PATH|verify --tag VERSION>|fuse --source <local|lock>|check <fast|required|release|scorecard|dogfood> [options]|preservation-bind --outer-inventory ABSOLUTE_PATH --hub-inventory ABSOLUTE_PATH --out ABSOLUTE_PATH|coord <init|claim|heartbeat|handoff|receipt|receipt-group|correct-receipt|correct-receipt-group|recovery-inspect|recovery-provenance|recovery-build-observe|recovery-authorization-draft|recovery-authorization-message|recovery-authorization-signature-import|recovery-manifest|recover-rollover|recovery-plan|recovery-proof|recovery-review|recovery-request|adopt|wave0-observe|wave0-review|incident-observe|incident-verify|status> [options]>";
 
 #[derive(Clone, Debug, Eq, PartialEq)]
 pub struct CliOutcome {
@@ -181,6 +182,9 @@ pub fn run(
         return crate::fuse::run(&current_dir, explicit_root.as_deref(), &args[1..]);
     }
     let root = discover_family_root(&current_dir, explicit_root.map(OsString::from))?;
+    if args.first().is_some_and(|arg| arg == "preservation-bind") {
+        return preservation::run(&root, &args[1..]);
+    }
     if args.first().is_some_and(|arg| arg == "lock") {
         return crate::family_lock::run(&root, &args[1..]);
     }

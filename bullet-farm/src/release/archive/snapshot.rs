@@ -1,3 +1,4 @@
+// jankurai:allow repo-rot.path.fake-versioned-source reason=linux memfd snapshot of a release bundle, not a stale tree copy owner=ops expires=2027-03-08
 #[cfg(target_os = "linux")]
 fn snapshot_archive(bundle: &Path, expected: &ReleaseFile) -> Result<File, CoordError> {
     use nix::{

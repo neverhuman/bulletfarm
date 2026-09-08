@@ -15,6 +15,7 @@ use sha2::Digest;
 
 use super::DescriptorIdentity;
 use crate::coord::{CoordError, validate_repo_name};
+use crate::family_lock::manifest_paths::{PathMode, validate_exact_manifest};
 
 const MAX_MANIFEST_BYTES: u64 = 1024 * 1024;
 const MAX_HEAD_BYTES: u64 = 4 * 1024;
@@ -39,10 +40,12 @@ struct RepositoryIdentity {
 
 /// The outer manifest as `select` reads it. Only the name and path are used
 /// to resolve a member checkout, so a manifest that predates the Wave-0
-/// descriptor fields still resolves here. Wave-0 admission keeps the strict
-/// `FamilyManifest` below and fails closed on anything it cannot verify.
+/// descriptor fields still resolves here. Wave-0 admission uses the strict
+/// four-member validator and fails closed on anything it cannot verify.
 #[derive(Deserialize)]
 struct OuterManifest {
+    #[serde(flatten)]
+    path_mode: PathMode,
     #[serde(default)]
     repo: Vec<OuterRepo>,
 }
@@ -53,47 +56,8 @@ struct OuterRepo {
     path: PathBuf,
 }
 
-#[derive(Deserialize)]
-struct FamilyManifest {
-    schema_version: String,
-    family: String,
-    required_repos: Vec<String>,
-    repo: Vec<FamilyRepo>,
-}
-
-#[derive(Deserialize)]
-struct FamilyRepo {
-    name: String,
-    path: PathBuf,
-    jeryu_slug: String,
-}
-
 fn validate_wave0_manifest(bytes: &[u8], family_root: &Path) -> Result<(), CoordError> {
-    if bytes.last() != Some(&b'\n') {
-        return Err(wave0_changed("family manifest lacks its terminal newline"));
-    }
-    let document =
-        std::str::from_utf8(bytes).map_err(|_| wave0_changed("family manifest is not UTF-8"))?;
-    let manifest: FamilyManifest = toml::from_str(document)
-        .map_err(|error| wave0_changed(format!("invalid family manifest: {error}")))?;
-    let exact_members =
-        manifest.repo.len() == super::WAVE0_REPOSITORIES.len()
-            && manifest.repo.iter().zip(super::WAVE0_REPOSITORIES).all(
-                |(entry, (name, identity))| {
-                    entry.name == name
-                        && entry.jeryu_slug == identity
-                        && entry.path == family_root.join(name)
-                        && entry.path.is_absolute()
-                },
-            );
-    if manifest.schema_version != "1.2.0"
-        || manifest.family != "bullet-farm"
-        || manifest.required_repos != super::WAVE0_REPOSITORIES.map(|(name, _)| name.to_owned())
-        || !exact_members
-    {
-        return Err(wave0_changed("family manifest header or members differ"));
-    }
-    Ok(())
+    validate_exact_manifest(bytes, family_root).map_err(|error| wave0_changed(error.to_string()))
 }
 
 pub(super) struct Wave0FamilyGuard {
@@ -179,6 +143,10 @@ pub(super) fn select(family_root: &Path, repo: &str) -> Result<FamilyRepository,
         .map_err(|_| mismatch("outer repository manifest is not UTF-8"))?;
     let manifest: OuterManifest = toml::from_str(document)
         .map_err(|error| mismatch(format!("invalid outer repository manifest: {error}")))?;
+    manifest
+        .path_mode
+        .validate_if_portable(&bytes, family_root)
+        .map_err(|error| mismatch(error.to_string()))?;
     let mut names = BTreeSet::new();
     let mut paths = BTreeSet::new();
     let mut selected = None;
@@ -196,12 +164,10 @@ pub(super) fn select(family_root: &Path, repo: &str) -> Result<FamilyRepository,
     }
     let declared = selected
         .ok_or_else(|| mismatch("repository is not listed in the outer family manifest"))?;
-    let expected = family_root.join(repo);
-    if !declared.is_absolute() || declared != expected {
-        return Err(mismatch(
-            "outer repository manifest name and checkout path do not match",
-        ));
-    }
+    let expected = manifest
+        .path_mode
+        .resolve(family_root, repo, &declared)
+        .map_err(|error| mismatch(error.to_string()))?;
     Ok(FamilyRepository {
         family: DescriptorIdentity::from_metadata(root_meta, true)?,
         manifest: DescriptorIdentity::from_metadata(opened, false)?,

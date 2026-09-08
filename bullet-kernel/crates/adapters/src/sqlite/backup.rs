@@ -1,14 +1,20 @@
+// jankurai:allow repo-rot.path.fake-versioned-source reason=live receipt-bound sqlite backup/restore, not a parked tree copy owner=adapters expires=2027-03-08
 //! Offline, receipt-bound SQLite backup and quarantined restore.
 
-use super::migrations;
-use rusqlite::{backup::Backup, params, Connection, OpenFlags, TransactionBehavior};
+use super::{migrations, open};
+use rusqlite::Connection;
 use serde::{Deserialize, Serialize};
 use std::fs::{File, OpenOptions};
 use std::io::{Read, Seek, SeekFrom, Write};
 use std::path::{Path, PathBuf};
-use std::time::Duration;
 use tempfile::{Builder, NamedTempFile};
 use thiserror::Error;
+
+mod create;
+mod restore;
+mod staged;
+use create::create_backup_inner;
+use restore::restore_backup_inner;
 
 const FORMAT_VERSION: u32 = 1;
 const INTEGRITY_PASS: &str = "PASS";
@@ -79,6 +85,9 @@ enum FaultPoint {
     AfterSync,
     AfterVerify,
     BeforePublish,
+    AfterTransition,
+    AfterPublish,
+    AfterReadback,
 }
 
 /// Create a WAL-consistent, standalone SQLite backup at an absent path.
@@ -110,151 +119,6 @@ pub fn restore_backup(
     restore_backup_inner(backup.as_ref(), receipt, destination.as_ref(), None)
 }
 
-fn create_backup_inner(
-    source: &Path,
-    destination: &Path,
-    fault: Option<FaultPoint>,
-) -> Result<BackupReceipt, SqliteMaintenanceError> {
-    require_unix()?;
-    require_absent(destination)?;
-    let source = open_database_read_only(source)?;
-    let source_state = migrations::verify_existing(&source, false).map_err(schema_error)?;
-    let mut staged = staging_file(destination, "backup")?;
-    let mut snapshot = Connection::open(staged.path()).map_err(|err| phase("COPY", err))?;
-    {
-        let copy = Backup::new(&source, &mut snapshot).map_err(|err| phase("COPY", err))?;
-        copy.run_to_completion(128, Duration::from_millis(5), None)
-            .map_err(|err| phase("COPY", err))?;
-    }
-    force_single_file(&snapshot)?;
-    drop(snapshot);
-    fail(fault, FaultPoint::AfterCopy, "COPY")?;
-
-    staged
-        .as_file()
-        .sync_all()
-        .map_err(|err| phase("SYNC", err))?;
-    fail(fault, FaultPoint::AfterSync, "SYNC")?;
-
-    let verified = Connection::open_with_flags(
-        staged.path(),
-        OpenFlags::SQLITE_OPEN_READ_ONLY | OpenFlags::SQLITE_OPEN_NO_MUTEX,
-    )
-    .map_err(|err| phase("VERIFY", err))?;
-    let copied_state = migrations::verify_existing(&verified, false).map_err(schema_error)?;
-    verify_integrity(&verified)?;
-    if copied_state != source_state {
-        return Err(receipt_mismatch(
-            "restore epoch changed during online backup",
-        ));
-    }
-    drop(verified);
-    let (snapshot_digest, snapshot_bytes) = digest_file(staged.as_file_mut())?;
-    let receipt = BackupReceipt {
-        format_version: FORMAT_VERSION,
-        snapshot_digest,
-        snapshot_bytes,
-        schema_digest: migrations::schema_contract_digest(),
-        restore_epoch: copied_state.epoch,
-        integrity: INTEGRITY_PASS.into(),
-    };
-    fail(fault, FaultPoint::AfterVerify, "VERIFY")?;
-    fail(fault, FaultPoint::BeforePublish, "PUBLISH")?;
-    publish(staged, destination)?;
-    Ok(receipt)
-}
-
-fn restore_backup_inner(
-    backup: &Path,
-    receipt: &BackupReceipt,
-    destination: &Path,
-    fault: Option<FaultPoint>,
-) -> Result<RestoreReceipt, SqliteMaintenanceError> {
-    require_unix()?;
-    validate_receipt(receipt)?;
-    require_absent(destination)?;
-    let mut input = open_regular_nofollow(backup, receipt.snapshot_bytes)?;
-    let mut staged = staging_file(destination, "restore")?;
-    let copied_digest = copy_and_digest(&mut input, staged.as_file_mut(), receipt.snapshot_bytes)?;
-    fail(fault, FaultPoint::AfterCopy, "COPY")?;
-    if copied_digest != receipt.snapshot_digest {
-        return Err(receipt_mismatch(
-            "backup bytes do not match the retained receipt",
-        ));
-    }
-
-    staged
-        .as_file()
-        .sync_all()
-        .map_err(|err| phase("SYNC", err))?;
-    fail(fault, FaultPoint::AfterSync, "SYNC")?;
-
-    let mut restored = Connection::open(staged.path()).map_err(|err| phase("VERIFY", err))?;
-    let prior = migrations::verify_existing(&restored, false).map_err(schema_error)?;
-    verify_integrity(&restored)?;
-    if prior.epoch != receipt.restore_epoch {
-        return Err(receipt_mismatch(
-            "backup restore epoch does not match the retained receipt",
-        ));
-    }
-    force_single_file(&restored)?;
-    let next_epoch = prior
-        .epoch
-        .checked_add(1)
-        .ok_or_else(|| receipt_mismatch("restore epoch cannot advance"))?;
-    let next_epoch_i64 = i64::try_from(next_epoch)
-        .map_err(|_| receipt_mismatch("restore epoch exceeds SQLite range"))?;
-    let transaction = restored
-        .transaction_with_behavior(TransactionBehavior::Immediate)
-        .map_err(|err| phase("VERIFY", err))?;
-    let changed = transaction
-        .execute(
-            "UPDATE restore_state
-             SET restore_epoch = ?1, pending_admission = 1,
-                 source_snapshot_digest = ?2,
-                 restored_at = strftime('%Y-%m-%dT%H:%M:%fZ', 'now')
-             WHERE singleton = 1 AND restore_epoch = ?3 AND pending_admission = 0",
-            params![
-                next_epoch_i64,
-                receipt.snapshot_digest,
-                i64::try_from(prior.epoch)
-                    .map_err(|_| receipt_mismatch("backup restore epoch exceeds SQLite range"))?
-            ],
-        )
-        .map_err(|err| phase("VERIFY", err))?;
-    if changed != 1 {
-        return Err(receipt_mismatch(
-            "restore epoch transition matched zero rows",
-        ));
-    }
-    transaction.commit().map_err(|err| phase("VERIFY", err))?;
-    let state = migrations::verify_existing(&restored, true).map_err(schema_error)?;
-    verify_integrity(&restored)?;
-    if state.epoch != next_epoch || !state.pending_admission {
-        return Err(receipt_mismatch(
-            "restored database did not enter quarantine at the next epoch",
-        ));
-    }
-    drop(restored);
-    staged
-        .as_file()
-        .sync_all()
-        .map_err(|err| phase("SYNC", err))?;
-    let (restored_digest, restored_bytes) = digest_file(staged.as_file_mut())?;
-    fail(fault, FaultPoint::AfterVerify, "VERIFY")?;
-    fail(fault, FaultPoint::BeforePublish, "PUBLISH")?;
-    publish(staged, destination)?;
-    Ok(RestoreReceipt {
-        backup: receipt.clone(),
-        restored_digest,
-        restored_bytes,
-        previous_restore_epoch: prior.epoch,
-        restore_epoch: next_epoch,
-        pending_authority_admission: true,
-        integrity: INTEGRITY_PASS.into(),
-    })
-}
-
 fn validate_receipt(receipt: &BackupReceipt) -> Result<(), SqliteMaintenanceError> {
     if receipt.format_version != FORMAT_VERSION {
         return Err(receipt_mismatch("unsupported or future receipt format"));
@@ -262,29 +126,50 @@ fn validate_receipt(receipt: &BackupReceipt) -> Result<(), SqliteMaintenanceErro
     if receipt.integrity != INTEGRITY_PASS {
         return Err(receipt_mismatch("receipt has no passing integrity result"));
     }
-    if receipt.schema_digest != migrations::schema_contract_digest() {
+    if !is_digest(&receipt.schema_digest) {
         return Err(receipt_mismatch(
-            "receipt schema contract is not owned by this binary",
+            "receipt schema contract digest is malformed",
         ));
     }
-    if !is_digest(&receipt.snapshot_digest) || receipt.snapshot_bytes == 0 {
+    if !is_digest(&receipt.snapshot_digest)
+        || receipt.snapshot_bytes == 0
+        || receipt.snapshot_bytes > 1024 * 1024 * 1024
+    {
         return Err(receipt_mismatch("receipt snapshot subject is malformed"));
     }
     Ok(())
 }
 
-fn open_database_read_only(path: &Path) -> Result<Connection, SqliteMaintenanceError> {
-    let metadata = std::fs::symlink_metadata(path).map_err(|err| phase("OPEN", err))?;
-    if !metadata.file_type().is_file() {
-        return Err(phase("OPEN", "source database is not a regular file"));
+fn verify_published_backup(
+    path: &Path,
+    receipt: &BackupReceipt,
+) -> Result<(), SqliteMaintenanceError> {
+    let limit = receipt
+        .snapshot_bytes
+        .checked_add(1)
+        .ok_or_else(|| receipt_mismatch("published backup length cannot be bounded"))?;
+    let mut input = open_regular_nofollow(path, receipt.snapshot_bytes)?.take(limit);
+    let mut hasher = blake3::Hasher::new();
+    let mut total = 0_u64;
+    let mut buffer = [0_u8; 64 * 1024];
+    loop {
+        let read = input
+            .read(&mut buffer)
+            .map_err(|error| phase("READBACK", error))?;
+        if read == 0 {
+            break;
+        }
+        hasher.update(&buffer[..read]);
+        total += u64::try_from(read).map_err(|error| phase("READBACK", error))?;
     }
-    Connection::open_with_flags(
-        path,
-        OpenFlags::SQLITE_OPEN_READ_ONLY
-            | OpenFlags::SQLITE_OPEN_NO_MUTEX
-            | OpenFlags::SQLITE_OPEN_NOFOLLOW,
-    )
-    .map_err(|err| phase("OPEN", err))
+    if total != receipt.snapshot_bytes
+        || hasher.finalize().to_hex().as_str() != receipt.snapshot_digest
+    {
+        return Err(receipt_mismatch(
+            "published backup does not match its verified receipt",
+        ));
+    }
+    Ok(())
 }
 
 #[cfg(unix)]
@@ -426,24 +311,6 @@ fn digest_file(file: &mut File) -> Result<(String, u64), SqliteMaintenanceError>
             .ok_or_else(|| phase("VERIFY", "backup size overflow"))?;
     }
     Ok((hasher.finalize().to_hex().to_string(), total))
-}
-
-fn publish(staged: NamedTempFile, destination: &Path) -> Result<(), SqliteMaintenanceError> {
-    let file = staged.persist_noclobber(destination).map_err(|error| {
-        if error.error.kind() == std::io::ErrorKind::AlreadyExists {
-            SqliteMaintenanceError::DestinationExists(destination.to_path_buf())
-        } else {
-            phase("PUBLISH", error.error)
-        }
-    })?;
-    file.sync_all().map_err(|err| phase("PUBLISH", err))?;
-    let parent = destination
-        .parent()
-        .filter(|path| !path.as_os_str().is_empty())
-        .unwrap_or_else(|| Path::new("."));
-    File::open(parent)
-        .and_then(|directory| directory.sync_all())
-        .map_err(|err| phase("PUBLISH", err))
 }
 
 include!("backup/support.rs");

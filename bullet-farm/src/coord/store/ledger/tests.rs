@@ -422,6 +422,13 @@ fn partial_current_stage_is_repaired_before_publication() {
     let bytes = pointer.canonical_bytes().unwrap();
     super::fs::ensure_layout(root.path(), &root.path().join(COORD_CHILD)).unwrap();
     let coord = root.path().join(COORD_CHILD);
+    let prepared = super::genesis::prepare(&provenance(), 30).unwrap();
+    fs::write(
+        coord.join("genesis-init-intent.json"),
+        prepared.intent_bytes,
+    )
+    .unwrap();
+    set_mode(&coord.join("genesis-init-intent.json"), 0o400);
     let stage = coord.join(staged_name("CURRENT", &bytes));
     fs::write(&stage, &bytes[..bytes.len() / 2]).unwrap();
     set_mode(&stage, 0o600);
@@ -440,6 +447,13 @@ fn partial_manifest_stage_and_retired_restart_are_reconciled() {
     let manifest = manifest();
     let coord = root.path().join(COORD_CHILD);
     super::fs::ensure_layout(root.path(), &coord).unwrap();
+    let prepared = super::genesis::prepare(&provenance(), 30).unwrap();
+    fs::write(
+        coord.join("genesis-init-intent.json"),
+        prepared.intent_bytes,
+    )
+    .unwrap();
+    set_mode(&coord.join("genesis-init-intent.json"), 0o400);
     let staging = coord
         .join("generations")
         .join(format!(".next-{}", manifest.generation_id().as_str()));

@@ -84,8 +84,12 @@ exception to the family `AGENT_CHAT.md` before you act on it, never after.
   and never edit anything above your own entry. Enforced by discipline; no
   product surface reads `AGENT_CHAT.md`.
 
-The coordinator ledger is frozen under recovery: run no `bullet-family coord`
-verb until recovery completes. See
+The coordinator ledger remains frozen: run no `bullet-family coord` verb while the
+ADR 0015 Operating HOLD is effective. The September 7 amendment proposes a distinct
+preserved fresh development generation after complete two-location admission,
+independent review and the operator checkpoint. That proposal is not permission
+to initialize or recover the original incident. Use manual path-exact coordination
+for authorized bounded engineering until the admitted transition is complete. See
 [`docs/runbooks/fleet.md`](docs/runbooks/fleet.md).
 
 Source citations above name a symbol as well as a line, because the lines were

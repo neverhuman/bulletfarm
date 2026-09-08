@@ -1,8 +1,91 @@
+# Jankurai tool adoption for bullet-farm.
+#
+# `auto` keeps the auditor's own applicability detection; `disabled` records a
+# tool this component genuinely has no surface for. Hosted CI evidence is
+# deliberately absent for every jankurai sub-tool: the installed 1.6.11 binary
+# is a machine-local path build, so the audit lane is a fail-closed local gate
+# (`ops/ci/audit.sh`) and no workflow may claim it ran.
 schema_version = "1.0.0"
 
-# The local audit lane invokes this tool directly and preserves all three
-# repair artifacts. Hosted CI evidence and portable artifact verification are
-# deliberately absent, so no other catalog tool is declared adopted here.
 [[tools]]
 id = "audit-ci"
+mode = "auto"
+notes = "local only: bash ops/ci/audit.sh with the committed policy minimum_score ratchet"
+
+[[tools]]
+id = "proof-routing"
+mode = "auto"
+notes = "agent/test-map.json plus agent/proof-lanes.toml route every owned path"
+
+[[tools]]
+id = "proofbind"
+mode = "auto"
+notes = "run locally against a base ref; no hosted evidence is claimed"
+
+[[tools]]
+id = "proofmark-rust"
+mode = "auto"
+notes = "Rust semantic proof marking; local only"
+
+[[tools]]
+id = "copy-code"
+mode = "auto"
+notes = "duplication triage is advisory in this component"
+
+[[tools]]
+id = "security"
+mode = "auto"
+notes = "the executable lane is ops/ci/security.sh via tools/security-lane.sh"
+
+[[tools]]
+id = "ci-bad-behavior"
+mode = "auto"
+
+[[tools]]
+id = "git-bad-behavior"
+mode = "auto"
+
+[[tools]]
+id = "release-bad-behavior"
+mode = "auto"
+
+[[tools]]
+id = "contract-drift"
+mode = "auto"
+notes = "contracts/generated is emitted by just contract-generate"
+
+[[tools]]
+id = "rust-witness"
+mode = "auto"
+
+[[tools]]
+id = "authz-matrix"
+mode = "disabled"
+notes = "no multi-tenant authorization surface: family coordination is a single fail-closed operator"
+
+[[tools]]
+id = "input-boundary"
+mode = "auto"
+
+[[tools]]
+id = "agent-tool-supply"
+mode = "auto"
+notes = "agent/security-policy.toml pins the lane tools"
+
+[[tools]]
+id = "release-readiness"
+mode = "auto"
+notes = "docs/release.md and CHANGELOG.md record that no release exists yet"
+
+[[tools]]
+id = "cost-budget"
+mode = "disabled"
+notes = "no paid or metered operation: every lane is local, offline, and bounded"
+
+[[tools]]
+id = "vibe-coverage"
+mode = "auto"
+
+[[tools]]
+id = "coverage-evidence"
 mode = "auto"

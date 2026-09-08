@@ -38,7 +38,7 @@ fi
 
 sync_file \
   "$HUB/contracts/generated/rust/schema_bundle.rs" \
-  "$FAMILY/bullet-kernel/crates/domain/src/schema_bundle.rs"
+  "$FAMILY/bullet-kernel/crates/domain/src/generated/schema_bundle.rs"
 sync_file \
   "$HUB/policy/v1alpha1/policy.json" \
   "$FAMILY/bullet-kernel/crates/application/tests/fixtures/policy-v1alpha1.json"

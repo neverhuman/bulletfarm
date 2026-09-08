@@ -152,8 +152,21 @@ fn board_tracks_fail_for_their_own_reasons_only() {
             .all(|blocker| blocker.starts_with("DOGFOOD_")),
         "dogfood track must report only dogfood blockers: {dogfood_blockers:?}"
     );
-    // With no binding env, the dogfood track is exactly the policy blocker.
-    assert_eq!(dogfood_blockers, ["DOGFOOD_POLICY_MISSING"]);
+    assert!(
+        dogfood_blockers
+            .iter()
+            .any(|code| code == "DOGFOOD_POLICY_MISSING")
+    );
+    assert!(
+        dogfood_blockers
+            .iter()
+            .any(|code| code == "DOGFOOD_BINDING_MISSING")
+    );
+    assert!(
+        dogfood_blockers
+            .iter()
+            .any(|code| code == "DOGFOOD_RUNTIME_CHECK_UNAVAILABLE")
+    );
 
     let (track, all_blockers) = run("all");
     assert_eq!(track, "all");
@@ -201,7 +214,7 @@ exit "$status"
         .expect("make launcher relay executable");
 
     let output = Command::new("python3")
-        .arg(hub().join("scripts/dogfood-board.py"))
+        .arg(hub().join("tests/dogfood-board.py"))
         .arg("--json")
         .env("BULLET_FAMILY_BIN", &relay)
         .env("BULLET_TEST_REAL_BIN", env!("CARGO_BIN_EXE_bullet-family"))
@@ -270,7 +283,7 @@ raise SystemExit(module.main())
     let started = Instant::now();
     let output = Command::new("python3")
         .args(["-c", driver])
-        .arg(hub().join("scripts/dogfood-board.py"))
+        .arg(hub().join("tests/dogfood-board.py"))
         .env("BULLET_FAMILY_BIN", &relay)
         .env("BULLET_TEST_LEADER_PID", &leader_pid)
         .env("BULLET_TEST_DESCENDANT_PID", &descendant_pid)
@@ -313,7 +326,7 @@ raise SystemExit(module.main())
 #[test]
 fn compatibility_launcher_rejects_unbounded_arguments_before_launch() {
     let output = Command::new("python3")
-        .arg(hub().join("scripts/dogfood-board.py"))
+        .arg(hub().join("tests/dogfood-board.py"))
         .args(["--json", "--json"])
         .env("BULLET_FAMILY_BIN", "/definitely/not/a/bullet-family")
         .current_dir(hub())
@@ -326,4 +339,151 @@ fn compatibility_launcher_rejects_unbounded_arguments_before_launch() {
         "usage: dogfood-board.py [--json] [--self-check]\n\
          compatibility launcher for: bullet-family check dogfood --json\n"
     );
+}
+
+fn configured_board(binding: &std::path::Path, policy: Option<&std::path::Path>) -> Value {
+    let mut command = Command::new(env!("CARGO_BIN_EXE_bullet-family"));
+    command
+        .args(["check", "dogfood", "--json", "--track", "dogfood"])
+        .current_dir(hub())
+        .env("BULLET_DOGFOOD_BINDING", binding)
+        .env_remove("BULLET_DOGFOOD_POLICY");
+    if let Some(policy) = policy {
+        command.env("BULLET_DOGFOOD_POLICY", policy);
+    }
+    let output = command.output().expect("run configured board");
+    assert_eq!(
+        output.status.code(),
+        Some(1),
+        "configuration alone must never pass"
+    );
+    decode_board(&output.stdout)
+}
+
+#[test]
+fn binding_alone_cannot_claim_a_usable_three_provider_loop() {
+    let temp = tempfile::tempdir().unwrap();
+    let binding = temp.path().join("binding.json");
+    fs::write(&binding, br#"{"audience":"dogfood-runner","operation":"read-only-propose","schema_version":"v1alpha1"}"#).unwrap();
+    let board = configured_board(&binding, None);
+    assert_eq!(board["configuration"]["binding"], "VALIDATED");
+    assert_eq!(board["configuration"]["policy"], "MISSING");
+    assert_eq!(board["configuration"]["ready"], false);
+    assert_eq!(board["operation"]["status"], "UNVERIFIED");
+    assert_eq!(board["release"]["status"], "BLOCKED");
+    let providers = board["configuration"]["providers"].as_array().unwrap();
+    assert_eq!(
+        providers
+            .iter()
+            .map(|p| p["provider"].as_str().unwrap())
+            .collect::<Vec<_>>(),
+        ["codex", "claude", "cursor"]
+    );
+    for provider in providers {
+        assert_eq!(provider["required"], true);
+        for check in ["enrollment", "runtime", "conformance"] {
+            assert_eq!(provider[check], "UNVERIFIED");
+        }
+    }
+    assert!(
+        board["loop_blockers"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|b| b == "DOGFOOD_POLICY_MISSING")
+    );
+}
+
+#[test]
+fn offline_policy_validation_does_not_substitute_for_runtime_readiness() {
+    use bullet_wire::{KeyPurposeV1, PolicySnapshotV1};
+    let temp = tempfile::tempdir().unwrap();
+    let binding = temp.path().join("binding.json");
+    fs::write(&binding, br#"{"audience":"dogfood-runner","operation":"read-only-propose","schema_version":"v1alpha1"}"#).unwrap();
+    let mut policy: PolicySnapshotV1 = bullet_wire::decode_canonical(
+        &fs::read(
+            hub().join("crates/bullet-wire/tests/fixtures/policy-v1alpha2-live-enabled.json"),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    policy.sandbox_policy.live_admission_enabled = false;
+    let mut key = policy
+        .issuer_keys
+        .iter()
+        .find(|k| k.key_purpose == KeyPurposeV1::AuthoritySigning)
+        .unwrap()
+        .clone();
+    key.issuer = "fixture-dogfood".into();
+    key.key_id = "fixture-launch".into();
+    key.key_purpose = KeyPurposeV1::DogfoodLaunchSigning;
+    key.public_key = "11".repeat(32);
+    key.audiences.clear();
+    policy.issuer_keys.push(key);
+    let path = temp.path().join("policy.json");
+    fs::write(&path, bullet_wire::canonical_json(&policy).unwrap()).unwrap();
+    let board = configured_board(&binding, Some(&path));
+    assert_eq!(board["configuration"]["policy"], "VALIDATED");
+    assert_eq!(board["configuration"]["ready"], false);
+    for blocker in [
+        "DOGFOOD_ENROLLMENT_CHECK_UNAVAILABLE",
+        "DOGFOOD_RUNTIME_CHECK_UNAVAILABLE",
+        "DOGFOOD_CONFORMANCE_CHECK_UNAVAILABLE",
+        "DOGFOOD_CONTAINMENT_CHECK_UNAVAILABLE",
+        "DOGFOOD_DURABLE_LAUNCH_CHECK_UNAVAILABLE",
+        "DOGFOOD_OPERATION_CHECK_UNAVAILABLE",
+    ] {
+        assert!(
+            board["loop_blockers"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .any(|b| b == blocker)
+        );
+    }
+    policy.sandbox_policy.live_admission_enabled = true;
+    fs::write(&path, bullet_wire::canonical_json(&policy).unwrap()).unwrap();
+    assert_eq!(
+        configured_board(&binding, Some(&path))["configuration"]["policy"],
+        "INVALID"
+    );
+    fs::write(&path, b"{}").unwrap();
+    assert_eq!(
+        configured_board(&binding, Some(&path))["configuration"]["policy"],
+        "INVALID"
+    );
+    fs::remove_file(&path).unwrap();
+    assert_eq!(
+        configured_board(&binding, Some(&path))["configuration"]["policy"],
+        "MISSING"
+    );
+}
+
+#[test]
+fn hostile_binding_inputs_are_invalid_and_bounded() {
+    let temp = tempfile::tempdir().unwrap();
+    let path = temp.path().join("binding.json");
+    for bytes in [b"{}".to_vec(), br#"{"audience":"dogfood-runner","audience":"dogfood-runner","operation":"read-only-propose","schema_version":"v1alpha1"}"#.to_vec(), vec![b' '; bullet_wire::MAX_CANONICAL_DOCUMENT_BYTES + 1]] {
+        fs::write(&path, bytes).unwrap();
+        assert_eq!(configured_board(&path, None)["configuration"]["binding"], "INVALID");
+    }
+    assert_eq!(
+        configured_board(temp.path(), None)["configuration"]["binding"],
+        "INVALID"
+    );
+    #[cfg(unix)]
+    {
+        let link = temp.path().join("link");
+        std::os::unix::fs::symlink(&path, &link).unwrap();
+        assert_eq!(
+            configured_board(&link, None)["configuration"]["binding"],
+            "INVALID"
+        );
+        let fifo = temp.path().join("fifo");
+        nix::unistd::mkfifo(&fifo, nix::sys::stat::Mode::S_IRUSR).unwrap();
+        assert_eq!(
+            configured_board(&fifo, None)["configuration"]["binding"],
+            "INVALID"
+        );
+    }
 }

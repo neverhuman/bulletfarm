@@ -28,7 +28,11 @@ The multi-provider dogfood plan is [`DOGFOOD-MULTI-CLI-GATES.md`](DOGFOOD-MULTI-
 (M0–M4; per-provider closures for claude, codex, cursor-agent, agy). The operator board is
 `bullet-family check dogfood --json` — fail-closed, exits non-zero naming each blocker. Runbook:
 `bullet-farm/docs/runbooks/dogfood.md`; governing record: ADR 0015. Agents never write provider
-keys, enrollments, or operator-decision lines.
+keys, enrollments, or operator-decision lines. The initial coding campaign requires Codex,
+Claude, and Cursor subscriptions; Antigravity follows. A preserved fresh coordinator generation is
+the selected proposed route, conditional on the reviewed ADR 0015 amendment, complete two-location
+admission, and operator checkpoint. The Operating HOLD remains effective. `CEREMONY-WAVE2.md` is
+NOT EXECUTABLE; a fresh generation never recovers the original incident.
 
 ## Jeryu
 

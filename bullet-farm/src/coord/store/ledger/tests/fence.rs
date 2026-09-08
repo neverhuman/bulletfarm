@@ -347,13 +347,17 @@ fn unsealed_fence_insertion_and_substitution_fail_closed() {
         let error = ledger
             .initialize_genesis(&provenance(), || panic!("clock invoked on retry"))
             .unwrap_err();
-        assert!(
-            matches!(
-                error.code(),
-                "INVALID_COORD_STORAGE" | "COORD_SUBJECT_CHANGED" | "COORD_FENCE_UNKNOWN"
-            ),
-            "variant={variant}: {error:?}"
-        );
+        if variant == "substitute" {
+            assert_eq!(error.code(), "FRESH_GENESIS_ADMISSION_REQUIRED");
+        } else {
+            assert!(
+                matches!(
+                    error.code(),
+                    "INVALID_COORD_STORAGE" | "COORD_SUBJECT_CHANGED" | "COORD_FENCE_UNKNOWN"
+                ),
+                "variant={variant}: {error:?}"
+            );
+        }
         assert!(!coord.join("CURRENT").exists());
         assert!(!coord.join("events.jsonl").exists());
     }

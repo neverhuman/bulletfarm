@@ -490,11 +490,10 @@ hub_traps="$(grep -E '^trap ' "$hub_local")"
 shared_traps="$(sed -n '/^ci_proof_custody_trap() {$/,/^}$/p' "$custody_source" \
   | sed -n 's/^  \(trap .*\)$/\1/p')"
 [[ -n "$hub_traps" && "$hub_traps" == "$shared_traps" ]]
-hub_trap_line="$(grep -nFx 'trap ci_proof_custody_exit EXIT' "$hub_local" \
-  | head -n 1 | cut -d: -f1)"
+hub_trap_line="$(grep -nFx 'trap ci_proof_custody_exit EXIT' "$hub_local" | head -n 1 | cut -d: -f1)"
 # shellcheck disable=SC2016
-hub_acquire_line="$(grep -nF 'acquire_proof_lock "$lane" || return $?' "$hub_local" \
-  | head -n 1 | cut -d: -f1)"
+hub_acquire_line="$(grep -nF 'acquire_proof_lock "$lane" || return $?' "$hub_local" | head -n 1 | cut -d: -f1)"
 [[ "$hub_trap_line" =~ ^[0-9]+$ && "$hub_acquire_line" =~ ^[0-9]+$ \
   && "$hub_trap_line" -lt "$hub_acquire_line" ]]
+bash "$REPO_ROOT/ops/ci/family-target-test.sh"
 echo '[ci] family proof custody fixture passed'

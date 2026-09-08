@@ -1,3 +1,4 @@
+// jankurai:allow repo-rot.path.fake-versioned-source reason=strict stored-ZIP reader for Windows release packages, not a stale tree copy owner=ops expires=2027-03-08
 //! Strict stored-ZIP reader for the Windows release package.
 
 use std::{

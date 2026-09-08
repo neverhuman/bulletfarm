@@ -2,34 +2,41 @@
 
 Status: Active  
 Owner: Bullet Farm maintainers  
-Last reviewed: 2026-08-31
+Last reviewed: 2026-09-07
 Applies to: agents working the split family at the outermost `repos.manifest.toml`
 
 ## What is stopping acceleration (honest)
 
 There are two disjoint dogfood tracks. Coordination dogfood is **N agents using
 Bullet coord + Shift Brief + farmd commands as the board**. Provider dogfood is
-one contained read-only proposal through a provider-specific compose. Neither
+the planned Codex, Claude and Cursor coding campaign through durable commands, contained read-only
+proposals, exact Candidates, sealed gates, separate review and human integration. Neither
 track is release evidence. The current board is **diagnostic and blocked**;
 `self-hosted-v1` remains `BLOCKED`.
 
-The single product loop that would let this family move faster is currently
-**broken at the board**, not missing a fifth repo or a live provider:
+The board and the underlying execution loop both have remaining engineering work:
 
 1. **Machine coord cannot accept claims.** Live ledger is legacy
    `events.jsonl` without `CURRENT`. `bullet-family coord status` now returns
-   `COORD_RECOVERY_REQUIRED`. Until R4/R5 finish explicit recovery and an
-   orchestrator receipts it, workers race in `AGENT_CHAT.md` instead of
-   `coord claim` / heartbeat / handoff. Do not chmod the 0400 ledger.
+   `COORD_RECOVERY_REQUIRED`. The selected proposed fresh-generation route requires the reviewed ADR 0015 amendment, complete
+   two-location admission and operator checkpoint. Until the admitted transition is complete, use
+   manual path-exact coordination in `AGENT_CHAT.md`. Original recovery remains separate. Do not chmod the 0400 ledger.
 2. **The diagnostic board exists, but it is not operable.** Use
    `bullet-family check dogfood --json` as the diagnostic board. The bounded
-   compatibility launcher `python3 scripts/dogfood-board.py --json` invokes
+   compatibility launcher `python3 tests/dogfood-board.py --json` invokes
    that exact Rust command and forwards its bytes and exit status; it has no
    projection logic of its own. The current blocked board exits non-zero and is
    always `authoritative: false`. Exit 0 is reserved for an operable loop, not
    for a merely well-formed diagnostic. Its coordinator view is typed in both
    safe states: available after recovery, or unavailable with a stable error
-   code before it.
+   code before it. The existing `--track coord|dogfood|all` names remain. The
+   `configuration` view validates binding and policy independently and lists Codex, Claude and Cursor
+   as required. The `operation` view separately reports whether successful operation can be verified;
+   `release` remains independent. Missing policy is `DOGFOOD_POLICY_MISSING`, even with a valid binding.
+   Missing binding is `DOGFOOD_BINDING_MISSING`; malformed inputs are `DOGFOOD_*_INVALID`.
+   Unimplemented enrollment, runtime, conformance, containment, durable launch and operational read-back
+   consumers report `UNVERIFIED` with named `DOGFOOD_*_CHECK_UNAVAILABLE` blockers. A CLI installation or
+   artifact shape cannot make these checks pass. The dogfood track cannot yet report an operable loop.
 3. **Claude compose exists, but no passing provider run exists.** Kernel exposes
    `bullet dogfood read-only` and the `dogfood-claude` feature. It is Claude-only,
    produces no repository mutation, and has no admitted successful receipt.
@@ -82,7 +89,7 @@ commits.
 
 | Wave | What to build / test | Paths (if free) | Done when | Not done when |
 | --- | --- | --- | --- | --- |
-| D0 | Sanctioned coord recovery + schema-2 CURRENT | Hub `src/coord/**` (R4/R5) | independently authorized recovery preserves lineage; `coord status --json --all` exits 0; claim/heartbeat/handoff work | Fresh Genesis, ledger relocation, chmod of events.jsonl, or invented CURRENT |
+| D0 | Reviewed preserved fresh development generation; original recovery remains separate | Hub `src/coord/**`, ADR 0015 amendment | complete two-location/strict-replay/disposition admission is durably bound into Genesis and revalidated under guard; operator checkpoint, claims and restart pass | unreviewed Fresh Genesis, omitted admission, unresolved work without disposition, incident mutation, or invented CURRENT |
 | D1 | Browser proof empty hash is Shift Brief | Portal `e2e/shift-brief.spec.ts` | mocked Playwright: `/`, `#`, and `#/` → Shift Brief; unknown hash → explicit `NOT_FOUND_ROUTE`; `#/control-tower` still Control Tower; zero `.verified` | greening UNKNOWN surfaces |
 | D2 | CLI diagnostic board (landed, currently blocked) | Hub `src/cli.rs` + `src/check/dogfood.rs` | blocked inputs exit non-zero; after D0 and admitted board inputs it exits 0 with `authoritative:false` while self-hosted-v1 remains BLOCKED | calling diagnostic output authority or flipping check-release |
 | D3 | Leftover producers | L-15 GC (`gc.rs` / `gc_safety.rs`); L-06 cargo-fuzz+nightly only after `ops/ci` free; L-64 after L-32 receipt | focused cargo/playwright proof | inventory steal; L-64 before L-32 receipt |
@@ -192,8 +199,10 @@ is never PASS. Exit 1 is a failure. A policy with
 
 Do not run Fresh Genesis, relocate either coordinator ledger, chmod the frozen
 source, invent `CURRENT`, or delete incident bytes. The current operating HOLD
-requires sanctioned independent recovery and a recovery-bound clean W0 before
-coordination dogfood can turn green. The family planning label “OD-L” is a
+remains effective until the reviewed amendment, complete transition consumer and operator checkpoint
+exist. The selected proposal is a distinct preserved fresh development generation with two-location
+inventory, strict replay and dispositions, exact four-repository W0 and durable Genesis read-back.
+It does not recover the original incident. The existing ceremony is NOT EXECUTABLE. The family planning label “OD-L” is a
 proposal pending reviewed amendment and ratification; it is not accepted by
 checked-in ADR 0013 or ADR 0015 and supplies no authority today.
 

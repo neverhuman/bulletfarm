@@ -59,7 +59,7 @@
     },
     ".bullet-family/": {
       "command": "cargo test --locked --test toolchain_lane",
-      "purpose": "verify ignored family coordination and pinned-toolchain observations remain non-authoritative local state"
+      "purpose": "verify family coordination and pinned-toolchain observations remain non-authoritative local state"
     },
     ".fusion/": {
       "command": "just contract-check",
@@ -67,7 +67,7 @@
     },
     ".jankurai/": {
       "command": "just audit",
-      "purpose": "recreate ignored audit reports from the pinned local auditor"
+      "purpose": "recreate local audit reports from the pinned auditor"
     },
     "README.md": {
       "command": "just docs",
@@ -209,6 +209,22 @@
       "command": "just readme-check",
       "purpose": "refuse executable README inputs before any renderer or provider-shaped process can run"
     },
+    "CLAUDE.md": {
+      "command": "just docs",
+      "purpose": "verify the thin Claude adapter stays a pointer at AGENTS.md"
+    },
+    "schemas/": {
+      "command": "just audit",
+      "purpose": "verify auditor artifact schemas stay aligned with ops/ci/audit.sh"
+    },
+    "tests/dogfood-board.py": {
+      "command": "python3 tests/dogfood-board.py --self-check",
+      "purpose": "prove the dogfood board printer stays fail-closed"
+    },
+    "tests/orphan_inventory/": {
+      "command": "bash scripts/orphan-inventory.sh check",
+      "purpose": "prove the orphan inventory printer matches the generated page"
+    },
     "src/": {
       "command": "cargo test --locked",
       "purpose": "verify the family coordination and onboarding CLI"
@@ -260,6 +276,10 @@
     ".github/": {
       "command": "bash ops/ci/workflow-policy.sh",
       "purpose": "prove hosted lanes match local scripts"
+    },
+    "publication/": {
+      "command": "bash publication/ci-tests.sh",
+      "purpose": "verify disposable aggregate bootstrap and fail-closed source/final-check behavior; Rust publication consumers run in the Hub fast partition"
     }
   }
 }
