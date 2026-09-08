@@ -166,3 +166,99 @@ path = "docs/readme-media/provider-safety/manifest.json"
 source = "provider-safety tape/transcript/observation + rendered artifacts + playback/snapshot/schema + readme check/input-check/record/render/schema-check scripts"
 command = "just readme-render"
 read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/claude-session/claude-session.gif"
+source = "claude-session/transcript.txt + pinned VHS/FFmpeg image"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/claude-session/fallback.png"
+source = "claude-session.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/claude-session/frames.framemd5"
+source = "claude-session.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/claude-session/manifest.json"
+source = "claude-session transcript/observation + rendered artifacts + live record/render/check scripts"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/codex-session/codex-session.gif"
+source = "codex-session/transcript.txt + pinned VHS/FFmpeg image"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/codex-session/fallback.png"
+source = "codex-session.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/codex-session/frames.framemd5"
+source = "codex-session.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/codex-session/manifest.json"
+source = "codex-session transcript/observation + rendered artifacts + live record/render/check scripts"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/cursor-session/cursor-session.gif"
+source = "cursor-session/transcript.txt + pinned VHS/FFmpeg image"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/cursor-session/fallback.png"
+source = "cursor-session.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/cursor-session/frames.framemd5"
+source = "cursor-session.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/cursor-session/manifest.json"
+source = "cursor-session transcript/observation + rendered artifacts + live record/render/check scripts"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/portal-ui/portal-ui.gif"
+source = "portal-ui/frames/*.png + pinned VHS/FFmpeg image"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/portal-ui/fallback.png"
+source = "portal-ui.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/portal-ui/frames.framemd5"
+source = "portal-ui.gif"
+command = "just readme-live-render"
+read_only = true
+
+[[zone]]
+path = "docs/readme-live-media/portal-ui/manifest.json"
+source = "portal-ui frames/transcript/observation + rendered artifacts + live record/render/check scripts"
+command = "just readme-live-render"
+read_only = true

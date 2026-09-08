@@ -32,6 +32,7 @@
     "contracts/": "contracts",
     "docs/": "docs",
     "docs/readme-media/": "docs",
+    "docs/readme-live-media/": "docs",
     "docs/schemas/": "contracts",
     "docs/README.md": "docs",
     "docs/architecture.md": "docs",

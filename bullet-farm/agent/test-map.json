@@ -101,6 +101,10 @@
       "command": "just readme-check",
       "purpose": "verify exact unsigned media subjects, transcripts, frames, and deterministic rendering"
     },
+    "docs/readme-live-media/": {
+      "command": "just readme-live-check",
+      "purpose": "verify operator-authenticated README GIFs, redaction, and second render"
+    },
     "docs/schemas/": {
       "command": "bash ops/ci/observation-test.sh && bash ops/ci/family-observation-test.sh && just readme-check",
       "purpose": "verify docs-only observation schemas against their emitted documents"

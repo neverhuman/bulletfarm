@@ -87,6 +87,41 @@ Offline suites validate bounded protocol transcripts. They do not execute a live
 
 [Static fallback](docs/readme-media/provider-safety/fallback.png) · [Accessible transcript](docs/readme-media/provider-safety/transcript.txt) · [Reproduction manifest](docs/readme-media/provider-safety/manifest.json)
 
+## Operator-authenticated local recordings
+
+The GIFs below were recorded with already-signed-in Claude, Codex, and Cursor
+CLIs and a loopback `bullet-farmd` plus Portal preview. They are
+operator-authenticated local recordings of those sessions and the web
+projection. They do **not** mean Bullet spawned a provider:
+live admission stays disabled, and nothing here is `TRANSACTION_PROOF` or
+release Evidence.
+
+Hosted CI re-checks the committed artifacts with `just readme-live-check` and
+does not use production credentials. Update the recordings on a machine that
+already has those logins, then commit the result:
+
+```bash
+just readme-live-record    # authenticated Claude, Codex, Cursor, and Portal
+just readme-live-render    # pinned VHS/FFmpeg image, network disabled
+just readme-live-check     # hashes, redaction, geometry, second render
+```
+
+![Authenticated Claude Code print session naming the four member repositories with live admission disabled](docs/readme-live-media/claude-session/claude-session.gif)
+
+[Static fallback](docs/readme-live-media/claude-session/fallback.png) · [Accessible transcript](docs/readme-live-media/claude-session/transcript.txt) · [Reproduction manifest](docs/readme-live-media/claude-session/manifest.json)
+
+![Authenticated Codex CLI read-only exec naming the four member repositories with live admission disabled](docs/readme-live-media/codex-session/codex-session.gif)
+
+[Static fallback](docs/readme-live-media/codex-session/fallback.png) · [Accessible transcript](docs/readme-live-media/codex-session/transcript.txt) · [Reproduction manifest](docs/readme-live-media/codex-session/manifest.json)
+
+![Authenticated Cursor Agent plan-mode print session naming the four member repositories with live admission disabled](docs/readme-live-media/cursor-session/cursor-session.gif)
+
+[Static fallback](docs/readme-live-media/cursor-session/fallback.png) · [Accessible transcript](docs/readme-live-media/cursor-session/transcript.txt) · [Reproduction manifest](docs/readme-live-media/cursor-session/manifest.json)
+
+![Portal web tour clicking Control Tower, Shift Brief, Fleet, and Mission Graph against a healthy loopback farmd](docs/readme-live-media/portal-ui/portal-ui.gif)
+
+[Static fallback](docs/readme-live-media/portal-ui/fallback.png) · [Accessible transcript](docs/readme-live-media/portal-ui/transcript.txt) · [Reproduction manifest](docs/readme-live-media/portal-ui/manifest.json)
+
 ## Seven functions, five transaction authorities
 
 Bullet Farm separates seven useful functions from five independently authorized
@@ -182,6 +217,9 @@ just check-family          # dependency-ordered four-repository component proof
 just readme-record         # real credential-free scenarios
 just readme-render         # pinned VHS image, network disabled
 just readme-check          # claims, media, hashes, limits, double render
+just readme-live-record    # authenticated Claude, Codex, Cursor, and Portal
+just readme-live-render    # rebuild live GIFs from committed transcripts/frames
+just readme-live-check     # live media hashes, redaction, second render
 ```
 
 The public index is [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm). GitHub is a secretless PR/discovery mirror. The Hub defines `CI / required` in `.github/workflows/ci.yml`; this first public snapshot does not enable hosted Actions. It is not authoritative release Evidence, and no badge is published before a hosted run and branch-protection read-back exist. Future Jeryu jobs are described by `ci.toml` but remain inactive pending forge ratification and immutable provisioning.

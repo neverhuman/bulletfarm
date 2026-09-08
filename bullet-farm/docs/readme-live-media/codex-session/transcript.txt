@@ -1,0 +1,10 @@
+Codex CLI authenticated
+model                  gpt-6-astra
+sandbox                read-only
+approval               never
+prompt                 name the four member repositories
+reply                  The four Bullet Farm member repositories are
+                       bullet-farm, bullet-kernel, bullet-git, and
+                       bullet-portal.
+files modified         0
+Bullet live admission  disabled

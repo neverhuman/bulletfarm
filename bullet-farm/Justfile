@@ -33,6 +33,15 @@ readme-render:
 readme-check:
     bash scripts/readme-check.sh
 
+readme-live-record:
+    bash scripts/readme-live-record.sh
+
+readme-live-render:
+    bash scripts/readme-live-render.sh
+
+readme-live-check:
+    bash scripts/readme-live-check.sh
+
 fast:
     bash scripts/ci-local.sh fast
 
