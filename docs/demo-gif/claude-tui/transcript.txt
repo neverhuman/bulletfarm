@@ -1,0 +1,29 @@
+Claude Code v2.1.266  ·  Sonnet  ·  Claude Max  ·  ~/bullet
+live admission disabled  ·  operator-authenticated local TUI
+
+prompt
+  Explain Bullet Farm in six short lines: the four member repos, the
+  fenced Attempt, exact Candidate identity, independent Evidence, and
+  why UNKNOWN is a first-class outcome rather than a green lie.
+
+reply
+  The four member repos are independently owned: bullet-farm (hub),
+  bullet-kernel (control plane), bullet-git (Git + proof roots), and
+  bullet-portal (operator UI) — no single repo can rubber-stamp its
+  own work.
+  An Attempt is fenced: it runs sandboxed against a pinned corpus,
+  with no side channel back into the grading path.
+  The Candidate has an exact identity — a specific pinned
+  commit/digest, never a branch name — so a result cannot silently
+  drift onto the wrong artifact.
+  Evidence is gathered independently of the Candidate's own claims;
+  the kernel re-derives pass/fail from raw digests rather than
+  trusting self-reported status, and gates are fail-closed.
+  UNKNOWN is a first-class outcome, not an error: forcing PASS/FAIL
+  when the evidence does not support one is the green lie the design
+  exists to prevent.
+  So UNKNOWN is honest signal — insufficient proof — which is more
+  trustworthy than a fabricated green checkmark.
+
+tools used             0
+files modified         0
