@@ -10,9 +10,32 @@ That monorepo is where people `git clone`, build, and work. Member origins on th
 `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`, and
 `neverhuman/bullet-portal`. A clone is not a trusted installer.
 
-**Many minds. One verified line to main.** These recordings were captured from
-already-signed-in Claude, Codex, and Cursor sessions and a loopback Control
-Tower. Live admission stays disabled; they are not release Evidence.
+## One contained provider turn becomes a reviewable Candidate
+
+This is a live recording, not a re-enactment. A real, billed `claude` turn ran
+inside the containment while the recorder was going, reading a 1,867-file
+snapshot of Bullet Farm's own kernel source. It proposed a patch, production
+`bullet-gitd` applied it, the gate passed, and a Candidate was prepared and
+preserved. The Candidate is then opened from the bundle that run wrote.
+
+![A real contained claude turn reading Bullet Farm's own kernel source, proposing a patch, passing the gate, and producing a preserved Candidate, then the Candidate and its receipt](bullet-farm/docs/readme-media/dogfood-candidate/dogfood-candidate-hi.gif)
+
+The recording also shows a real open defect rather than editing around it: the
+Runner releases its lease before `bullet-gitd` cleans the workspace, and gitd's
+cleanup re-reads that lease online, so a completed attempt ends on
+`AUTHORITY_REFUSED` after its Candidate is already preserved. It reproduces on
+the simulator too. [How it was made, and how to reproduce
+it.](bullet-farm/media/dogfood/README.md)
+
+This is a `DOGFOOD_RUN`: an operational observation. It clears no release gate
+and every eligibility flag in its receipt is false. The recording says so on
+screen.
+
+### Earlier recordings
+
+These are vendor CLIs describing the design, captured from already-signed-in
+sessions against a loopback Control Tower. They are not the product running,
+and they are not release Evidence.
 
 ![Authenticated Claude Code TUI explaining fenced Attempts, exact Candidates, independent Evidence, and UNKNOWN](bullet-farm/docs/demo-gif/claude-tui/claude-tui.gif)
 
