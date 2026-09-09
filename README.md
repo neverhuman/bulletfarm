@@ -87,6 +87,42 @@ Offline suites validate bounded protocol transcripts. They do not execute a live
 
 [Static fallback](docs/readme-media/provider-safety/fallback.png) · [Accessible transcript](docs/readme-media/provider-safety/transcript.txt) · [Reproduction manifest](docs/readme-media/provider-safety/manifest.json)
 
+## Operator-authenticated local recordings
+
+The GIFs below are high-resolution captures of already-signed-in Claude, Codex,
+and Cursor TUIs plus the Portal Control Tower bootstrap form against loopback
+`bullet-farmd`. They are operator-authenticated local recordings. They do
+**not** mean Bullet spawned a provider: live admission stays disabled, and
+nothing here is `TRANSACTION_PROOF` or release Evidence.
+
+Rebuild on a machine that already has those logins:
+
+```bash
+just demo-gif-record    # real TUI + 1920×1080 Portal form
+just demo-gif-render    # agg + FFmpeg, no credentials, no dither dimming
+just demo-gif-check     # geometry, last-frame contrast, redaction
+```
+
+The pipeline lives in `scripts/demo-gif-*.sh` and `docs/demo-gif/`. The frozen
+`readme-live-*` custody scripts are a separate data-only lane and are not used
+for these recordings.
+
+![Authenticated Claude Code TUI explaining fenced Attempts, exact Candidates, independent Evidence, and UNKNOWN](docs/demo-gif/claude-tui/claude-tui.gif)
+
+[Static fallback](docs/demo-gif/claude-tui/fallback.png) · [Accessible transcript](docs/demo-gif/claude-tui/transcript.txt)
+
+![Authenticated Codex TUI naming the four member repos and why UNKNOWN refuses a green lie](docs/demo-gif/codex-tui/codex-tui.gif)
+
+[Static fallback](docs/demo-gif/codex-tui/fallback.png) · [Accessible transcript](docs/demo-gif/codex-tui/transcript.txt)
+
+![Authenticated Cursor Agent plan-mode TUI on the same Bullet Farm transaction boundary](docs/demo-gif/cursor-tui/cursor-tui.gif)
+
+[Static fallback](docs/demo-gif/cursor-tui/fallback.png) · [Accessible transcript](docs/demo-gif/cursor-tui/transcript.txt)
+
+![Portal Control Tower: one-time bootstrap token, local session authenticate, durable demo command, Shift Brief](docs/demo-gif/portal-form/portal-form.gif)
+
+[Static fallback](docs/demo-gif/portal-form/fallback.png) · [Accessible transcript](docs/demo-gif/portal-form/transcript.txt)
+
 ## Seven functions, five transaction authorities
 
 Bullet Farm separates seven useful functions from five independently authorized
@@ -182,6 +218,9 @@ just check-family          # dependency-ordered four-repository component proof
 just readme-record         # real credential-free scenarios
 just readme-render         # pinned VHS image, network disabled
 just readme-check          # claims, media, hashes, limits, double render
+just demo-gif-record       # authenticated Claude, Codex, Cursor TUI + Portal form
+just demo-gif-render       # high-res GIF rebuild, no credentials
+just demo-gif-check        # geometry, brightness, redaction
 ```
 
 The public index is [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm). GitHub is a secretless PR/discovery mirror. The Hub defines `CI / required` in `.github/workflows/ci.yml`; this first public snapshot does not enable hosted Actions. It is not authoritative release Evidence, and no badge is published before a hosted run and branch-protection read-back exist. Future Jeryu jobs are described by `ci.toml` but remain inactive pending forge ratification and immutable provisioning.
