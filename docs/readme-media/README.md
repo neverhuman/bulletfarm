@@ -8,4 +8,4 @@ These assets are unsigned component observations, not Bullet Evidence, live-prov
 
 `just readme-check` validates subjects, claims, links, redaction, MIME, dimensions, duration, rate, size, hashes, frame hashes, and two independent renders. A successful check does not change the release decision.
 
-Install media stays absent until two clean signed schema-3 installations exist. Live-agent task media stays absent until exact runtime probing, provider onboarding, sealed live receipts, and a connected `TRANSACTION_PROOF` exist.
+Install media stays absent until two clean signed schema-3 installations exist. Operator-authenticated CLI and Portal recordings live in [`docs/readme-live-media/`](../readme-live-media/README.md); they are local observations, not sealed live receipts or `TRANSACTION_PROOF`.
