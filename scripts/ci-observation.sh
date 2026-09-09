@@ -62,7 +62,7 @@ record_tool() {
   fi
   if [[ -n "$value" ]]; then
     ci_tool_version_shape_is_valid "$key" "$value" \
-      || refuse TOOL_VERSION_INVALID "$key=$value"
+      || refuse TOOL_VERSION_INVALID "$key"
     tool_versions="$(jq -c --arg key "$key" --arg value "$value" \
       '. + {($key):$value}' <<<"$tool_versions")"
   fi
@@ -78,18 +78,6 @@ if command -v shellcheck >/dev/null 2>&1; then
     || refuse TOOL_VERSION_INVALID shellcheck
   tool_versions="$(jq -c --arg value "$shellcheck_version" '. + {shellcheck:$value}' <<<"$tool_versions")"
 fi
-# `java -version` writes to stderr, and a runner that sets JAVA_TOOL_OPTIONS
-# prints "Picked up JAVA_TOOL_OPTIONS: ..." ahead of the version line, so
-# taking the first line recorded the wrong string and refused the lane. Take
-# the version line itself.
-if command -v java >/dev/null 2>&1; then
-  java_version="$(java -version 2>&1 | grep -m1 'version "' || true)"
-  if [[ -n "$java_version" ]]; then
-    ci_tool_version_shape_is_valid java "$java_version" \
-      || refuse TOOL_VERSION_INVALID "java=$java_version"
-    tool_versions="$(jq -c --arg value "$java_version" '. + {java:$value}' <<<"$tool_versions")"
-  fi
-fi
 record_tool gitleaks gitleaks version
 record_tool cargo_deny cargo-deny --version
 record_tool zizmor zizmor --version
@@ -97,6 +85,7 @@ record_tool lychee lychee --version
 record_tool jankurai jankurai --version
 record_tool rustup rustup --version
 record_tool b3sum b3sum --version
+record_tool java java -version
 record_tool docker docker --version
 record_tool file file --version
 record_tool node node --version

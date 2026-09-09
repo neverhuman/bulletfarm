@@ -61,6 +61,99 @@ schema_tool_keys="$(jq -r '.properties.tool_versions.properties | keys[]' \
   || { refuse OBSERVATION_TOOL_VOCABULARY_DRIFT "runtime/schema mismatch"; exit 1; }
 jsonschema -i "$valid_observation" docs/schemas/bullet.ci-observation.v1.schema.json >/dev/null 2>&1 \
   || { refuse OBSERVATION_SCHEMA_REJECTED_PRODUCER_OUTPUT "$valid_observation"; exit 1; }
+# Numeric Java observation is separate from the lane's Java 21 requirement.
+# Hosted source scanning sees the runner's ambient JDK before tool installation.
+mkdir "$test_root/java-fixture"
+cat >"$test_root/java-fixture/java" <<'JAVA'
+#!/bin/sh
+printf '%s\n' "$JAVA_VERSION_FIXTURE" >&2
+exit "${JAVA_EXIT_FIXTURE:-0}"
+JAVA
+chmod +x "$test_root/java-fixture/java"
+for java_version in 'openjdk version "17.0.20" 2026-07-21' \
+  'openjdk version "17.0.20.1" 2026-08-18' \
+  'openjdk version "21.0.12" 2026-07-21 LTS'; do
+  PATH="$test_root/java-fixture:$PATH" JAVA_VERSION_FIXTURE="$java_version" \
+    CI_COMMAND_COUNT=1 bash scripts/ci-observation.sh observation-test 0 \
+      'bash ops/ci/observation-test.sh' .ci-artifacts/test/artifact.txt >/dev/null
+  jq -e --arg version "$java_version" '.tool_versions.java == $version' "$observation" >/dev/null
+  jsonschema -i "$observation" docs/schemas/bullet.ci-observation.v1.schema.json >/dev/null 2>&1
+  bash ops/ci/artifact-check.sh observation-test >/dev/null
+  java_source="$test_root/java-source"
+  mkdir -p "$java_source/.ci-artifacts/observations"
+  jq '.commands=["bash scripts/ci-doctor.sh source-scan","bash ops/ci/source-scan.sh"] |
+    .outcomes=[{lane:"source-scan",status:"PASS",exit_code:0}] | .artifact_hashes=[]' \
+    "$observation" >"$java_source/.ci-artifacts/observations/source-scan.json"
+  bash ops/ci/artifact-check.sh source-scan '' "$java_source" >/dev/null
+done
+for java_version in 'Picked up JAVA_TOOL_OPTIONS: fixture' 'openjdk version "unknown"' \
+  'openjdk version "17.0.20.1.2" 2026-08-18' \
+  'openjdk version "17.0.20" credential_fixture' $'openjdk version "17.0.20"\t' \
+  $'openjdk version "17.0.20"\177'; do
+  if output="$(PATH="$test_root/java-fixture:$PATH" JAVA_VERSION_FIXTURE="$java_version" \
+    CI_COMMAND_COUNT=1 bash scripts/ci-observation.sh observation-test 0 \
+      'bash ops/ci/observation-test.sh' 2>&1)" \
+    || [[ "$output" != '[ci-observation] TOOL_VERSION_INVALID: java' ]]; then
+    refuse OBSERVATION_JAVA_INVALID_PRODUCER "$output"; exit 1
+  fi
+  jq --arg version "$java_version" '.tool_versions.java=$version' \
+    "$valid_observation" >"$test_root/java-invalid.json"
+  if jsonschema -i "$test_root/java-invalid.json" docs/schemas/bullet.ci-observation.v1.schema.json >/dev/null 2>&1; then
+    refuse OBSERVATION_JAVA_INVALID_SCHEMA 'malformed Java version accepted'; exit 1
+  fi
+done
+PATH="$test_root/java-fixture:$PATH" JAVA_VERSION_FIXTURE='openjdk version "21.0.12"' \
+  JAVA_EXIT_FIXTURE=7 CI_COMMAND_COUNT=1 bash scripts/ci-observation.sh observation-test 0 \
+    'bash ops/ci/observation-test.sh' .ci-artifacts/test/artifact.txt >/dev/null
+jq -e '.tool_versions | has("java") | not' "$observation" >/dev/null \
+  || { refuse OBSERVATION_JAVA_UNAVAILABLE_VERIFIED java; exit 1; }
+cp "$valid_observation" "$observation"
+java_contract="$test_root/java-contract"
+mkdir -p "$java_contract/.ci-artifacts/observations" "$java_contract/.ci-artifacts/junit" \
+  "$java_contract/.ci-artifacts/formal" "$java_contract/.ci-artifacts/contracts"
+for java_partition in fast contract; do
+  java_count="$WIRE_EXPECTED_TESTS"
+  [[ "$java_partition" != fast ]] || java_count="$HUB_EXPECTED_TESTS"
+  printf '%s\n' '<?xml version="1.0" encoding="UTF-8"?>' \
+    "<testsuites tests=\"$java_count\" failures=\"0\" errors=\"0\" skipped=\"0\">" \
+    "  <testsuite name=\"bullet-farm-$java_partition\" tests=\"$java_count\" failures=\"0\" errors=\"0\" skipped=\"0\"/>" \
+    '</testsuites>' >"$java_contract/.ci-artifacts/junit/$java_partition.xml"
+done
+printf '%s\n' 'schema=bullet.formal-log.v1' 'models=2' 'completed_without_error=2' \
+  'pinned_summary_present=1' 'exit_code=0' 'classification=DIAGNOSTIC_ONLY' \
+  >"$java_contract/.ci-artifacts/formal/contract.log"
+jq -n '{schema_version:"bullet.formal-summary.v1",models:2,completed_models:2,
+  pinned_summary_present:true,status:"PASS",exit_code:0,signed:false,
+  evidence_class:"DIAGNOSTIC_ONLY"}' >"$java_contract/.ci-artifacts/formal/contract.json"
+cp contracts/v1alpha1/bundle-manifest.json "$java_contract/.ci-artifacts/contracts/bundle-manifest.json"
+for java_lane in contract required; do
+  java_artifacts='[]'
+  java_paths=(.ci-artifacts/junit/contract.xml .ci-artifacts/formal/contract.json \
+    .ci-artifacts/formal/contract.log .ci-artifacts/contracts/bundle-manifest.json)
+  [[ "$java_lane" != required ]] || java_paths+=(.ci-artifacts/junit/fast.xml)
+  for java_path in "${java_paths[@]}"; do
+    java_artifacts="$(jq -c --arg path "$java_path" \
+      --arg sha256 "$(sha256_file "$java_contract/$java_path")" \
+      '. + [{path:$path,sha256:$sha256}]' <<<"$java_artifacts")"
+  done
+  jq --arg lane "$java_lane" --argjson artifacts "$java_artifacts" \
+    '.commands=[("bash scripts/ci-doctor.sh " + $lane),("bash ops/ci/" + $lane + ".sh")] |
+    .outcomes=[{lane:$lane,status:"PASS",exit_code:0}] | .artifact_hashes=$artifacts |
+    .tool_versions.java="openjdk version \"21.0.12\" 2026-07-21 LTS"' \
+    "$valid_observation" >"$test_root/java-valid.json"
+  cp "$test_root/java-valid.json" "$java_contract/.ci-artifacts/observations/$java_lane.json"
+  bash ops/ci/artifact-check.sh "$java_lane" '' "$java_contract" >/dev/null
+  for java_mutation in '.tool_versions.java="openjdk version \"17.0.20\" 2026-07-21"' \
+    'del(.tool_versions.java)'; do
+    jq "$java_mutation" "$test_root/java-valid.json" \
+      >"$java_contract/.ci-artifacts/observations/$java_lane.json"
+    if output="$(bash ops/ci/artifact-check.sh "$java_lane" '' "$java_contract" 2>&1)" \
+      || [[ "$output" != *CI_TOOL_VERSION_*java* ]]; then
+      refuse OBSERVATION_JAVA_REQUIRED_GUARD "$java_lane: $output"; exit 1
+    fi
+  done
+done
+
 mkdir "$test_root/python-without-jsonschema"
 printf '%s\n' '#!/usr/bin/env sh' \
   "if [ \"\${1:-}\" = \"--version\" ]; then printf \"%s\\n\" \"Python 3.12.3\"; exit 0; fi" \
