@@ -1,0 +1,15 @@
+{
+  "schema_version": "bullet.demo-gif.v1",
+  "classification": "UNSIGNED_OPERATOR_AUTHENTICATED_OBSERVATION",
+  "release_authority": false,
+  "live_provider_spawned": false,
+  "bullet_live_admission": "disabled",
+  "operator_authenticated": true,
+  "observed_at": "2026-09-09T00:59:21Z",
+  "geometry": {
+    "cli_cols": 140,
+    "cli_rows": 38,
+    "portal_width": 1920,
+    "portal_height": 1080
+  }
+}
