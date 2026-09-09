@@ -1,12 +1,15 @@
-use super::store;
+use super::{store, AdmissionGuard, AdmittedConnection, ConnectionPurpose};
 use bullet_application::LedgerError;
-use rusqlite::{Connection, OpenFlags};
+use rusqlite::Connection;
 use rustix::fs::{AtFlags, Mode, OFlags, ResolveFlags};
 use std::ffi::{OsStr, OsString};
 use std::fs::{File, OpenOptions};
 use std::os::unix::ffi::OsStrExt;
 use std::os::unix::fs::{MetadataExt, OpenOptionsExt};
 use std::path::{Component, Path, PathBuf};
+
+mod custody;
+pub(super) mod preflight;
 
 const MAX_COMPONENTS: usize = 64;
 const SIDECARS: [&str; 3] = ["-journal", "-wal", "-shm"];
@@ -36,7 +39,10 @@ pub(super) struct Guard {
     created: bool,
 }
 
-pub(super) fn connection(path: &Path) -> Result<(Connection, Guard), LedgerError> {
+pub(super) fn connection(
+    path: &Path,
+    purpose: ConnectionPurpose,
+) -> Result<AdmittedConnection, LedgerError> {
     let absolute = normalized_absolute(path)?;
     let effective_uid = effective_uid()?;
     let boundary = walk_boundary(&absolute, effective_uid)?;
@@ -61,25 +67,24 @@ pub(super) fn connection(path: &Path) -> Result<(Connection, Guard), LedgerError
                 created: false,
             }
         }
+        None if matches!(purpose, ConnectionPurpose::BackupReadOnly) => {
+            return Err(store("SQLite backup source database does not exist"));
+        }
         None => create_database(boundary, absolute, database_name, effective_uid)?,
     };
     if let Err(error) = revalidate(&guard) {
         return Err(failure_with_cleanup(None, guard, error));
     }
-    let connection = match Connection::open_with_flags(
-        &guard.database_path,
-        OpenFlags::SQLITE_OPEN_READ_WRITE
-            | OpenFlags::SQLITE_OPEN_CREATE
-            | OpenFlags::SQLITE_OPEN_NO_MUTEX
-            | OpenFlags::SQLITE_OPEN_NOFOLLOW,
-    ) {
-        Ok(connection) => connection,
-        Err(error) => return Err(failure_with_cleanup(None, guard, store(error))),
-    };
-    if let Err(error) = revalidate(&guard) {
-        return Err(failure_with_cleanup(Some(connection), guard, error));
-    }
-    Ok((connection, guard))
+    // Without custody, even a newly created empty inode may belong to a peer.
+    // Preserve it on acquisition failure; cleanup requires our shared lock.
+    custody::acquire_shared(&guard.database)?;
+    preflight::connection(
+        AdmissionGuard {
+            inner: guard,
+            snapshot: None,
+        },
+        purpose,
+    )
 }
 
 fn effective_uid() -> Result<u32, LedgerError> {
@@ -161,6 +166,41 @@ fn create_database(
 
 pub(super) fn postflight(guard: &Guard) -> Result<(), LedgerError> {
     revalidate(guard)
+}
+
+pub(super) fn finish_snapshot(guard: Guard) -> Result<(), LedgerError> {
+    revalidate(&guard)?;
+    if inspect_sidecars(
+        parent(&guard.boundary),
+        &guard.database_name,
+        guard.effective_uid,
+    )?
+    .iter()
+    .any(|present| *present)
+    {
+        return Err(store(
+            "SQLite quiescent close left a sidecar; preserve it for recovery",
+        ));
+    }
+    guard.database.sync_all().map_err(store)?;
+    parent(&guard.boundary)
+        .descriptor
+        .sync_all()
+        .map_err(store)?;
+    revalidate(&guard)?;
+    if inspect_sidecars(
+        parent(&guard.boundary),
+        &guard.database_name,
+        guard.effective_uid,
+    )?
+    .iter()
+    .any(|present| *present)
+    {
+        return Err(store(
+            "SQLite sidecar appeared during snapshot finalization",
+        ));
+    }
+    Ok(())
 }
 
 fn revalidate(guard: &Guard) -> Result<(), LedgerError> {
@@ -439,7 +479,7 @@ pub(super) fn was_created(guard: &Guard) -> bool {
 }
 
 #[cfg(test)]
-pub(super) fn assert_policy_contract() {
+pub(super) fn assert_policy_contract(directory: &Path) {
     let euid = 1000;
     assert!(directory_policy(0, 0o755, false, euid));
     assert!(directory_policy(euid, 0o700, true, euid));
@@ -447,4 +487,5 @@ pub(super) fn assert_policy_contract() {
     assert!(!directory_policy(euid, 0o770, false, euid));
     assert!(!directory_policy(2000, 0o700, false, euid));
     assert!(!directory_policy(0, 0o700, true, euid));
+    custody::tests::assert_contract(directory);
 }
