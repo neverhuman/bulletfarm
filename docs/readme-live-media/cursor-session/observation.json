@@ -1,0 +1,28 @@
+{
+  "schema_version": "bullet.readme-live-demo.v1",
+  "document_type": "observation",
+  "demo_id": "cursor-session",
+  "observed_at": "2026-09-08T22:56:09Z",
+  "classification": "UNSIGNED_OPERATOR_AUTHENTICATED_OBSERVATION",
+  "release_authority": false,
+  "live_provider_spawned": false,
+  "bullet_live_admission": "disabled",
+  "operator_authenticated": true,
+  "cli": {
+    "name": "cursor-agent",
+    "version": "2026.09.02-c22c1a3",
+    "mode": "plan"
+  },
+  "outcomes": [
+    {
+      "name": "print-reply",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "files-modified",
+      "status": "0",
+      "exit_code": 0
+    }
+  ]
+}
