@@ -6,15 +6,19 @@ export REPO_ROOT
 export GIT_TERMINAL_PROMPT=0
 export LC_ALL=C
 export TZ=UTC
+if command -v gitleaks >/dev/null 2>&1; then
+  BULLET_PUBLICATION_GITLEAKS="$(command -v gitleaks)"
+  export BULLET_PUBLICATION_GITLEAKS
+fi
 
 HUB_FILTER='package(bullet-family) | package(bullet-linux-lease)'
 WIRE_FILTER='package(bullet-wire)'
-HUB_EXPECTED_TESTS=578
+HUB_EXPECTED_TESTS=600
 WIRE_EXPECTED_TESTS=219
-TOTAL_EXPECTED_TESTS=797
-HUB_EXPECTED_IDENTITIES_SHA256='35f98c4f960f2b661837a5a738e39c74b52701131383f39f3c12ef0e50487c1e'
+TOTAL_EXPECTED_TESTS=819
+HUB_EXPECTED_IDENTITIES_SHA256='c172ad0acabd1662a3bde9cb4522ff9c35e144e78319cb47da8f4729e4104f37'
 WIRE_EXPECTED_IDENTITIES_SHA256='36d5664975114e007735e214a3392443a23cb50c343d795e14f96fdb2275815d'
-TOTAL_EXPECTED_IDENTITIES_SHA256='11de2e46122626a4a6751f43200234010db723df165ac22e742d7433d0855f21'
+TOTAL_EXPECTED_IDENTITIES_SHA256='9cb648164487f8e907887826eb0c76a78437f4439d32bcd0d6cf56576186aeb6'
 export HUB_FILTER WIRE_FILTER HUB_EXPECTED_TESTS WIRE_EXPECTED_TESTS TOTAL_EXPECTED_TESTS
 export HUB_EXPECTED_IDENTITIES_SHA256 WIRE_EXPECTED_IDENTITIES_SHA256
 export TOTAL_EXPECTED_IDENTITIES_SHA256
@@ -143,18 +147,22 @@ except (OSError, tomllib.TOMLDecodeError) as error:
 allowed = {
     ("build", "jobs"): lambda value: type(value) is int and value > 0,
     ("net", "retry"): lambda value: type(value) is int and value >= 0,
+    ("net", "git-fetch-with-cli"): lambda value: type(value) is bool,
     ("cache", "auto-clean-frequency"): lambda value: isinstance(value, (int, str)),
 }
 rejected = []
 
 def walk(value, prefix=()):
+    rule = allowed.get(prefix)
+    if rule is not None:
+        if not rule(value):
+            rejected.append(".".join(prefix))
+        return
     if isinstance(value, dict):
         for key, child in value.items():
             walk(child, prefix + (str(key).replace("_", "-").lower(),))
         return
-    rule = allowed.get(prefix)
-    if rule is None or not rule(value):
-        rejected.append(".".join(prefix) or "<root>")
+    rejected.append(".".join(prefix) or "<root>")
 
 walk(document)
 print(",".join(sorted(set(rejected))))

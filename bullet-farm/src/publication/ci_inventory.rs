@@ -18,6 +18,7 @@ pub(super) struct Job {
     pub runner: &'static str,
     pub os: Vec<&'static str>,
     pub always: bool,
+    pub timeout_minutes: u16,
 }
 
 #[derive(Clone, Serialize)]
@@ -29,27 +30,89 @@ pub(super) struct Workflow {
     pub jobs: Vec<Job>,
 }
 
-fn job(id: &'static str, needs: &[&'static str]) -> Job {
+// Exact job budgets from the eight workflow digests admitted below.
+fn reviewed_timeout(member: &str, path: &str, id: &str) -> Option<u16> {
+    match (member, path, id) {
+        ("bullet-farm", CI, "contract") => Some(25),
+        ("bullet-farm", CI, "docs") => Some(35),
+        ("bullet-farm", CI, "fast") => Some(20),
+        ("bullet-farm", CI, "lint") => Some(25),
+        ("bullet-farm", CI, "required") => Some(8),
+        ("bullet-farm", CI, "security") => Some(25),
+        ("bullet-farm", CI, "source_scan") => Some(10),
+        ("bullet-farm", SCHEDULED, "advisory") => Some(20),
+        ("bullet-farm", SCHEDULED, "audit") => Some(20),
+        ("bullet-farm", SCHEDULED, "coverage") => Some(30),
+        ("bullet-farm", SCHEDULED, "history") => Some(20),
+        ("bullet-farm", SCHEDULED, "links") => Some(15),
+        ("bullet-farm", SCHEDULED, "macos") => Some(25),
+        ("bullet-farm", SCHEDULED, "source_scan") => Some(10),
+        ("bullet-farm", SCHEDULED, "windows") => Some(30),
+        ("bullet-git", CI, "contract") => Some(20),
+        ("bullet-git", CI, "docs") => Some(15),
+        ("bullet-git", CI, "fast") => Some(15),
+        ("bullet-git", CI, "lint") => Some(15),
+        ("bullet-git", CI, "required") => Some(5),
+        ("bullet-git", CI, "security") => Some(15),
+        ("bullet-git", CI, "source_scan") => Some(10),
+        ("bullet-git", SCHEDULED, "advisory") => Some(15),
+        ("bullet-git", SCHEDULED, "audit") => Some(15),
+        ("bullet-git", SCHEDULED, "coverage") => Some(20),
+        ("bullet-git", SCHEDULED, "history") => Some(15),
+        ("bullet-git", SCHEDULED, "links") => Some(10),
+        ("bullet-git", SCHEDULED, "macos") => Some(20),
+        ("bullet-git", SCHEDULED, "source_scan") => Some(10),
+        ("bullet-git", SCHEDULED, "windows") => Some(25),
+        ("bullet-kernel", CI, "contract") => Some(20),
+        ("bullet-kernel", CI, "docs") => Some(20),
+        ("bullet-kernel", CI, "fast") => Some(20),
+        ("bullet-kernel", CI, "lint") => Some(25),
+        ("bullet-kernel", CI, "preflight") => Some(10),
+        ("bullet-kernel", CI, "required") => Some(5),
+        ("bullet-kernel", CI, "security") => Some(20),
+        ("bullet-kernel", SCHEDULED, "advisories") => Some(20),
+        ("bullet-kernel", SCHEDULED, "audit") => Some(15),
+        ("bullet-kernel", SCHEDULED, "coverage") => Some(30),
+        ("bullet-kernel", SCHEDULED, "history-secrets") => Some(15),
+        ("bullet-kernel", SCHEDULED, "links") => Some(15),
+        ("bullet-kernel", SCHEDULED, "portable-refusal") => Some(35),
+        ("bullet-kernel", SCHEDULED, "source-admission") => Some(10),
+        ("bullet-portal", CI, "contract") => Some(20),
+        ("bullet-portal", CI, "docs") => Some(10),
+        ("bullet-portal", CI, "fast") => Some(15),
+        ("bullet-portal", CI, "lint") => Some(10),
+        ("bullet-portal", CI, "required") => Some(5),
+        ("bullet-portal", CI, "security") => Some(15),
+        ("bullet-portal", SCHEDULED, "coverage") => Some(20),
+        ("bullet-portal", SCHEDULED, "hygiene") => Some(20),
+        ("bullet-portal", SCHEDULED, "portable") => Some(25),
+        _ => None,
+    }
+}
+
+fn job(member: &str, path: &str, id: &'static str, needs: &[&'static str]) -> Job {
     Job {
         id,
         needs: needs.to_vec(),
         runner: UBUNTU,
         os: Vec::new(),
         always: false,
+        timeout_minutes: reviewed_timeout(member, path, id)
+            .expect("compiled workflow job must have a reviewed timeout"),
     }
 }
 
-fn required(preflight: Option<&'static str>) -> Vec<Job> {
+fn required(member: &str, preflight: Option<&'static str>) -> Vec<Job> {
     let gates = ["fast", "lint", "contract", "security", "docs"];
     let dependencies = preflight.into_iter().collect::<Vec<_>>();
     let mut jobs = preflight
         .into_iter()
-        .map(|id| job(id, &[]))
+        .map(|id| job(member, CI, id, &[]))
         .collect::<Vec<_>>();
-    jobs.extend(gates.map(|id| job(id, &dependencies)));
+    jobs.extend(gates.map(|id| job(member, CI, id, &dependencies)));
     let mut final_needs = dependencies;
     final_needs.extend(gates);
-    let mut final_job = job("required", &final_needs);
+    let mut final_job = job(member, CI, "required", &final_needs);
     final_job.always = true;
     jobs.push(final_job);
     jobs
@@ -58,11 +121,11 @@ fn required(preflight: Option<&'static str>) -> Vec<Job> {
 fn scheduled(member: &str) -> Vec<Job> {
     let mut jobs = match member {
         "bullet-farm" | "bullet-git" => {
-            let mut jobs = vec![job("source_scan", &[])];
+            let mut jobs = vec![job(member, SCHEDULED, "source_scan", &[])];
             for id in [
                 "history", "links", "advisory", "coverage", "macos", "windows", "audit",
             ] {
-                let mut item = job(id, &["source_scan"]);
+                let mut item = job(member, SCHEDULED, id, &["source_scan"]);
                 item.always = member == "bullet-farm";
                 item.runner = match id {
                     "macos" => PORTABLE[0],
@@ -74,7 +137,7 @@ fn scheduled(member: &str) -> Vec<Job> {
             jobs
         }
         "bullet-kernel" => {
-            let mut jobs = vec![job("source-admission", &[])];
+            let mut jobs = vec![job(member, SCHEDULED, "source-admission", &[])];
             jobs.extend(
                 [
                     "links",
@@ -84,12 +147,12 @@ fn scheduled(member: &str) -> Vec<Job> {
                     "portable-refusal",
                     "audit",
                 ]
-                .map(|id| job(id, &["source-admission"])),
+                .map(|id| job(member, SCHEDULED, id, &["source-admission"])),
             );
             jobs
         }
         _ => ["hygiene", "coverage", "portable"]
-            .map(|id| job(id, &[]))
+            .map(|id| job(member, SCHEDULED, id, &[]))
             .into(),
     };
     for item in &mut jobs {
@@ -138,7 +201,7 @@ pub(super) fn reviewed() -> Vec<Workflow> {
             path: CI,
             scope: "REQUIRED",
             sha256: ci.into(),
-            jobs: required(first),
+            jobs: required(member, first),
         });
         workflows.push(Workflow {
             member,
@@ -196,6 +259,11 @@ pub(super) fn canonical_catalog(workflows: &[Workflow]) -> Result<Vec<Workflow>>
                         .bytes()
                         .all(|b| b.is_ascii_alphanumeric() || b"_-".contains(&b)),
                 "PUBLICATION_CI_JOB_ID_INVALID",
+            )?;
+            require(
+                Some(item.timeout_minutes)
+                    == reviewed_timeout(workflow.member, workflow.path, item.id),
+                "PUBLICATION_CI_TIMEOUT_INVALID",
             )?;
             item.needs.sort();
             require(

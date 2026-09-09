@@ -35,7 +35,7 @@ validate_workflow_source() {
 
 validate_workflow_inventory .github/workflows || exit 1
 validate_workflow_source .github/workflows/ci.yml \
-  52c7841a5a4c6ab4a2321fce6b18755552da49d5b0e065c7be4925ad0880a1fb \
+  682ee8cde39296213d7bb3db3e0398c52a6243b2153a25d9fea11a32a82e882f \
   HOSTED_REQUIRED_SOURCE_DRIFT || exit 1
 validate_workflow_source .github/workflows/scheduled.yml \
   e284e768a81d1ff83a5e453c3b81fbd3df0762e172367378af845e87502b422f \

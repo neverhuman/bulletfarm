@@ -52,7 +52,7 @@ def load_repositories(family_root: Path, expected_schema: str) -> tuple[dict[str
         raise InventoryError("family manifest repository inventory drifted")
     repositories: dict[str, Path] = {}
     for row in rows:
-        exact_keys(row, REPO_FIELDS, set(), f"family repository {row['name']}")
+        exact_keys(row, REPO_FIELDS, {"github_slug"}, f"family repository {row['name']}")
         expected = family_root / row["name"]
         if row["path"] != str(expected):
             raise InventoryError(f"family repository {row['name']}: path drifted")

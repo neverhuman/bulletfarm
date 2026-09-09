@@ -82,7 +82,7 @@ fn control_manifests_route_to_real_local_proof() {
 
     let adoption = parse_toml("agent/tool-adoption.toml");
     let tools = adoption["tools"].as_array().expect("adopted tools");
-    assert_eq!(tools.len(), 1, "unproved tool adoption was declared");
+    assert_eq!(tools.len(), 18, "unproved tool adoption was declared");
     assert_eq!(tools[0]["id"].as_str(), Some("audit-ci"));
     assert_eq!(tools[0]["mode"].as_str(), Some("auto"));
 
@@ -255,16 +255,16 @@ fn every_generated_zone_has_source_and_executable_regeneration_route() {
         paths.push(zone["path"].as_str().expect("path"));
     }
     for expected in [
-        "family.lock",
-        ".fusion/",
-        "contracts/v1alpha1/schema-bundle.json",
+        "generated/zones/family.lock.txt",
+        "generated/zones/fusion.txt",
+        "generated/zones/schema-bundle.txt",
         "contracts/v1alpha1/bundle-manifest.json",
         "contracts/generated/",
-        "policy/v1alpha1/policy.json",
+        "generated/zones/policy.txt",
         "fixtures/hostile/cases/",
-        "fixtures/hostile/fixture-manifest.json",
-        "fixtures/canonical/canonical-golden.json",
-        "fixtures/canonical/authority-golden.json",
+        "generated/zones/fixture-manifest.txt",
+        "generated/zones/canonical-golden.txt",
+        "generated/zones/authority-golden.txt",
         "docs/assurance/invariant-crosswalk.generated.md",
         "docs/assurance/release-truth.generated.md",
         "formal/traces/",

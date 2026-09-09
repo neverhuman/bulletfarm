@@ -3,12 +3,12 @@ use std::collections::BTreeSet;
 
 use serde_json::Value;
 
+use super::super::invalid;
 use super::{
     BuildPlan, MAX_FILE_BYTES, MAX_FILES, MAX_PACKAGE_LOCK_BYTES, MAX_TOOL_BYTES,
     MAX_TOOL_TREE_BYTES, MAX_TOOL_TREE_FILES, MAX_TOTAL_BYTES, PORTAL_ROOT_DOMAIN, PortalFile,
     PortalManifest, PortalTool,
 };
-use super::super::invalid;
 use crate::coord::CoordError;
 
 pub(super) fn validate_raw_tool_shapes(value: &Value) -> Result<(), CoordError> {
@@ -185,7 +185,10 @@ pub(super) fn exact_numeric_version(
             .all(|part| !part.is_empty() && part.bytes().all(|byte| byte.is_ascii_digit()))
 }
 
-pub(super) fn validate_file_inventory(files: &[PortalFile], declared_total: u64) -> Result<(), CoordError> {
+pub(super) fn validate_file_inventory(
+    files: &[PortalFile],
+    declared_total: u64,
+) -> Result<(), CoordError> {
     if files.is_empty() || files.len() > MAX_FILES {
         return Err(CoordError::new(
             "RELEASE_PORTAL_BUNDLE_INVALID",

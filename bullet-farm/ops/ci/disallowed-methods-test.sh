@@ -10,6 +10,47 @@ repo_root="$REPO_ROOT"
 fixture_root="$(mktemp -d "${TMPDIR:-/tmp}/bullet-disallowed-methods.XXXXXX")"
 trap 'rm -rf -- "$fixture_root"' EXIT
 
+cargo_config_case() {
+  local name="$1" expected="$2" content="$3" reason="${4:-}" actual
+  printf '%s\n' "$content" >"$fixture_root/$name.toml"
+  if validate_cargo_config "$fixture_root/$name.toml" >"$fixture_root/$name.log" 2>&1; then
+    actual=0
+  else
+    actual=$?
+  fi
+  if [[ "$actual" -ne "$expected" ]] || {
+    [[ -n "$reason" ]] && ! grep -Fq "unadmitted keys: $reason" "$fixture_root/$name.log"
+  }; then
+    echo "CARGO_TRANSPORT_CANARY_FAILED: $name returned $actual; expected $expected $reason" >&2
+    cat "$fixture_root/$name.log" >&2
+    exit 1
+  fi
+  printf 'Cargo config fixture %s: PASS\n' "$name"
+}
+for choice in true false; do
+  cargo_config_case "transport-$choice" 0 \
+    "net.git-fetch-with-cli = $choice"$'\nbuild.jobs = 2\nnet.retry = 1'
+done
+transport_case=0
+for value in '"true"' '"false"' 0 1 1.0 '[]' '{}' '{ enabled = true }'; do
+  transport_case=$((transport_case + 1))
+  cargo_config_case "transport-nonbool-$transport_case" 1 \
+    "net.git-fetch-with-cli = $value" net.git-fetch-with-cli
+done
+transport_case=0
+for hostile_config in \
+  'build.rustc-workspace-wrapper = "selective-wrapper"' \
+  'alias.clippy = "metadata"' \
+  'paths = ["../substituted-dependency"]' \
+  'source.crates-io.replace-with = "substituted"' \
+  'patch.crates-io.example.path = "../substituted-dependency"' \
+  'target.x86_64-unknown-linux-gnu.runner = "hostile-runner"'; do
+  transport_case=$((transport_case + 1))
+  hostile_key="${hostile_config%% =*}"
+  cargo_config_case "transport-hostile-$transport_case" 1 \
+    $'net.git-fetch-with-cli = true\n'"$hostile_config" "${hostile_key//_/-}"
+done
+
 boundary_root="$fixture_root/compiler-boundary"
 mkdir -p "$boundary_root/.cargo" "$boundary_root/crate"
 printf '%s\n' '[build]' 'rustc-workspace-wrapper = "selective-wrapper"' \

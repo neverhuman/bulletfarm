@@ -117,8 +117,9 @@ if [[ "$lane" == family || "$lane" == family-contract || "$lane" == all ]]; then
     || { printf 'ci-doctor: expected Node v%s, found %s\n' "$PINNED_NODE_VERSION" "$(node --version)" >&2; exit 1; }
   [[ "$(npm --version)" == "$PINNED_NPM_VERSION" ]] \
     || { printf 'ci-doctor: expected npm %s, found %s\n' "$PINNED_NPM_VERSION" "$(npm --version)" >&2; exit 1; }
-  [[ "$(rustup --version 2>/dev/null | head -n 1)" == "rustup 1.29.0 "* ]] \
-    || { echo "ci-doctor: expected rustup 1.29.0 for $lane" >&2; exit 1; }
+  rustup_version="$(rustup --version 2>/dev/null | head -n 1)"
+  [[ "$rustup_version" == "rustup 1.29.0 "* || "$rustup_version" == "rustup 1.29.1 "* ]] \
+    || { echo "ci-doctor: expected rustup 1.29.0 or 1.29.1 for $lane" >&2; exit 1; }
   rustup toolchain list | grep -q '^1\.97\.1-' \
     || { echo "ci-doctor: Rust 1.97.1 toolchain is missing for $lane" >&2; exit 1; }
   [[ "$(rustup run 1.97.1 rustc --version)" == "rustc 1.97.1 "* ]] \
@@ -131,8 +132,9 @@ if [[ "$lane" == audit || "$lane" == all ]]; then
 fi
 if [[ "$lane" == toolchain-pinned || "$lane" == all ]]; then
   export RUSTUP_AUTO_INSTALL=0
-  [[ "$(rustup --version 2>/dev/null | head -n 1)" == "rustup 1.29.0 "* ]] \
-    || { echo "ci-doctor: expected rustup 1.29.0" >&2; exit 1; }
+  rustup_version="$(rustup --version 2>/dev/null | head -n 1)"
+  [[ "$rustup_version" == "rustup 1.29.0 "* || "$rustup_version" == "rustup 1.29.1 "* ]] \
+    || { echo "ci-doctor: expected rustup 1.29.0 or 1.29.1" >&2; exit 1; }
   rustup toolchain list | grep -q '^1\.97\.1-' || { echo "ci-doctor: Rust 1.97.1 toolchain is missing" >&2; exit 1; }
   [[ "$(rustup run 1.97.1 rustc --version)" == "rustc 1.97.1 "* ]] || { echo "ci-doctor: invalid Rust 1.97.1 toolchain" >&2; exit 1; }
   [[ "$(rustup run 1.97.1 cargo --version)" == "cargo 1.97.1 "* ]] || { echo "ci-doctor: invalid Cargo 1.97.1 toolchain" >&2; exit 1; }

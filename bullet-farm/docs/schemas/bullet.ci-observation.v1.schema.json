@@ -91,8 +91,11 @@
         "properties": {
           "path": {
             "type": "string",
-            "description": "Repository-relative sanitized output below .ci-artifacts; path uniqueness is also enforced semantically.",
-            "pattern": "^\\.ci-artifacts/[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$"
+            "description": "Repository-relative sanitized output below .ci-artifacts, including the exact Playwright status path; lane allowlists and path uniqueness are also enforced semantically.",
+            "anyOf": [
+              { "const": ".ci-artifacts/playwright/.last-run.json" },
+              { "pattern": "^\\.ci-artifacts/[A-Za-z0-9_-][A-Za-z0-9._-]*(/[A-Za-z0-9_-][A-Za-z0-9._-]*)*$" }
+            ]
           },
           "sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
         },

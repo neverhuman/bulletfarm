@@ -5,7 +5,11 @@ use std::path::{Path, PathBuf};
 use super::{ADMITTED_GIT, CommandSpec, GIT_BIN, ToolIdentity};
 use crate::coord::CoordError;
 
-pub(super) fn require_locked_version(id: &str, expected: &str, actual: &str) -> Result<(), CoordError> {
+pub(super) fn require_locked_version(
+    id: &str,
+    expected: &str,
+    actual: &str,
+) -> Result<(), CoordError> {
     if expected == actual {
         Ok(())
     } else {
@@ -39,7 +43,10 @@ pub(super) fn is_version(value: &str) -> bool {
             .all(|part| !part.is_empty() && part.bytes().all(|byte| byte.is_ascii_digit()))
 }
 
-pub(super) fn required_path<'a>(path: Option<&'a Path>, label: &str) -> Result<&'a Path, CoordError> {
+pub(super) fn required_path<'a>(
+    path: Option<&'a Path>,
+    label: &str,
+) -> Result<&'a Path, CoordError> {
     path.ok_or_else(|| {
         tool_error(
             "SETUP_TOOL_MISSING",

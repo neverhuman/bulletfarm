@@ -1,18 +1,14 @@
 # Bullet Farm
 
-[![CI](https://img.shields.io/badge/ci-local%20required-green.svg)](docs/testing.md)
-[![Jankurai](https://img.shields.io/badge/jankurai-audit-blue.svg)](docs/testing.md)
-
 **Many minds. One verified line to main.**
 
 Bullet Farm is building the transaction boundary for coding agents: fenced authority, one repository writer, exact Candidates, independent Evidence, durable effect reconciliation, and protected integration.
 
 **Current alpha:** the boundaries are component-proved; public installation, live providers, and the connected transaction remain blocked.
 
-**Clone the family:** [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm)
+**Primary integration repository:** [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm)
 
-That monorepo is the public `git clone` / build / install entry. This member origin is
-[`neverhuman/bullet-farm`](https://github.com/neverhuman/bullet-farm). A clone is not a trusted installer.
+The publication tool assembles the four supporting member trees and preserves their exact source identities in the aggregate. `neverhuman/bullet-farm` is the supporting Hub repository. A source clone does not establish installation or release acceptance.
 
 [Dated Stage-1 architecture preprint](docs/paper/bullet_farm_ieee.pdf) · [Dated Stage-1 executive brief](docs/paper/executive_brief.pdf) · [Architecture](docs/architecture.md) · [Current release truth](docs/assurance/release-truth.generated.md)
 
@@ -24,18 +20,19 @@ The preprints describe the earlier universal release envelope; the current stage
 
 This is a pre-release engineering system, not an installer announcement. A model saying “done,” a process exiting zero, or a pull request opening has no completion authority.
 
-## Public index
+## Source checkout
 
 ```bash
-git clone https://github.com/neverhuman/bulletfarm.git bullet-farm
-cd bullet-farm
+git clone https://github.com/neverhuman/bulletfarm.git bulletfarm
+cd bulletfarm
 ```
 
-Clone `neverhuman/bulletfarm` to get all four members. Independent checkouts also exist as
-[`neverhuman/bullet-farm`](https://github.com/neverhuman/bullet-farm),
-[`neverhuman/bullet-kernel`](https://github.com/neverhuman/bullet-kernel),
-[`neverhuman/bullet-git`](https://github.com/neverhuman/bullet-git), and
-[`neverhuman/bullet-portal`](https://github.com/neverhuman/bullet-portal).
+This is the aggregate root, with the Hub under `bullet-farm/`. Read its
+`publication.json` for the recorded member subjects; a remote snapshot may
+precede the latest reviewed local changes. Development and family proof use the
+four independent canonical member checkouts. Their supporting GitHub repositories
+are `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`
+and `neverhuman/bullet-portal`.
 
 Public installation is not available. The checked-in `family.lock` is a diagnostic schema-2 snapshot; it cannot authorize source acquisition or a release install. The [source-setup runbook](docs/runbooks/source-setup.md) explains that boundary.
 
@@ -92,41 +89,24 @@ Offline suites validate bounded protocol transcripts. They do not execute a live
 
 [Static fallback](docs/readme-media/provider-safety/fallback.png) · [Accessible transcript](docs/readme-media/provider-safety/transcript.txt) · [Reproduction manifest](docs/readme-media/provider-safety/manifest.json)
 
-## Operator-authenticated local recordings
+## Private capture and rendering
 
-The GIFs below are high-resolution captures of already-signed-in Claude, Codex,
-and Cursor TUIs plus the Portal Control Tower bootstrap form against loopback
-`bullet-farmd`. They are operator-authenticated local recordings. They do
-**not** mean Bullet spawned a provider: live admission stays disabled, and
-nothing here is `TRANSACTION_PROOF` or release Evidence.
+The [capture runbook](docs/demo-gif/README.md) describes native CLI observations
+and the Portal screenshot sequence. Each run preserves its own private inputs,
+failed attempts and outcome records. These tools are under local qualification;
+no current recording proves production account admission or a completed Bullet
+coding transaction.
 
-Rebuild on a machine that already has those logins:
+Portal rendering preserves the original PNGs and creates a pixel-exact FFV1
+master. GIF output is checked against the decoded source pixels and labeled
+`EXACT` or `QUANTIZED`. Terminal casts are retained byte-for-byte; their GIFs are
+rendered derivatives with no claim of original RGB equality. Rendering and
+checking require explicit local inputs and tool hashes.
 
-```bash
-just demo-gif-record    # real TUI + 1920×1080 Portal form
-just demo-gif-render    # agg + FFmpeg, no credentials, no dither dimming
-just demo-gif-check     # geometry, last-frame contrast, redaction
-```
-
-The pipeline lives in `scripts/demo-gif-*.sh` and `docs/demo-gif/`. The frozen
-`readme-live-*` custody scripts are a separate data-only lane and are not used
-for these recordings.
-
-![Authenticated Claude Code TUI explaining fenced Attempts, exact Candidates, independent Evidence, and UNKNOWN](docs/demo-gif/claude-tui/claude-tui.gif)
-
-[Static fallback](docs/demo-gif/claude-tui/fallback.png) · [Accessible transcript](docs/demo-gif/claude-tui/transcript.txt)
-
-![Authenticated Codex TUI naming the four member repos and why UNKNOWN refuses a green lie](docs/demo-gif/codex-tui/codex-tui.gif)
-
-[Static fallback](docs/demo-gif/codex-tui/fallback.png) · [Accessible transcript](docs/demo-gif/codex-tui/transcript.txt)
-
-![Authenticated Cursor Agent plan-mode TUI on the same Bullet Farm transaction boundary](docs/demo-gif/cursor-tui/cursor-tui.gif)
-
-[Static fallback](docs/demo-gif/cursor-tui/fallback.png) · [Accessible transcript](docs/demo-gif/cursor-tui/transcript.txt)
-
-![Portal Control Tower: one-time bootstrap token, local session authenticate, durable demo command, Shift Brief](docs/demo-gif/portal-form/portal-form.gif)
-
-[Static fallback](docs/demo-gif/portal-form/fallback.png) · [Accessible transcript](docs/demo-gif/portal-form/transcript.txt)
+The [deep audit](docs/assurance/deep-audit-20260909.md) and
+[health checkpoint](docs/assurance/health-checkpoint-20260909.md) identify the
+remaining production, CI and account qualification work. Historical local media
+is retained for review and is not presented as an accepted production demo.
 
 ## Seven functions, five transaction authorities
 
@@ -170,7 +150,7 @@ path is required; `preview` and `dev` operate on the four existing sibling check
 | `bullet-git` | sole writer, private clones, journal/CAS, Change and Candidate identity | `crates/bullet-git-*`, `crates/bullet-gitd/` |
 | `bullet-portal` | generated API client and non-authoritative projections | `src/generated/`, `src/pages/`, `src/components/` |
 
-The public GitHub index publishes this hub at [neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm). Local checkout names stay `bullet-farm`, `bullet-kernel`, `bullet-git`, and `bullet-portal`. See the [code map and “change X here” guide](docs/code-map.md) before editing a boundary.
+The publication tool targets all four member trees at [neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm). Local checkout names stay `bullet-farm`, `bullet-kernel`, `bullet-git`, and `bullet-portal`. See the [code map and “change X here” guide](docs/code-map.md) before editing a boundary.
 
 ## What exists, and what is still unproved
 
@@ -223,12 +203,9 @@ just check-family          # dependency-ordered four-repository component proof
 just readme-record         # real credential-free scenarios
 just readme-render         # pinned VHS image, network disabled
 just readme-check          # claims, media, hashes, limits, double render
-just demo-gif-record       # authenticated Claude, Codex, Cursor TUI + Portal form
-just demo-gif-render       # high-res GIF rebuild, no credentials
-just demo-gif-check        # geometry, brightness, redaction
 ```
 
-The public index is [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm). GitHub is a secretless PR/discovery mirror. The Hub defines `CI / required` in `.github/workflows/ci.yml`; this first public snapshot does not enable hosted Actions. It is not authoritative release Evidence, and no badge is published before a hosted run and branch-protection read-back exist. Future Jeryu jobs are described by `ci.toml` but remain inactive pending forge ratification and immutable provisioning.
+The primary delivery target is [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm), assembled from the four supporting source repositories. Hosted Actions and protected integration are not yet active on that aggregate. The Hub defines local and hosted lane sources, but a definition is not a successful run; no CI badge is published before exact-subject execution and branch-protection read-back. New requests select GitHub through the committed publication configuration; the [publication runbook](docs/runbooks/publication.md) describes preparation and required execution evidence under the [delivery plan](docs/assurance/full-product-dogfood-plan.md). Retained publication requests keep their original identities; JeRyu self-hosting remains a separate release obligation.
 
 Documentation: [index](docs/README.md) · [paper sources](docs/paper/README.md) · [workplan](docs/workplan.md) · [CI policy](docs/testing.md) · [license](LICENSE)
 

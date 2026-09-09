@@ -447,8 +447,7 @@ fn require_disjoint_tool_files(files: &[&AdmittedFile]) -> Result<(), CoordError
     Ok(())
 }
 
-
 #[path = "command_path.rs"]
 mod command_path;
-use command_path::*;
 pub(super) use command_path::run_git;
+use command_path::*;

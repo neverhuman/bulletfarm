@@ -2,7 +2,7 @@
 
 Status: pre-transaction split-family hub; not release-ready
 Owner: Bullet Farm maintainers
-Last reviewed: 2026-08-26
+Last reviewed: 2026-09-09
 Applies to: bullet-farm
 
 ## Role
@@ -17,17 +17,22 @@ historical Centerrail design provenance.
 
 ## Repositories
 
-- Initial source authority: Jeryu repository `root/bullet-farm`
-- Public GitHub index: `https://github.com/neverhuman/bulletfarm` (not
-  `neverhuman/bullet-farm`); discovery/PR mirror only, never source authority.
-  The first public snapshot omits `.github/workflows/*` because the publication
-  credential lacks GitHub `workflow` scope; local Hub main keeps those files.
+- Primary integration and delivery aggregate:
+  `https://github.com/neverhuman/bulletfarm`.
+- Four independent member repositories retain their source origins and exact
+  commit/tree identities. The Hub retains its JeRyu identity `root/bullet-farm`.
+- New publication requests select the destination from the committed
+  `publication/config.json`; retained requests keep their original destination
+  and identities. Historical workflow-free snapshots remain historical evidence.
+- Hosted CI and protected integration require exact-subject execution and
+  authoritative read-back.
 - Release tag pattern: `bullet-farm-v0.1.0-split.0`
 
 ## Split Rules
 
-- Jeryu is the initial source forge; GitHub is a configurable effect adapter,
-  not source authority.
+- Implement changes in canonical member checkouts and generate the primary
+  aggregate from their reviewed subjects; preserve original source objects.
+- JeRyu self-hosting and native forge qualification remain release obligations.
 - Release builds depend on immutable tags, not branches.
 - Local development uses `scripts/fuse.sh` output under `.fusion/`.
 - Committed manifests must not depend on sibling checkout paths.

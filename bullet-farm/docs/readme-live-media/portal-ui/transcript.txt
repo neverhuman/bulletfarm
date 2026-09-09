@@ -1,8 +1,0 @@
-Portal projection against loopback farmd
-farmd /health          ok
-preview                127.0.0.1:5173
-clicked                Control Tower, Shift Brief, Fleet, Mission Graph
-missions               none yet (sqlite-ledger sequence 0)
-events stream          unknown
-release decision       unknown
-Portal authority       none; projection only

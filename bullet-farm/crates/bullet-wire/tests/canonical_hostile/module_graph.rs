@@ -1,5 +1,9 @@
 {
     for (relative, attributes) in [
+        (
+            "crates/bullet-wire/src/release/model_lock.rs",
+            &["#[path = \"model_lock_helpers.rs\"]"][..],
+        ),
         ("src/check/model.rs", &["#[path = \"model_tests.rs\"]"][..]),
         (
             "src/check/profiles.rs",
@@ -164,6 +168,7 @@
             "src/coord/store/ledger.rs",
             &[
                 "#[path = \"ledger/adoption/tests/git_fixture.rs\"]",
+                "#[path = \"ledger_ids.rs\"]",
                 "#[path = \"ledger/tests.rs\"]",
             ][..],
         ),
@@ -181,8 +186,19 @@
             &["#[path = \"scan_tests.rs\"]"][..],
         ),
         (
+            "src/release/build/portal.rs",
+            &[
+                "#[path = \"portal_validate.rs\"]",
+                "#[path = \"portal_tests.rs\"]",
+            ][..],
+        ),
+        (
             "src/release/receipt.rs",
             &["#[path = \"receipt/tests.rs\"]"][..],
+        ),
+        (
+            "src/setup/command.rs",
+            &["#[path = \"command_path.rs\"]"][..],
         ),
     ] {
         let text = fs::read_to_string(family.join(relative)).expect("UTF-8 Rust source");

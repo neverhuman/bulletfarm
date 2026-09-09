@@ -29,6 +29,14 @@
       "command": "just lint",
       "purpose": "verify generated local state remains outside source authority"
     },
+    ".gitleaks.toml": {
+      "command": "bash ops/ci/source-scan.sh",
+      "purpose": "verify the committed secret-scan policy still refuses planted canaries"
+    },
+    "generated/": {
+      "command": "bash scripts/sync-family-contracts.sh check",
+      "purpose": "verify hub-synced generated zone stubs stay bound to their source contracts"
+    },
     ".node-version": {
       "command": "bash ops/ci/dev-supervision-test.sh",
       "purpose": "verify the canonical Node pin and malformed-subject refusal"
@@ -100,10 +108,6 @@
     "docs/readme-media/": {
       "command": "just readme-check",
       "purpose": "verify exact unsigned media subjects, transcripts, frames, and deterministic rendering"
-    },
-    "docs/readme-live-media/": {
-      "command": "just readme-live-check",
-      "purpose": "verify operator-authenticated README GIFs, redaction, and second render"
     },
     "docs/schemas/": {
       "command": "bash ops/ci/observation-test.sh && bash ops/ci/family-observation-test.sh && just readme-check",
@@ -204,6 +208,18 @@
     "scripts/": {
       "command": "just check",
       "purpose": "verify fuse and onboarding scripts"
+    },
+    "scripts/readme-live-custody-test.sh": {
+      "command": "bash scripts/readme-live-custody-test.sh",
+      "purpose": "prove offline capture normalization, exact source/artifact custody, and refusal without provider execution"
+    },
+    "scripts/readme-live-render-test.sh": {
+      "command": "bash scripts/readme-live-render-test.sh",
+      "purpose": "prove offline renderer admission and reconstruction with fake tool contracts; no real image or provider credit"
+    },
+    "scripts/readme-custody-test.sh": {
+      "command": "bash scripts/readme-custody-test.sh all",
+      "purpose": "prove historical media checker and publisher custody against substitution using copied media and the preloaded pinned image"
     },
     "scripts/readme-schema-check.sh": {
       "command": "just readme-check",

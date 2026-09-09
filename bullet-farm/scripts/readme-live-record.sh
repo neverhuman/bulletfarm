@@ -1,227 +1,59 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-HUB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-FAMILY="$(cd "$HUB/.." && pwd)"
-MEDIA="$HUB/docs/readme-live-media"
-PORTAL="$FAMILY/bullet-portal"
-PROMPT='Reply with exactly one sentence that names the four Bullet Farm member repositories: bullet-farm, bullet-kernel, bullet-git, and bullet-portal. Do not use tools. Do not modify files.'
-FARMD_BIN="${BULLET_FARMD_BIN:-$FAMILY/bullet-kernel/target/release/bullet-farmd}"
-DATA_DIR="${BULLET_LIVE_GIF_DATA_DIR:-$HOME/.cache/bullet-live-gif/farmd-data}"
-
-for tool in claude codex cursor-agent curl jq node; do
-  command -v "$tool" >/dev/null 2>&1 || {
-    printf 'readme-live-record: missing required tool %s\n' "$tool" >&2
-    exit 1
-  }
-done
-[[ -x "$FARMD_BIN" ]] || {
-  echo "readme-live-record: bullet-farmd binary is missing; build the sibling Kernel release binary or set BULLET_FARMD_BIN" >&2
-  exit 1
+HUB="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd -P)"
+# No authentication/configuration lookup or provider execution is permitted in
+# this data-only stage. The former recorder is retained in its Git source object.
+if [[ "$#" == 0 ]]; then
+  echo 'readme-live-record: LIVE_CAPTURE_UNQUALIFIED (supervised producer and custody required)' >&2
+  exit 78
+fi
+[[ "$#" == 4 && "$1" == --from-capture && "$3" == --staged-root ]] || {
+  echo 'usage: readme-live-record.sh --from-capture ABSOLUTE_DIRECTORY --staged-root NEW_ABSOLUTE_DIRECTORY' >&2
+  exit 2
 }
-[[ -f "$PORTAL/package.json" && -d "$PORTAL/node_modules/playwright" && -d "$PORTAL/dist" ]] || {
-  echo "readme-live-record: sibling Portal checkout, Playwright, and dist/ are required" >&2
-  exit 1
-}
-
-redact() {
-  sed -E \
-    -e 's/[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}/[redacted-email]/g' \
-    -e 's/[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}/[redacted-id]/g'
-}
-
-claude_status="$(claude auth status --json 2>/dev/null || true)"
-jq -e '.loggedIn == true' <<<"$claude_status" >/dev/null || {
-  echo "readme-live-record: Claude CLI is not authenticated" >&2
-  exit 1
-}
-codex login status >/dev/null 2>&1 || {
-  echo "readme-live-record: Codex CLI is not authenticated" >&2
-  exit 1
-}
-cursor-agent status 2>/dev/null | grep -Fq 'Logged in' || {
-  echo "readme-live-record: Cursor Agent is not authenticated" >&2
-  exit 1
-}
-
-scratch="$(mktemp -d)"
-farmd_pid=""
-portal_pid=""
+# shellcheck source=scripts/readme-live-check.sh
+source "$HUB/scripts/readme-live-check.sh"
+live_start
+stage=''
 cleanup() {
-  if [[ -n "$farmd_pid" ]] && kill -0 "$farmd_pid" 2>/dev/null; then
-    kill "$farmd_pid" 2>/dev/null || true
-    wait "$farmd_pid" 2>/dev/null || true
+  local code=$?
+  rm -rf -- "$LIVE_TMP"
+  if [[ -n "$stage" && -d "$stage" ]]; then
+    printf 'readme-live-record: retained incomplete staging at %s\n' "$stage" >&2
   fi
-  if [[ -n "$portal_pid" ]] && kill -0 "$portal_pid" 2>/dev/null; then
-    kill "$portal_pid" 2>/dev/null || true
-    wait "$portal_pid" 2>/dev/null || true
-  fi
-  rm -rf "$scratch"
+  return "$code"
 }
 trap cleanup EXIT
+capture="$2"
+destination="$4"
+[[ "$destination" == /* && "$destination" != "$LIVE_HUB" &&
+  "$destination" != "$LIVE_HUB/"* && "$destination" != "$capture" &&
+  "$destination" != "$capture/"* && ! -e "$destination" && ! -L "$destination" ]] || live_die UNSAFE_OR_EXISTING_DESTINATION
+parent="${destination%/*}"
+name="${destination##*/}"
+[[ -n "$name" && "$name" != . && "$name" != .. ]] || live_die UNSAFE_DESTINATION
+parent_subject="$(live_root_subject "$parent")"
+sources="$(live_sources)"
+capture_subject="$(live_root_subject "$capture")"
+live_profile "$capture"
+live_snapshot "$capture" "$LIVE_TMP/capture" "${LIVE_CAPTURE_FILES[@]}"
+live_capture "$LIVE_TMP/capture"
 
-cd "$scratch"
-claude_out="$(claude -p --output-format text --permission-mode dontAsk --model sonnet --allowedTools "" "$PROMPT")"
-codex_out="$(codex exec --skip-git-repo-check --sandbox read-only "$PROMPT" | redact | tail -n 1)"
-cursor_out="$(cursor-agent -p --output-format text --mode plan --trust "$PROMPT")"
-claude_out="$(printf '%s\n' "$claude_out" | redact | tail -n 1)"
-cursor_out="$(printf '%s\n' "$cursor_out" | redact | tail -n 1)"
-[[ -n "$claude_out" && -n "$codex_out" && -n "$cursor_out" ]]
-printf '%s\n' "$claude_out" | grep -Fq 'bullet-farm' || {
-  echo "readme-live-record: Claude reply did not name bullet-farm" >&2
-  exit 1
-}
-
-observed_at="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
-claude_ver="$(claude --version | head -n 1 | awk '{print $1}')"
-codex_ver="$(codex --version | awk '{print $NF}')"
-cursor_ver="$(cursor-agent --version | head -n 1)"
-
-write_cli_transcript() {
-  local demo="$1"
-  local title="$2"
-  local extra="$3"
-  local reply="$4"
-  {
-    printf '%s\n' "$title"
-    printf '%s\n' "$extra"
-    printf '%s\n' "prompt                 name the four member repositories"
-    printf '%s\n' "reply                  The four Bullet Farm member repositories are"
-    printf '%s\n' "                       bullet-farm, bullet-kernel, bullet-git, and"
-    printf '%s\n' "                       bullet-portal."
-    printf '%s\n' "files modified         0"
-    printf '%s\n' "Bullet live admission  disabled"
-  } >"$MEDIA/$demo/transcript.txt"
-}
-
-write_cli_transcript claude-session "Claude Code authenticated" \
-  $'model                  sonnet\nsubscription           max' "$claude_out"
-write_cli_transcript codex-session "Codex CLI authenticated" \
-  $'model                  gpt-6-astra\nsandbox                read-only\napproval               never' "$codex_out"
-write_cli_transcript cursor-session "Cursor Agent authenticated" \
-  $'mode                   plan\nprint                  non-interactive' "$cursor_out"
-
-write_observation() {
-  local demo="$1"
-  local extra="$2"
-  jq -n --arg demo "$demo" --arg observed_at "$observed_at" --argjson extra "$extra" '
-    {
-      schema_version: "bullet.readme-live-demo.v1",
-      document_type: "observation",
-      demo_id: $demo,
-      observed_at: $observed_at,
-      classification: "UNSIGNED_OPERATOR_AUTHENTICATED_OBSERVATION",
-      release_authority: false,
-      live_provider_spawned: false,
-      bullet_live_admission: "disabled",
-      operator_authenticated: true
-    } + $extra
-  ' >"$MEDIA/$demo/observation.json"
-}
-
-write_observation claude-session "$(jq -n --arg version "$claude_ver" '{
-  cli: {name:"claude", version:$version, model:"sonnet", subscription:"max"},
-  outcomes:[{name:"print-reply",status:"PASS",exit_code:0},{name:"files-modified",status:"0",exit_code:0}]
-}')"
-write_observation codex-session "$(jq -n --arg version "$codex_ver" '{
-  cli: {name:"codex", version:$version, model:"gpt-6-astra", sandbox:"read-only"},
-  outcomes:[{name:"exec-reply",status:"PASS",exit_code:0},{name:"files-modified",status:"0",exit_code:0}]
-}')"
-write_observation cursor-session "$(jq -n --arg version "$cursor_ver" '{
-  cli: {name:"cursor-agent", version:$version, mode:"plan"},
-  outcomes:[{name:"print-reply",status:"PASS",exit_code:0},{name:"files-modified",status:"0",exit_code:0}]
-}')"
-
-started_farmd=0
-started_portal=0
-if ! curl -fsS --max-time 1 http://127.0.0.1:7420/health >/dev/null; then
-  mkdir -p "$DATA_DIR"
-  chmod 700 "$(dirname "$DATA_DIR")" "$DATA_DIR"
-  "$FARMD_BIN" --data-dir "$DATA_DIR" --bind 127.0.0.1:7420 \
-    --portal-origin http://127.0.0.1:5173 >"$scratch/farmd.log" 2>&1 &
-  farmd_pid=$!
-  started_farmd=1
-fi
-if ! curl -fsS --max-time 1 http://127.0.0.1:5173/ >/dev/null; then
-  (
-    cd "$PORTAL"
-    unset VITE_BULLET_API
-    npm run preview -- --host 127.0.0.1 --port 5173 --strictPort
-  ) >"$scratch/portal.log" 2>&1 &
-  portal_pid=$!
-  started_portal=1
-fi
-for _ in $(seq 1 40); do
-  if curl -fsS --max-time 1 http://127.0.0.1:7420/health >/dev/null \
-    && curl -fsS --max-time 1 http://127.0.0.1:5173/ >/dev/null; then
-    break
-  fi
-  sleep 0.25
+# Work is retained privately on failure. No existing generation is overwritten.
+stage="$(mktemp -d -- "$parent/.readme-live-normalize.XXXXXXXXXX")"
+for file in "${LIVE_CAPTURE_FILES[@]}"; do
+  cp -a --no-dereference -- "$LIVE_TMP/capture/$file" "$stage/$file"
 done
-curl -fsS --max-time 1 http://127.0.0.1:7420/health >/dev/null || {
-  echo "readme-live-record: farmd did not become healthy" >&2
-  exit 1
-}
-curl -fsS --max-time 1 http://127.0.0.1:5173/ >/dev/null || {
-  echo "readme-live-record: Portal preview did not become ready" >&2
-  exit 1
-}
-
-frames="$MEDIA/portal-ui/frames"
-mkdir -p "$frames"
-cat >"$scratch/portal-tour.mjs" <<'EOF'
-import { createRequire } from "node:module";
-import { mkdir } from "node:fs/promises";
-const require = createRequire(process.env.PORTAL_PACKAGE_JSON);
-const { chromium } = require("playwright");
-const out = process.env.PORTAL_FRAME_DIR;
-await mkdir(out, { recursive: true });
-const browser = await chromium.launch({ headless: true });
-const page = await browser.newPage({ viewport: { width: 1200, height: 675 } });
-page.setDefaultTimeout(20000);
-await page.goto("http://127.0.0.1:5173/#/control-tower", { waitUntil: "domcontentloaded" });
-await page.waitForSelector('[data-testid="status-header"]');
-await page.screenshot({ path: `${out}/01-control-tower.png`, type: "png" });
-await page.locator('[data-testid="nav-shift-brief"]').click();
-await page.waitForSelector('[data-testid="shift-brief"]');
-await page.screenshot({ path: `${out}/02-shift-brief.png`, type: "png" });
-await page.locator('[data-testid="nav-fleet"]').click();
-await page.waitForSelector('[data-testid="surface-fleet"]');
-await page.screenshot({ path: `${out}/03-fleet.png`, type: "png" });
-await page.locator('[data-testid="nav-mission-graph"]').click();
-await page.waitForSelector('[data-testid="surface-mission-graph"]');
-await page.screenshot({ path: `${out}/04-mission-graph.png`, type: "png" });
-await page.locator('[data-testid="nav-control-tower"]').click();
-await page.waitForSelector('[data-testid="status-header"]');
-await page.screenshot({ path: `${out}/05-control-tower-return.png`, type: "png" });
-await browser.close();
-EOF
-PORTAL_PACKAGE_JSON="$PORTAL/package.json" PORTAL_FRAME_DIR="$frames" node "$scratch/portal-tour.mjs"
-
-cat >"$MEDIA/portal-ui/transcript.txt" <<'EOF'
-Portal projection against loopback farmd
-farmd /health          ok
-preview                127.0.0.1:5173
-clicked                Control Tower, Shift Brief, Fleet, Mission Graph
-missions               none yet (sqlite-ledger sequence 0)
-events stream          unknown
-release decision       unknown
-Portal authority       none; projection only
-EOF
-write_observation portal-ui "$(jq -n '{
-  endpoints: {farmd_health:"ok", portal_preview:"http://127.0.0.1:5173", missions:"empty", as_of_sequence:0},
-  outcomes:[
-    {name:"control-tower",status:"RENDERED",exit_code:0},
-    {name:"shift-brief",status:"RENDERED",exit_code:0},
-    {name:"fleet",status:"RENDERED",exit_code:0},
-    {name:"mission-graph",status:"RENDERED",exit_code:0}
-  ]
-}')"
-
-echo "readme-live-record: wrote operator-authenticated transcripts and Portal frames"
-if [[ "$started_farmd" -eq 0 ]]; then
-  farmd_pid=""
-fi
-if [[ "$started_portal" -eq 0 ]]; then
-  portal_pid=""
-fi
+live_expected "$stage" "$stage"
+live_manifest "$stage" "$stage/manifest.json" "$sources"
+live_stage "$stage" "$sources"
+live_recheck "$capture" "$LIVE_TMP/capture" "$capture_subject" "$sources" "${LIVE_CAPTURE_FILES[@]}"
+[[ "$(live_root_subject "$parent")" == "$parent_subject" &&
+  ! -e "$destination" && ! -L "$destination" ]] || live_die DESTINATION_CHANGED
+stage_subject="$(live_root_subject "$stage")"
+mv -T --no-clobber -- "$stage" "$destination" || live_die PUBLICATION_INCOMPLETE
+[[ ! -e "$stage" && ! -L "$stage" &&
+  "$(live_root_subject "$destination")" == "$stage_subject" ]] || live_die PUBLICATION_INCOMPLETE
+stage=''
+echo 'readme-live-record: NORMALIZED_CAPTURE_ONLY (operator assertions retained; no media or provider proof)'

@@ -1,19 +1,19 @@
 # Generated artifacts that must be repaired from their source, never hand-edited.
 [[zone]]
-path = "family.lock"
-source = "repos.manifest.toml + signed immutable member tags"
+path = "generated/zones/family.lock.txt"
+source = "family.lock"
 command = "cargo run --locked --quiet --bin bullet-family -- lock generate --tag <version> --subjects <absolute-path>"
 read_only = true
 
 [[zone]]
-path = ".fusion/"
+path = "generated/zones/fusion.txt"
 source = "repos.manifest.toml + family.lock + exact member checkouts"
 command = "bash scripts/fuse.sh --source local"
 read_only = true
 
 [[zone]]
-path = "contracts/v1alpha1/schema-bundle.json"
-source = "contracts/v1alpha1/contract-catalog.json + contracts/v1alpha1/schema-bundle.json"
+path = "generated/zones/schema-bundle.txt"
+source = "contracts/v1alpha1/schema-bundle.json"
 command = "just contract-generate"
 read_only = true
 
@@ -30,8 +30,8 @@ command = "just contract-generate"
 read_only = true
 
 [[zone]]
-path = "policy/v1alpha1/policy.json"
-source = "policy/v1alpha1/policy-template.json + policy/v1alpha1/invariant-registry.json + contracts/v1alpha1/contract-catalog.json"
+path = "generated/zones/policy.txt"
+source = "policy/v1alpha1/policy.json"
 command = "just contract-generate"
 read_only = true
 
@@ -42,26 +42,26 @@ command = "just contract-generate"
 read_only = true
 
 [[zone]]
-path = "fixtures/hostile/fixture-manifest.json"
-source = "fixtures/hostile/team-original.bin"
+path = "generated/zones/fixture-manifest.txt"
+source = "fixtures/hostile/fixture-manifest.json"
 command = "just contract-generate"
 read_only = true
 
 [[zone]]
-path = "fixtures/canonical/canonical-golden.json"
-source = "crates/bullet-wire/src/contract_tool.rs"
+path = "generated/zones/canonical-golden.txt"
+source = "fixtures/canonical/canonical-golden.json"
 command = "just contract-generate"
 read_only = true
 
 [[zone]]
-path = "fixtures/canonical/authority-golden.json"
-source = "crates/bullet-wire/src/contract_tool.rs"
+path = "generated/zones/authority-golden.txt"
+source = "fixtures/canonical/authority-golden.json"
 command = "just contract-generate"
 read_only = true
 
 [[zone]]
-path = "fixtures/canonical/launch-grant-golden.json"
-source = "crates/bullet-wire/src/contract_tool/launch.rs"
+path = "generated/zones/launch-grant-golden.txt"
+source = "fixtures/canonical/launch-grant-golden.json"
 command = "just contract-generate"
 read_only = true
 
@@ -96,26 +96,26 @@ command = "just model-check"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/component-preview/transcript.txt"
-source = "docs/readme-media/snapshot.json + frozen credential-free component scenario"
+path = "generated/zones/component-preview-transcript.txt"
+source = "docs/readme-media/component-preview/transcript.txt"
 command = "just readme-record"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/component-preview/observation.json"
-source = "docs/readme-media/snapshot.json + frozen credential-free component scenario"
+path = "generated/zones/component-preview-observation.txt"
+source = "docs/readme-media/component-preview/observation.json"
 command = "just readme-record"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/provider-safety/transcript.txt"
-source = "docs/readme-media/snapshot.json + four frozen offline suites + four live-admission refusals"
+path = "generated/zones/provider-safety-transcript.txt"
+source = "docs/readme-media/provider-safety/transcript.txt"
 command = "just readme-record"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/provider-safety/observation.json"
-source = "docs/readme-media/snapshot.json + four frozen offline suites + four live-admission refusals"
+path = "generated/zones/provider-safety-observation.txt"
+source = "docs/readme-media/provider-safety/observation.json"
 command = "just readme-record"
 read_only = true
 
@@ -132,14 +132,14 @@ command = "just readme-render"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/component-preview/frames.framemd5"
-source = "component-preview.gif"
+path = "generated/zones/component-preview-frames.txt"
+source = "docs/readme-media/component-preview/frames.framemd5"
 command = "just readme-render"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/component-preview/manifest.json"
-source = "component-preview tape/transcript/observation + rendered artifacts + playback/snapshot/schema + readme check/input-check/record/render/schema-check scripts"
+path = "generated/zones/component-preview-manifest.txt"
+source = "docs/readme-media/component-preview/manifest.json"
 command = "just readme-render"
 read_only = true
 
@@ -156,109 +156,13 @@ command = "just readme-render"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/provider-safety/frames.framemd5"
-source = "provider-safety.gif"
+path = "generated/zones/provider-safety-frames.txt"
+source = "docs/readme-media/provider-safety/frames.framemd5"
 command = "just readme-render"
 read_only = true
 
 [[zone]]
-path = "docs/readme-media/provider-safety/manifest.json"
-source = "provider-safety tape/transcript/observation + rendered artifacts + playback/snapshot/schema + readme check/input-check/record/render/schema-check scripts"
+path = "generated/zones/provider-safety-manifest.txt"
+source = "docs/readme-media/provider-safety/manifest.json"
 command = "just readme-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/claude-session/claude-session.gif"
-source = "claude-session/transcript.txt + pinned VHS/FFmpeg image"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/claude-session/fallback.png"
-source = "claude-session.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/claude-session/frames.framemd5"
-source = "claude-session.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/claude-session/manifest.json"
-source = "claude-session transcript/observation + rendered artifacts + live record/render/check scripts"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/codex-session/codex-session.gif"
-source = "codex-session/transcript.txt + pinned VHS/FFmpeg image"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/codex-session/fallback.png"
-source = "codex-session.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/codex-session/frames.framemd5"
-source = "codex-session.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/codex-session/manifest.json"
-source = "codex-session transcript/observation + rendered artifacts + live record/render/check scripts"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/cursor-session/cursor-session.gif"
-source = "cursor-session/transcript.txt + pinned VHS/FFmpeg image"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/cursor-session/fallback.png"
-source = "cursor-session.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/cursor-session/frames.framemd5"
-source = "cursor-session.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/cursor-session/manifest.json"
-source = "cursor-session transcript/observation + rendered artifacts + live record/render/check scripts"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/portal-ui/portal-ui.gif"
-source = "portal-ui/frames/*.png + pinned VHS/FFmpeg image"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/portal-ui/fallback.png"
-source = "portal-ui.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/portal-ui/frames.framemd5"
-source = "portal-ui.gif"
-command = "just readme-live-render"
-read_only = true
-
-[[zone]]
-path = "docs/readme-live-media/portal-ui/manifest.json"
-source = "portal-ui frames/transcript/observation + rendered artifacts + live record/render/check scripts"
-command = "just readme-live-render"
 read_only = true

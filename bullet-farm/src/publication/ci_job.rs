@@ -1,4 +1,4 @@
-//! Bootstrap validation of member diagnostics; no nested job execution claim.
+//! Closed source-scan diagnostic adapters; no workflow execution or release claim.
 use std::{collections::BTreeMap, fs, io::Read, path::Path, process::Command, time::Duration};
 
 use serde::{Deserialize, Serialize};
@@ -7,8 +7,10 @@ use super::{Result, capture, ci_inventory, ci_plan, decode, git, oid, require, s
 use crate::{coord::CoordError, process};
 
 pub(super) const KEY: &str = "bullet-farm:REQUIRED:source_scan";
+pub(super) const GIT_KEY: &str = "bullet-git:REQUIRED:source_scan";
 const WORKFLOW: &str = ".github/workflows/publication.yml";
 const ROOT_JOB: &str = "publication_integrity";
+const GIT_ROOT_JOB: &str = "bullet_git_source_scan";
 const OBSERVATION: &str = ".ci-artifacts/observations/source-scan.json";
 const VALIDATOR: &str = "ops/ci/artifact-check.sh";
 
@@ -44,17 +46,17 @@ impl Hosted {
         })
     }
 
-    fn validate(&self, aggregate: &str) -> Result<()> {
+    fn validate(&self, aggregate: &str, root_job: &str) -> Result<()> {
         oid(&self.event_sha)?;
         oid(&self.workflow_sha)?;
         require(
             self.event_sha == aggregate && self.workflow_sha == aggregate,
             "PUBLICATION_CI_EVENT_SUBJECT_MISMATCH",
         )?;
-        // The current template has these three events; it executes no nested lane.
+        // Adapter admission is separate from activating its generated workflow job.
         require(
             ["pull_request", "push", "workflow_dispatch"].contains(&self.event_name.as_str())
-                && self.job == ROOT_JOB,
+                && self.job == root_job,
             "PUBLICATION_CI_BOOTSTRAP_CONTEXT_UNSUPPORTED",
         )?;
         for value in [&self.run_id, &self.run_attempt] {
@@ -109,9 +111,18 @@ pub(super) fn admit(
     hosted: Hosted,
     catalog: &[ci_inventory::Workflow],
 ) -> Result<Context> {
-    require(key == KEY, "PUBLICATION_CI_JOB_ADAPTER_UNSUPPORTED")?;
+    let (root_job, purpose) = match key {
+        KEY => (ROOT_JOB, "BOOTSTRAP_MEMBER_DIAGNOSTIC_VALIDATION"),
+        GIT_KEY => (GIT_ROOT_JOB, "MEMBER_DIAGNOSTIC_VALIDATION"),
+        _ => {
+            return Err(CoordError::new(
+                "PUBLICATION_CI_JOB_ADAPTER_UNSUPPORTED",
+                key,
+            ));
+        }
+    };
     let subject = ci_plan::select(aggregate, key, catalog)?;
-    hosted.validate(&subject.aggregate_commit)?;
+    hosted.validate(&subject.aggregate_commit, root_job)?;
     let reference = hosted
         .workflow_ref
         .split_once('@')
@@ -129,7 +140,7 @@ pub(super) fn admit(
     )?;
     Ok(Context {
         schema_version: "bullet.publication-ci-job-context.v1",
-        purpose: "BOOTSTRAP_MEMBER_DIAGNOSTIC_VALIDATION",
+        purpose,
         execution_evidence: false,
         root_workflow_sha256: store::digest(&git::blob(
             aggregate,
@@ -250,22 +261,39 @@ struct Validation {
     stderr_sha256: String,
 }
 
+pub(super) fn validator_blob(member: &Path, revision: &str) -> Result<Vec<u8>> {
+    // Authored validators can be executable; publication templates remain 100644.
+    let listing = git::text(member, &["ls-tree", revision, "--", VALIDATOR])?;
+    require(
+        (listing.starts_with("100644 blob ") || listing.starts_with("100755 blob "))
+            && listing.ends_with(&format!("\t{VALIDATOR}"))
+            && listing.lines().count() == 1,
+        "PUBLICATION_CI_REGULAR_VALIDATOR_REQUIRED",
+    )?;
+    git::bytes(member, &["show", &format!("{revision}:{VALIDATOR}")])
+}
+
 fn validate_member(root: &Path, artifacts: &Path, context: &Context) -> Result<Validation> {
     let member = root.join(context.subject.invocation.member);
     let script = member.join(VALIDATOR);
     let script_sha256 = store::digest(&read_regular(&script)?);
     require(
         script_sha256
-            == store::digest(&git::blob(
+            == store::digest(&validator_blob(
                 &member,
                 &context.subject.invocation.member_commit,
-                VALIDATOR,
             )?),
         "PUBLICATION_CI_VALIDATOR_CHANGED",
     )?;
     // Source checks bound this cooperative validation interval. They do not
     // isolate a hostile same-UID writer swapping the script or its sourced
     // dependencies during execution, and confer no execution authority.
+    // The two existing validators use different roots; normalize only the copy.
+    let validator_root = if context.subject.invocation_key == GIT_KEY {
+        artifacts.join(".ci-artifacts")
+    } else {
+        artifacts.to_path_buf()
+    };
     let mut command = Command::new("/usr/bin/bash");
     command
         .env_clear()
@@ -282,7 +310,7 @@ fn validate_member(root: &Path, artifacts: &Path, context: &Context) -> Result<V
         .arg(&script)
         .arg("source-scan")
         .arg(&context.subject.invocation.member_commit)
-        .arg(artifacts)
+        .arg(&validator_root)
         .arg("atomic");
     let result = process::run_bounded(
         &mut command,

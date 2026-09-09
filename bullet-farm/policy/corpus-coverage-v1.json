@@ -6081,7 +6081,7 @@
    "partial": {
     "kind": "test",
     "repo": "bullet-kernel",
-    "path": "apps/bullet-farmd/src/main.rs",
+    "path": "apps/bullet-farmd/src/main_tests.rs",
     "symbol": "local_v1_accepts_only_loopback_addresses"
    }
   },

@@ -14,7 +14,7 @@ const CONTRACT_LINKS: &[(&str, &str, &str, &str)] = &[
         "bullet-farm",
         "contracts/generated/rust/schema_bundle.rs",
         "bullet-kernel",
-        "crates/domain/src/schema_bundle.rs",
+        "generated/schema_bundle.rs",
     ),
     (
         "bullet-farm",

@@ -174,6 +174,10 @@ fn success_result(structured_output: Value) -> Value {
         "permission_denials": [],
         "structured_output": structured_output,
         "terminal_reason": "completed",
+        // A real 2.1.266 result always carries these. They are the only place
+        // a turn admits work this transcript never showed.
+        "queued_turn_count": 0,
+        "subagent_stats": {"spawned": 0, "max_depth": 0},
     })
 }
 
@@ -273,18 +277,31 @@ fn write_capable_tools_are_refused_under_the_dogfood_profile() {
 }
 
 #[test]
-fn a_tool_named_outside_the_allowlist_is_refused_even_after_a_clean_init() {
+fn a_tool_named_outside_the_allowlist_cannot_succeed_after_a_clean_init() {
+    // This test used to assert that the REQUEST itself was refused. That rule
+    // was wrong against a real runtime: Claude Code in plan mode asks for
+    // `Write` to save its plan file and is told "No such tool available", so
+    // the old rule failed real turns after they had been billed while grading
+    // containment by what the model wanted rather than what it got. The
+    // property that matters is unchanged and is asserted here: a tool outside
+    // the allowlist may be asked for, and may never report success.
     let mut machine = dogfood_machine(ENROLLED_VERSION);
     establish(
         &mut machine,
         ENROLLED_VERSION,
         json!(["Read", "Glob", "Grep"]),
     );
+    machine
+        .ingest_line(&line(&assistant_tool_use("Bash")))
+        .expect("the request is recorded so its refusal can be required");
+    let error = machine
+        .ingest_line(&line(&tool_result(Some(false))))
+        .expect_err("a write-capable tool reporting success must be refused");
     assert!(
-        machine
-            .ingest_line(&line(&assistant_tool_use("Bash")))
-            .is_err(),
-        "a tool_use naming a write-capable tool must be refused"
+        error
+            .to_string()
+            .contains("outside the read-only allowlist reported success"),
+        "unexpected reason: {error}"
     );
 }
 
@@ -415,4 +432,218 @@ fn a_dogfood_success_without_structured_output_is_refused() {
         machine.ingest_line(&line(&without)).is_err(),
         "a success terminal without a proposal is not a completed turn"
     );
+}
+
+/// Replay of a transcript captured from the real Claude Code 2.1.266 CLI on
+/// 2026-09-09, invoked with exactly the dogfood argv (plan mode, the read-only
+/// tool set, and `--json-schema` carrying the projected PatchProposal schema).
+///
+/// Every previous fixture in this crate is a hand-written `json!` literal
+/// modelled on 2.1.243. Replaying real bytes is the only way to know whether
+/// the parser can read the CLI that is actually installed; when this was first
+/// run against the pre-existing parser it failed at the very first frame.
+mod real_capture {
+    use super::*;
+
+    const REAL_CAPTURE: &str = include_str!("fixtures/claude-2.1.266-real-turn.jsonl");
+    const REAL_VERSION: &str = "2.1.266";
+    const REAL_CWD: &str = "/workspace";
+
+    fn real_machine() -> ClaudeStreamTranscript {
+        ClaudeStreamTranscript::new_with_profile(
+            AgentSessionId::new(KERNEL_SESSION),
+            InvocationId::new(INVOCATION),
+            REAL_CWD,
+            REAL_VERSION,
+            vec![GATE.into()],
+            TranscriptProfile::DogfoodReadOnlyV0,
+        )
+        .expect("dogfood machine")
+    }
+
+    fn frames() -> Vec<String> {
+        REAL_CAPTURE
+            .lines()
+            .filter(|line| !line.trim().is_empty())
+            .map(str::to_owned)
+            .collect()
+    }
+
+    #[test]
+    fn every_real_2_1_266_frame_is_admitted_up_to_semantic_validation() {
+        let mut machine = real_machine();
+        let _ = machine
+            .user_message("Reply with exactly: OK")
+            .expect("prompt");
+        let frames = frames();
+        let (terminal, transport) = frames.split_last().expect("capture has frames");
+
+        // system/init, quota telemetry, two assistant messages, the CLI's
+        // synthetic structured-output notice, and a real tool result. Every one
+        // of these was refused by the parser before this lane: the init on its
+        // field set, telemetry flags, non-empty `agents` and the
+        // `claude-opus-5[1m]` model id; the assistant frames on `timestamp`
+        // and on the init/message model disagreement; the synthetic notice and
+        // the tool result on their envelopes.
+        for (index, frame) in transport.iter().enumerate() {
+            machine
+                .ingest_line(frame)
+                .unwrap_or_else(|error| panic!("real frame {index} was refused: {error}"));
+        }
+
+        // The terminal frame is admitted structurally -- field set, num_turns
+        // including the synthetic turn, `tool_use` stop reason, and a
+        // schema-valid structured_output -- and is then refused on the one
+        // thing that should refuse it: the captured turn answered a trivial
+        // prompt, so its proposal names no gate. A parse or transport failure
+        // would report a different reason.
+        let error = machine
+            .ingest_line(terminal)
+            .expect_err("a proposal naming no admitted gate must not be admitted");
+        assert!(
+            error.to_string().contains("gate_ids differ from admission"),
+            "expected semantic gate refusal, got: {error}"
+        );
+    }
+
+    #[test]
+    fn real_capture_carries_the_frames_that_used_to_be_refused() {
+        // Guards the fixture itself: if a future capture replaces this one and
+        // drops these shapes, the regressions they cover stop being covered.
+        let text = REAL_CAPTURE;
+        assert!(
+            text.contains("\"rate_limit_event\""),
+            "capture must exercise the quota telemetry frame"
+        );
+        assert!(
+            text.contains("\"StructuredOutput\""),
+            "capture must exercise the schema-output tool"
+        );
+        assert!(
+            text.contains("\"tool_use_result\""),
+            "capture must exercise a real tool result echo"
+        );
+        assert!(
+            text.contains("\"analytics_disabled\": false")
+                || text.contains("\"analytics_disabled\":false"),
+            "capture must show a real account reporting telemetry enabled"
+        );
+    }
+
+    #[test]
+    fn the_frozen_conformance_profile_still_refuses_the_real_turn() {
+        // The relaxations are scoped to the dogfood profile. The frozen V1
+        // conformance subject must be unchanged: it still refuses a real
+        // 2.1.266 init, which is exactly why the dogfood profile exists.
+        // Built at the frozen version so construction succeeds and the refusal
+        // below is about the frame, not the pin.
+        let mut machine = ClaudeStreamTranscript::new_with_profile(
+            AgentSessionId::new(KERNEL_SESSION),
+            InvocationId::new(INVOCATION),
+            REAL_CWD,
+            OBSERVED_CLAUDE_SCHEMA_VERSION,
+            vec![GATE.into()],
+            TranscriptProfile::ConformanceV1,
+        )
+        .expect("conformance machine");
+        let _ = machine
+            .user_message("Reply with exactly: OK")
+            .expect("prompt");
+        let first = &frames()[0];
+        assert!(
+            machine.ingest_line(first).is_err(),
+            "conformance profile must not silently gain dogfood tolerance"
+        );
+    }
+}
+
+/// The read-only guarantee stated exactly: a tool outside the allowlist may be
+/// REQUESTED (the runtime refuses it) but may never report SUCCESS.
+mod unadmitted_tool_requests {
+    use super::*;
+
+    fn machine() -> ClaudeStreamTranscript {
+        ClaudeStreamTranscript::new_with_profile(
+            AgentSessionId::new(KERNEL_SESSION),
+            InvocationId::new(INVOCATION),
+            CWD,
+            ENROLLED_VERSION,
+            vec![GATE.into()],
+            TranscriptProfile::DogfoodReadOnlyV0,
+        )
+        .expect("dogfood machine")
+    }
+
+    fn started() -> ClaudeStreamTranscript {
+        let mut machine = machine();
+        let _ = machine.user_message("go").expect("prompt");
+        machine
+            .ingest_line(&line(&init_event(
+                ENROLLED_VERSION,
+                json!(["Read", "Glob", "Grep"]),
+            )))
+            .expect("init");
+        machine
+    }
+
+    #[test]
+    fn a_refused_write_request_does_not_poison_the_turn() {
+        // Observed on 2.1.266: plan mode asks for `Write` to save its plan file
+        // and the runtime answers "No such tool available: Write. Write is
+        // disabled for this session". Refusing the transcript on the REQUEST
+        // graded the containment by what the model wanted rather than by what
+        // it got, and killed real turns after they had been billed.
+        let mut machine = started();
+        machine
+            .ingest_line(&line(&assistant_tool_use("Write")))
+            .expect("an unadmitted request is recorded, not fatal");
+        machine
+            .ingest_line(&line(&tool_result(Some(true))))
+            .expect("its refusal is the containment working");
+    }
+
+    #[test]
+    fn an_unadmitted_tool_that_succeeds_still_poisons_the_turn() {
+        // The property that actually matters: if a tool outside the allowlist
+        // ever reports success, something escaped and the turn is not read-only.
+        let mut machine = started();
+        machine
+            .ingest_line(&line(&assistant_tool_use("Write")))
+            .expect("request recorded");
+        let error = machine
+            .ingest_line(&line(&tool_result(Some(false))))
+            .expect_err("a successful unadmitted tool must poison the transcript");
+        assert!(
+            error
+                .to_string()
+                .contains("outside the read-only allowlist reported success"),
+            "unexpected reason: {error}"
+        );
+    }
+
+    #[test]
+    fn the_frozen_conformance_profile_still_refuses_the_request_itself() {
+        let mut machine = ClaudeStreamTranscript::new_with_profile(
+            AgentSessionId::new(KERNEL_SESSION),
+            InvocationId::new(INVOCATION),
+            CWD,
+            OBSERVED_CLAUDE_SCHEMA_VERSION,
+            vec![GATE.into()],
+            TranscriptProfile::ConformanceV1,
+        )
+        .expect("conformance machine");
+        let _ = machine.user_message("go").expect("prompt");
+        machine
+            .ingest_line(&line(&init_event(
+                OBSERVED_CLAUDE_SCHEMA_VERSION,
+                json!(["Read", "Glob", "Grep"]),
+            )))
+            .expect("init");
+        assert!(
+            machine
+                .ingest_line(&line(&assistant_tool_use("Write")))
+                .is_err(),
+            "conformance must not gain the dogfood tolerance"
+        );
+    }
 }

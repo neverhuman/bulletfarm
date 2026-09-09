@@ -194,14 +194,35 @@ if output="$(bash ops/ci/artifact-check.sh observation-test 2>&1)" \
   refuse OBSERVATION_TOOL_METADATA_GRAMMAR_GUARD_FAILED "$output"; exit 1
 fi
 cp "$valid_observation" "$observation"
-schema_pattern="$(jq -r '.properties.artifact_hashes.items.properties.path.pattern' \
-  docs/schemas/bullet.ci-observation.v1.schema.json)"
-jq -ne --arg pattern "$schema_pattern" --arg path '.ci-artifacts/report.xml' \
-  '$path | test($pattern)' >/dev/null
-for invalid in report.xml .ci-artifacts/../escape .ci-artifacts/a//b '.ci-artifacts/a\b'; do
-  if jq -ne --arg pattern "$schema_pattern" --arg path "$invalid" '$path | test($pattern)' >/dev/null; then
+# Validate complete documents, including Portal's actual two-artifact contract
+# shape. The only additional dot-prefixed name is this exact Playwright path.
+schema_fixture="$test_root/schema-path.json"
+for valid in .ci-artifacts/report.xml .ci-artifacts/traces/task/trace.zip \
+  .ci-artifacts/playwright/.last-run.json; do
+  jq --arg path "$valid" '.repository="bullet-portal" |
+    .commands=["bash scripts/ci-local.sh contract"] |
+    .outcomes=[{lane:"contract",status:"PASS",exit_code:0}] |
+    .artifact_hashes[0].path=$path |
+    .artifact_hashes += [{path:".ci-artifacts/reports/playwright.xml",sha256:("a" * 64)}]' \
+    "$valid_observation" >"$schema_fixture"
+  jsonschema -i "$schema_fixture" docs/schemas/bullet.ci-observation.v1.schema.json >/dev/null 2>&1 \
+    || { refuse OBSERVATION_SCHEMA_PATH_REJECTED "$valid"; exit 1; }
+  log "CI observation schema accepted: $valid"
+done
+for invalid in report.xml .ci-artifacts/../escape .ci-artifacts/a//b '.ci-artifacts/a\b' \
+  .ci-artifacts/.last-run.json .ci-artifacts/other/.last-run.json \
+  .ci-artifacts/playwright/.other.json .ci-artifacts/playwright/.last-run.json/child \
+  .ci-artifacts/playwright/.last-run.json.bak .ci-artifacts/playwright/..last-run.json \
+  .ci-artifacts/playwright/./.last-run.json .ci-artifacts/playwright/../.last-run.json \
+  .ci-artifacts/.hidden/report.xml .ci-artifacts/playwright/.last-run.json/../escape \
+  .ci-artifacts/playwright/%2elast-run.json .ci-artifacts/playwright/.last-run.json/ \
+  /.ci-artifacts/playwright/.last-run.json $'.ci-artifacts/playwright/.last-run.json\n'; do
+  jq --arg path "$invalid" '.artifact_hashes[0].path=$path' \
+    "$valid_observation" >"$schema_fixture"
+  if jsonschema -i "$schema_fixture" docs/schemas/bullet.ci-observation.v1.schema.json >/dev/null 2>&1; then
     refuse OBSERVATION_SCHEMA_PATH_GUARD_FAILED "$invalid"; exit 1
   fi
+  log "CI observation schema refused: $(printf '%q' "$invalid")"
 done
 if CI_COMMAND_COUNT=1 bash scripts/ci-observation.sh observation-test 0 valid ../escape >/dev/null 2>&1; then
   refuse OBSERVATION_PATH_GUARD_FAILED "parent traversal accepted"; exit 1

@@ -1,7 +1,0 @@
-Portal Control Tower against loopback farmd
-form                   One-time bootstrap token + Authenticate local session
-session                local browser material present after exchange
-command                Submit durable demo command (projection; UNKNOWN stays honest)
-clicked                Control Tower, Shift Brief, Fleet, Mission Graph
-Portal authority       none; projection only
-Bullet live admission  disabled

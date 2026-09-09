@@ -151,6 +151,10 @@
     assert_eq!(
         path_attribute_sites,
         BTreeMap::from([
+            (
+                PathBuf::from("crates/bullet-wire/src/release/model_lock.rs"),
+                1,
+            ),
             (PathBuf::from("src/check/model.rs"), 1),
             (PathBuf::from("src/check/profiles.rs"), 1),
             (PathBuf::from("src/check/release_evidence.rs"), 1),
@@ -214,12 +218,14 @@
                 PathBuf::from("src/coord/store/ledger/recovery_production.rs"),
                 1,
             ),
-            (PathBuf::from("src/coord/store/ledger.rs"), 2),
+            (PathBuf::from("src/coord/store/ledger.rs"), 3),
             (PathBuf::from("src/fuse.rs"), 1),
             (PathBuf::from("src/process.rs"), 1),
             (PathBuf::from("src/publication/observation.rs"), 1),
             (PathBuf::from("src/publication/scan.rs"), 1),
+            (PathBuf::from("src/release/build/portal.rs"), 2),
             (PathBuf::from("src/release/receipt.rs"), 1),
+            (PathBuf::from("src/setup/command.rs"), 1),
         ])
     );
     assert_eq!(

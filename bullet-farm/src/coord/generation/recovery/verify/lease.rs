@@ -109,7 +109,7 @@ mod tests {
     use std::{
         fs::{self, OpenOptions},
         io::BufRead,
-        os::unix::fs::PermissionsExt,
+        os::unix::fs::{MetadataExt, PermissionsExt},
         process::{Child, Command, Stdio},
         sync::mpsc,
         time::{Duration, Instant},
@@ -126,6 +126,11 @@ mod tests {
             Self {
                 child: command.spawn().unwrap(),
             }
+        }
+
+        fn finish(mut self) {
+            self.child.stdin.take();
+            assert!(self.child.wait().unwrap().success());
         }
     }
 
@@ -166,16 +171,47 @@ mod tests {
 
     #[test]
     fn different_uid_writable_mapping_refuses_acquisition() {
-        let root = tempfile::tempdir().unwrap();
+        // Only this harmless cross-user fixture needs a shared parent. Keep
+        // private TMPDIR and proof output permissions unchanged.
+        let root = tempfile::Builder::new()
+            .prefix("bullet-legacy-map-")
+            .tempdir_in("/tmp")
+            .unwrap();
+        let source = root.path().join("mapping.rs");
+        let executable = root.path().join("mapping-child");
+        fs::write(
+            &source,
+            include_str!(concat!(
+                env!("CARGO_MANIFEST_DIR"),
+                "/tests/fixtures/legacy-writable-mapping.rs"
+            )),
+        )
+        .unwrap();
+        let compiled = Command::new("rustc")
+            .args([
+                "--edition=2021",
+                "--deny=warnings",
+                "--crate-name=legacy_mapping_fixture",
+            ])
+            .arg(&source)
+            .arg("-o")
+            .arg(&executable)
+            .output()
+            .unwrap();
+        assert!(
+            compiled.status.success(),
+            "{}",
+            String::from_utf8_lossy(&compiled.stderr)
+        );
+        fs::set_permissions(&executable, fs::Permissions::from_mode(0o755)).unwrap();
         fs::set_permissions(root.path(), fs::Permissions::from_mode(0o755)).unwrap();
         let path = root.path().join("events.jsonl");
         fs::write(&path, b"frozen\n").unwrap();
         fs::set_permissions(&path, fs::Permissions::from_mode(0o666)).unwrap();
         let mut command = Command::new("sudo");
         command
-            .args(["-n", "-u", "nobody", "--", "python3"])
-            .arg("-c")
-            .arg("import mmap,sys; f=open(sys.argv[1],'r+b',0); mmap.mmap(f.fileno(),0); print('ready',flush=True); sys.stdin.buffer.read(1)")
+            .args(["-n", "-u", "nobody", "--"])
+            .arg(&executable)
             .arg(&path)
             .stdin(Stdio::piped())
             .stdout(Stdio::piped());
@@ -184,11 +220,19 @@ mod tests {
         std::io::BufReader::new(child.child.stdout.take().unwrap())
             .read_line(&mut ready)
             .unwrap();
-        assert_eq!(ready, "ready\n");
+        let child_uid: u32 = ready
+            .strip_prefix("ready:")
+            .and_then(|value| value.strip_suffix('\n'))
+            .and_then(|value| value.parse().ok())
+            .expect("child must confirm its retained mapping and UID");
+        assert_ne!(child_uid, root.path().metadata().unwrap().uid());
         fs::set_permissions(&path, fs::Permissions::from_mode(0o400)).unwrap();
         let reader = File::open(&path).unwrap();
         let error = LegacyReadLease::acquire(&reader).unwrap_err();
         assert_eq!(error.code(), "LEGACY_WRITE_AUTHORITY_UNKNOWN");
+        child.finish();
+        let lease = LegacyReadLease::acquire(&reader).unwrap();
+        lease.revalidate().unwrap();
     }
 
     #[test]

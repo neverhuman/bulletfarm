@@ -158,7 +158,7 @@ validate_tool_version() {
     lychee) [[ "$value" == "lychee 0.24.0" ]] ;;
     cargo_llvm_cov) [[ "$value" == "cargo-llvm-cov 0.8.7" ]] ;;
     jankurai) [[ "$value" == "jankurai 1.6.11" ]] ;;
-    rustup) [[ "$value" == "rustup 1.29.0 "* ]] ;;
+    rustup) [[ "$value" == "rustup 1.29.0 "* || "$value" == "rustup 1.29.1 "* ]] ;;
     b3sum) [[ "$value" == "b3sum 1.8.2" ]] ;;
     rustc_pinned) [[ "$value" == "rustc 1.97.1 "* ]] ;;
     cargo_pinned) [[ "$value" == "cargo 1.97.1 "* ]] ;;

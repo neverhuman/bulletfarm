@@ -1,7 +1,7 @@
 # Product gap register
 
 Status: **operator index; not runtime or release authority**  
-Last reviewed: 2026-09-08
+Last reviewed: 2026-09-09
 Owner: Bullet Farm maintainers
 
 This page answers “what is still missing before Bullet Farm is a product?”
@@ -11,76 +11,55 @@ generated [`release-truth.generated.md`](release-truth.generated.md). The active
 dependency order is [`closure-roadmap.md`](closure-roadmap.md). A newer commit
 invalidates a row until those sources are replayed.
 
-The operator selected `https://git.neverhuman.org/bulletfarm` as the primary
-integration destination, proposed JeRyu identity `root/bulletfarm`, containing
-all four supporting repositories' exact sources. Aggregate creation is currently
-blocked by JeRyu's global-admin requirement; the existing account can access the
-supporting repositories. Their PRs and audit scores do not establish complete
-aggregate CI. GitHub remains an independent mirror/effect-adapter obligation.
+The latest operator instruction selects **GitHub `neverhuman/bulletfarm`** as the
+primary integration repository, containing the exact accepted sources of all four
+supporting repositories. Commit `912dddf` selects that destination for new
+requests; historical request identities and destinations remain intact. Supporting
+source PRs and audit scores do not establish complete aggregate CI. Separately
+accepted Jeryu self-hosting and forge-certification obligations remain in scope.
 
-Accepted local prerequisites cover two-location preservation and replay facts,
-typed schema inspection, serving and backup custody, explicit backup close,
-expected CI topology, and source-bound diagnostic validation. The
-[dated checkpoint record](production-prerequisite-checkpoints.md) retains exact
-subjects, executed checks, failed attempts, and each component's limits.
-Backups and verified restores support authentic schema-22 prefixes and current
-schema-23 databases through private snapshots. Restores preserve the schema and
-authority state, advance the restore epoch, and remain quarantined after final
-read-back. The staged backup producer now explicitly closes both output connections and
-shares retained-close-failure handling with restore. Its 16 focused tests and
-strict adapter Clippy passed, followed by complete Kernel and dependency-ordered
-family checks on the recorded clean subjects. The complete documentation check
-also passed. Durable retry, exclusive supervised upgrade and activation remain open.
-The sealed replay reader reconstructs complete retained facts and rereads every
-input before returning `REPLAY_FACTS_READBACK_ONLY`; this grants no admission.
+The [9 September deep audit](deep-audit-20260909.md) records the current production
+bridge, all CI execution gaps, actual account/runtime discovery, media defects and
+concrete complexity reductions after studying all 101 member documentation files.
+Its BF-A01–BF-A12 findings are source/reproducer-backed repair work under this
+register, not new product-profile statuses or a replacement governing plan.
 
-Version-2 publication now renders root workflows deterministically from the eight
-pinned member workflow trees. The 53 member job definitions expand to 55
-invocations. Five focused Rust tests, 48 wrapper cases, strict production Clippy,
-and reconstruction of two historical version-1 packets passed. Expected-root
-preview grants no verification or execution credit. The actual Hub source-scan
-producer and final diagnostic checks remain present; unsupported profiles fail
-explicitly. Original timeout and artifact requirements, execution of the complete
-inventory, admitted hosted tools and workers, and additional assurance campaigns
-remain required. After the one-entry renderer test-module inventory repair,
-complete Hub and dependency-ordered family checks passed on the exact subjects
-in the dated checkpoint record. Independent review verified 2,284 distinct
-selected component tests and 31 fresh family artifacts. Three Kernel egress tests
-remain an excluded campaign. Portal intermediate observations contain stale
-artifact references and require repair; the selected final reports were verified.
-Doctor also refuses complete Git metadata inspection of a retained Kernel build
-target quarantine. These local results grant no hosted or release credit.
-The BulletGit artifact uploader now creates its private stage before copying
-validated diagnostics, and corpus replay respects the selected private Cargo
-target. Their mapped fixtures and complete BulletGit `required` check passed
-on the recorded exact subject; hosted execution remains unproved.
+The [post-audit health checkpoint](health-checkpoint-20260909.md) records complete
+Kernel `02bf7c5` and Hub `258c8467` required passes, actual execution of all 819
+Hub/wire identities, reviewed capture/timing/custody repairs and publication
+timeout/destination packets. Later changes need new mapped proof. The family
+retry refused Kernel source drift after stage 5; no complete family pass follows.
+Auditor admission, hosted CI and real-account production acceptance remain open.
+The [detailed xbabe2 work order](xbabe2-development-closeout.md) refines the existing
+plan with dependencies, CI campaigns, initial three-provider qualification and
+Antigravity qualification for the requested four-provider demonstration. Maintained
+real 1080p capture source and GIFs strictly below 50,000,000 bytes are explicit
+acceptance requirements. It changes no G/WP/profile definition or status.
+Reviewed local CI adapter/transfer/generator packets (`5b11bfb3`, `599b2ae8`,
+`974f5de2`) and Portal custody/inventory packets (`9f53fe6a`, `29d02c34`) add
+component evidence. Portal passes 183 unit tests; final complete and hosted checks
+remain required. The typed inventory stays unchanged and blocked.
 
-The demo launcher now rejects unsafe selected data ancestry before compilation,
-using the same owner, mode and root-owned sticky-directory rules as Kernel.
-All 44 wrapper fixtures passed after independent review. The actual default demo
-then passed on the recorded clean Hub subject, with independently verified local
-component evidence. Its first failed attempt remains retained. The subsequent
-full Hub check exposed two stale test assertions; both were repaired and passed
-focused verification. A complete check of the resulting subject remains required.
+Exact historical accepted subjects and failed attempts remain in the
+[checkpoint](production-prerequisite-checkpoints.md),
+[health observations](health-observations-20260908.md) and
+[prerequisite observations](prerequisite-observations-20260908.md). The current
+branches need their own complete proof. Offline media generation and independent
+reconstruction passed. The historical text/five-still replay and later continuous
+synthetic browser capture do not qualify native coding or production operation.
 
-Canonical auditor repairs now have independently reviewed local evidence: Core
-completed 610 distinct tests including witness outcome and routing regressions;
-the shared audit kernel completed 115 tests plus strict Clippy with independently
-accepted runtime evidence. Inventory, report outcomes, version declarations,
-bounded witness refusals and Rust constructor detection were repaired. Immutable dependency admission, remaining detector
-regressions, complete witness/release receipt custody and portable artifact
-qualification remain open. The dated checkpoint records exact subjects.
+The [full audit baseline](health-audit-baseline.json) and
+[repair queue](health-repair-queue.jsonl) preserve all 165 findings and 28 cap
+occurrences as unresolved triage inputs. An admitted portable auditor, explicit
+score-90/zero-cap/zero-hard policy, actual repair evidence and reviewed medium
+dispositions are still required. The deep audit independently rejected new
+unverified generated stubs and weakened formal JSON parsing as health acceptance.
 
-A later complete Hub invocation failed two corpus inventory checks after a
-concurrent BulletGit test-file move. The four affected coverage anchors were
-updated from the unchanged test body; generated outputs and all six focused
-checks passed independent review. Full proof on the resulting family subjects
-remains required. Concurrent member refactors and their audit scores do not
-inherit the earlier complete family receipt.
-
-Complete auditor qualification, coordinator admission, supervised upgrades,
-hosted CI qualification, and all subsequent production work remain open. All G1–G18 remain `DESIGNED`,
-and all 18 product plus two diagnostic profiles remain `BLOCKED`.
+Production admission, supervised upgrades, account-aware dispatch, termination
+and durable finalization, browser response-loss recovery, complete hosted CI and
+all profile campaigns remain open. All G1–G18 remain `DESIGNED`; all 18 product
+plus two diagnostic profiles remain `BLOCKED`. The typed inventory is unchanged:
+this documentation packet claims no newly admitted runtime evidence.
 
 This is the best-known current gap inventory, not a completeness proof. Every
 blocked capability listed below has an owner document, a fail-closed checker,
@@ -88,6 +67,17 @@ and a typed refusal, but the Wave-0 bidirectional implementation↔invariant
 inventory may discover additional orphaned requirements or enforcement sites.
 Any discovery becomes a new explicit row before implementation proceeds.
 Closing a row in this file is not closing the product.
+
+Portal29d02c34 now has an independently accepted complete standalone required pass with183 units,14 mocked browser cases and five bundle tests; Hub6ad38025 integrates reviewed media CI routing after its direct suites passed. Complete current Hub/family/hosted and actual production proofs remain pending.
+
+The latest instruction explicitly rejects a harness-exception recording as the
+production milestone. The [expanded real-production work order](xbabe2-development-closeout.md)
+pins the simulator-only worker/Runner and unavailable product verifier to exact
+source, retains the working atomic command ledger and native Claude component,
+and specifies bounded repairs through real account execution, independent
+verification and human integration. Recordings follow that connected path. All
+four requested providers must execute real tasks before the four-provider demo
+is complete; no fixture or read-only explanation prompt can substitute.
 
 ## How to read a row
 
@@ -128,10 +118,10 @@ documentation can “close” G1–G18 today.
 | ID | Gap | Why it is still open | What already exists | Closer | Authority |
 | --- | --- | --- | --- | --- | --- |
 | G1 | Hub-only signed install | Checked-in lock is schema 2 and is refused on purpose. The build-free `scripts/setup.sh` refuses unless the operator selects an external `bullet-family` executable, but that selection is not signed package admission. Clone transport helpers still use path-selected Git, and no production Jeryu/validator two-run, package lifecycle, or signed prebuilt exists | Descriptor-relative setup, no-replace publish, sealed Linux Cargo/Node/Bash/npm/setup-mutation/family-lock/checkout Git subjects, default-refusing wrapper, two-run component fixture | Engineering admits every remaining Git/helper subject and production lifecycle transition; then release custody publishes the signed schema-3 lock and prebuilt `bullet-family` and runs the fresh-host replay | [`release.md`](../release.md), [`runbooks/source-setup.md`](../runbooks/source-setup.md) |
-| G2 | Connected five-plane transaction | No signed `TRANSACTION_PROOF`; the retained public loop reaches durable `UNKNOWN` through a harness-process executor and fixture keys, with independent, transaction, and release eligibility hard false. Trusted key lifecycle and durable nonce consumption, distinct verifier/effect UIDs and credential custody, independently owned artifacts, transaction-grade public dispatch and Portal truth, and the twelve-boundary campaign remain absent | A retained exact-digest command connects durable ScopeGrant admission, peer-authenticated farmd/Runner, Kernel-issued Candidate grant/final check, production Gitd one-use Candidate preparation, fixture writer refusal + PASS, purpose-signed PASETO v4.public/JCS `VerificationIntentV1`, `EvidenceV1`, `ProofBundleV1`, and caller-free `MATCHED` `ObservationV1` over the exact Candidate/base/head/tree, ProofBundle/check/protection/integration/target subjects with reconstructed ephemeral public keys and canonical-chain digests; exact Candidate-head `LocalBareForge` delivery/read-back, stale-fence refusal, lost-response `UNKNOWN`→`COMMITTED`, protected expected-old-OID integration, and reopen read-back; and private retained source/Candidate/target Git plus ledger artifacts whose exact Git subjects are independently reopened by the shell after child exit. A separate retained public wrapper authenticates exact duplicate `run_demo` POSTs, survives farmd restart, replays and polls through the Vite-preview Portal, dispatches the same request through a registered same-UID `SO_PEERCRED` UDS Runner and bounded exact worker, admits that fixture receipt, settles the same command/request/receipt digest durably to `UNKNOWN`, and reads back `NO_COMMAND` after worker restart | Independent verification/effect/audit owners reissue the existing subjects under registered keys, durable nonces, distinct UID/credential custody, and independently owned artifacts; semantic admission, transaction-grade farmd/Portal, and chaos owners close the remaining W6/W7 path | [`closure-roadmap.md`](closure-roadmap.md) Waves 2–7; [`runbooks/dogfood.md`](../runbooks/dogfood.md) |
+| G2 | Connected five-plane transaction | No signed `TRANSACTION_PROOF`; the retained public loop reaches durable `UNKNOWN` through a harness-process executor and fixture keys, with independent, transaction, and release eligibility hard false. Trusted key lifecycle and durable nonce consumption, distinct verifier/effect UIDs and credential custody, independently owned artifacts, transaction-grade public dispatch and Portal truth, and the twelve-boundary campaign remain absent | A retained exact-digest command connects durable ScopeGrant admission, peer-authenticated farmd/Runner, Kernel-issued Candidate grant/final check, production Gitd one-use Candidate preparation, fixture writer refusal + PASS, purpose-signed PASETO v4.public/JCS `VerificationIntentV1`, `EvidenceV1`, `ProofBundleV1`, and caller-free `MATCHED` `ObservationV1` over the exact Candidate/base/head/tree, ProofBundle/check/protection/integration/target subjects with reconstructed ephemeral public keys and canonical-chain digests; exact Candidate-head `LocalBareForge` delivery/read-back, stale-fence refusal, lost-response `UNKNOWN`→`COMMITTED`, protected expected-old-OID integration, and reopen read-back; and private retained source/Candidate/target Git plus ledger artifacts whose exact Git subjects are independently reopened by the shell after child exit. A separate retained public wrapper authenticates exact duplicate `run_demo` POSTs, survives farmd restart, replays and polls through the Vite-preview Portal, dispatches the same request through a registered same-UID `SO_PEERCRED` UDS Runner and bounded exact worker, admits that fixture receipt, settles the same command/request/receipt digest durably to `UNKNOWN`, and reads back `NO_COMMAND` after worker restart | Independent verification/effect/audit owners issue new product-owned intents and evidence over independently reconstructed exact Candidates under registered keys, durable nonces, distinct UID/credential custody and independently owned artifacts; fixture records remain historical; semantic admission, transaction-grade farmd/Portal, and chaos owners close the remaining W6/W7 path | [`closure-roadmap.md`](closure-roadmap.md) Waves 2–7; [`runbooks/dogfood.md`](../runbooks/dogfood.md) |
 | G3 | Production Kernel write path | Authenticated public `run_demo` now settles `PENDING`→durable `UNKNOWN` through the retained private component path and survives farmd and worker restart. It still uses same-UID fixture custody; operator-admitted long-lived peer/key custody, durable recovery/read-back beyond the private proof root, production provider/effect dispatch, CAS/GC, and production restore remain absent | DB-clock leases; authenticated ingress; exact duplicate public POST; product-provisioned private signing key; durable private peer registry and server grant/nonce state; peer- and socket-bound signed UDS component; bounded exact worker state/read-back; exact Candidate grant/final-check component; retained fixture receipt; UNKNOWN/FAILED worker; launch-grant + Linux egress components | Kernel V1-S2/S4 promotes the proven private path with operator-admitted durable registry/key custody, distinct service identities, recovery outside the fixture root, and production command/provider/effect dispatch; do not remount unauthenticated `HttpLeaseClient` | [`release.md`](../release.md), [ADR 0011](../decisions/0011-signed-launch-grant-and-egress-isolation.md) |
 | G4 | Production BulletGit write path | Ordinary public `clone` remains fail-closed outside the scoped Kernel path; there is no published immutable `bullet-wire` tag, admitted installed authority custody, signed Integration proof, or tagged Jeryu service | The retained bridge uses the production daemon with a Kernel-issued exact Candidate grant/final check to prepare one one-use Candidate, refuses stale fence, preserves that exact Candidate/head through delivery, local exact-SHA check, protected integration, signed fixture Observation, and reopen read-back, then retains private source/Candidate/LocalBare ordinary-Git subjects and independently reopens their exact HEAD/tree after child exit; dissociate clone, hostile-git, generations, preservation, and honest cleanup UNKNOWN remain component-proved | Operator publishes wire/Jeryu tags; Kernel/BulletGit owners bind the retained permit/final-check path to installed durable custody and signed Integration evidence | [`closure-roadmap.md`](closure-roadmap.md) Waves 1 and 4 |
-| G5 | Live provider conformance | The committed v1alpha1 policy refuses at `POLICY`. A structurally valid v1alpha2 policy reaches the production adapter observation port but every adapter defaults to `RUNTIME_PROBE_UNAVAILABLE` at `ADMISSION`, before operator-key read, graph/Mission, lease, or nonce writes, egress preparation, or child spawn. No separately authorized and contained read-only probe, complete external policy/enrollment anchor, provider onboarding, or semantic live-receipt registration exists | Four bounded adapters; signed launch-grant and Linux-egress components; sealed 13-step refusal receipts; neutral four-provider zero-spawn nightly; positive PONG/conformance synthesis only in a strict `cfg(test)` dispatcher | Engineering lands a separately granted and contained real runtime probe, hostile-tested schema-3 policy/enrollment-anchor admission, provider onboarding, and semantic sealed-receipt registration; then the operator ratifies the policy and enrollments, supplies exact executables/profiles/credentials, and proves native read-only turns against the same frozen release subject | [ADR 0012](../decisions/0012-policy-v1alpha2-live-admission.md), [`runbooks/live-conformance.md`](../runbooks/live-conformance.md) |
+| G5 | Live provider conformance | The retained v1alpha1 policy refusal is `POLICY`. The default runtime-conformance observation returns `RUNTIME_PROBE_UNAVAILABLE`; this default contract does not describe every feature-selected probe path. A feature-gated Claude probe also exists at the inspected Kernel `5858e843`. The separately granted Claude read-only composition at5858e843 contains real enrolled-runtime dispatch under containment, but its general-live eligibility remains false; complete production policy/enrollment admission, all-provider onboarding and semantic live-receipt registration remain absent | Four bounded adapters; signed launch-grant and Linux-egress components; sealed 13-step refusal receipts; neutral four-provider zero-spawn nightly; positive PONG/conformance synthesis in a strict `cfg(test)` dispatcher; separate native Claude read-only source component with later exit/usage repairs under review | Engineering qualifies the existing Claude component and each other native protocol, connects admitted production execution, and completes hostile-tested schema-3 policy/enrollment-anchor admission, provider onboarding and semantic sealed-receipt registration; then the operator ratifies the policy and enrollments, supplies exact executables/profiles/credentials, and proves native read-only turns against the same frozen release subject | [ADR 0012](../decisions/0012-policy-v1alpha2-live-admission.md), [`runbooks/live-conformance.md`](../runbooks/live-conformance.md) |
 | G6 | Jeryu live effect | No authenticated external Jeryu check, protected integration/target read-back, signed Observation, reconciliation, backup/restore, or drift receipt | The retained `LocalBareForge` component delivers/read-backs the exact Candidate, publishes/read-backs its exact-SHA check/ProofBundle root, performs protected expected-old-OID integration, purpose-signs caller-free target outcome `MATCHED` and reverifies it, reconciles lost response, reopens the same records, and retains/reopens its private Git target after child exit; the external Jeryu adapter remains typed quarantine and no local fixture substitutes for it | Engineering completes typed Jeryu probes and semantic receipt admission over the same port; the operator later restores scoped auth on an unmodified pinned forge and registers exact integration/reconciliation/backup/restore/drift receipts | [`release.md`](../release.md) |
 | G7 | GitHub live effect | No App-test-repo integration receipt exists for the independent GitHub adapter profile | Effect adapter is specified, not certified | Engineering lands the typed capability/delivery/check/integration/read-back/reconciliation adapter and semantic receipt admission; then the operator configures a GitHub App test repository with role-separated credentials and registers the exact receipt | [`release.md`](../release.md), [ADR 0002](../decisions/0002-jeryu-forge-requirements.md), [0008](../decisions/0008-forge-gates.md) |
 | G8 | Security release floor | September 8 full diagnostic audits scored Hub 65, Kernel 64, BulletGit 64 and Portal 68, with 109 high and 56 medium findings requiring contextual triage; the auditor is not yet qualified and no portable hosted artifact is admitted | Retained full diagnostic scans; policy/outcome consistency qualification remains open | Score ≥90 with zero caps and zero hard findings; checksum-pinned CI binary and portable exact-subject report | [`release.md`](../release.md) |
@@ -290,12 +280,12 @@ Do not convert a green `just fast` into a closed G-row.
 | Question | Answer |
 | --- | --- |
 | How do I install from a hub-only clone? | You cannot, honestly. Schema 2 is refused. Contributor bootstrap is [`runbooks/source-setup.md`](../runbooks/source-setup.md); signed install is G1. |
-| Can I turn on live Claude/Codex/Cursor/Antigravity? | Not from this tree. Even a structurally valid v1alpha2 policy stops at `ADMISSION` with `RUNTIME_PROBE_UNAVAILABLE` before operator-key read, graph/Mission, lease, or nonce writes, egress preparation, or spawn. Engineering must first land a separately granted and contained real probe, schema-3 policy/enrollment-anchor admission, provider onboarding, and semantic receipt registration; only then may operators ratify ADR 0012, enroll exact providers, and supply profiles/credentials for native runs (G5). |
+| Can I turn on production Claude/Codex/Cursor/Antigravity? | Production coding is not admitted. The default general-live path refuses at `ADMISSION` with `RUNTIME_PROBE_UNAVAILABLE`; separately granted native Claude read-only composition exists and is component-only. Complete per-provider qualification, production account/runtime admission, durable command-to-Runner execution, independent verification and the actual policy/enrollment/operator checkpoints before production use (G5). The [development closeout](xbabe2-development-closeout.md) gives the concrete implementation order. |
 | Why does `doctor` fail? | The checked-in lock is schema 2. That refusal is the product. |
 | Did the white paper close the product? | No. The paper's G1–G15 inventory is extended here by explicit GitLab/team/saga profile gaps G16–G18. Closing prose is not a receipt. |
 | Is `just fast` enough to ship? | No. It is a component lane. First-GA `self-hosted-v1`, later `universal-v1`, the historical 26-gate projection, and the `linux-preview` diagnostic all remain `BLOCKED`. |
 | What is the same-UID install hole? | The Rust boundary seals Cargo/Node/Bash/npm plus setup mutation, family-lock verification, and checkout verification Git bytes, and the wrapper no longer invokes ambient Cargo. G1 still includes unsigned selection of the external prebuilt, clone transport Git/helpers, transient and between-child repository object/ref/index/config/file races, non-Git work-tree traversal, and allowed-signers path admission; signed prebuilt admission plus complete Git/helper isolation closes those surfaces. |
-| Does ADR 0012 mean the committed policy enables live providers? | No. The committed v1alpha1 generation-1 policy refuses at `POLICY`; a shape-valid v1alpha2 policy instead reaches the default adapter observation port and refuses with `RUNTIME_PROBE_UNAVAILABLE` at `ADMISSION`. Neither path reads the operator key, writes graph/Mission, lease, or nonce state, prepares egress, or spawns a provider, and neither is LIVE_PROOF. |
+| Does ADR 0012 mean the committed policy enables live providers? | No. The retained policy/default-observation refusals authorize no production execution. At inspected Kernel `5858e843`, a feature-gated Claude probe and a separate contained Claude read-only composition exist and require their own exact authority and inputs; the historical zero-spawn refusal does not describe every such path. Neither component qualifies production coding or lifts general live admission. Each production account still needs independently admitted policy, enrollment, runtime and launch authority. |
 | Where is `docs/INDEX.md`? | It must not exist. This family's index is [`../README.md`](../README.md). |
 
 ## Slice leftovers (V1-S0..S8)

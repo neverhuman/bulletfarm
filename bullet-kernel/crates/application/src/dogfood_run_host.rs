@@ -54,7 +54,10 @@ struct WireBinding {
     operation: String,
 }
 
-pub(super) fn budget_micro_usd(requested: Option<f64>, enrolled_max: u64) -> Result<u64, DogfoodRunError> {
+pub(super) fn budget_micro_usd(
+    requested: Option<f64>,
+    enrolled_max: u64,
+) -> Result<u64, DogfoodRunError> {
     let Some(usd) = requested else {
         return Ok(enrolled_max);
     };
@@ -156,7 +159,9 @@ pub(super) struct PassportedRuntime {
 /// the exact provider size bound that replaces the blanket 64 MiB ceiling.
 /// Outside the prefix nothing changes. The passport file lives beside the
 /// immutable tree at `<deployment_root>.passport.json`.
-pub(super) fn passported_runtime(executable: &Path) -> Result<Option<PassportedRuntime>, DogfoodRunError> {
+pub(super) fn passported_runtime(
+    executable: &Path,
+) -> Result<Option<PassportedRuntime>, DogfoodRunError> {
     let prefix = Path::new(RUNTIME_DEPLOYMENT_PREFIX);
     let Ok(relative) = executable.strip_prefix(prefix) else {
         return Ok(None);
@@ -169,7 +174,21 @@ pub(super) fn passported_runtime(executable: &Path) -> Result<Option<PassportedR
         ));
     };
     let root = prefix.join(provider).join(version);
-    let passport_path = root.with_extension("passport.json");
+    // NOT `with_extension`: it replaces everything after the LAST dot, so a
+    // semver directory like `.../claude/2.1.266` became
+    // `.../claude/2.1.passport.json` and every passport lookup missed. The
+    // documented layout is the sibling file named `<root>.passport.json`.
+    let mut passport_name = root
+        .file_name()
+        .ok_or_else(|| {
+            failed(
+                "DOGFOOD_PASSPORT_LAYOUT",
+                "deployment root has no final segment",
+            )
+        })?
+        .to_os_string();
+    passport_name.push(".passport.json");
+    let passport_path = root.with_file_name(passport_name);
     let bytes = fs::read(&passport_path).map_err(|error| {
         failed(
             "DOGFOOD_PASSPORT_MISSING",

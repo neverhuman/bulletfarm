@@ -140,6 +140,7 @@ fn unique_decode_admits_formatting_but_never_ambiguous_members_or_numbers() {
             (PathBuf::from("src/publication/scan.rs"), 1),
             (PathBuf::from("src/release/archive.rs"), 1),
             (PathBuf::from("src/release/build/mod.rs"), 1),
+            (PathBuf::from("src/release/build/portal.rs"), 1),
             (PathBuf::from("src/release/receipt.rs"), 1),
             (PathBuf::from("src/release/verify.rs"), 1),
             (PathBuf::from("src/setup.rs"), 1),

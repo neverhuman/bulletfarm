@@ -47,6 +47,7 @@ fn hosted_observation_preserves_event_and_member_identities_without_release_auth
 #[test]
 fn hosted_artifact_inventory_refuses_extra_missing_empty_or_symbolic_bytes() {
     job_diagnostic_contract();
+    validator_mode_contract();
     let temp = tempfile::tempdir().unwrap();
     for name in ARTIFACTS {
         fs::write(temp.path().join(name), b"artifact").unwrap();
@@ -64,6 +65,37 @@ fn hosted_artifact_inventory_refuses_extra_missing_empty_or_symbolic_bytes() {
     )
     .unwrap();
     assert!(artifact_hashes(temp.path()).is_err());
+}
+
+fn validator_mode_contract() {
+    use crate::publication::{ci_job, git, tests::commit};
+    use std::os::unix::fs::{PermissionsExt, symlink};
+    let fixture = Fixture::new();
+    let member = fixture.root.join("bullet-git");
+    let name = "ops/ci/artifact-check.sh";
+    let path = member.join(name);
+    fs::create_dir_all(path.parent().unwrap()).unwrap();
+    let bytes = b"#!/bin/sh\nexit 0\n";
+    fs::write(&path, bytes).unwrap();
+    for mode in [0o644, 0o755] {
+        fs::set_permissions(&path, fs::Permissions::from_mode(mode)).unwrap();
+        let revision = commit(&member, "regular validator mode");
+        assert_eq!(ci_job::validator_blob(&member, &revision).unwrap(), bytes);
+        assert_eq!(git::blob(&member, &revision, name).is_ok(), mode == 0o644);
+    }
+    fs::remove_file(&path).unwrap();
+    symlink("../../source.txt", &path).unwrap();
+    let revision = commit(&member, "symbolic validator refuses");
+    assert!(ci_job::validator_blob(&member, &revision).is_err());
+    fs::remove_file(&path).unwrap();
+    fs::create_dir(&path).unwrap();
+    fs::write(path.join("child"), bytes).unwrap();
+    let revision = commit(&member, "tree validator refuses");
+    assert!(ci_job::validator_blob(&member, &revision).is_err());
+    fs::remove_file(path.join("child")).unwrap();
+    fs::remove_dir(&path).unwrap();
+    let revision = commit(&member, "missing validator refuses");
+    assert!(ci_job::validator_blob(&member, &revision).is_err());
 }
 
 fn job_fixture() -> (
@@ -213,6 +245,9 @@ fn job_context_contract() {
         ))
     );
     for key in [
+        "bullet-git:REQUIRED:fast",
+        "bullet-git:SCHEDULED:source_scan",
+        "bullet-git:REQUIRED:source_scan:os=ubuntu-24.04",
         "bullet-farm:REQUIRED:fast",
         "bullet-farm:SCHEDULED:source_scan",
         "bullet-farm:REQUIRED:source_scan:os=ubuntu-24.04",
@@ -252,6 +287,65 @@ fn job_context_contract() {
             "{field}"
         );
     }
+    // Git uses its own actual member identity and hosted job, never the Hub job.
+    let mut git_hosted = hosted.clone();
+    git_hosted.job = "bullet_git_source_scan".into();
+    let git_context = ci_job::admit(
+        &aggregate,
+        &fixture.root,
+        ci_job::GIT_KEY,
+        git_hosted.clone(),
+        &catalog,
+    )
+    .unwrap();
+    let git_value = serde_json::to_value(git_context).unwrap();
+    assert_eq!(git_value["purpose"], "MEMBER_DIAGNOSTIC_VALIDATION");
+    assert_eq!(git_value["hosted"]["event_sha"], hosted.event_sha);
+    assert_eq!(git_value["subject"]["invocation_key"], ci_job::GIT_KEY);
+    assert_eq!(git_value["subject"]["invocation"]["member"], "bullet-git");
+    assert_eq!(
+        git_value["subject"]["invocation"]["matrix"],
+        serde_json::json!({})
+    );
+    assert_ne!(
+        git_value["subject"]["invocation"]["member_commit"],
+        hosted.event_sha
+    );
+    assert_eq!(git_value["subject"]["plan_sha256"], plan["plan_sha256"]);
+    assert!(
+        ci_job::admit(
+            &aggregate,
+            &fixture.root,
+            ci_job::KEY,
+            git_hosted.clone(),
+            &catalog,
+        )
+        .is_err()
+    );
+    assert!(
+        ci_job::admit(
+            &aggregate,
+            &fixture.root,
+            ci_job::GIT_KEY,
+            hosted.clone(),
+            &catalog,
+        )
+        .is_err()
+    );
+    for invalid in ["event", "attempt", "workflow"] {
+        let mut wrong = git_hosted.clone();
+        match invalid {
+            "event" => wrong.event_sha = "0".repeat(40),
+            "attempt" => wrong.run_attempt = "0".into(),
+            _ => wrong.workflow_sha = "0".repeat(40),
+        }
+        assert!(
+            ci_job::admit(&aggregate, &fixture.root, ci_job::GIT_KEY, wrong, &catalog,).is_err(),
+            "{invalid}"
+        );
+    }
+    // Actual Git validator/lane execution belongs to the explicit family wrapper
+    // fixture; standalone Hub unit tests must not read mutable sibling checkouts.
     // The compiled CLI catalog rejects this fixture even with valid hosted context.
     assert!(
         ci_job::admit(

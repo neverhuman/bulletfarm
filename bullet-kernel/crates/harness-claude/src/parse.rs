@@ -1,16 +1,15 @@
 //! Strict ingestion for the pinned Claude bidirectional stream transcript.
 
+mod results;
 mod tools;
 
 use crate::protocol::{
-    basic_event_subject, empty_array, empty_optional_array, event_subject, exact_fields, protocol,
-    unique_string_array, valid_native_id, valid_result_common, valid_uuid, ClaudeStreamOutcome,
-    ClaudeStreamTranscript, Phase, TranscriptProfile, MAX_ASSISTANT_CONTENT_ITEMS,
+    basic_event_subject, empty_array, empty_optional_array, event_subject, exact_fields,
+    model_matches, protocol, provider_error_reason, unique_string_array, valid_native_id,
+    valid_uuid, ClaudeStreamTranscript, Phase, TranscriptProfile, MAX_ASSISTANT_CONTENT_ITEMS,
     MAX_STREAM_JSON_FRAME_BYTES, READ_ONLY_TOOL_ALLOWLIST,
 };
-use bullet_harness_core::{
-    decode_strict_json, AgentEvent, AgentEventKind, HarnessError, PatchProposal,
-};
+use bullet_harness_core::{decode_strict_json, AgentEvent, AgentEventKind, HarnessError};
 use serde_json::{json, Map, Value};
 
 impl ClaudeStreamTranscript {
@@ -53,10 +52,27 @@ impl ClaudeStreamTranscript {
             return self.fail("duplicate stream-JSON frame");
         }
         match object.get("type").and_then(Value::as_str) {
+            // Route on subtype, not just type: `system` is the CLI's status
+            // channel. 2.1.266 emits `system/thinking_tokens` progress frames
+            // mid-turn, and sending every `system` frame to the init handler
+            // refused them as "system/init is invalid in phase Active" -- after
+            // the turn had been billed. A non-init system frame carries no
+            // authority: it cannot name a tool, a session, or a proposal, so it
+            // yields no event and changes no state.
+            Some("system")
+                if self.profile.admits_vendor_fields()
+                    && object.get("subtype").and_then(Value::as_str) != Some("init") =>
+            {
+                Ok(Vec::new())
+            }
             Some("system") => self.system_init(object),
             Some("assistant") => self.assistant(object),
             Some("result") => self.result(object),
             Some("user") if self.profile.admits_tool_use() => self.tool_result(object),
+            // Quota telemetry. It carries no admission meaning and the CLI
+            // emits it unprompted on a subscription account; it still counts
+            // against the frame budget above.
+            Some("rate_limit_event") if self.profile.admits_vendor_fields() => Ok(Vec::new()),
             Some(other) => self.fail(format!("unadmitted stream-JSON type {other:?}")),
             None => self.fail("stream-JSON frame lacks string type"),
         }
@@ -93,7 +109,17 @@ impl ClaudeStreamTranscript {
             "mcp_server_errors",
             "capabilities",
         ];
-        if !exact_fields(object, &required, &optional)
+        // ConformanceV1 keeps its closed field set. The dogfood profile admits
+        // unknown non-authority keys: a real 2.1.266 init carries
+        // fast_mode_state, memory_paths and messaging_socket_path, none of
+        // which mean anything for admission, and refusing them refused the
+        // whole turn AFTER it had been billed.
+        let fields_ok = if self.profile.admits_vendor_fields() {
+            required.iter().all(|key| object.contains_key(*key))
+        } else {
+            exact_fields(object, &required, &optional)
+        };
+        if !fields_ok
             || object.get("subtype").and_then(Value::as_str) != Some("init")
             || object.get("claude_code_version").and_then(Value::as_str)
                 != Some(self.expected_runtime_version.as_str())
@@ -104,14 +130,29 @@ impl ClaudeStreamTranscript {
                 .and_then(Value::as_str)
                 .is_some_and(valid_native_id)
             || object.get("output_style").and_then(Value::as_str) != Some("default")
-            || object.get("analytics_disabled").and_then(Value::as_bool) != Some(true)
-            || object
+            // These two are org-privacy telemetry hints, not authority. A
+            // personal subscription reports false for both and cannot be made
+            // to report true by any environment the containment can set
+            // (product_feedback_disabled is driven by org ZDR policy), so
+            // pinning them to true refused every real turn on a real account.
+            // They stay pinned on the frozen conformance subject and are
+            // observed, not gated, under dogfood.
+            || (!self.profile.admits_vendor_fields()
+                && (object.get("analytics_disabled").and_then(Value::as_bool) != Some(true)
+                    || object
+                        .get("product_feedback_disabled")
+                        .and_then(Value::as_bool)
+                        != Some(true)))
+            || !object.get("analytics_disabled").is_some_and(Value::is_boolean)
+            || !object
                 .get("product_feedback_disabled")
-                .and_then(Value::as_bool)
-                != Some(true)
+                .is_some_and(Value::is_boolean)
             || !empty_array(object, "mcp_servers")
             || !empty_array(object, "slash_commands")
-            || !empty_array(object, "agents")
+            // `agents` lists the agent TYPES the build knows, not authority the
+            // turn holds: dispatching one needs the `Task` tool, which the
+            // allowlist below excludes. A real 2.1.266 always reports several.
+            || (!self.profile.admits_vendor_fields() && !empty_array(object, "agents"))
             || !empty_array(object, "skills")
             || !empty_array(object, "plugins")
             || !empty_optional_array(object, "plugin_errors")
@@ -139,7 +180,7 @@ impl ClaudeStreamTranscript {
                 if tools.is_empty()
                     || !tools
                         .iter()
-                        .all(|tool| READ_ONLY_TOOL_ALLOWLIST.contains(tool))
+                        .all(|tool| self.profile.tool_allowlist().contains(tool))
                 {
                     return self.fail("system/init tools exceed the read-only allowlist");
                 }
@@ -184,17 +225,32 @@ impl ClaudeStreamTranscript {
         if self.assistant_messages >= self.profile.max_assistant_messages() {
             return self.fail("assistant message limit exceeded");
         }
-        if !exact_fields(
-            object,
-            &[
-                "type",
-                "uuid",
-                "session_id",
-                "message",
-                "parent_tool_use_id",
-            ],
-            &["error"],
-        ) || !object.get("parent_tool_use_id").is_some_and(Value::is_null)
+        let envelope_required = [
+            "type",
+            "uuid",
+            "session_id",
+            "message",
+            "parent_tool_use_id",
+        ];
+        // A real assistant frame also carries `timestamp` and `request_id`.
+        let envelope_ok = if self.profile.admits_vendor_fields() {
+            envelope_required
+                .iter()
+                .all(|key| object.contains_key(*key))
+        } else {
+            exact_fields(object, &envelope_required, &["error"])
+        };
+        // The CLI reports its own failures as a synthetic assistant frame
+        // carrying `error` and `is_api_error_message`. Refusing those as a
+        // malformed envelope is technically true and practically useless: the
+        // operator is told the shape is wrong when the actual fact is "Not
+        // logged in", or a rate limit, or an expired token. Say what the
+        // provider said.
+        if let Some(reason) = provider_error_reason(object) {
+            return self.fail(format!("the provider refused the turn: {reason}"));
+        }
+        if !envelope_ok
+            || !object.get("parent_tool_use_id").is_some_and(Value::is_null)
             || !object.get("error").is_none_or(Value::is_null)
         {
             return self.fail("assistant envelope is not an exact main-session message");
@@ -216,10 +272,26 @@ impl ClaudeStreamTranscript {
             "stop_sequence",
             "usage",
         ];
-        if !exact_fields(message, &required, &["container", "context_management"])
+        let message_ok = if self.profile.admits_vendor_fields() {
+            required.iter().all(|key| message.contains_key(*key))
+        } else {
+            exact_fields(message, &required, &["container", "context_management"])
+        };
+        if !message_ok
             || message.get("type").and_then(Value::as_str) != Some("message")
             || message.get("role").and_then(Value::as_str) != Some("assistant")
-            || message.get("model").and_then(Value::as_str) != self.model.as_deref()
+            || !message
+                .get("model")
+                .and_then(Value::as_str)
+                .is_some_and(|message_model| match self.profile {
+                    TranscriptProfile::ConformanceV1 => {
+                        Some(message_model) == self.model.as_deref()
+                    }
+                    TranscriptProfile::DogfoodReadOnlyV0 => self
+                        .model
+                        .as_deref()
+                        .is_some_and(|session| model_matches(session, message_model)),
+                })
             || !message.get("usage").is_some_and(Value::is_object)
             || !message.get("stop_sequence").is_some_and(Value::is_null)
             || !message.get("stop_reason").is_some_and(|value| {
@@ -233,9 +305,19 @@ impl ClaudeStreamTranscript {
         let Some(message_id) = message.get("id").and_then(Value::as_str) else {
             return self.fail("assistant message lacks id");
         };
-        if !valid_native_id(message_id) || !self.seen_message_ids.insert(message_id.to_string()) {
+        if !valid_native_id(message_id) {
             return self.fail("assistant message id is invalid or duplicate");
         }
+        // 2.1.266 streams one logical assistant message as several frames --
+        // observed 24 frames carrying 8 distinct ids, split by content block
+        // (thinking, text, tool_use). Treating every repeat as a replay refused
+        // every real turn after it had been billed.
+        let continuation = self.profile.admits_vendor_fields()
+            && self.last_message_id.as_deref() == Some(message_id);
+        if !continuation && !self.seen_message_ids.insert(message_id.to_string()) {
+            return self.fail("assistant message id is invalid or duplicate");
+        }
+        self.last_message_id = Some(message_id.to_owned());
         let Some(content) = message.get("content").and_then(Value::as_array) else {
             return self.fail("assistant content is not an array");
         };
@@ -279,135 +361,10 @@ impl ClaudeStreamTranscript {
             mapped.push(self.event(kind, payload, &format!("{uuid}:content:{index}")));
         }
         self.record_event(uuid)?;
-        self.assistant_messages += 1;
+        if !continuation {
+            self.assistant_messages += 1;
+        }
         Ok(mapped)
-    }
-
-    fn result(&mut self, object: &Map<String, Value>) -> Result<Vec<AgentEvent>, HarnessError> {
-        if self.phase != Phase::Active {
-            return self.fail("result is out of phase");
-        }
-        let Some((uuid, session_id)) = basic_event_subject(object) else {
-            return self.fail("result has invalid event subject");
-        };
-        self.require_native_session(session_id)?;
-        self.record_event(uuid)?;
-        if !valid_result_common(object) {
-            return self.fail("result common subject is malformed");
-        }
-        let Some(subtype) = object.get("subtype").and_then(Value::as_str) else {
-            return self.fail("result lacks subtype");
-        };
-        if subtype == "success" {
-            self.success_result(object, uuid)
-        } else {
-            self.failure_result(object, uuid, subtype)
-        }
-    }
-
-    fn success_result(
-        &mut self,
-        object: &Map<String, Value>,
-        uuid: &str,
-    ) -> Result<Vec<AgentEvent>, HarnessError> {
-        // A conformance turn is one model, one turn. A real read-only turn may
-        // bill a helper model and may count turns differently once tools are
-        // involved, so the dogfood profile requires the bound model to be
-        // present and the count to be positive and within what was observed,
-        // rather than an exact single-model equality it cannot satisfy.
-        let model_usage_matches = self.model.as_deref().is_some_and(|model| {
-            object
-                .get("modelUsage")
-                .and_then(Value::as_object)
-                .is_some_and(|usage| {
-                    usage.contains_key(model)
-                        && match self.profile {
-                            TranscriptProfile::ConformanceV1 => usage.len() == 1,
-                            TranscriptProfile::DogfoodReadOnlyV0 => !usage.is_empty(),
-                        }
-                })
-        });
-        let num_turns_matches =
-            object
-                .get("num_turns")
-                .and_then(Value::as_u64)
-                .is_some_and(|turns| match self.profile {
-                    TranscriptProfile::ConformanceV1 => turns == self.assistant_messages,
-                    TranscriptProfile::DogfoodReadOnlyV0 => {
-                        turns > 0 && turns <= self.assistant_messages
-                    }
-                });
-        if self.phase != Phase::Active
-            || self.assistant_messages == 0
-            || !self.outstanding_tool_use_ids.is_empty()
-            || !num_turns_matches
-            || !model_usage_matches
-            || object.get("is_error").and_then(Value::as_bool) != Some(false)
-            || object.get("stop_reason").and_then(Value::as_str) != Some("end_turn")
-            || !object.get("result").is_some_and(Value::is_string)
-            || object.get("errors").is_some()
-        {
-            return self.fail("success result disagrees with the active terminal subject");
-        }
-        let Some(structured) = object.get("structured_output") else {
-            return self.fail("success result lacks structured_output");
-        };
-        let proposal = match PatchProposal::from_value(structured) {
-            Ok(proposal) => proposal,
-            Err(error) => return self.fail(format!("terminal PatchProposal invalid: {error}")),
-        };
-        if proposal.gate_ids != self.admitted_gate_ids {
-            return self.fail("terminal PatchProposal gate_ids differ from admission");
-        }
-        let events = vec![
-            self.event(
-                AgentEventKind::UsageReported,
-                json!({"usage": object.get("usage"), "total_cost_usd": object.get("total_cost_usd")}),
-                &format!("{uuid}:usage"),
-            ),
-            self.event(
-                AgentEventKind::TurnCompleted,
-                json!({"proposal": proposal, "terminal_event_id": uuid}),
-                uuid,
-            ),
-        ];
-        self.outcome = Some(ClaudeStreamOutcome::Proposal(proposal));
-        self.phase = Phase::Terminal;
-        Ok(events)
-    }
-
-    fn failure_result(
-        &mut self,
-        object: &Map<String, Value>,
-        uuid: &str,
-        subtype: &str,
-    ) -> Result<Vec<AgentEvent>, HarnessError> {
-        let allowed = matches!(
-            subtype,
-            "error_max_turns"
-                | "error_during_execution"
-                | "error_max_budget_usd"
-                | "error_max_structured_output_retries"
-        );
-        let errors = object.get("errors").and_then(Value::as_array);
-        if !allowed
-            || object.get("is_error").and_then(Value::as_bool) != Some(true)
-            || errors.is_none_or(|errors| {
-                errors.is_empty() || errors.iter().any(|error| !error.is_string())
-            })
-            || object.get("structured_output").is_some()
-            || object.get("result").is_some()
-        {
-            return self.fail("failure result has invalid terminal shape");
-        }
-        let event = self.event(
-            AgentEventKind::TurnFailed,
-            json!({"subtype": subtype, "terminal_event_id": uuid}),
-            uuid,
-        );
-        self.outcome = Some(ClaudeStreamOutcome::Failed(subtype.to_string()));
-        self.phase = Phase::Terminal;
-        Ok(vec![event])
     }
 
     fn record_event(&mut self, uuid: &str) -> Result<(), HarnessError> {

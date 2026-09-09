@@ -1,9 +1,0 @@
-Cursor Agent authenticated
-mode                   plan
-print                  non-interactive
-prompt                 name the four member repositories
-reply                  The four Bullet Farm member repositories are
-                       bullet-farm, bullet-kernel, bullet-git, and
-                       bullet-portal.
-files modified         0
-Bullet live admission  disabled

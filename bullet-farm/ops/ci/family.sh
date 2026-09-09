@@ -17,7 +17,8 @@ cd "$REPO_ROOT"
   || { refuse FAMILY_NPM_VERSION_INVALID "$(npm --version)"; exit 1; }
 [[ "$(b3sum --version)" == 'b3sum 1.8.2' ]] \
   || { refuse FAMILY_B3SUM_VERSION_INVALID "$(b3sum --version 2>&1)"; exit 1; }
-[[ "$(rustup --version 2>/dev/null | head -n 1)" == 'rustup 1.29.0 '* ]] \
+rustup_version="$(rustup --version 2>/dev/null | head -n 1)"
+[[ "$rustup_version" == 'rustup 1.29.0 '* || "$rustup_version" == 'rustup 1.29.1 '* ]] \
   || { refuse FAMILY_RUSTUP_VERSION_INVALID "$(rustup --version 2>&1 | head -n 1)"; exit 1; }
 hub_rustc_version="$(rustc --version)"
 hub_cargo_version="$(command cargo --version)"

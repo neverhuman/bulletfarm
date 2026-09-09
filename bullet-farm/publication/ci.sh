@@ -17,20 +17,27 @@ test_inventory() {
   if ! names="$(LC_ALL=C awk '
     /^test result:/ {
       summaries++
-      if ($0 !~ /^test result: ok\. 34 passed; 0 failed; 0 ignored; 0 measured; [0-9]+ filtered out; finished in [0-9]+([.][0-9]+)?s$/) bad = 1
+      if ($0 !~ /^test result: ok\. 36 passed; 0 failed; 0 ignored; 0 measured; [0-9]+ filtered out; finished in [0-9]+([.][0-9]+)?s$/) bad = 1
+      next
+    }
+    /^test publication::[A-Za-z0-9_:]+ has been running for over 60 seconds$/ {
+      progress[$2] = 1
       next
     }
     /^test / {
       tests++
       if ($0 !~ /^test publication::[A-Za-z0-9_:]+ \.\.\. ok$/) bad = 1
-      else print $2
+      else { completed[$2]++; print $2 }
     }
-    END { if (bad || tests != 34 || summaries != 1) exit 1 }
+    END {
+      for (name in progress) if (completed[name] != 1) bad = 1
+      if (bad || tests != 36 || summaries != 1) exit 1
+    }
   ' "$log" | LC_ALL=C sort)"; then
     refuse PUBLICATION_TEST_INVENTORY_INVALID
   fi
   digest="$(printf '%s\n' "$names" | sha256sum | cut -d ' ' -f 1)"
-  [[ "$digest" == f309efec38c41eed248b39a9c64ccb1e466ba02aabc5c89ac978ac12cb5fa35d ]] \
+  [[ "$digest" == 712b2e59965bfdf1e91f494c0935f0086c29c4d603914ae20928237352594f5e ]] \
     || refuse PUBLICATION_TEST_INVENTORY_INVALID
 }
 
@@ -39,12 +46,12 @@ wrapper_inventory() {
   [[ -f "$log" && ! -L "$log" ]] || refuse PUBLICATION_WRAPPER_INVENTORY_INVALID
   bytes="$(wc -c <"$log")"
   [[ "$bytes" -gt 0 && "$bytes" -le 16777216 ]] || refuse PUBLICATION_WRAPPER_INVENTORY_INVALID
-  # These 48 names map to the independently reviewed wrapper cases, including actual v2 generation.
+  # These 50 names map to the independently reviewed wrapper cases, including actual v2 generation.
   # Successful exit and a count alone cannot admit missing or changed fixtures.
   if ! names="$(LC_ALL=C awk '
     /^publication wrapper fixtures:/ {
       summaries++
-      if ($0 != "publication wrapper fixtures: 48 passed; 0 failed; 0 skipped") bad = 1
+      if ($0 != "publication wrapper fixtures: 50 passed; 0 failed; 0 skipped") bad = 1
       next
     }
     /^publication wrapper case:/ {
@@ -54,12 +61,12 @@ wrapper_inventory() {
       next
     }
     /^publication wrapper/ {bad = 1}
-    END {if (bad || tests != 48 || summaries != 1) exit 1}
+    END {if (bad || tests != 50 || summaries != 1) exit 1}
   ' "$log" | LC_ALL=C sort)"; then
     refuse PUBLICATION_WRAPPER_INVENTORY_INVALID
   fi
   digest="$(printf '%s\n' "$names" | sha256sum | cut -d ' ' -f 1)"
-  [[ "$digest" == 1a7cee84d811c3dc2c22af09d6d9843e454794d73b5eec4e99a8b739ec5baf6a ]] \
+  [[ "$digest" == 823f3d5b2f3f85157268cc6f2d6bd4d07704d556fdee30c5a726f9d983217180 ]] \
     || refuse PUBLICATION_WRAPPER_INVENTORY_INVALID
 }
 

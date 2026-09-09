@@ -32,8 +32,8 @@ fn unavailable(manifest: &Manifest, workflow: &Workflow, job: &Job) -> String {
         "RUST_CARGO_TOOL_SUBJECTS_AND_CAPACITY"
     };
     let mut out = format!(
-        "\n  {id}:\n    name: '{key}'\n    runs-on: {}\n    timeout-minutes: 5\n",
-        job.runner
+        "\n  {id}:\n    name: '{key}'\n    runs-on: {}\n    timeout-minutes: {}\n",
+        job.runner, job.timeout_minutes
     );
     if !job.needs.is_empty() {
         let needs = job
@@ -81,6 +81,84 @@ pub(super) fn final_step(ids: &[String]) -> String {
     out
 }
 
+// Infrastructure steps belong only to v2; the authentic v1 template is untouched.
+const TRANSFER: &str = r#"      - id: transfer
+        name: Bind the proven verifier and scanner for this attempt
+        env:
+          BULLET_BOOTSTRAP_COMPLETION_SHA256: ${{ steps.prove.outputs.bootstrap_completion_sha256 }}
+          BULLET_HUB_COMPLETION_SHA256: ${{ steps.member.outputs.member_completion_sha256 }}
+        run: bash bullet-farm/publication/ci-transfer.sh prepare
+      - name: Upload the exact diagnostic tools for the dependent lane
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: publication-tools-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-transfer/
+          if-no-files-found: error
+          retention-days: 14
+"#;
+const GIT_STEPS: &str = r#"    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+      - name: Download this attempt's exact tool artifact
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: publication-tools-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-transfer-download/
+      - name: Verify artifact identity before executing the transferred tools
+        env:
+          BULLET_BOOTSTRAP_RESULT: ${{ needs.publication_integrity.result }}
+          BULLET_TRANSFER_SHA256: ${{ needs.publication_integrity.outputs.transfer_sha256 }}
+          BULLET_BOOTSTRAP_COMPLETION_SHA256: ${{ needs.publication_integrity.outputs.bootstrap_completion_sha256 }}
+          BULLET_HUB_COMPLETION_SHA256: ${{ needs.publication_integrity.outputs.member_completion_sha256 }}
+        run: bash bullet-farm/publication/ci-transfer.sh receive
+      - name: Reconstruct the exact retained source refs in this fresh job
+        shell: bash
+        run: |
+          timeout --signal=TERM --kill-after=5s 120s "$RUNNER_TEMP/bullet-publication-target/debug/bullet-publish" reconstruct "$GITHUB_WORKSPACE" "$RUNNER_TEMP/bullet-publication-family" >"$RUNNER_TEMP/bullet-publication-target/reconstruct.log" 2>&1
+      - id: member
+        name: Execute and validate the exact BulletGit source scan
+        run: PATH="$RUNNER_TEMP/bullet-tools:/usr/bin:/bin" bash bullet-farm/publication/ci-required.sh git-member-run
+      - name: Retain only the successful exact Git diagnostic
+        if: ${{ !cancelled() && steps.member.outcome == 'success' }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: publication-git-source-scan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-git-member-report/
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+"#;
+const GIT_FINAL: &str = r#"      - name: Download this attempt's exact Git source-scan report
+        if: ${{ always() }}
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: publication-git-source-scan-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-publication-git-downloaded/publication-git-source-scan-${{ github.run_id }}-${{ github.run_attempt }}/
+      - name: Reject absent, stale or unsuccessful Git source-scan completion
+        if: ${{ always() }}
+        env:
+          BULLET_GIT_SOURCE_SCAN_RESULT: ${{ needs.bullet_git_source_scan.result }}
+          BULLET_GIT_MEMBER_COMPLETION_SHA256: ${{ needs.bullet_git_source_scan.outputs.git_member_completion_sha256 }}
+          BULLET_EXPECTED_VERIFIER_SHA256: ${{ needs.publication_integrity.outputs.verifier_sha256 }}
+        run: bash bullet-farm/publication/ci-transfer.sh git-required
+"#;
+
+fn git_source_scan(manifest: &Manifest, workflow: &Workflow, job: &Job) -> String {
+    let stub = unavailable(manifest, workflow, job);
+    let (header, _) = stub.split_once("    steps:\n").unwrap();
+    let header = header.replacen("    env:\n", "    needs: [publication_integrity]\n    outputs:\n      git_member_completion_sha256: ${{ steps.member.outputs.git_member_completion_sha256 }}\n    env:\n", 1);
+    format!(
+        "{}{GIT_STEPS}",
+        header.replace(
+            "SOURCE_SCAN_TOOL_CLOSURE",
+            "COOPERATIVE_DIAGNOSTIC_TRANSFER_ONLY"
+        )
+    )
+}
+
 pub(super) fn required(manifest: &Manifest, catalog: &[Workflow]) -> Result<String> {
     // Exact compiled template admission above makes these transformations closed.
     require(
@@ -92,12 +170,16 @@ pub(super) fn required(manifest: &Manifest, catalog: &[Workflow]) -> Result<Stri
         .replace("name: Publication bootstrap\n", "name: Publication family CI\n")
         .replace("  push:\n    branches: [main]\n", "  push:\n  merge_group:\n    types: [checks_requested]\n")
         .replacen("    steps:\n", "    steps:\n      - name: Admit the implemented bootstrap event context\n        shell: bash\n        run: |\n          case \"$GITHUB_EVENT_NAME:$GITHUB_REF\" in\n            pull_request:refs/pull/*/merge|push:refs/heads/main|workflow_dispatch:refs/heads/*) ;;\n            *) printf 'PUBLICATION_CI_BOOTSTRAP_EVENT_UNSUPPORTED\\n' >&2; exit 1 ;;\n          esac\n", 1);
+    out = out.replacen("    outputs:\n", "    outputs:\n      transfer_sha256: ${{ steps.transfer.outputs.transfer_sha256 }}\n      verifier_sha256: ${{ steps.transfer.outputs.verifier_sha256 }}\n", 1);
+    out.push_str(TRANSFER);
     let mut ids = Vec::new();
     for workflow in catalog.iter().filter(|w| w.scope == "REQUIRED") {
         for job in &workflow.jobs {
             let id = job_id(workflow, job.id);
             require(!ids.contains(&id), "PUBLICATION_CI_JOB_ID_COLLISION")?;
-            if id != "publication_integrity" {
+            if id == "bullet_git_source_scan" {
+                out.push_str(&git_source_scan(manifest, workflow, job));
+            } else if id != "publication_integrity" {
                 out.push_str(&unavailable(manifest, workflow, job));
             }
             ids.push(id);
@@ -108,6 +190,7 @@ pub(super) fn required(manifest: &Manifest, catalog: &[Workflow]) -> Result<Stri
         "    needs: [publication_integrity]\n",
         &format!("    needs: [{}]\n", ids.join(", ")),
     ));
+    out.push_str(GIT_FINAL);
     out.push_str(&final_step(&ids));
     Ok(out)
 }

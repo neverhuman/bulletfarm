@@ -126,11 +126,11 @@ Receipt-kind reverse edges: `artifact` 8, `containment` 1, `forge` 2, `operation
 
 | Typed input | SHA-256 |
 | --- | --- |
-| ../repos.manifest.toml | f201a2d8293db09aacfe10ad276b7f7792fd956a9d34136f02155bcbfb43de4f |
+| ../repos.manifest.toml | 4857470a9796bfd67585b09a18340352f5d20dcb42ab956052a23e5818320985 |
 | contracts/v1alpha1/schema-bundle.json | 5b47756bcab8bc88aa24c42a5bcf535e6cbcf95241151b5ebfc50055e7d0b167 |
 | docs/schemas/bullet.assurance-inventory.v1.schema.json | fb00a7e88263db61a8c00c241eeceb822ac718b285e91c37078805acbf467c4e |
 | policy/assurance-inventory-v1.json | d0df5aea6d15366246b8b58ae998605c8f30240be2859eb593bb567e9f16326f |
-| policy/corpus-coverage-v1.json | d7b5364210cf84cf35e665a4c221631b937ecfa6d56861621a78da31f8941bac |
+| policy/corpus-coverage-v1.json | 2416d5968e716b5868a22c863e7b7f1c34cf4ee840a0d7b800778d75390ea587 |
 | policy/v1alpha1/invariant-registry.json | 5b9c57329de0e812fdc441455ab7467e20b52f89f36c67d5787d562c5a7d67e5 |
 
 ## Boundary

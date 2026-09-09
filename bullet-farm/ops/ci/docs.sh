@@ -24,5 +24,6 @@ bash ops/ci/strict-json.sh "$doctor_report" >/dev/null \
 jq -e '.status == "BLOCKED"' "$doctor_report" >/dev/null \
   || { refuse DOCTOR_VERDICT_DRIFT "doctor JSON is not BLOCKED"; exit 1; }
 bash scripts/readme-check.sh
-bash scripts/readme-live-check.sh
+# Attack copied historical media with the same preloaded image used above.
+bash scripts/readme-custody-test.sh all
 log "docs lane passed (release remains BLOCKED)"
