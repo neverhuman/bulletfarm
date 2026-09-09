@@ -5,9 +5,10 @@ checkouts, the coordination log, and the planning corpus. Nothing here is runtim
 authoritative answers live inside the repositories and are indexed by
 [`bullet-farm/docs/README.md`](bullet-farm/docs/README.md).
 
-**Public index:** [https://github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm)
-(not `neverhuman/bullet-farm`). That GitHub repository publishes the hub checkout only. It is a
-discovery/PR mirror, not source authority, and it does not make a trusted family install.
+**Clone this family:** [https://github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm).
+That monorepo is where people `git clone`, build, and work. Member origins on this machine are
+`neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`, and
+`neverhuman/bullet-portal`. A clone is not a trusted installer.
 
 | Path | What it is | Authority |
 | --- | --- | --- |

@@ -1,9 +1,11 @@
 # Bullet Farm split-family manifest (Jeryu-compatible).
 # The container is not a Git repository. Each member is an independent repo.
 # Committed manifests must not depend on sibling checkout paths.
-# Public GitHub index (discovery/PR mirror, not source authority):
+# Public clone/build/install monorepo:
 # https://github.com/neverhuman/bulletfarm
-# The hyphenated slug neverhuman/bullet-farm is not the public URL.
+# Member origins on GitHub: neverhuman/bullet-farm, neverhuman/bullet-kernel,
+# neverhuman/bullet-git, neverhuman/bullet-portal.
+# JeRyu slugs remain forge identity only; they are not origin.
 
 schema_version = "1.2.0"
 workers = 8
@@ -25,6 +27,7 @@ path = "/home/ubuntu/bullet/bullet-farm"
 name = "bullet-farm"
 slug = "bullet-farm"
 jeryu_slug = "root/bullet-farm"
+github_slug = "neverhuman/bullet-farm"
 role = "portal"
 profile = "public-portal"
 branch = "main"
@@ -37,6 +40,7 @@ path = "/home/ubuntu/bullet/bullet-kernel"
 name = "bullet-kernel"
 slug = "bullet-kernel"
 jeryu_slug = "root/bullet-kernel"
+github_slug = "neverhuman/bullet-kernel"
 role = "core"
 profile = "rust-workspace"
 branch = "main"
@@ -49,6 +53,7 @@ path = "/home/ubuntu/bullet/bullet-git"
 name = "bullet-git"
 slug = "bullet-git"
 jeryu_slug = "root/bullet-git"
+github_slug = "neverhuman/bullet-git"
 role = "git"
 profile = "rust-workspace"
 branch = "main"
@@ -61,6 +66,7 @@ path = "/home/ubuntu/bullet/bullet-portal"
 name = "bullet-portal"
 slug = "bullet-portal"
 jeryu_slug = "root/bullet-portal"
+github_slug = "neverhuman/bullet-portal"
 role = "web"
 profile = "vite-react"
 branch = "main"

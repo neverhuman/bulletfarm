@@ -3,6 +3,11 @@
 `/home/ubuntu/bullet` is the split-family container. It is not a Git repository.
 Every product repo lives as an independent checkout under this directory.
 
+**Clone, build, and install from GitHub:** [https://github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm).
+That monorepo is the public entry. Member checkouts use `origin` on
+`https://github.com/neverhuman/bullet-{farm,kernel,git,portal}`. JeRyu
+(`git.neverhuman.org`) is the `jeryu` remote only, fetch-only, not `origin`.
+
 Read `repos.manifest.toml` first. Read and append `/home/ubuntu/bullet/AGENT_CHAT.md`
 before every claim, edit, and handoff. Re-read immediately before writing.
 Repository-local `AGENTS.md` files add path-specific rules; this family rule
@@ -17,7 +22,7 @@ canonical primary checkout of each member repo.
 
 | Repo | Role |
 | --- | --- |
-| `bullet-farm` | Public hub, installer, onboarding, family lock, spec corpus. Public GitHub index: `https://github.com/neverhuman/bulletfarm` (not `neverhuman/bullet-farm`) |
+| `bullet-farm` | Public hub, installer, onboarding, family lock, spec corpus. Clone the family at `https://github.com/neverhuman/bulletfarm`; member origin is `neverhuman/bullet-farm` |
 | `bullet-kernel` | Control-plane modular monolith and trust-boundary bins |
 | `bullet-git` | BulletGit types, capability API, journal, proof roots |
 | `bullet-portal` | Vite + React operations portal |

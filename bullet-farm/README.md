@@ -9,9 +9,10 @@ Bullet Farm is building the transaction boundary for coding agents: fenced autho
 
 **Current alpha:** the boundaries are component-proved; public installation, live providers, and the connected transaction remain blocked.
 
-**Public index:** [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm)
+**Clone the family:** [github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm)
 
-That is the public URL. The hyphenated slug `neverhuman/bullet-farm` is not. GitHub is a discovery and PR mirror, not source authority, and a clone is not an installer.
+That monorepo is the public `git clone` / build / install entry. This member origin is
+[`neverhuman/bullet-farm`](https://github.com/neverhuman/bullet-farm). A clone is not a trusted installer.
 
 [Dated Stage-1 architecture preprint](docs/paper/bullet_farm_ieee.pdf) · [Dated Stage-1 executive brief](docs/paper/executive_brief.pdf) · [Architecture](docs/architecture.md) · [Current release truth](docs/assurance/release-truth.generated.md)
 
@@ -30,7 +31,11 @@ git clone https://github.com/neverhuman/bulletfarm.git bullet-farm
 cd bullet-farm
 ```
 
-Clone into `bullet-farm` so the checkout name matches the family member. This repository is the hub only. The kernel, BulletGit, and portal members are independent checkouts and are not published under hyphenated `neverhuman/bullet-*` slugs.
+Clone `neverhuman/bulletfarm` to get all four members. Independent checkouts also exist as
+[`neverhuman/bullet-farm`](https://github.com/neverhuman/bullet-farm),
+[`neverhuman/bullet-kernel`](https://github.com/neverhuman/bullet-kernel),
+[`neverhuman/bullet-git`](https://github.com/neverhuman/bullet-git), and
+[`neverhuman/bullet-portal`](https://github.com/neverhuman/bullet-portal).
 
 Public installation is not available. The checked-in `family.lock` is a diagnostic schema-2 snapshot; it cannot authorize source acquisition or a release install. The [source-setup runbook](docs/runbooks/source-setup.md) explains that boundary.
 
