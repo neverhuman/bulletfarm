@@ -1,7 +1,0 @@
-{
-  "name": "bullet-hq-light",
-  "agg": "f4f7fb,1a2130,1a2130,c23b3b,1f7a3a,b8860b,1d4f9c,6b3fa0,0e7c7c,3a4558,5c6b80,e04b4b,2f9e4f,d4a017,3d6dcc,8a56c2,1aa3a3,10141c",
-  "foreground": "#1a2130",
-  "background": "#f4f7fb",
-  "note": "agg theme is bg,fg,palette16. Light high-contrast so README GIFs stay readable."
-}
