@@ -1,0 +1,21 @@
+Cursor Agent v2026.09.02  ·  plan mode  ·  ~/bullet
+live admission disabled  ·  operator-authenticated local TUI
+
+prompt
+  Explain Bullet Farm in six short lines: the four member repos, the
+  fenced Attempt, exact Candidate identity, independent Evidence, and
+  why UNKNOWN is a first-class outcome rather than a green lie.
+
+reply
+  bullet-farm, bullet-kernel, bullet-git, and bullet-portal are the
+  four member repos.
+  A fenced Attempt is the only authorized execution window.
+  Exact Candidate identity pins the proposed state being judged.
+  Independent Evidence is collected outside the agent's own claim.
+  UNKNOWN is a first-class outcome: missing independent evidence is
+  not a pass.
+  Painting that as green would be a lie; fail-closed UNKNOWN refuses
+  the fake success.
+
+tools used             0
+files modified         0

@@ -10,6 +10,27 @@ That monorepo is where people `git clone`, build, and work. Member origins on th
 `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`, and
 `neverhuman/bullet-portal`. A clone is not a trusted installer.
 
+**Many minds. One verified line to main.** These recordings were captured from
+already-signed-in Claude, Codex, and Cursor sessions and a loopback Control
+Tower. Live admission stays disabled; they are not release Evidence.
+
+![Authenticated Claude Code TUI explaining fenced Attempts, exact Candidates, independent Evidence, and UNKNOWN](bullet-farm/docs/demo-gif/claude-tui/claude-tui.gif)
+
+![Authenticated Codex TUI naming the four member repos and why UNKNOWN refuses a green lie](bullet-farm/docs/demo-gif/codex-tui/codex-tui.gif)
+
+![Authenticated Cursor Agent plan-mode TUI on the same Bullet Farm transaction boundary](bullet-farm/docs/demo-gif/cursor-tui/cursor-tui.gif)
+
+![Portal Control Tower: one-time bootstrap token, local session authenticate, durable demo command, Shift Brief](bullet-farm/docs/demo-gif/portal-form/portal-form.gif)
+
+Rebuild the GIFs from the hub checkout:
+
+```bash
+cd bullet-farm
+just demo-gif-record    # production Claude / Codex / Cursor sessions + Portal form
+just demo-gif-render    # agg + FFmpeg, high-contrast, no dither dimming
+just demo-gif-check
+```
+
 | Path | What it is | Authority |
 | --- | --- | --- |
 | `bullet-farm/` | Public hub: installer/setup, family lock, contracts (`bullet-wire`), policy, CI composition, release checks | product (Rust) |

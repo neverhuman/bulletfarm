@@ -1,0 +1,25 @@
+{
+  "schema_version": "bullet.demo-gif.v1",
+  "demos": {
+    "claude-tui": {
+      "gif": "claude-tui/claude-tui.gif",
+      "bytes": 363045,
+      "sha256": "b490d274cf6d70339abef32c369b2d062be65db98f481231490715bde17ef379"
+    },
+    "codex-tui": {
+      "gif": "codex-tui/codex-tui.gif",
+      "bytes": 349612,
+      "sha256": "1fb4f0fae21facaecf76d0b8c8eee68df7e0bb865134f30de26d89a66a494644"
+    },
+    "cursor-tui": {
+      "gif": "cursor-tui/cursor-tui.gif",
+      "bytes": 351611,
+      "sha256": "c7742eeca0018826768bc83ade232c55749f94042b378542944bde4a858baa38"
+    },
+    "portal-form": {
+      "gif": "portal-form/portal-form.gif",
+      "bytes": 8294575,
+      "sha256": "ac82fcf2c2712ee56ef5050eca87f85c30f50975696d264a38ed34acbee97b9f"
+    }
+  }
+}
