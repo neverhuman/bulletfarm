@@ -7,12 +7,9 @@ set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/../ops/ci/lib.sh"
 
 PINNED_JANKURAI_OID="${JANKURAI_TUIWRIGHT_OID:-b88562fdb124aa86dedd70ab972e7d0d87e58be1}"
-STATE_DIR="${BULLET_XBABE2_HEAD_STATE:-${XDG_STATE_HOME:-$HOME/.local/state}/bullet-xbabe2-head}"
 FAMILY_ROOT="$(cd "$REPO_ROOT/.." && pwd)"
 KERNEL="$FAMILY_ROOT/bullet-kernel"
 PORTAL="$FAMILY_ROOT/bullet-portal"
-SCENARIO="${XBABE2_HEAD_SCENARIO:-head-doors}"
-PROVIDER_SET="${XBABE2_HEAD_PROVIDER_SET:-none}"
 
 usage() {
   printf 'usage: %s [--slack --slack-token-file /abs/0600/xapp-file]\n' "$0" >&2
@@ -90,28 +87,9 @@ if [[ "$want_slack" -eq 1 && "$schema" != "28" ]]; then
     "durable Slack team/channel bind waits for an append-only schema row"
 fi
 
-kernel_tree="missing"
-portal_tree="missing"
-if [[ -d "$KERNEL/.git" ]]; then
-  kernel_tree="$(git -C "$KERNEL" rev-parse 'HEAD^{tree}')"
-fi
-if [[ -d "$PORTAL/.git" ]]; then
-  portal_tree="$(git -C "$PORTAL" rev-parse 'HEAD^{tree}')"
-fi
-
-key_material="${kernel_tree}"$'\n'"${portal_tree}"$'\n'"${SCENARIO}"$'\n'"${schema}"$'\n'"${PROVIDER_SET}"
-key="$(printf '%s' "$key_material" | sha256sum | awk '{print $1}')"
-receipt="$STATE_DIR/receipts/${key}"
-
-if [[ -f "$receipt" ]]; then
-  mode="$(stat -c '%a' "$receipt")"
-  if [[ "$mode" == "600" ]]; then
-    log "xbabe2-head skip registry hit ${key}"
-    exit 0
-  fi
-  printf 'XBABE2_HEAD_RECEIPT_INVALID: skip receipt exists but is not mode 0600\n' >&2
-  exit 1
-fi
+# Historical receipt files have no admitted semantic reuse consumer. Keep them
+# untouched; existence, permissions and an old tree-derived name cannot prove
+# that the selected installed Head/provider transaction executed.
 
 jankurai="${JANKURAI_CHECKOUT:-/home/ubuntu/jankurai}"
 if [[ -d "$jankurai/.git" ]]; then

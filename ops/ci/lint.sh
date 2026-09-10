@@ -52,4 +52,5 @@ bash ops/ci/checkout-subject-test.sh
 bash ops/ci/doctor-test.sh
 bash ops/ci/workflow-policy.sh
 bash ops/ci/dev-supervision-test.sh
+bash ops/ci/xbabe2-head-test.sh
 log "lint lane passed"
