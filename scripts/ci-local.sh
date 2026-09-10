@@ -126,6 +126,7 @@ dispatch_lane() {
     fast)     bash ops/ci/fast.sh ;;
     lint)     bash ops/ci/lint.sh ;;
     contract) bash ops/ci/contract.sh ;;
+    rendered) bash ops/ci/rendered.sh ;;
     security) bash ops/ci/security.sh ;;
     docs)     bash ops/ci/docs.sh ;;
     family)   bash ops/ci/family.sh ;;
@@ -137,7 +138,7 @@ dispatch_lane() {
     audit)    bash ops/ci/audit.sh ;;
     gates|all) BULLET_CI_OBSERVATION_OWNER="$CI_PROOF_LOCK_RECORD" bash ops/ci/required.sh ;;
     *)
-      echo "usage: $0 {required|fast|lint|contract|security|docs|family|coverage|scheduled-hygiene|portable|audit|nightly|packaged-farmd|all}" >&2
+      echo "usage: $0 {required|fast|lint|contract|rendered|security|docs|family|coverage|scheduled-hygiene|portable|audit|nightly|packaged-farmd|all}" >&2
       return 2
       ;;
   esac
@@ -164,6 +165,12 @@ run_with_proof_custody() {
   fi
   unset BULLET_CI_PROOF_CUSTODY BULLET_CI_OBSERVATION_OWNER
 
+  case "$lane" in
+    rendered|family|nightly|packaged-farmd)
+      node --input-type=module -e 'import { requireRenderedHost } from "./ops/proof/rendered-host.ts"; requireRenderedHost();' || return $?
+      ;;
+  esac
+
   [[ "$lane" =~ ^[a-z0-9-]+$ ]] || {
     proof_lock_refusal
     return 75
@@ -175,7 +182,7 @@ run_with_proof_custody() {
   fi
 
   case "$lane" in
-    fast|lint|contract|security|docs|coverage|scheduled-hygiene|portable) lifecycle=true ;;
+    fast|lint|contract|rendered|security|docs|coverage|scheduled-hygiene|portable) lifecycle=true ;;
   esac
   if [[ "$lifecycle" == true ]]; then
     generation="$(observation_operation prepare "$lane")" || status=$?

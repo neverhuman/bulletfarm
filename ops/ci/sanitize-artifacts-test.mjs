@@ -124,7 +124,8 @@ function assert(condition, message) {
 const producer = resolve("ops/ci/observation.mjs");
 const outputPolicy = {
   fast: ["reports/farmd-test-proxy-override.log", "reports/vite-api-override.log", "reports/vitest.json"],
-  lint: [], contract: ["playwright/.last-run.json", "reports/playwright.xml"], security: [], docs: [],
+  lint: [], contract: ["reports/bundle-tests.log"], security: [], docs: [],
+  rendered: ["playwright/.last-run.json", "reports/playwright.xml"],
   "scheduled-hygiene": [], coverage: ["coverage/coverage-summary.json", "reports/coverage-tests.json"],
   portable: ["platform/refusal.json", "reports/farmd-test-proxy-override.log", "reports/vite-api-override.log", "reports/vitest.json"],
 };
@@ -164,6 +165,9 @@ function lifecycle(label, check) {
     }
     put(fixture, ".gitignore", ".ci-artifacts/\ntarget/\n");
     put(fixture, "subject.txt", "source\n");
+    // Synthetic custody tests execute fixture.mjs only, never a rendered tool.
+    // Actual-host refusal is tested separately against the product helper.
+    put(fixture, "ops/proof/rendered-host.ts", "export function requireRenderedHost() {}\n");
     put(fixture, "fixture.mjs", `import {mkdirSync,writeFileSync,appendFileSync} from 'node:fs';
 import {dirname} from 'node:path';
 const lane=process.argv[2];
@@ -346,7 +350,7 @@ lifecycle("unsupported evidence leaves preserve execution and refuse emitter", (
     bad(observe(fixture, lane, "success", "0"), "unsupported observation");
   }
 });
-lifecycle("fresh contract failure traces and archived prior trace stay separate", (fixture) => {
+lifecycle("fresh rendered failure traces and archived prior trace stay separate", (fixture) => {
   const custody = owner(fixture);
   put(fixture, ".ci-artifacts/trace-body.txt", "diagnostic");
   const zip = (path) => {
@@ -355,19 +359,19 @@ lifecycle("fresh contract failure traces and archived prior trace stay separate"
   };
   zip(".ci-artifacts/playwright/stale/trace.zip");
   const oldHash = hash(join(fixture, ".ci-artifacts/playwright/stale/trace.zip"));
-  const id = good(operation(fixture, custody, "prepare", "contract"), "contract prepare");
-  outputs(fixture, "contract");
+  const id = good(operation(fixture, custody, "prepare", "rendered"), "rendered prepare");
+  outputs(fixture, "rendered");
   zip(".ci-artifacts/playwright/fresh/trace.zip");
-  good(operation(fixture, custody, "seal", "contract", id, "failure", "19"), "contract failure seal");
-  good(sanitize(fixture, "contract"), "fresh failure trace sanitizer");
-  const failed = JSON.parse(readFileSync(reportPath(fixture, "contract")));
+  good(operation(fixture, custody, "seal", "rendered", id, "failure", "19"), "rendered failure seal");
+  good(sanitize(fixture, "rendered"), "fresh failure trace sanitizer");
+  const failed = JSON.parse(readFileSync(reportPath(fixture, "rendered")));
   assert(failed.artifact_hashes.length === 3 && failed.artifact_hashes.some((a) => a.path.endsWith("fresh/trace.zip")), "fresh trace missing");
   assert(!failed.artifact_hashes.some((a) => a.path.endsWith("stale/trace.zip")), "stale trace rebound");
   assert(hash(join(history(fixture, id), "prior/working/.ci-artifacts/playwright/stale/trace.zip")) === oldHash, "old trace lost");
   rmSync(join(fixture, ".ci-artifacts/reports/playwright.xml"));
-  good(wrapper(fixture, "contract", {BULLET_CI_PROOF_CUSTODY:custody}), "fresh contract after Hub XML deletion");
-  good(sanitize(fixture, "contract"), "PASS exact contract inventory");
-  assert(JSON.parse(readFileSync(reportPath(fixture, "contract"))).artifact_hashes.length === 2, "PASS trace inventory leak");
+  good(wrapper(fixture, "rendered", {BULLET_CI_PROOF_CUSTODY:custody}), "fresh rendered after Hub XML deletion");
+  good(sanitize(fixture, "rendered"), "PASS exact rendered inventory");
+  assert(JSON.parse(readFileSync(reportPath(fixture, "rendered"))).artifact_hashes.length === 2, "PASS trace inventory leak");
 });
 lifecycle("occupied incomplete generation refuses without destroying evidence", (fixture) => {
   good(wrapper(fixture, "fast"), "initial fast");

@@ -8,7 +8,8 @@ import { dirname, join } from "node:path";
 
 const fast = ["reports/farmd-test-proxy-override.log", "reports/vite-api-override.log", "reports/vitest.json"];
 const policies = {
-  fast, lint: [], contract: ["playwright/.last-run.json", "reports/playwright.xml"],
+  fast, lint: [], contract: ["reports/bundle-tests.log"],
+  rendered: ["playwright/.last-run.json", "reports/playwright.xml"],
   security: [], docs: [], "scheduled-hygiene": [],
   coverage: ["coverage/coverage-summary.json", "reports/coverage-tests.json"],
   portable: ["platform/refusal.json", ...fast],
@@ -207,7 +208,7 @@ function prepare(lane) {
     if (!validArtifact(artifact)) fail("prior working path");
     retainedWorking.push({ path: artifact, sha256: hash(bytes(artifact)) });
   };
-  if (lane === "contract") {
+  if (lane === "rendered") {
     owned.delete(`${root}/playwright/.last-run.json`);
     if (inspect(`${root}/playwright`, "directory", true)) {
       files(`${root}/playwright`).forEach(retainHash);
@@ -254,7 +255,7 @@ function seal(lane, id, outcome, codeText, commands) {
   if (pending.generation !== id || pending.lane !== lane || pending.owner !== owner || prepared.pending_sha256 !== hash(bytes(`${path}/pending.json`)) || !equal(prepared.absent, lanePolicy(lane)) || !equal(subject(), pending.source) || json(active(lane)).generation !== id) fail("preparation changed");
   if (inspect(`${path}/completion.json`, "file", true)) fail("generation already sealed");
   const paths = lanePolicy(lane).filter((artifact) => inspect(artifact, "file", outcome !== "success"));
-  if (lane === "contract" && outcome === "failure") paths.push(...files(`${root}/playwright`).filter(trace));
+  if (lane === "rendered" && outcome === "failure") paths.push(...files(`${root}/playwright`).filter(trace));
   const artifacts = [...new Set(paths)].sort().map((artifact) => ({ path: artifact, sha256: snapshot(artifact, `${path}/payload/${artifact}`) }));
   const report = {
     schema_version: "bullet.ci-observation.v1", repository: "bullet-portal", ...pending.source,

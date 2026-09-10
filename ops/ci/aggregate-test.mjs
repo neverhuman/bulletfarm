@@ -22,7 +22,7 @@ const successfulNeeds = Object.fromEntries(
 const artifactsByLane = {
   fast: { ".ci-artifacts/reports/vitest.json": '{"numTotalTests":131}\n' },
   lint: {},
-  contract: { ".ci-artifacts/reports/playwright.xml": '<testsuites tests="14"/>\n' },
+  contract: { ".ci-artifacts/reports/bundle-tests.log": 'synthetic bundle output\n' },
   security: {},
   docs: {},
 };
@@ -87,7 +87,7 @@ scenario("missing artifact", "CI_ARTIFACT_MISSING", (root) => {
   rmSync(join(root, "reports/vitest.json"));
 });
 scenario("tampered artifact", "CI_ARTIFACT_HASH_MISMATCH", (root) => {
-  writeFileSync(join(root, "reports/playwright.xml"), "tampered\n");
+  writeFileSync(join(root, "reports/bundle-tests.log"), "tampered\n");
 });
 scenario("unbound extra artifact", "CI_ARTIFACT_INVENTORY_INVALID", (root) => {
   writeFile(root, "reports/unbound.txt", "not in any observation\n");

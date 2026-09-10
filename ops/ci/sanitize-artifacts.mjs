@@ -20,7 +20,8 @@ const policies = {
     ".ci-artifacts/reports/vitest.json",
   ],
   lint: [],
-  contract: [
+  contract: [".ci-artifacts/reports/bundle-tests.log"],
+  rendered: [
     ".ci-artifacts/playwright/.last-run.json",
     ".ci-artifacts/reports/playwright.xml",
   ],
@@ -137,7 +138,7 @@ console.log("[ci] artifact redaction and exact " + lane + " staging passed");
 function allowedArtifactPath(selectedLane, path) {
   if (policies[selectedLane].includes(path)) return true;
   return (
-    selectedLane === "contract" &&
+    selectedLane === "rendered" &&
     /^\.ci-artifacts\/playwright\/[A-Za-z0-9._-]+(?:\/[A-Za-z0-9._-]+)*\/trace\.zip$/.test(
       path,
     )
