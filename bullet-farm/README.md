@@ -47,7 +47,8 @@ just console -- --data-dir "$HOME/.local/state/bullet-operator-console"
 ```
 
 Then `bullet auth login` and `bullet tui` as in the
-[unsigned loopback console runbook](docs/runbooks/loopback-console.md).
+[unsigned loopback console runbook](docs/runbooks/loopback-console.md)
+and [`CONTRIBUTING.md`](CONTRIBUTING.md).
 `just setup` is the blocked signed-installer wrapper; it refuses without an
 external admitted `bullet-family` binary and still returns `UNSUPPORTED_SCHEMA`
 on the checked-in lock. See [source-setup](docs/runbooks/source-setup.md).
