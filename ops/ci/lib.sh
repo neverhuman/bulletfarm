@@ -450,8 +450,8 @@ run_partition_tests() {
     return 1
   fi
   prepare_junit_store "$profile" "$lane" || return 1
-  rm -f -- "$REPO_ROOT/target/nextest/$profile/junit.xml" \
-    "$REPO_ROOT/.ci-artifacts/junit/$lane.xml"
+  source "$REPO_ROOT/ops/ci/junit-retention.sh"
+  retain_junit_reports "$profile" "$lane" || return 1
   log "$lane tests via nextest profile=$profile selected=$selected"
   set +e
   cargo nextest run --locked --workspace "${NEXTEST_FEATURES[@]}" --profile "$profile" -E "$filter"
