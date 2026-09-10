@@ -65,8 +65,20 @@ export async function fetchJson(
 ): Promise<JsonRead> {
   const method = init?.method ?? "GET";
   const url = `${apiBase}${path}`;
+  const external = init?.signal;
+  if (external?.aborted) {
+    throw new ApiError(method, url, null, "request canceled before dispatch", false);
+  }
   const controller = new AbortController();
+  const cancel = (): void => controller.abort();
+  external?.addEventListener("abort", cancel, { once: true });
   const timer = setTimeout(() => controller.abort(), REQUEST_TIMEOUT_MS);
+  const cancellation = (): string => external?.aborted
+    ? "request canceled"
+    : `timeout after ${REQUEST_TIMEOUT_MS}ms`;
+  const checkCanceled = (): void => {
+    if (controller.signal.aborted) throw new ApiError(method, url, null, cancellation());
+  };
   let response: Response;
   try {
     try {
@@ -77,10 +89,11 @@ export async function fetchJson(
       });
     } catch (err) {
       const detail = controller.signal.aborted
-        ? `timeout after ${REQUEST_TIMEOUT_MS}ms`
+        ? cancellation()
         : errorText(err);
       throw new ApiError(method, url, null, detail);
     }
+    checkCanceled();
     const contentType = response.headers.get("content-type") ?? "";
     if (!response.ok) {
       let problem: unknown;
@@ -91,6 +104,7 @@ export async function fetchJson(
           problem = undefined;
         }
       }
+      checkCanceled();
       if (isProblem(problem) && problem.status === response.status) {
         throw new ApiError(
           method,
@@ -130,14 +144,22 @@ export async function fetchJson(
         url,
         controller.signal.aborted ? null : response.status,
         controller.signal.aborted
-          ? `timeout after ${REQUEST_TIMEOUT_MS}ms`
+          ? cancellation()
           : "invalid JSON body",
         method !== "GET" && method !== "HEAD",
       );
     }
+    checkCanceled();
+    const expectedSession = new Headers(init?.headers).get("x-bullet-expected-session");
+    if (expectedSession !== null && response.headers.get("x-bullet-session-id") !== expectedSession) {
+      throw new ApiError(method, url, response.status,
+        "SESSION_BINDING_REQUIRED: server did not confirm the requested session",
+        method !== "GET" && method !== "HEAD");
+    }
     return { body, headers: response.headers, method, status: response.status, url };
   } finally {
     clearTimeout(timer);
+    external?.removeEventListener("abort", cancel);
   }
 }
 
@@ -167,8 +189,11 @@ export async function readJson<T>(
 export async function readSnapshot<T>(
   path: string,
   validateData: ResponseValidator<T>,
+  signal?: AbortSignal,
+  headers?: HeadersInit,
 ): Promise<SnapshotRead<T>> {
-  const read = await fetchJson(path, undefined, 200);
+  const init = signal === undefined && headers === undefined ? undefined : { signal, headers };
+  const read = await fetchJson(path, init, 200);
   if (!isSnapshotEnvelope(read.body, validateData)) {
     throw schemaError(read, "snapshot body failed schema validation");
   }
