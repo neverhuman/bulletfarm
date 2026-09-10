@@ -46,7 +46,25 @@ fn page_states_addressed_and_implemented_separately() {
     let page = render(&spec);
     assert!(page.contains("| Addressed | Implemented % |"));
     assert!(page.contains("this page holds no release, runtime, or scoring authority"));
+    assert!(page.contains("Active requirements: **625** (33 `IMPLEMENTED`, 592 `PLANNED`)"));
+    assert!(page.contains("Resolving a source or test anchor does not execute that test"));
+    assert!(page.contains("release admission are **not evaluated by this inventory**"));
+    assert!(page.contains(
+        "current exact-subject evidence admitted by the existing semantic receipt verifier"
+    ));
     assert!(!page.contains("100/100"));
+
+    // The same counts must survive a page containing only reviewed refusals:
+    // those dispositions are addressed, but are not active requirements.
+    let mut inactive = spec;
+    inactive.units.retain(|unit| {
+        matches!(
+            unit.disposition,
+            Disposition::Refused | Disposition::Superseded
+        )
+    });
+    let inactive_page = render(&inactive);
+    assert!(inactive_page.contains("Active requirements: **0** (0 `IMPLEMENTED`, 0 `PLANNED`)"));
 }
 
 fn hostile(name: &str, json: &str) {
@@ -75,6 +93,12 @@ const GOOD_IMPL: &str = r#"{"id":"spec.s1.a","doc":"spec","ref":"§1","unit":"u"
 
 #[test]
 fn hostile_policies_are_refused() {
+    validate(&parse(policy(GOOD_IMPL).as_bytes()).expect("valid test anchor parses"))
+        .expect("implemented with a test anchor remains valid");
+    hostile(
+        "implemented with source symbol only",
+        &policy(&GOOD_IMPL.replace(r#""kind":"test""#, r#""kind":"symbol""#)),
+    );
     hostile(
         "wrong schema",
         &policy(GOOD_IMPL).replace("corpus-coverage.v1", "corpus-coverage.v2"),

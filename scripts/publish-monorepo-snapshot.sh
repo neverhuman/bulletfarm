@@ -36,6 +36,9 @@ done
   printf 'its own history; the trees below are copies of one commit each.\n\n'
   printf '| Member | Commit | Source |\n| --- | --- | --- |\n'
   for member in "${MEMBERS[@]}"; do
+    # The backticks are a Markdown code span in the emitted table, not a
+    # command substitution, so the format string stays single-quoted.
+    # shellcheck disable=SC2016
     printf '| %s | `%s` | https://github.com/neverhuman/%s |\n' \
       "$member" "${HEADS[$member]}" "$member"
   done

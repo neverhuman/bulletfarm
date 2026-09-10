@@ -16,7 +16,7 @@ in `policy/corpus-coverage-v1.json`:
 
 | Disposition | Meaning | Required anchor |
 | --- | --- | --- |
-| `IMPLEMENTED` | code exists and a named test in a proof lane proves it | a test (or symbol) that resolves at HEAD |
+| `IMPLEMENTED` | declares a component-test anchor for the implementation | a named test that resolves in the inspected checkout |
 | `PLANNED` | not, or not fully, implemented; owned by a closure-roadmap wave | `W0`…`W11` heading in `docs/assurance/closure-roadmap.md` |
 | `SUPERSEDED` | the family replaced the mechanism by a reviewed decision | an ADR file, and a row in the register below |
 | `REFUSED` | the family rejects the mechanism by a reviewed decision | an ADR file, and a row in the register below |
@@ -29,8 +29,11 @@ moves a release gate, a scorecard row, or a profile.
 
 1. A `SUPERSEDED` or `REFUSED` row is valid only if its id is listed in the register below with the
    ruling ADR; the instrument fails closed otherwise (`CORPUS_COVERAGE_ANCHOR`).
-2. `IMPLEMENTED` requires an anchor that resolves in the named checkout; an absent sibling checkout
-   makes the anchor *unverifiable*, never resolved.
+2. `IMPLEMENTED` requires a test anchor that resolves in the named checkout; a source-symbol anchor
+   alone is insufficient. An absent sibling checkout makes the anchor *unverifiable*, never resolved.
+   Resolution does not execute the test or establish that its assertions cover the whole requirement.
+   Component-test execution, production execution, and release admission require separate evidence;
+   production and release claims require current exact-subject semantic receipt admission.
 3. A disposition changes only with the anchor that justifies it; the generated page is a
    drift-gated zone (`scripts/corpus-coverage.sh check`).
 4. Refusal reasons come from existing decisions: ADR 0001 (read-only providers; the kernel applies
@@ -81,6 +84,7 @@ Nobody re-scored their own rows: the seed authors were Claude-family agents, the
 ## Consequences
 
 - "100 % of `docs/*.md` addressed" becomes `bullet-family` output, not prose.
-- The page can never show more implemented than the tests prove; it can show less.
+- The page counts declared component-test anchors, not passing tests or delivered requirements.
+  Its disposition counts cannot establish production execution or release admission.
 - Units the roadmap does not own yet fail validation until a wave or a ruling is named — that is
   the intended pressure.

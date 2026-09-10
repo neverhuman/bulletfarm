@@ -62,7 +62,15 @@ fn header(out: &mut String, facts: &Facts, report: &CheckReport) {
     );
     let head = facts.hub_head_committed_at.as_deref().map_or_else(
         || "hub HEAD committer date not read".to_owned(),
-        |date| format!("hub HEAD committed {date} (source: git log -1 --format=%cI)"),
+        |date| {
+            // Newer Git prints a UTC `%cI` as `...Z`; older Git prints
+            // `...+00:00`. Render the explicit-offset form so the same commit
+            // reads the same regardless of which Git read it.
+            let date = date
+                .strip_suffix('Z')
+                .map_or_else(|| date.to_owned(), |utc| format!("{utc}+00:00"));
+            format!("hub HEAD committed {date} (source: git log -1 --format=%cI)")
+        },
     );
     let reviewed = facts.release_index.last_reviewed.as_deref().map_or_else(
         || {

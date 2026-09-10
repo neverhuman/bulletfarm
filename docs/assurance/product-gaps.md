@@ -1,7 +1,7 @@
 # Product gap register
 
 Status: **operator index; not runtime or release authority**  
-Last reviewed: 2026-09-09
+Last reviewed: 2026-09-10
 Owner: Bullet Farm maintainers
 
 This page answers “what is still missing before Bullet Farm is a product?”
@@ -135,6 +135,323 @@ documentation can “close” G1–G18 today.
 | G16 | GitLab adapter effects | Neither GitLab.com nor one exact self-managed GitLab endpoint/version has a typed effect adapter or a protected integration, exact-SHA status, read-back, UNKNOWN reconciliation, or drift receipt | Two explicit profile nodes and structural receipt bindings; no live adapter proof | Effects owners land the typed capability/delivery/check/integration/read-back/reconciliation adapters and semantic receipt admission; then operators provide scoped test projects and credentials and certify GitLab.com and self-managed GitLab separately | [`closure-roadmap.md`](closure-roadmap.md) Waves 4, 5, and 10 |
 | G17 | Distributed team mode | PostgreSQL, remote runners, workload mTLS/SPIFFE, replicated projections, object storage, partition/failover, and distributed restore are absent | `team-v1` is an explicit fail-closed profile depending on self-hosted | Distributed runtime owners implement and certify `team-v1` only after self-hosted | [`closure-roadmap.md`](closure-roadmap.md) Wave 11 |
 | G18 | Cross-repository sagas | No staged multi-repository Candidate, dependency-aware quarantine, compensation, or forward-repair transaction exists | `saga-v1` is an explicit fail-closed profile depending on team mode | Saga owners implement and certify `saga-v1` only after `team-v1` | [`closure-roadmap.md`](closure-roadmap.md) Wave 11 |
+
+## 9 September operator-loop and experience audit
+
+The CLI, terminal console and packaged Portal must operate the same durable work.
+The 9 September inspection found two immediate safety defects: `coding submit`
+printed session credentials, and the native adapter acknowledged termination
+without terminating anything. The released local repairs remove the logging and
+refuse unavailable termination. These repairs do not establish a complete native
+lifecycle or qualify the current source for release.
+This review covers all 25 direct member `docs/*.md` documents and all six outer
+historical `docs/*.md` references, with the current roadmap and ADRs 0015–0018.
+It does not establish whole-corpus requirement completeness. The current Hub and
+accepted decisions take precedence over older five-screen, provider and forge
+claims. This is additional detail under the existing G/W/DF registers.
+
+| Existing obligation | Inspected gap and required exit |
+| --- | --- |
+| G13/G14; W6, DF601–605 | Local `bullet tui` now uses pinned Ratatui 0.30.2/Crossterm 0.29, an authenticated atomic snapshot, stable selection, navigation, monochrome fallback and detach/reconnect. Actual CLI/PTY component tests cover navigation, malformed refresh and terminal restoration. Initial queue blockers, approval inbox, native session actions and equivalent Portal mutations remain incomplete. |
+| G3/G5/G14; W1–3, DF101–304 | The reviewed schema-26 packet accepts immutable task/repository/base/scope/criteria/gates/dependencies/budget/deadline and server-derived revision/run tracking. Exact retries preserve current phase. It allocates no nonce, reservation, lease or worker claim and reports `CODING_BINDING_ADMISSION_UNAVAILABLE`. Complete server-owned runnable authority, account eligibility, dependency evidence, monetary liabilities, verifier backpressure and the two-worker limit; historical process-wide `BULLET_HARNESS_*` configuration is not this admission. |
+| G3/G5; W2–3 | Native lifecycle qualification is incomplete. The new raw CLI adapter emits stdout/exit without Runner's validated proposal; Cursor's inspected launch omits its requested model. Codex's raw `exec` route is not the planned App Server lifecycle. Implement and observe model, native identity, prompts, steering, interruption and complete process-tree termination for each provider. |
+| G3/G14; W2–3/W6 | `coding stop` refuses; durable session controls, exact prompt responses, resume, pause/freeze enforcement acknowledgements and process restart reconciliation are absent. Queued cancellation and active STOPPING must be distinct; unknown termination keeps capacity reserved. |
+| G14; W6, DF601–605 | Local CLI authentication uses hidden/stdin bootstrap input and private durable credentials. Reqwest plus generated Rust/JSON Schema models reject malformed replies; a private request journal precedes POST and binds exact retries and subsequent status reads to the original request. Durable daemon sessions/revocation, operator-scoped empty-cache discovery and exact retry returning the current phase now have independently reviewed component implementations. Retries retain original nonce/reservation checks without fresh epoch/quota admission. Private daemon bootstrap files replace credential logs. The task-shaped packet and Portal consumer have current component CI; installed execution and recovery remain required. |
+| G13/G14; W6 | Control Tower and Shift Brief now consume one authenticated SQLite read transaction through `/api/v1/operator-snapshot`; generated consumers validate its watermark and relational consistency. Eight other projected pages retain ordinary-event refresh. Transport reconnection and event continuity remain separate; full current-source CI and installed browser acceptance are still required. |
+| G13/G15; W6/W9 | Nine narrower projections do not complete fifteen operational surfaces. Six still lack ledger subjects. Persist routing exclusions, fusion dissent/selection, quota liabilities, meaningful progress, behavior/remediation, workspace preservation and successor/compression lineage before presenting those controls or insights as operational. |
+| G2/G4; W4, DF401–403 | Retain Cursor's prevalidation repair in BulletGit. The current 65 MiB frame bound assumes two-times JSON expansion, while valid control bytes can expand six times. Metadata bounds and the shared sixteen-gate limit also need alignment with 128 operations, 1 MiB/write and 32 MiB decoded content. Prove interrupted writes, stale subjects, hostile paths and ENOSPC. |
+| G2/G3/G4; W3–5 | Receipt-bound cleanup and acknowledged Runner finalization are implemented components. Candidate preservation, Attempt completion, lease/reservation settlement and verifier outbox still need one finalization transaction. Complete descendant termination evidence, unknown-capacity retention and post-delete response-loss reconciliation before claiming the full lifecycle. |
+| G2/G6/G7/G16; W4–5, DF401–503 | PONG gates and fixture chains do not provide independent coding verification. The production verifier refuses with `VERIFICATION_INTENT_ADMISSION_UNAVAILABLE`. Implement immutable meaningful gates, independent workcells/identities and purpose-separated publication, then certified delivery/check/integration/read-back/observation for each forge. |
+| G2/G12; verification predecessor | ADR 0018 requires the separately accepted operator-approval carrier/policy and two distinct authorized OD-L approvers before signer activation, final lock or live/release admission. Component contract publication may proceed. The coordinator proposal's similarly named checkpoint must not be treated as this approval. |
+| G1/G8–12/G17/G18 | Signed packages, native lifecycle/security/accessibility, the sixteen real tasks, twelve-boundary faults, seven-day observation, comparative human-time study, cognition/evolution, distributed teams and sagas remain independent obligations. A local UI proof closes none of these. |
+
+The experience target follows W6/DF601–605 and the current fifteen-surface design:
+
+- Make a conversation with the head of the farm the default for `bullet` and
+  `bulletfarm`, the React Portal, Slack and Telegram. Preserve complete user and
+  assistant turns, goals, corrections, progress and pending decisions in one
+  operator-owned farmd ledger. The head handles task decomposition, delegation
+  and handoffs; task-file commands remain advanced controls.
+- Make `bullet setup` provide guided repository/provider onboarding and optional
+  Slack/Telegram connections. Make `bullet serve` start the packaged web
+  experience with durable service/state custody, usable defaults and an
+  authentication handoff. Existence checks or helper-only smoke tests cannot
+  establish a ready installation.
+- Bind each head turn to its exact input range, goal revision and runtime claim.
+  New user messages remain durable while work runs; stale proposed actions must
+  revalidate current subjects. A saved-message acknowledgement establishes
+  neither an assistant response nor engineering success.
+- Implement Rust Slack Socket Mode and Telegram adapters with admitted
+  workspace/chat/user/thread bindings, durable duplicate suppression before
+  acknowledgement, and recorded outbound delivery/reconciliation. All clients
+  use the same conversation and command consumers. Keep transcript bodies out
+  of generic audit/outbox/SSE projections. Native head execution and live
+  messaging remain subject to their actual admission.
+
+- Start with HOLD/enforcement, the exact active subject, unresolved blocker,
+  evidence class and next authorized action. Prepared, verified, integrated,
+  observed and seven-day survival remain separate states.
+- Navigate mission → task → attempt → native session, with a causal timeline,
+  tools/artifacts, context handoff and an approval inbox. Preserve keyboard focus
+  during live updates; offer search, clear shortcuts and text alongside color.
+- Show requested, delivered and applied controls separately. Detach changes only
+  the view. Pending prompts are distinct from governance/integration approvals.
+- Explain queue position and dependency/account/quota/freeze/termination blockers;
+  never infer useful work or available capacity from a process count or absent data.
+- Build the CLI and Portal against the same accepted generated command/query
+  contracts. CLI environment presence is not admitted farmd runtime readiness;
+  escape untrusted terminal output and refuse malformed/incompatible snapshots.
+
+The initial historical 10 September checkpoint below is superseded by the later
+dated inventories and authenticated connected cases; its original findings and
+failures remain retained. That pass implemented a responsive Portal navigation rail, searchable Ctrl/Cmd+K
+palette, visible keyboard selection and focus return; event-driven refresh on the
+eight shared-loader surfaces; and explicit UNKNOWN/STALE snapshot presentation.
+An authenticated SSE opening comment fixes idle farms timing out before response
+headers without fabricating an event. The final Portal suite passes 195 tests on
+pinned Node 22.23.2 and the typed production build passes. Farmd passes 87 default
+component tests and strict Clippy; the formatted final read-auth subset passes four.
+Five native Chromium checks against an actual private farmd verify authentication,
+real command-event refresh, palette focus/scroll, mobile fit and detach/read-back.
+No provider runs: the one accepted demo command remains PENDING without a worker.
+These are local component proofs, not packaged-browser or production acceptance.
+Exact sources, retained failures, screenshots and execution records are handed off
+through the family coordination log; current full/hosted proofs remain required.
+
+Verification gaps recorded at that initial checkpoint remain historical evidence:
+the cited historical `bullet-offline-component-proof.observation-20260827T1340Z`
+receipt was absent at its recorded local path; retrieve the preserved original
+before relying on it. Existing real-farmd browser specs still assume anonymous
+reads and the older demo submit button and need current-source reconciliation.
+Documentation test counts and older Jeryu-only/eight-worker runbook statements
+need alignment with current inventories, GitHub integration and Operating HOLD.
+No historical receipt is silently invalidated, replaced or promoted by this audit.
+
+An earlier 10 September checkpoint recorded local component proofs: 39 CLI unit tests,
+two real-PTY authentication tests, a TUI PTY smoke using a clearly synthetic
+authenticated server, and a further saved-request status-correlation regression.
+The TUI smoke initially failed because it matched raw differential terminal
+bytes; a pinned terminal decoder now checks the rendered screen. Strict CLI
+Clippy passes. The atomic snapshot packet reports 35 focused farmd tests,
+75 focused Portal tests and ten explicitly mocked browser regressions. At that checkpoint Portal's
+discovered inventory was 206 tests and its 185-test CI pins were stale. These
+observations are retained as history and superseded by the current record below.
+
+At the 10 September 02:13 UTC checkpoint, all 45 CLI unit tests, two real-PTY
+authentication tests and the TUI PTY smoke pass. The durable command-owner wave
+has 85 distinct focused tests and separate static review; these are component
+fixtures. The complete Kernel inventory check accounts for 1,237 identities
+(1,191 standalone + 34 contract + 3 egress + 9 family); inventory enumeration
+is not a successful execution of the full required lane.
+
+Portal [PR #5](https://github.com/neverhuman/bullet-portal/pull/5), commit
+`c55aa038894e2f002b09f3727d85da5452763d93`, passes the full local standalone lane
+and current GitHub push/PR checks, including 214 unit and 14 mocked browser tests.
+The unit/browser identity pins match actual reports. Later local generated-model
+and private-bootstrap launcher changes are outside that checked commit and need
+their own qualification. No count here establishes daily-use or showcase acceptance.
+
+GitHub and installation findings belong to G1/G8–12/G17/G18 and W8–11 in this
+same register. The public aggregate still serves older member snapshots and has
+no established root CI execution. Its historical README overstates the requested
+authenticated Bullet workflow; the canonical publication template now preserves
+the recordings with explicit limits. All three retained bridge GIFs fail the
+required geometry. Fresh paired installed TUI/Portal captures, sixteen accepted
+provider tasks and published-asset hash/playback read-back remain required.
+The previously checked Portal and BulletGit PRs were merged with successful main
+checks; newer local bytes are outside those checks. Kernel PR #3's observed lint
+failure lacks `zizmor`. Its reviewed provisioning repair and matching workflow
+pins are committed locally at `7295e7136ce93a04d5e17ee035e94517ba8d8ca8`, but
+GitHub rejected the push because the OAuth credential lacks workflow scope.
+Those bytes have no hosted qualification. Portal main now has effective strict
+protection requiring its six GitHub Actions checks, prohibiting force pushes and
+deletion, and applying to administrators. Equivalent protection for the other
+four repositories remains unverified at this checkpoint. Hub tool,
+scanner, media, decoder-inventory and observation failures and aggregate member
+lane execution remain open; missing or stale evidence cannot pass.
+
+At the later **10 September, 02:26 UTC checkpoint**, the existing authorized SSH
+remote successfully delivered Kernel commit `7295e7136ce93a04d5e17ee035e94517ba8d8ca8`;
+GitHub PR #3 read-back confirms that exact head. The earlier OAuth push refusal
+remains part of the delivery history. The new run passes source admission, fast,
+contract, security and docs, but lint now fails in the offline-wrapper tests:
+their `b3sum` dependency is absent from the hosted installation. The local repair
+adds locked `b3sum` 1.8.2 installation and retains the refusal assertions; current
+review and hosted qualification of those new bytes remain required.
+
+At the **10 September, 03:42 UTC checkpoint**, the reviewed operator components
+have reached protected GitHub main branches:
+
+- Kernel [PR #4](https://github.com/neverhuman/bullet-kernel/pull/4) merged reviewed
+  head `f0f1bdcb9c894b49674276b2050d754de8829368` as
+  `ef98cd3c420f1e8ada96acd57989a87a2e4c55f8`. Its complete local required lane
+  passes 1,191 standalone and 34 contract tests plus lint, security and docs.
+  Both head runs and the [main run](https://github.com/neverhuman/bullet-kernel/actions/runs/34433379926)
+  pass all seven required jobs. The observed scanner, missing-tool, schema-test
+  and license failures were repaired with their assertions retained.
+- Portal [PR #5](https://github.com/neverhuman/bullet-portal/pull/5) and
+  [PR #6](https://github.com/neverhuman/bullet-portal/pull/6) merged; current main is
+  `f1fdb4bc3c3c3ea03d076d268d9cc8745dca1e1a`. Reviewed head
+  `4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c` passes full local required with
+  245 distinct unit and 14 mocked browser tests. Both head runs and the
+  [main run](https://github.com/neverhuman/bullet-portal/actions/runs/34434144426)
+  pass all six required jobs. Actual identity comparison accounts for every
+  added or intentionally replaced test; prior counts remain historical.
+
+Both member main branches enforce their required checks, include administrators,
+and prohibit force pushes and deletion. This is member delivery evidence;
+aggregate source selection, root CI and signed package admission remain separate.
+Browser command history now supports operator-scoped discovery, and response
+correlation binds the original command ID, kind and Rust-compatible request
+digest. A pre-POST journal stores validated bytes, resists serialization-hook
+substitution and restores saved intent without an automatic submission. These
+component tests do not establish installed recovery or native provider execution.
+A subsequent unmerged Kernel packet rejects duplicate decoded JSON fields before
+durable command admission; ten focused HTTP tests and strict Clippy pass, while
+its full current-source qualification remains pending.
+
+Per-task server allocation, durable account/dependency scheduling, acknowledged
+native controls and termination, atomic Candidate settlement, independent
+verification/integration and the six missing operational subjects remain open.
+Unknown termination must retain capacity even after lease expiry; neither a
+successful signal nor leader exit establishes complete descendant termination.
+
+Schema-2 bootstrap is still refused, source setup still selects Jeryu, package
+verification cannot yet admit the intended Ubuntu-only profile, and the
+development launcher deletes temporary state on exit. Implement authenticated
+GitHub aggregate onboarding, profile-bound signed releases and supervised
+persistent services. Two clean installs, upgrade, backup/restore, rollback and
+disaster recovery remain unproved. Ubuntu installation does not certify
+`self-hosted-v1` without its independent Claude/Jeryu obligations. Operating HOLD,
+the separate two-approver carrier, twelve-boundary faults, seven-day observation
+and all remaining product-profile requirements remain effective.
+
+At the **10 September, 15:18 UTC source checkpoint**, reviewed Kernel
+[PR #10](https://github.com/neverhuman/bullet-kernel/pull/10) merged as
+`1aca8855cae5940ffabda0b899f80544aa4c52de`, tree
+`42d36180b7d07a9645b0f9253e5d8d62852c8ff3`. The tree equals reviewed head
+`e0e386f6d1e09ed5bce7b2f3aac5c6893423da57`. Complete local required passed
+1,243 component tests, 34 contract tests, lint, security and docs; both
+[push](https://github.com/neverhuman/bullet-kernel/actions/runs/34493021858)
+and [PR](https://github.com/neverhuman/bullet-kernel/actions/runs/34493236469)
+runs passed all seven required jobs. The resulting
+[main run](https://github.com/neverhuman/bullet-kernel/actions/runs/34494198501)
+subsequently passed all seven jobs at the 15:20 UTC read-back. Strict main protection requires current
+checks and prohibits force pushes and deletion. Earlier failed schema-backup
+assertions and stale documentation checks remain retained; their exact repairs
+received independent review before the passing run.
+
+The closed `bullet.run-coding.v2` contract and schema-26 transaction persist
+immutable task/dependency/run tracking. Fresh legacy authority-bearing submission
+is refused; historical owned retries preserve their exact bytes and current phase.
+The CLI supports task files, saved-request retry and digest-validated discovery.
+Intent allocates no execution authority and reports
+`CODING_BINDING_ADMISSION_UNAVAILABLE`. Eligible-account scheduling, monetary
+liabilities and runnable task authority remain incomplete.
+
+Schema 27 now persists closed human-message commands, server-generated conversation,
+message and head-request identities, and atomic ownership/message/audit/outbox
+receipts. Exact retries precede current-tip comparison; owner-scoped paged reads
+validate complete immutable history, including earlier content and parent custody.
+Unqualified assistant rows are refused. Twenty-two new test identities cover
+nine transaction rollback boundaries, response loss, competing clients, restart
+discovery, paging, HTTP authentication/revocation and backup/restore. The inventory
+remains exhaustive: 1,289 total, partitioned as 1,243 standalone, 34 contract,
+nine family and three egress. A saved message does not establish a native reply.
+`HEAD_RUNTIME_BINDING_REQUIRED` remains explicit; native replies, delegation,
+conversational CLI/Portal consumers and Slack/Telegram delivery are unfinished.
+
+The CLI's HTTP and private-journal readers now use the strict JSON decoder before
+model validation. Existing regressions reproduce root, nested and escaped-equivalent
+duplicate keys, invalid UTF-8 and private-input non-disclosure; all 52 CLI unit
+tests passed within this reviewed wave. New conversation journals must still bind
+the authenticated operator identity so an uncommitted message cannot replay as
+another operator after local login changes. Historical coding journal semantics
+must be preserved explicitly.
+
+Portal [draft PR #7](https://github.com/neverhuman/bullet-portal/pull/7), head
+`dbb57bee978bb870555029e18cd14ea5b87e2413`, passed its then-current full local
+required suite and hosted checks, including 258 unit and fourteen mocked browser
+tests. Its task form restores journaled intent and shows owner-scoped task
+snapshots. Subsequent local routing changes are outside those checked bytes:
+all fourteen mocked browser cases move to an explicit `rendered` lane; connected
+and packaged lanes retain three and seven cases. Real host guards reject execution
+outside Linux xbabe2 or with `CI`/`GITHUB_ACTIONS` present, and hosted workflow
+policy separately refuses browser tools and local-only lanes. Portable contract
+checks retain the five actual bundle tests with an exact passing-log guard.
+Focused parser, failure-propagation and all 34 artifact-lifecycle regressions
+passed. Review found the first host-refusal test could pass because of a wrong
+hostname while missing a CI-variable defect. A pure policy matrix now isolates
+hostname, platform and each CI-variable presence; the actual-helper subprocess
+cases also clear inherited CI variables. The repaired focused checks passed;
+their final independent review and full current-source required remain pending.
+Fresh local rendered,
+family and packaged proofs remain required before integration. Earlier connected
+cleanup failures remain evidence.
+
+Runner finalization now requires a positive termination acknowledgement before
+terminal release, retains token-free Candidate/receipt references and both
+primary/recovery-journal errors, and prevents generic fallback release/requeue
+after finalization begins. Post-delete response loss remains unresolved.
+Native descendant observation, capacity retention beyond legacy lease expiry,
+earlier failure-path negative acknowledgements, atomic Candidate/quota/verifier
+settlement and duplicate-cleanup reconciliation remain separate obligations.
+
+BulletGit main `4e33103673f535fde871ef26cffe05460674293b` has green main CI.
+The owning integrator reconciled the canonical metadata after verifying all 206
+accepted path blobs and modes, and released the clean checkout for a fresh Gitd
+build. Reusing the older component Gitd binary cannot prove the current source.
+Hub PR #3 at `12b43866e3d7f1be21af3f17fc52d04db226fe43` remains open with green
+checks. Its agent reports an automatic approval classifier rejected the merge
+action itself; that refusal has not been bypassed. Hub delivery is incomplete.
+
+The aggregate generator's exact source review found 51 of 53 member jobs were
+refusal stubs, an unconditional final refusal and inconsistent merge-queue/push
+admission. Matching job names is not execution. Actual member lanes, validated
+artifact custody and event qualification remain required before aggregate claims.
+
+An external integrator installed unmerged development `serve`/`setup` binaries.
+Independent review rejected the packet and its second revision: rotation deletes
+an arbitrary small owned 0600 file, with a metadata/unlink race and loss on later
+provisioning refusal. The owner withdrew its completion claim and agreed to remove
+rotation entirely; repaired bytes are not yet admitted. State-directory agreement,
+child-bound readiness, safe signal/child custody and terminal sanitization also
+require review and meaningful regressions. A release-profile binary and local
+web/auth smoke do not establish signed installation or native provider execution.
+
+The installed TUI's first local harness run had two concurrent first-paint timeouts
+and four idle-wait timeouts; the latter reproduced serially and were a test defect.
+After replacing idle waits with rendered-text waits, eight serial flows passed.
+That does not satisfy concurrent-client acceptance. Canonical source review found
+credential readers briefly take an exclusive nonblocking lock, which can reject
+simultaneous startups; the TUI does not retain that lock during rendering. Implement
+a private read snapshot path while preserving writer/journal exclusivity, and test
+six simultaneously active clients, detach independence and logout/relogin races.
+Exact installed binary subjects and retained failed PTY receipts remain necessary.
+
+The operator requires **all Tuiwright and Playwright execution on xbabe2 only,
+outside normal CI**, including mocked cases. Portal retains fourteen mocked,
+three connected and seven packaged scenarios; Hub retains six browser-capture
+regressions. Hub's current browser-availability early success must become a typed
+refusal. Preserve exhaustive portable/local partitions and require fresh
+source-bound local receipts for delivery. The excluded TUI proof harness still
+needs manifest, lock, executable and tool custody; a blanket directory exclusion
+would hide proof dependencies and build scripts. A hostname, login, or synthetic
+browser result does not establish authenticated native-provider execution.
+
+The legacy Claude worker omits credential-descriptor flags while clearing its
+environment, and its dogfood adapter drops the requested model before constructing
+provider arguments. Forward bounded admitted credential metadata through durable
+invocation configuration and bind the actual account/model/settings. Neither an
+echoed model nor a logged-in executable qualifies the provider.
+
+The conversational default, setup/serve and Slack/Telegram onboarding extend
+G3/G13/G14/G15 and W1–3/W6. Rust owns durable control and supervision;
+Vite/TypeScript/React owns the web client. Rejected local-history, keyword-reply
+and refusal-only prototypes remain private development history. All G1–G18,
+W/DF/WP, fifteen surfaces, media, seven-day observation and product profiles
+remain in scope. Operating HOLD requires its actual predecessor admission and
+operator checkpoint; no development build or component test lifts it.
 
 ## Historical 26-gate catalog and release profiles
 

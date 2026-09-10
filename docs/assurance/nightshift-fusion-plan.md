@@ -2,7 +2,7 @@
 
 Status: **Proposed; implementation and release authority remain blocked**  
 Owner: Bullet family maintainers  
-Last reviewed: 2026-08-26  
+Last reviewed: 2026-09-10  
 Applies to: `bullet-farm`, `bullet-kernel`, `bullet-git`, and `bullet-portal`
 
 This is the implementation blueprint for translating the useful Nightshift
@@ -266,6 +266,13 @@ catalog expansion:
 | Activity | Incidents & Audit |
 | Operations | the existing Fleet, Session Supervisor, Context Lineage, Merge Rail, Quality Lab, and Incidents & Audit surfaces |
 | Conversation drawer | a separate Wave 9 cognition capability; read-only overlay in Wave 6, `OUT_OF_PROFILE` until its catalog/invariant ADR is approved |
+
+The Portal Head overlay that talks to schema-27 `conversation_message` is
+**not** this Wave 9 / G15 cognition drawer. It is a durable farmd thread
+(CLI / Portal / Slack doors) over `POST /api/v1/commands` and
+`GET /api/v1/conversations`. It does not mint team recipes, close G15, or
+replace `OUT_OF_PROFILE` for Fusion Lab / Cognitive Router. Native Head
+outcome, Slack bind (schema 28), and HOLD lift remain separate.
 
 All fifteen current hash routes keep stable aliases or typed redirects. Direct
 reload, bookmark, back/forward navigation, query/filter restoration, subject

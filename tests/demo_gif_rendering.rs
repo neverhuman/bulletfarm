@@ -1,6 +1,6 @@
 //! Public private-render CLI controls using real local FFmpeg/agg derivatives.
 
-use std::process::Command;
+use std::{path::PathBuf, process::Command};
 
 const FIXTURE: &str = r#"
 import hashlib,json,os,runpy,shutil,signal,struct,subprocess,sys,time,zlib
@@ -224,7 +224,50 @@ elif case=='terminal':
 else:raise AssertionError(case)
 "#;
 
+/// Resolve one local media tool exactly as the Python fixture does (the
+/// environment override, else the default path). An absent tool is a typed
+/// refusal, not a Python traceback; a present tool keeps every assertion.
+fn media_subject(label: &str, variable: &str, default: Option<PathBuf>) -> Option<PathBuf> {
+    let path = std::env::var_os(variable).map(PathBuf::from).or(default);
+    match path {
+        Some(path) if path.is_file() => Some(path),
+        Some(path) => {
+            eprintln!(
+                "MEDIA_CAPTURE_SUBJECTS_UNAVAILABLE: {label} — {} is absent; this media fixture needs a local {label} binary, which hosted single-repo checkouts do not provide",
+                path.display()
+            );
+            None
+        }
+        None => {
+            eprintln!(
+                "MEDIA_CAPTURE_SUBJECTS_UNAVAILABLE: {label} — {variable} is unset and HOME is unset, so no local {label} binary can be located"
+            );
+            None
+        }
+    }
+}
+
 fn fixture(case: &str) {
+    if media_subject(
+        "ffmpeg",
+        "DEMO_GIF_TEST_FFMPEG",
+        Some(PathBuf::from("/usr/bin/ffmpeg")),
+    )
+    .is_none()
+    {
+        return;
+    }
+    if case == "terminal"
+        && media_subject(
+            "agg",
+            "DEMO_GIF_TEST_AGG",
+            std::env::var_os("HOME")
+                .map(|home| PathBuf::from(home).join(".cache/bullet-demo-gif/bin/agg")),
+        )
+        .is_none()
+    {
+        return;
+    }
     let directory = tempfile::tempdir().expect("fixture directory");
     #[cfg(unix)]
     {

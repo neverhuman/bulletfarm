@@ -2,7 +2,9 @@
 
 Status: **PROJECTION — rendered from `policy/corpus-coverage-v1.json`; the historical corpus is provenance, not authority; this page holds no release, runtime, or scoring authority.**
 
-Every unit carries exactly one disposition: `IMPLEMENTED` (a named test in a proof lane), `PLANNED` (a closure-roadmap wave), `SUPERSEDED` or `REFUSED` (a reviewed ADR, registered in `docs/decisions/0014-corpus-dispositions.md`). "Addressed" counts dispositions; "implemented" counts only `IMPLEMENTED`. The two are never conflated.
+Every unit carries exactly one disposition: `IMPLEMENTED` (a declared component-test anchor), `PLANNED` (a closure-roadmap wave), `SUPERSEDED` or `REFUSED` (a reviewed ADR, registered in `docs/decisions/0014-corpus-dispositions.md`). "Addressed" counts dispositions; "implemented" counts only `IMPLEMENTED`. The two are never conflated.
+
+Active requirements: **625** (33 `IMPLEMENTED`, 592 `PLANNED`). Resolving a source or test anchor does not execute that test. Component-test execution, production execution, and release admission are **not evaluated by this inventory**. Production and release claims require current exact-subject evidence admitted by the existing semantic receipt verifier; neither disposition counts nor passing component tests can satisfy that requirement.
 
 ## Totals
 

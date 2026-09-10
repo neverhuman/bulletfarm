@@ -111,9 +111,11 @@ jobs:
         with:
           toolchain: 1.95.0
           components: rustfmt, clippy
+      - name: Install checksum-pinned actionlint 1.7.8
+        run: bash ops/ci/install-actionlint.sh
       - uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
         with:
-          tool: actionlint@1.7.8,shellcheck@0.10.0,cargo-nextest@0.9.137
+          tool: shellcheck@0.10.0,cargo-nextest@0.9.137
           fallback: none
       - name: Install hash-locked Draft 2020-12 validator
         run: |

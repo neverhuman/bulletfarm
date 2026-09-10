@@ -66,6 +66,9 @@ initialize_rust_toolchain_tools() {
     refuse TOOL_VERSION_MISMATCH "Cargo 1.95.0 is required before Cargo execution"
     return 1
   fi
+  # The loop reads the captured stderr and removes that same file on the one
+  # path that returns early; the removal is cleanup, never a concurrent write.
+  # shellcheck disable=SC2094
   while IFS= read -r noise_line; do
     noise_line="${noise_line%$'\r'}"
     [[ -z "$noise_line" || "$noise_line" =~ ^(info|warning): ]] || {

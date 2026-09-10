@@ -71,7 +71,8 @@ pub struct CorpusUnit {
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
 #[serde(rename_all = "UPPERCASE")]
 pub enum Disposition {
-    /// Code exists and a named test in a proof lane proves it.
+    /// Declares a named component-test anchor. Resolving it does not establish
+    /// test execution, production execution, or release admission.
     Implemented,
     /// Not (fully) implemented; owned by a roadmap wave.
     Planned,

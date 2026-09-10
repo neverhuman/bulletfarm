@@ -11,6 +11,13 @@ Bullet through its own complete transaction. It refines the
 [WP-01–WP-23](../workplan.md), or [OD-A–OD-J](../decisions/0013-operator-decision-register.md).
 The executable profile check and admitted receipts always win over this page.
 
+The [full-vision production execution plan](full-vision-execution-plan.md) records the latest
+user-selected completion scope: all active requirements, sixteen fixed real tasks across Codex,
+Claude, Cursor and Antigravity, real fault campaigns, seven-day observation, and independent
+evolution/team/saga certification. It controls the current campaign scope below. Historical
+fixture and narrower offline receipts retain their original classification and cannot satisfy
+the requested production demonstration. No new fake-provider milestone is required by this route.
+
 The September 8 execution order is health first: finish the preserved packets,
 qualify the canonical Jankurai auditor, repair and verify the findings, synchronize
 accepted source refs, and activate complete CI before production dogfood. Auditor
@@ -18,8 +25,8 @@ findings require source inspection and reproducing evidence; the acceptance floo
 is 90 with zero caps and zero hard findings for each member. Publication and
 operator dependencies do not stop unrelated engineering. Exact-source publication
 and operational hosted CI remain required alongside the Codex–Claude–Cursor
-subscription loop. All three
-providers are required initially; Antigravity follows. The latest operator instruction
+subscription loop. All four providers, including Antigravity, are required for the
+full production campaign. Earlier three-provider staging does not satisfy that target. The latest operator instruction
 selects **GitHub `neverhuman/bulletfarm`** as the primary integration repository,
 containing all four supporting repositories' exact reviewed objects and trees.
 Preserve private origins, immutable source objects and historical publication
@@ -93,11 +100,11 @@ formal JSON consumer is repaired in the checkpoint above; unused workaround
 artifacts still await separate reviewed cleanup.
 
 The next implementation order remains trustworthy local health, complete GitHub
-CI/publication, preserved-generation admission and supervised upgrade, then one
-durable fake-provider coding transaction and individually qualified Codex,
-Claude and Cursor execution. Persist browser operation identity and projections,
+CI/publication, preserved-generation admission and supervised upgrade, then the
+real production command path and individually qualified Codex,
+Claude, Cursor and Antigravity execution. Persist browser operation identity and projections,
 termination/journal evidence and atomic Candidate completion on that route.
-Twelve real bounded implementation tasks and seven-day survival establish useful
+Sixteen real bounded implementation tasks and seven-day survival establish useful
 dogfood; all retained release campaigns still follow. All G1–G18 remain `DESIGNED`,
 and all 18 product plus two diagnostic profiles remain `BLOCKED`.
 
@@ -114,7 +121,7 @@ earliest honest one, while preserving the path to the complete target.
 | --- | --- | --- | --- |
 | Coordination dogfood | Bullet uses a distinct preserved development generation for claims, handoffs, commits, receipts, exact retries, and restart; historical recovery stays separate | Complete two-location admission, independent review, operator checkpoint, W0 | **BLOCKED**; Operating HOLD remains effective |
 | Full-product offline dogfood | One Bullet change crosses Control, Execution/BulletGit, Verification, Delivery/integration, and Evidence/audit with all twelve fault boundaries | W7 `TRANSACTION_PROOF` | **BLOCKED**; a retained component bridge reaches purpose-signed fixture intent/evidence/proof and `MATCHED` Observation, exact Candidate delivery, local check, protected integration, reopen read-back, and post-exit retained-artifact reads, but its executor/keys/roles are harness-process fixtures, its outer receipt is unsigned/ineligible, and independent custody plus the twelve-boundary campaign are absent |
-| Live self-hosted dogfood | The same product path adds separately admitted Codex, Claude, and Cursor subscription execution and protected Jeryu integration on the signed Ubuntu family | W8 `self-hosted-v1` | **BLOCKED** by W7 and OD-A/B/D/E |
+| Live self-hosted dogfood | The signed Ubuntu path adds admitted Claude subscription execution and protected Jeryu integration for `self-hosted-v1`; the expanded campaign separately requires all four CLIs | W8 `self-hosted-v1` plus the linked four-provider campaign | **BLOCKED** by W7 and OD-A/B/D/E; each additional provider needs its own admission and proof |
 | Complete documented target | Independent evolution, provider, forge, platform, team, and saga profiles also pass | W9–W11 and all eight finish conditions | **BLOCKED**; no narrower receipt may be borrowed |
 
 Engineering owns the local consumers and proofs. The coordination transition
@@ -126,21 +133,30 @@ checkbox, local simulation, or chat line promotes an evidence class.
 
 ```text
 local engineering and exact-source publication/hosted CI proceed in parallel
+→ source-maintenance handoffs; frozen bootstrap member and W0 input bindings
 → complete two-location preservation/admission and durable Genesis consumers
 → independent review and operator fresh-generation checkpoint
 → distinct development generation initialization and restart read-back
-→ W0 four clean heads, family observation, first reviewed coordinated change
+→ W0 operational read-back and first reviewed coordinated change on frozen subjects
 → supervised schema 22→23 upgrade before account/run/quota migrations
-→ W1 generated contracts, immutable subjects, and durable launch admission
+→ OD-D/OD-E source-tag, build, trusted-time and release custody admission
+→ W1 generated contracts, signed immutable subjects, and durable launch admission
 → W2 durable authority and W3 supervised Runner/service isolation
 → W4 production BulletGit and W5 Candidate verification/effect reconciliation
 → W6 durable operator commands, projections, and Portal reconciliation
-→ fake provider through the real path, then twelve Codex–Claude–Cursor tasks
+→ W7 signed offline transaction/fault proof and installed Ubuntu lifecycle
+→ confirm installed production custody; exact provider and forge operator admissions
+→ native conformance, then sixteen real tasks across all four CLIs
 → seven-day integrated-change survival observation
-→ W7 signed twelve-boundary transaction and Ubuntu lifecycle
-→ W8 admitted subscriptions + protected Jeryu self-hosted transaction
+→ W8 self-hosted certification from admitted provider/forge/lifecycle receipts
 → W9/W10/W11 complete the documented target
 ```
+
+The W7 offline obligation remains separately classified and grants no native-provider credit.
+It does not add a new fake-provider production milestone. The campaign starts only after the
+installed production worker, independent verifier/effect custody, real account enrollments and
+protected forge admissions are ready; conformance or campaign work cannot certify its own
+missing launch or verification prerequisites.
 
 The upgrade path requires exclusive maintenance custody, a verified backup of
 an authentic supported migration prefix, one migration transaction, final
@@ -152,8 +168,8 @@ run allocation, and dispatch enqueue commit atomically. Runner must persist
 supervision and canonical results, reconcile ambiguous starts without a second
 invocation, and retain termination evidence before releasing capacity.
 
-The first native campaign comprises twelve bounded tasks, four per subscription
-CLI: Rust, TypeScript/React, tests, and documentation. Each selected account has
+The full native campaign comprises sixteen bounded tasks, four per subscription
+CLI including Antigravity: Rust, TypeScript/React, tests, and documentation. Each selected account has
 its own credential/runtime generations and private home. Vendor quota buckets
 remain distinct from Bullet invocation use; warnings at 80%, critical alerts at
 95%, and exhaustion pauses survive restart. Manual `OPERATOR_REPORTED` snapshots
@@ -333,8 +349,8 @@ forge.
    probe, launch/egress/teardown receipts, budgets, and onboarding UX before
    requesting credentials.
 2. Consume OD-D/E custody and each independently admitted OD-A Codex, Claude,
-   and Cursor account enrollment. Complete each provider's native conformance
-   and the twelve-task campaign on exact admitted subjects. Stop
+   Cursor and Antigravity account enrollment. Complete each provider's native conformance
+   and the sixteen-task campaign on exact admitted subjects. Stop
    on runtime/model/profile drift, budget uncertainty, canary leak, or teardown
    ambiguity.
 3. Finish the offline Jeryu semantic adapter and receipt admission before
@@ -354,7 +370,7 @@ forge.
 | Phase | Independent branches | Completion condition |
 | --- | --- | --- |
 | W9 evolution | CognitiveTask/SelectionGroup/Role/Fusion persistence, budgets/routing/struggle, immutable recipes, matched-compute study, holdout custody, shadow, rollback readiness; then OD-H bounded ≤1% R0/R1 canary, promotion and drift | `evolution-v1` passes independently; it is never implied by self-hosted or universal |
-| W10 providers | Maintain independent Codex, Claude, and Cursor certifications from the initial campaign; add Antigravity exact runtime/enrollment/conformance under OD-A | Four provider receipts exist; none substitutes for another |
+| W10 providers | Maintain independent Codex, Claude, Cursor and Antigravity exact runtime/enrollment/conformance certifications under OD-A from the full campaign | Four provider receipts exist; none substitutes for another |
 | W10 forges | GitHub App under OD-C, GitLab.com under OD-I, self-managed GitLab under OD-J | Jeryu plus three independent forge profiles pass exact protected integration and reconciliation |
 | W10 platforms | Linux aarch64, macOS x86_64/arm64, Windows x64 build/install and certified containment or typed mutation refusal | Five platform slices install twice and pass their exact profile; Linux remains the mutation reference until separately certified |
 | W10 research | Preregistered matched corpus with subjects, costs, failures, and receipts | No benchmark/superiority claim precedes admitted comparable evidence |

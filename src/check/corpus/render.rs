@@ -73,10 +73,22 @@ pub fn render(spec: &CorpusCoverageSpec) -> String {
     let _ = writeln!(out, "Status: **{PROJECTION}.**\n");
     let _ = writeln!(
         out,
-        "Every unit carries exactly one disposition: `IMPLEMENTED` (a named test in a proof lane), \
+        "Every unit carries exactly one disposition: `IMPLEMENTED` (a declared component-test anchor), \
 `PLANNED` (a closure-roadmap wave), `SUPERSEDED` or `REFUSED` (a reviewed ADR, registered in \
 `docs/decisions/0014-corpus-dispositions.md`). \"Addressed\" counts dispositions; \"implemented\" counts \
 only `IMPLEMENTED`. The two are never conflated.\n"
+    );
+    let _ = writeln!(
+        out,
+        "Active requirements: **{}** ({} `IMPLEMENTED`, {} `PLANNED`). \
+Resolving a source or test anchor does not execute that test. Component-test execution, \
+production execution, and release admission are **not evaluated by this inventory**. \
+Production and release claims require current exact-subject evidence admitted by the \
+existing semantic receipt verifier; neither disposition counts nor passing component tests \
+can satisfy that requirement.\n",
+        total.implemented + total.planned,
+        total.implemented,
+        total.planned
     );
     let _ = writeln!(out, "## Totals\n");
     let _ = writeln!(

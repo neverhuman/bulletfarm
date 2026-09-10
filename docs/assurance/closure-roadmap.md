@@ -269,6 +269,10 @@ ambiguity laundering.
 Objective: expose only durable, command-correlated product state through the
 operator and workload boundaries.
 
+Component progress (2026-09-09): operator GET/HEAD authentication and SSE session
+expiry now have Kernel component checks (`docs/operator-reads.md` in Kernel).
+G14/Wave 6 remain open: durable identities, MCP read admission and production receipts are missing.
+
 - Serve operator traffic only at `/api/v1`; workload transitions use
   peer-authenticated UDS at `/internal/v1`. Legacy `/v1` returns typed
   `API_VERSION_RETIRED` and performs no mutation.

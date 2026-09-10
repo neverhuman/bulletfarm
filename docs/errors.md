@@ -2,7 +2,7 @@
 
 Status: **normative for the Hub CLI; product API Problem Details remain Kernel-owned**  
 Owner: Bullet Farm maintainers  
-Last reviewed: 2026-08-26
+Last reviewed: 2026-09-10
 
 `bullet-family` writes errors as `CODE: reason` and exits nonzero. The stable
 uppercase code is the machine-facing classification; prose gives the exact
@@ -69,9 +69,19 @@ Representative codes are `UNSUPPORTED_SCHEMA`, `CORRUPT_COORD_LOG`,
 
 Representative codes are `FAMILY_ROOT_NOT_FOUND`, `FAMILY_MEMBER_MISSING`,
 `SETUP_TOOL_UNAVAILABLE`, `SOURCE_METADATA_UNAVAILABLE`,
-`RELEASE_VERIFIER_UNAVAILABLE`, and `CAPABILITY_UNPROBED`. The pre-Rust setup
-wrapper reports `SETUP_HUB_UNAVAILABLE` or `SETUP_BOOTSTRAP_UNAVAILABLE` before
-the Rust CLI is available.
+`RELEASE_VERIFIER_UNAVAILABLE`, `CAPABILITY_UNPROBED`,
+`HEAD_RUNTIME_BINDING_REQUIRED`, `SLACK_BIND_UNAVAILABLE`,
+`TELEGRAM_UNAVAILABLE`, and `XBABE2_PROVIDER_PROOF_UNAVAILABLE`. The pre-Rust
+setup wrapper reports `SETUP_HUB_UNAVAILABLE` or
+`SETUP_BOOTSTRAP_UNAVAILABLE` before the Rust CLI is available.
+`CONVERSATION_*` classes (`CONVERSATION_MESSAGE_INVALID`,
+`CONVERSATION_CURSOR_CONFLICT`, `CONVERSATION_JOURNAL_*`,
+`CONVERSATION_RECEIPT_*`, `CONVERSATION_PAGE_INCOMPLETE`,
+`CONVERSATION_INDEX_INCOMPLETE`) diagnose the schema-27 conversation door;
+they are not a native Head outcome. Slack Socket Mode stays
+`SLACK_BIND_UNAVAILABLE` until an append-only schema-28 bind row exists.
+`just xbabe2-head` exits 78 with `XBABE2_PROVIDER_PROOF_UNAVAILABLE` off
+`xbabe2` or when `CI`/`GITHUB_ACTIONS` is set.
 
 - Purpose: prevent ambient tools, credentials, services, or unsigned artifacts
   from being substituted for exact prerequisites.

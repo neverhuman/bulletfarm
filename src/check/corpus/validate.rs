@@ -106,7 +106,7 @@ fn validate_unit(unit: &CorpusUnit) -> Result<(), CoordError> {
         }
     }
     let compatible = match unit.disposition {
-        Disposition::Implemented => unit.anchor.is_code(),
+        Disposition::Implemented => matches!(unit.anchor, Anchor::Test { .. }),
         Disposition::Planned => matches!(unit.anchor, Anchor::Wave { .. }),
         Disposition::Superseded | Disposition::Refused => {
             matches!(unit.anchor, Anchor::Adr { .. })
@@ -114,7 +114,7 @@ fn validate_unit(unit: &CorpusUnit) -> Result<(), CoordError> {
     };
     if !compatible {
         return Err(schema_error(format!(
-            "unit {id} is {} but anchors a {} (implemented needs test|symbol, planned needs wave, superseded/refused need adr)",
+            "unit {id} is {} but anchors a {} (implemented needs test, planned needs wave, superseded/refused need adr)",
             unit.disposition.label(),
             unit.anchor.kind()
         )));

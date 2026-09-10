@@ -137,6 +137,10 @@ check-family:
     bash scripts/ci-local.sh family
 
 [positional-arguments]
+xbabe2-head *args:
+    bash scripts/xbabe2-head.sh "$@"
+
+[positional-arguments]
 lock-generate tag subjects:
     cargo run --locked --quiet --bin bullet-family -- lock generate --tag "$1" --subjects "$2"
 
