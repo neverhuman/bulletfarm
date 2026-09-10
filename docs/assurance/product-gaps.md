@@ -1,7 +1,7 @@
 # Product gap register
 
 Status: **operator index; not runtime or release authority**  
-Last reviewed: 2026-09-09
+Last reviewed: 2026-09-10
 Owner: Bullet Farm maintainers
 
 This page answers “what is still missing before Bullet Farm is a product?”
@@ -39,6 +39,16 @@ Reviewed local CI adapter/transfer/generator packets (`5b11bfb3`, `599b2ae8`,
 `974f5de2`) and Portal custody/inventory packets (`9f53fe6a`, `29d02c34`) add
 component evidence. Portal passes 183 unit tests; final complete and hosted checks
 remain required. The typed inventory stays unchanged and blocked.
+
+The [10 September closeout update](xbabe2-development-closeout.md) records local
+Portal checkpoint `2aa9f90a` and its independently reviewed conversation-recovery,
+authenticated-owner and proof-monitor component work. Its 360 unit, 24 Chromium
+and five portable bundle results remain separate observations pending a complete
+admitted current-source proof and hosted execution. The selected public format is
+paired synchronized GIF excerpts plus uninterrupted full recordings and transcripts;
+no existing fixture capture or HOLD-only navigation clip satisfies the real
+Head/provider/integration demonstration. All product and profile statuses remain
+unchanged.
 
 Exact historical accepted subjects and failed attempts remain in the
 [checkpoint](production-prerequisite-checkpoints.md),
