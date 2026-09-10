@@ -2,7 +2,7 @@
 
 Status: **Implementation detail; no production or release admission**  
 Owner: Bullet Farm maintainers  
-Last reviewed: 2026-09-09
+Last reviewed: 2026-09-10
 
 This is subordinate to the [full-product plan](full-product-dogfood-plan.md),
 [G1–G18 register](product-gaps.md) and existing typed profile inventory.
@@ -28,6 +28,18 @@ tracked in the supporting members and included in `neverhuman/bulletfarm`.
 | Primary GitHub | Fresh 9 September read-back still identifies `f8ce28e6`, zero workflows/runs/rulesets/open PRs, unprotected main. | Full source publication, workflow execution, required checks, review protection and tested-main read-back. |
 | Auditor | The immutable Jankurai 1.7.0 artifact has verified GitHub provenance. Its selected dependency closure omits reviewed fixes. | An admitted source closure, detector regressions, reproducibility/clean-environment execution and actual full audits. Provenance alone admits no score. |
 | Media | Actual recorder, browser, RGB/master and GIF-timing component tests; retained synthetic browser frames and private historical captures. | Real application/backend/provider activity, actual Codex/Claude/Cursor/Antigravity implementation tasks, production TUI capture, 1080p geometry, accessibility/color acceptance and export verification. |
+
+The 10 September reconciliation preserves the interrupted source/evidence capsule
+and the rejected Portal versions. Local Portal checkpoint `2aa9f90a027b538c8a6271d2dfc42706084b3941`
+(tree `207f12b122be0edab5783e85ae44bb149fb4d794`) contains the reviewed submission
+journal, historical reconciliation, owner-bound reads/SSE, bounded pagination and
+portable/browser separation. Recorded component runs passed 360 unit identities,
+24 Chromium identities and five portable bundle assertions, with unchanged coverage
+floors. The Linux source monitor also rejected a real changed-and-restored compiler
+input despite equal final bytes and compiler exit zero. These are separate component
+observations; the checkpoint still owes its complete admitted source proof and
+hosted execution. It does not implement the durable Head, qualify installed
+credentials/providers, or close a product/profile gate.
 
 The initial 165 findings and 28 cap occurrences remain triage inputs, not 193
 confirmed defects. Every disposition needs the source subject, finding fingerprint,
@@ -312,6 +324,16 @@ until the seven-day observation and matched manual baseline support it.
    MB); equality fails. Check the actual completed file in both render and
    independent verification. Preserve oversized failures and their original
    masters; do not meet the bound by dimming, recoloring or dropping frames.
+   The selected README presentation is two labelled, contiguous GIF excerpts,
+   one TUI and one Portal, linked to their uninterrupted full recordings. Both
+   excerpts represent the same campaign interval after accounting for stream-start
+   offsets. Each excerpt manifest binds its full recording hash, timebase, offsets,
+   interval and first/last frame. Retain every interior frame in order, with no
+   interpolation, speed change or interior omission; verify actual GIF timing
+   against declared centisecond quantization bounds. Full originals remain
+   uninterrupted from before submission through authoritative read-back. Every
+   excerpt remains native 1920×1080 and strictly below the same decimal byte bound;
+   preserve oversized/failed derivatives and repair or repeat qualification.
 8. Test failure paths: absent or drifted tools, renderer error, dropped/colliding
    frames, wrong dimensions, timing flattening, truncation, disk exhaustion,
    interrupted capture, incomplete provider termination and mismatched task IDs.
@@ -322,6 +344,15 @@ until the seven-day observation and matched manual baseline support it.
    public task whose real output can be exported; preserve any redaction history
    and original private evidence. Exported media, transcript and reproduction
    manifest must identify their exact public source subjects.
+   Keep application source executed, installed release artifact and later
+   documentation/media publication commit as three distinct subjects. A README
+   commit cannot relabel older execution. Pair each GIF with full playback,
+   accessible transcript, poster, provenance, demonstrated evidence class and
+   current certification status. Prepare the exact README/media PR and publication
+   packet before the user's exact approval. After approved publication to
+   `neverhuman/bulletfarm`, fetch assets back and check hashes, dimensions, playback
+   and links. Reuse on a later publication commit requires an admitted subject-binding
+   contract for the unchanged runtime artifacts.
 10. Verify local reproduction from the accepted aggregate with admitted tools:
     rebuild the capture/render/check code, reproduce the encoded output from
     retained inputs and independently check it. A new provider execution has its
