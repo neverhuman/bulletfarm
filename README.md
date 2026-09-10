@@ -10,6 +10,19 @@ That monorepo is where people `git clone`, build, and work. Member origins on th
 `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`, and
 `neverhuman/bullet-portal`. A clone is not a trusted installer.
 
+## Real xbabe2 operator console (not replayable)
+
+These two recordings are real authenticated loopback farmd sessions on xbabe2.
+They are not a trusted installer, not VERIFIED, and not a Claude replace.
+Operating HOLD remains. `release_eligible` is false.
+
+![HOLD-honest operator TUI on loopback farmd: CONNECTING then HOLD, LIVE n, UNBOUND](bullet-farm/media/operator-console/operator-tui.gif)
+
+![Same operator, Shift Brief and Control Tower with Head honesty; Send omitted](bullet-farm/media/operator-console/operator-portal.gif)
+
+Captions and manifests: [`bullet-farm/media/operator-console/README.md`](bullet-farm/media/operator-console/README.md).
+Stage-one VHS tapes below stay the reproducible component set.
+
 ## One contained provider turn becomes a reviewable Candidate
 
 This is a live recording, not a re-enactment. A real, billed `claude` turn ran
