@@ -1,4 +1,10 @@
 #!/usr/bin/env bash
+# Narration for a recorded session: the colour constants below are part of
+# every format string by design, and `run` echoes a command line before
+# evaluating it. ops/ci/lint.sh runs shellcheck under LC_ALL=C, so this file
+# also stays ASCII-only: a non-ASCII byte makes shellcheck itself fail to
+# write its report (commitBuffer: invalid character) and exit 2.
+# shellcheck disable=SC2059,SC2294,SC1003,SC2012
 # Bullet Farm on xbabe2. Every command below runs for real, while recording.
 # The provider turn is a real, billed claude 2.1.266 turn against a real
 # account. Nothing here is replayed, staged, or reconstructed.
@@ -17,7 +23,7 @@ run()   { say "$*"; eval "$@"; sleep 1.2; }
 
 clear
 printf "${B}${W}  BULLET FARM${O}  ${W}one contained provider turn becomes a reviewable Candidate${O}\n"
-printf "  ${D}host xbabe2 · claude 2.1.266 · real account · real spend · recorded live${O}\n"
+printf "  ${D}host xbabe2 - claude 2.1.266 - real account - real spend - recorded live${O}\n"
 sleep 2.2
 
 title "1  The provider is a root-staged runtime, not whatever is on PATH"

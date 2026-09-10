@@ -5,7 +5,7 @@ its own history; the trees below are copies of one commit each.
 
 | Member | Commit | Source |
 | --- | --- | --- |
-| bullet-farm | `a73f74729b177735342a9faa69ede2664878c08f` | https://github.com/neverhuman/bullet-farm |
-| bullet-kernel | `9587a048d8b96dabd63ff1843863149f24cfab1e` | https://github.com/neverhuman/bullet-kernel |
-| bullet-git | `cc985434806720d51edf0b1609d3237b3a04beaa` | https://github.com/neverhuman/bullet-git |
-| bullet-portal | `99a320e98ba1afa975b7f46b228befcfe816d9d1` | https://github.com/neverhuman/bullet-portal |
+| bullet-farm | `b41c77bf4c13431d168f4057661e659092e1a213` | https://github.com/neverhuman/bullet-farm |
+| bullet-kernel | `7e8422dc01edd5490836a97494a8ce909d5b92ab` | https://github.com/neverhuman/bullet-kernel |
+| bullet-git | `4e33103673f535fde871ef26cffe05460674293b` | https://github.com/neverhuman/bullet-git |
+| bullet-portal | `00b13bfa299a80f1b390505663eff7b4c6c35a8e` | https://github.com/neverhuman/bullet-portal |

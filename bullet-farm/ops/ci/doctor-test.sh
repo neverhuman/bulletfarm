@@ -4,6 +4,7 @@ set -euo pipefail
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 
 declare -A MISSING_TOOLS=()
+declare -A STUBBED_TOOLS=()
 
 lane_tools() {
   local lane="$1"
@@ -84,11 +85,23 @@ probe_with_missing_tools() {
     $omit && continue
     local src
     src="$(command -v "$tool" 2>/dev/null || true)"
-    if [[ -z "$src" ]]; then
-      printf '[ci] DOCTOR_TEST_FIXTURE_MISSING_TOOL: %s\n' "$tool" >&2
-      return 1
+    if [[ -n "$src" ]]; then
+      [[ -e "$fixture/$tool" ]] || ln -s "$src" "$fixture/$tool"
+    elif [[ -e "$fixture/$tool" ]]; then
+      :
+    else
+      # ci-doctor decides a lane tool with `command -v` and never executes one,
+      # so presence is the whole subject and an executable stub states it
+      # exactly. Only specialist tools reach this path: a hosted runner has no
+      # jankurai and need not carry lychee or cargo-llvm-cov to prove that
+      # ci-doctor names a missing tool. Everything ci-doctor actually runs is a
+      # coreutil in the bootstrap list below, which is always symlinked to the
+      # real binary and is never stubbed. Each stub is reported at the end so a
+      # reader never mistakes this for a probe against installed tools.
+      printf '#!/bin/sh\nexit 0\n' >"$fixture/$tool"
+      chmod 0755 "$fixture/$tool"
+      STUBBED_TOOLS["$tool"]=1
     fi
-    [[ -e "$fixture/$tool" ]] || ln -s "$src" "$fixture/$tool"
   done
 
   # ci-doctor loads toolchain-pins early and requires these helpers.
@@ -410,4 +423,8 @@ rmdir "$lock_fixture/.git/bullet-ci.lock.d"
 
 cleanup_lock_fixture
 trap - EXIT
+if [[ "${#STUBBED_TOOLS[@]}" -gt 0 ]]; then
+  printf '[ci] DOCTOR_TEST_STUBBED_ABSENT_TOOLS: %s\n' \
+    "$(printf '%s\n' "${!STUBBED_TOOLS[@]}" | LC_ALL=C sort | tr '\n' ' ')"
+fi
 printf '[ci] ci-doctor all-lane union guards passed\n'

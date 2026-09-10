@@ -44,7 +44,11 @@ env -i PATH=/definitely-missing LC_ALL=C \
 grep -q '^setup: SETUP_BOOTSTRAP_UNAVAILABLE:' "$schema_output" \
   || { refuse SOURCE_WRAPPER_LAUNCHER_CODE_DRIFT "direct wrapper lost typed refusal without PATH"; exit 1; }
 
-just_bin="$(command -v just)"
+# `command -v` exits nonzero when the tool is absent, so under `set -e` this
+# assignment ended the lane with no output whatsoever. Refuse by name.
+just_bin="$(command -v just || true)"
+[[ -n "$just_bin" ]] \
+  || { refuse SETUP_RECIPE_LAUNCHER_MISSING "just is required by the fast lane"; exit 1; }
 status=0
 (cd "$REPO_ROOT" && env -i PATH=/definitely-missing LC_ALL=C \
   "$just_bin" setup) >"$schema_output" 2>&1 || status=$?

@@ -353,3 +353,97 @@ async fn gate_delete_repairs_only_in_test_simulator() {
         "an applied proposal must chain the daemon-issued next checkpoint"
     );
 }
+
+#[tokio::test]
+async fn failed_terminate_after_success_is_not_reported_as_success() {
+    use bullet_application::Ledger as _;
+    let dir = tempfile::tempdir().expect("tempdir");
+    let adapter = Arc::new(ScriptedSim::new());
+    adapter.override_proposal(
+        0,
+        proposal(serde_json::json!([
+            { "path": "PONG.txt", "op": "create", "contents": "PONG\n" }
+        ])),
+    );
+    adapter.fail_terminate("injected terminate refusal");
+    let root = dir.path();
+    let (origin, base) = build_origin(root);
+    let (ledger, package) = seeded_ledger("terminate-fail");
+    let client = Arc::new(candidate::TestCandidateClient::new(ledger.clone()));
+    let journal = Arc::new(MemoryJournal::new());
+    let request = AcquireRequest {
+        work_package_id: package,
+        runner_id: RunnerId::from_seed("terminate-fail"),
+        runner_epoch: 1,
+        idempotency_key: "terminate-fail-1".into(),
+        ttl_seconds: 15,
+    };
+    let config = client.admit_config(
+        AttemptConfig::new(
+            origin,
+            base,
+            root.join("farm"),
+            "test-only objective".into(),
+            vec!["PONG.txt".into()],
+            vec![REPOSITORY_GATE_ID.into()],
+        )
+        .with_preservation_destination(root.join("success-preserve-terminate-fail")),
+    );
+    let grant = client.acquire(&request).await.expect("test lease");
+    let mut workspace = SimWorkspace::new(grant.authority_token.clone());
+    let mut info = workspace
+        .clone_workspace(
+            &config.source_repo,
+            &config.base_sha,
+            &config.workspace_root,
+            &config.scope_prefixes,
+        )
+        .await
+        .expect("test-only clone");
+    let error = run_cloned_attempt(
+        client,
+        adapter.clone(),
+        journal.clone(),
+        Arc::new(MonotonicClock::new()),
+        &grant,
+        &config,
+        &mut workspace,
+        &mut info,
+    )
+    .await
+    .expect_err("terminate failure must not report success");
+    assert_eq!(error.reason_code(), "FINALIZATION_UNRESOLVED");
+    let RunnerError::FinalizationUnresolved {
+        stage,
+        primary,
+        destination,
+        ..
+    } = &error
+    else {
+        panic!("missing preserved subject")
+    };
+    assert_eq!(*stage, "provider_termination");
+    assert_eq!(primary.reason_code(), "PROTOCOL_ERROR");
+    assert!(destination.join("generation/repo/PONG.txt").is_file());
+    assert!(info.repo_dir.is_dir());
+    assert_eq!(workspace.cleanup_calls(), 0);
+    let state = ledger.lock().expect("ledger");
+    let attempt = state
+        .get_attempt(&grant.attempt.id)
+        .expect("attempt")
+        .expect("present");
+    assert_eq!(attempt.state, bullet_domain::AttemptState::Preparing);
+    assert!(state
+        .get_lease(&attempt.variant_id)
+        .expect("lease")
+        .is_some());
+    assert!(state.ready_rows().expect("ready").is_empty());
+    assert!(!journal
+        .stages()
+        .iter()
+        .any(|stage| stage == "released" || stage == "workspace_cleaned"));
+    assert!(!journal
+        .entries()
+        .iter()
+        .any(|(stage, detail)| stage == "terminated" && detail == "success"));
+}

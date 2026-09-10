@@ -214,6 +214,7 @@ exit "$status"
         .expect("make launcher relay executable");
 
     let output = Command::new("python3")
+        .env("PYTHONDONTWRITEBYTECODE", "1")
         .arg(hub().join("tests/dogfood-board.py"))
         .arg("--json")
         .env("BULLET_FAMILY_BIN", &relay)
@@ -282,6 +283,7 @@ raise SystemExit(module.main())
 "#;
     let started = Instant::now();
     let output = Command::new("python3")
+        .env("PYTHONDONTWRITEBYTECODE", "1")
         .args(["-c", driver])
         .arg(hub().join("tests/dogfood-board.py"))
         .env("BULLET_FAMILY_BIN", &relay)
@@ -326,6 +328,7 @@ raise SystemExit(module.main())
 #[test]
 fn compatibility_launcher_rejects_unbounded_arguments_before_launch() {
     let output = Command::new("python3")
+        .env("PYTHONDONTWRITEBYTECODE", "1")
         .arg(hub().join("tests/dogfood-board.py"))
         .args(["--json", "--json"])
         .env("BULLET_FAMILY_BIN", "/definitely/not/a/bullet-family")

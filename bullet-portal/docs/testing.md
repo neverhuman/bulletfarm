@@ -37,6 +37,50 @@ repair landed. `agent/test-map.json` routes an owned path to its lane, and
 purpose, the kernel's stable reason code, the common fixes for each, the repair
 hint, and where each one is documented.
 
+The current unit partition contains 258 distinct passing identities, pinned by
+count and SHA-256 in both fast and coverage lanes. This includes navigation,
+atomic operator snapshots, ordinary event refresh and durable session consumers.
+Thirteen command-history tests cover owned discovery after local cache loss,
+pagination, stale responses, phase regression and exact HTTP status validation.
+Retry coverage also checks Rust-compatible request digests, exact settled-command
+responses, journal serialization and subject substitution, and browser reloads
+that retain the original envelope without an automatic POST.
+Thirteen task-intent tests cover the closed v2 payload, UTF-8 and path bounds,
+exact decimal budgets, the real form builder and pre-POST journal, restored
+intent conflicts, owned snapshot correlation and refresh refusal. Fresh tasks
+carry repository/base, scope, criteria, gates, dependencies, budget and deadline;
+the UI displays the recorded scheduling blocker without claiming execution.
+A count is never inferred from prior runs: the JSON report must
+contain every expected passing identity with zero skipped, pending or failed
+cases. Browser fixtures and local HTTP tests remain component proofs; they do
+not establish the installed provider workflow or release acceptance.
+
+## Authenticated connected browser proof
+
+The family and packaged lanes share the three real-daemon cases in
+[`real-farmd.spec.ts`](../e2e/real-farmd.spec.ts). One admitted browser context
+survives ordinary reloads. Anonymous projections, command discovery and SSE
+must refuse with `SESSION_REQUIRED`; an authenticated component submission is
+rediscovered from command history without a local submission journal.
+[`real-worker.ts`](../e2e/real-worker.ts) retains the exact sealed claim,
+binary manifest, preservation receipt, durable `UNKNOWN` result and restart
+assertions. Fixture execution is Node-side and cannot establish provider work.
+
+Both modes build in a fresh private target and require an explicitly selected,
+canonical, protected `BULLET_GITD_BIN` with matching `BULLET_GITD_SHA256`.
+Packaged mode also verifies the clean-source bundle, embeds it in farmd and
+checks the served bundle root and entry point. It uses the same component
+worker, peer registry and private receipt custody as the forwarded lane.
+Thirty build-admission fixtures exercise both modes. The launcher's bootstrap,
+worker-token and lease-key files are removed on exit. Raw worker output, JUnit,
+browser diagnostics, daemon logs and ambiguous worker state remain in the
+private proof directory. Repository reports contain only its location, exit
+status and explicit component eligibility limits, never replacement success
+results. The lane validates the original private JUnit report.
+Browser tracing, screenshots and video are disabled for these credential-bearing
+component tests. The retained fixture is neither an installation nor a recording
+of live provider execution.
+
 ## Never skip-green
 
 A missing tool, a wrong tool version, a skipped case, a flaky rerun, or an
@@ -71,3 +115,11 @@ step.
 - The Jankurai audit runs locally only. The pinned auditor is a machine-local
   build, so no workflow may claim it ran; adding a hosted job that silently
   skipped would be a false green.
+- Authenticated Head Playwright and Tuiwright are not hosted and are not the
+  14-identity mocked contract suite. A future `playwright.head.config.ts` is
+  invoked only by Hub `just xbabe2-head` on xbabe2; off-node and CI exit 78
+  with `XBABE2_PROVIDER_PROOF_UNAVAILABLE`. Family and packaged farmd
+  Playwright remain fixture/`UNKNOWN` proofs, not a provider-authenticated
+  Head. Kernel `vt100` child-process TUI tests are the cheap default and are
+  not Tuiwright. Do not add Head Playwright or Tuiwright to
+  `.github/workflows`.

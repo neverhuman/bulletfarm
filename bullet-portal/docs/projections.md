@@ -1,15 +1,19 @@
 # Portal projections
 
-Status: component contract consuming Kernel `c3a7009`; no release claim
+Status: component contract; current sources require independent release admission
 Owner: Bullet Farm maintainers
-Last reviewed: 2026-08-25
+Last reviewed: 2026-09-10
 Applies to: bullet-portal
 
 This document states what the browser reads, how each read is validated, and
 what each of the fifteen spec §25 surfaces shows or refuses to show. Every
 statement names its source file. `src/generated/api.ts` is the generated
-kernel contract (`agent/generated-zones.toml`); the portal declares no wire
-DTO of its own. The parity checks at the end keep this file honest against
+kernel contract (`agent/generated-zones.toml`); the portal declares no
+hand-edited copy of a generated DTO. Conversation GET/POST consumers in
+`src/features/conversation/talk.ts` validate the Kernel
+`ConversationIndexView` / `ConversationView` /
+`ConversationMessageReceipt` shapes until that generated zone is refreshed
+from Kernel. The parity checks at the end keep this file honest against
 `src/surfaces.ts` and `src/api.ts`.
 
 ## Snapshot contract: one route, one atomic read
@@ -19,7 +23,7 @@ projection enters the browser. A response is accepted only when all of the
 following hold (`src/apiValidation.ts`: `isSnapshotEnvelope`; `src/apiTransport.ts`:
 `fetchJson`, `readSnapshotSequence`):
 
-- HTTP 2xx within the 10 s `AbortController` timeout, media type
+- HTTP 200 within the 10 s `AbortController` timeout, media type
   `application/json`, and a parseable JSON body. Any other status becomes an
   `ApiError` (an `application/problem+json` body whose `status` matches is
   parsed into `code`, `request_id`, and `repair`); a 404 is a failed read,
@@ -34,13 +38,10 @@ following hold (`src/apiValidation.ts`: `isSnapshotEnvelope`; `src/apiTransport.
   is null or an integer; `ReadyView` may be `null`; `AuditView` must satisfy
   `auditTailIsCoherent` — at most `tail_window` events, contiguous `seq`, and
   the last `seq` equal to `latest_sequence` (an empty tail only when
-  `latest_sequence === 0`). `ContextLineageView` and its DTO are generated,
-  but the Kernel generator has not exported that view as an AJV root; the
-  adjacent strict `isContextLineageView` validates every generated field,
-  exact keys, typed IDs/digests, the exact closed 16-value snake_case
-  `TaskClass` catalog, revision one, null parent, `compression: "none"`, empty
-  dropped decisions, and RFC 3339 `recorded_at` without declaring a second
-  wire DTO.
+  `latest_sequence === 0`). `ContextLineageView` is also a generated runtime-schema root and uses the
+  same strict AJV validation for the closed fields, typed IDs/digests,
+  task-class catalog, revision one, null parent, no compression, empty dropped
+  decisions and RFC 3339 recording time.
 - The `x-bullet-as-of-sequence` response header is present, canonical
   decimal (`/^(?:0|[1-9]\d*)$/`), a safe integer, and equal to
   `body.as_of_sequence`. Otherwise the read throws `snapshot watermark header
@@ -55,8 +56,9 @@ route that disagrees with itself.
 
 ## Composition: one shared watermark per view
 
-`useProjection(title, load)` (`src/hooks/useProjection.ts`) runs `load` once
-per mount and passes every `SnapshotRead` it produced to `atomicSnapshot`:
+`useProjection(title, load)` (`src/hooks/useProjection.ts`) loads on mount and
+invalidates the active surface on ordinary accepted events. It passes every
+`SnapshotRead` in each refresh to `atomicSnapshot`:
 
 - no reads: `SNAPSHOT_WATERMARK_MISSING`;
 - any `asOfSequence` differing from the first: `SNAPSHOT_WATERMARK_MISMATCH`;
@@ -70,11 +72,50 @@ source: "portal/local"}`, a local observation timestamped by the browser, and
 the surface renders that text in the `unknown` class. `ProjectionCard`
 (`src/components/ProjectionCard.tsx`) always prints the header line
 `spec §N · as_of_sequence <n|unknown> · source <s|unknown> · observed_at
-<t|unknown> · freshness <k>s since observed_at (one-shot snapshot, not live) ·
-projection <loading|unknown|published> · confidence <published|unknown>`.
-Projected surfaces do not subscribe to `/api/v1/events`; only Control Tower does
-(`src/hooks/useEventStream.ts`), so a STALE badge there never silently
-refreshes a one-shot projection and a projection never claims to be live.
+<t|unknown> · freshness <age and refresh mode|unknown> ·
+projection <loading|unknown|stale|published> · confidence <published|unknown>`.
+The eight existing projected surfaces, Control Tower and Shift Brief each
+own one stream while mounted through `useProjection`.
+Accepted contiguous events coalesce for 100 ms before refreshing. Duplicate
+frames do not trigger reads; a burst during a pending read gets at most one
+successor request. There is one read in flight per active loader. A visible
+page also refreshes every 10 seconds, on focus and when becoming visible;
+the operator can request a refresh explicitly. Disposing a loader removes its
+timers/listeners and ignores late results. HTTP reads retain their existing
+10-second deadline. A lower snapshot sequence is refused as
+`SNAPSHOT_SEQUENCE_REGRESSION`.
+
+The card displays the event cursor and the **displayed snapshot** separately.
+A cursor ahead of the snapshot, a stream gap or a disconnected stream shows
+STALE. An event never advances the displayed snapshot watermark by itself.
+The freshness label reads `event refresh; 10s fallback`; a manually supplied
+unsubscribed card retains the one-shot label. Connection state describes the
+event transport, not provider health or verified work. An UNKNOWN or loading
+snapshot never receives a current-snapshot label even with a healthy stream.
+Control Tower and Shift Brief use `useOperatorSnapshot`, which passes one
+`GET /api/v1/operator-snapshot` response through the same refresh scheduler.
+The Kernel composes mission lists and graphs, outbox, readiness, fleet,
+sessions, context lineage, merge rail, quality lab and audit inside one
+`SqliteLedger::read_snapshot` closure. Every durable Shift Brief row therefore
+carries the same sequence, observation time and source. A failed component
+refuses the whole aggregate. Control Tower publishes all four component cards
+from that one result; its displayed snapshot watermark is separate from the
+event cursor. Refresh preserves operator input.
+
+`OperatorSnapshotView` and its strict runtime schema are generated from
+OpenAPI. The client additionally checks mission/graph agreement, complete
+contiguous audit coverage, the audit/envelope watermark, and quality outcome
+consistency. A malformed component never produces a partially successful
+brief. These are component projection guarantees; provider execution,
+independent verification and integration remain separate obligations.
+
+Navigation is keyboard accessible through the searchable palette in
+[`CommandPalette.tsx`](../src/components/CommandPalette.tsx): Ctrl/Cmd+K,
+or `/` outside editable controls; arrows choose, Enter opens, Escape closes
+and restores focus. It lists Shift Brief and all fifteen surfaces, explicitly
+labels missing projections, and submits no mutation. The planned terminal
+console, native session controls and review/integration actions remain separate
+implementation obligations.
 
 ## Counting and empty sets
 
@@ -96,7 +137,7 @@ refreshes a one-shot projection and a projection never claims to be live.
   `mission_id`), `not recorded`, `none recorded`, `absent`, `not delivered`,
   `not acked`, `none` (`nullable(...)` in each page).
 - Control Tower keeps its own vocabulary: `No missions yet.` and
-  `outbox: empty (verified)` render only from an HTTP 200 JSON snapshot
+  `outbox: empty (observed)` render only from an HTTP 200 JSON snapshot
   (`src/components/MissionsCard.tsx`, `OutboxCard.tsx`); a failed read is
   `unknown: control plane unreachable (…)` or `unknown: outbox unreachable (…)`.
 
@@ -104,7 +145,7 @@ refreshes a one-shot projection and a projection never claims to be live.
 
 | Surface (`id`, spec) | Routes | DTO (`src/generated/api.ts`) | Component | Shown | Deliberately absent |
 | --- | --- | --- | --- | --- | --- |
-| Control Tower (`control-tower`, §25.1) | `GET /api/v1/missions`, `GET /api/v1/outbox`, `GET /health`, `GET /api/v1/events?after=<seq>`; `POST /api/v1/auth/bootstrap`, `POST /api/v1/commands`, `GET /api/v1/commands/{id}` | `Mission[]`, `OutboxView`, `Health`, `EventEnvelope`, `BootstrapResponse`, `CommandEnvelope`, `CommandStatus` | `src/pages/ControlTower.tsx` | `as_of_sequence`, projection lag from durable `Event.at`, stream state, `/health` probe, missions, outbox phases, the exact admitted command and its polled status; a bare durable `VERIFIED` is displayed as local `UNKNOWN` because generic `CommandStatus.result` cannot validate runtime Evidence and Effect receipts | green for any command until a generated runtime receipt contract binds the exact Candidate, independent Evidence, Effect receipt, and command id; any status that does not repeat the admitted id, kind, and payload digest; survival, cost, quota risk, and struggle (no ledger subject) |
+| Control Tower (`control-tower`, §25.1) | `GET /api/v1/operator-snapshot`, `GET /health`, `GET /api/v1/events?after=<seq>`; `POST /api/v1/auth/bootstrap`, `POST /api/v1/commands`, `GET /api/v1/commands/{id}` | `OperatorSnapshotView`, `Health`, `EventEnvelope`, `BootstrapResponse`, `CommandEnvelope`, `CommandStatus` | `src/pages/ControlTower.tsx` | `as_of_sequence`, projection lag from durable `Event.at`, stream state, `/health` probe, missions, outbox phases, the exact admitted command and its polled status; a bare durable `VERIFIED` is displayed as local `UNKNOWN` because generic `CommandStatus.result` cannot validate runtime Evidence and Effect receipts | green for any command until a generated runtime receipt contract binds the exact Candidate, independent Evidence, Effect receipt, and command id; any status that does not repeat the admitted id, kind, and payload digest; survival, cost, quota risk, and struggle (no ledger subject) |
 | Mission Graph (`mission-graph`, §25.2) | `GET /api/v1/missions`, then `GET /api/v1/missions/{id}` per mission | `Mission[]`, `MissionView` (`mission`, `packages: WorkPackage[]`, `fence`) | `src/pages/ProjectedSurface.tsx` (`MissionGraph`) | raw JSON `{missions, graphs}` at the shared watermark | plan revisions, variants, attempts, candidates, evidence, and effects are not in `MissionView`; they appear only on Session Supervisor, Merge Rail, and Quality Lab |
 | Live Attempt (`live-attempt`, §25.6) | as Mission Graph plus `GET /api/v1/ready` | `ReadyView` or `null`, `MissionView` | `src/pages/ProjectedSurface.tsx` (`LiveAttempt`) | raw JSON `{ready, graphs}`; `ready: null` is the empty queue at the watermark | session events, authority token hash, last-progress time: none is a ledger subject; `ReadyView` carries only ids, `title`, `enqueued_at` |
 | Fleet (`fleet`, §25.5) | `GET /api/v1/fleet` | `FleetView` (`authority_time`, `leases: FleetLease[]`, `ready_queue: ReadyRow[]`) | `src/pages/FleetPage.tsx` | `authority_time` (store clock, liveness basis); per lease `liveness` live/expired/unknown judged by the kernel against that clock, fence, runner id and epoch, `heartbeat_at`, `expires_at`, `ttl_seconds`, linked attempt state, package, mission; ready queue | any browser-clock liveness judgement; runner host or process identity; a lease with no attempt row prints `contradictory: attempt row missing` rather than being hidden |
@@ -143,9 +184,24 @@ longer in this table; only the exact revision-one slice above is projected.
 | Behavior Center (`behavior-center`, §25.11) | no ledger subject exists for this surface yet: behavior rule events, enforcement, and remediation receipts are not persisted rows (crates/behavior is a non-authoritative detector scaffold); produced by V1-S6 item 1 (persist behavior rules) | V1-S6 item 1 |
 | Workspace and Git Hygiene (`workspace-hygiene`, §25.12) | no ledger subject exists for this surface yet: workspace dirty/untracked state, preservation receipts, and cleanup eligibility are not persisted rows (attempt rows carry only workspace_id, shown on Session Supervisor); produced by V1-S4 item 2 (preserve the workspace, resume from the exact checkpoint) and V1-S3 preservation receipts | V1-S4 item 2, V1-S3 item 5 |
 
+## Conversation GET contract (overlay, not a surface)
+
+`GET /api/v1/conversations` and `GET /api/v1/conversations/{id}` are snapshot
+routes under the same `readSnapshot` envelope (`data`, `as_of_sequence`,
+`observed_at`, `source`, matching `x-bullet-as-of-sequence`). Index order is
+immutable creation order; the message cursor is a thread-local sequence.
+`after`/`limit` pages are separate snapshots and are not merged across
+watermarks. `head_blocker` matches `^HEAD_[A-Z_]+$`; today's durable value is
+`HEAD_RUNTIME_BINDING_REQUIRED`. Assistant rows require a validated native
+outcome and are refused while that blocker holds. Composer uses
+`POST /api/v1/commands` `kind=conversation_message` with required nullable
+`cursor` and 32768-byte LF/TAB-only content, then binds refresh to the
+`APPLIED` `ConversationMessageReceipt` cursor — not `index[0]` and not a
+browser transcript.
+
 ## Where this is exercised
 
-- Unit and component (`npm test`): `src/api.test.ts` (envelope, header, 404
+- Unit and component (`npm test`): `src/operatorSnapshot.test.ts` (aggregate closed shape, audit coverage and watermark agreement), `src/pages/ShiftBriefPage.test.tsx` (one provenance and whole-view failure), `src/pages/ControlTower.test.tsx` (one aggregate and preserved input), `src/api.test.ts` (envelope, header, 404
   and null-ready rules), `src/apiValidation.test.ts`,
   `src/projectionValidation.test.ts`, `src/components/ProjectionCard.test.tsx`,
   and `src/pages/{ProjectedSurface,FleetPage,SessionSupervisorPage,ContextLineagePage,MergeRailPage,QualityLabPage,IncidentsAuditPage,SurfacePage}.test.tsx`.
@@ -156,7 +212,10 @@ longer in this table; only the exact revision-one slice above is projected.
   including "an unprojected surface names its missing ledger subject, not an
   empty success list").
 - Real farmd (`bash ops/ci/real-farmd.sh`): `e2e/real-farmd.spec.ts` (3
-  tests) checks against the built sibling `bullet-farmd` that legacy GET and a
+  tests) uses one admitted browser session, rejects anonymous reads and SSE,
+  and discovers a component command through history after a normal reload.
+  The Node-side worker helper retains sealed claim, receipt and restart checks.
+  It checks against the built sibling `bullet-farmd` that legacy GET and a
   valid command POST under `/v1` return typed `API_VERSION_RETIRED` while the
   outbox body and watermark remain unchanged; that `/api/v1/fleet`,
   `/api/v1/sessions`, `/api/v1/context-lineage`, `/api/v1/merge-rail`, `/api/v1/quality-lab`,
@@ -168,7 +227,7 @@ longer in this table; only the exact revision-one slice above is projected.
   that watermark; that the real reconciled `UNKNOWN` command card has no green
   status; and that Quota and Capacity names its missing subject.
 - Packaged farmd (`bash ops/ci/packaged-farmd.sh`): the three
-  `e2e/real-farmd.spec.ts` live-farmd tests plus four mocked
+  `e2e/real-farmd.spec.ts` real-daemon component tests plus four mocked
   `e2e/shift-brief.spec.ts` routing/no-green tests, run against a
   `bullet-farmd` built with `--features embedded-portal` that serves this
   Portal's manifest-verified `dist` bytes at its own origin
@@ -176,8 +235,8 @@ longer in this table; only the exact revision-one slice above is projected.
   requires `GET /health` to carry
   `portal: "<framed BLAKE3 bundle root>"` equal to this build's
   `.bullet-portal-bundle-v1.json` root, and `GET /` to serve the entry point.
-  This is the projection contract proved under packaged serving; it is not a
-  transaction, live-provider, or release proof.
+  A passing lane verifies these component assertions under packaged serving;
+  it does not establish transaction, live-provider, installation, or release acceptance.
 
 ## Packaged same-origin serving
 
@@ -219,7 +278,7 @@ grep -oE '\$\{API_PREFIX\}/events' src/hooks/useEventStream.ts | sort -u
 The first grep must print 6; the second lists the eight projected ids. The
 route greps must print the `${API_PREFIX}` suffixes for `audit`,
 `auth/bootstrap`, `commands`, `commands/`, `context-lineage`, `fleet`,
-`merge-rail`, `missions`, `missions/`, `outbox`, `quality-lab`, `ready`,
+`merge-rail`, `missions`, `missions/`, `operator-snapshot`, `outbox`, `quality-lab`, `ready`,
 `sessions`, and `events`. With the generated prefix expanded and the two
 parameterized suffixes completed, each corresponding `/api/v1` route appears
 in the tables above and in `docs/architecture.md`; `/health` remains the one

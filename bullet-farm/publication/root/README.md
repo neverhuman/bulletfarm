@@ -29,5 +29,24 @@ Human review is required for integration; local fixture checks do not establish
 hosted success. JeRyu self-hosting and native forge qualification remain separate
 release obligations.
 
+Historical recordings remain available in the source snapshot:
+
+- [Contained Claude Candidate recording](bullet-farm/media/dogfood/candidate/dogfood-candidate-hi.gif)
+  and [reproduction record](bullet-farm/media/dogfood/README.md): a retained
+  component bridge with a preserved Candidate and cleanup refusal. It does not
+  establish installed Bullet authentication, TUI/Portal control of the same
+  task, independent verification, protected integration or authoritative read-back.
+- [Earlier vendor-CLI and Portal recordings](bullet-farm/docs/demo-gif/README.md):
+  vendor explanation sessions and a Portal form demonstration, with their
+  original limitations. They do not establish the requested provider workflow.
+
+These assets are historical evidence, not the current operator showcase. The
+three retained bridge GIFs do not meet the required native capture geometry.
+The installed TUI and packaged Portal must still demonstrate the same real
+task/run/Attempt/Candidate/review/integration identities, with authenticated
+provider execution and preserved original timing. Follow the existing
+[xbabe2 capture specification](bullet-farm/docs/assurance/xbabe2-development-closeout.md).
+No three-provider or four-provider milestone is claimed here.
+
 Root files are generated from the Hub's `publication/root/` templates. Change the
 source template and republish; direct aggregate edits fail regeneration checks.

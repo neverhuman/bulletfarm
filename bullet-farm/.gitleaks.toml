@@ -1,18 +1,31 @@
 # Gitleaks configuration for bullet-farm's source scan (ops/ci/source-scan.sh).
 #
-# One allowlist entry only. `credential_projection_digest` is a public BLAKE3
-# digest of a credential-projection *profile* (bullet-wire dogfood records);
-# its value is never key material, but the field name contains "credential"
-# and the value is 64 high-entropy hex, so the generic-api-key rule fires on
-# committed test fixtures. The pattern admits exactly that JSON field with a
-# 64-hex value and nothing else. The secret canary (ops/ci/secret-canary.sh)
-# scans a directory outside this root and is unaffected by this file.
+# Two allowlist patterns, both for public BLAKE3 digests this project commits
+# on purpose. Neither can mask key material: each admits one exact shape.
+#
+# `credential_projection_digest` is a public BLAKE3 digest of a
+# credential-projection *profile* (bullet-wire dogfood records); its value is
+# never key material, but the field name contains "credential" and the value
+# is 64 high-entropy hex, so the generic-api-key rule fires on committed test
+# fixtures.
+#
+# Bullet Farm's typed subject identifiers are BLAKE3 digests of public seeds.
+# They name attempts, candidates, work packages and gates, and they appear in
+# every receipt, journal line and commit message this project writes; a
+# recorded Runner journal is 64-hex identifiers almost end to end. The
+# generic-api-key rule reads them as high-entropy secrets.
+#
+# The secret canary (ops/ci/secret-canary.sh) scans a directory outside this
+# root and is unaffected by this file.
 
 [extend]
 useDefault = true
 
 [allowlist]
-description = "credential_projection_digest is a public BLAKE3 digest, not a secret; target/ is build output, not source"
+description = "public BLAKE3 digests and typed subject ids, not secrets; target/ is build output, not source"
 regexTarget = "match"
-regexes = ['''credential_projection_digest":"[0-9a-f]{64}''']
+regexes = [
+  '''credential_projection_digest":"[0-9a-f]{64}''',
+  '''\b(atm|can|wpk|mis|chg|ckp|gat|cnt|prf|run|org|rep|pln|acc|var|exe|ctp|etl)_[0-9a-f]{64}\b''',
+]
 paths = ['''^target/''']

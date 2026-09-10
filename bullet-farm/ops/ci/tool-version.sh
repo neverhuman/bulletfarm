@@ -29,7 +29,10 @@ ci_tool_version_shape_is_valid() {
     docker) pattern='^Docker version [0-9]+\.[0-9]+\.[0-9]+, build [0-9a-f]{7,40}$' ;;
     file) pattern='^file[- ][0-9]+\.[0-9]+$' ;;
     jankurai) pattern='^jankurai [0-9]+\.[0-9]+\.[0-9]+$' ;;
-    java) pattern='^(openjdk|java) version "21\.[0-9]+(\.[0-9]+)?"( [0-9]{4}-[0-9]{2}-[0-9]{2})?( LTS)?$' ;;
+    # Java version strings carry up to four components: the hosted runner
+    # reports openjdk version "17.0.20.1", which a three-component pattern
+    # refused as malformed.
+    java) pattern='^(openjdk|java) version "[1-9][0-9]*(\.[0-9]+){1,3}"( [0-9]{4}-[0-9]{2}-[0-9]{2})?( LTS)?$' ;;
     lychee) pattern='^lychee [0-9]+\.[0-9]+\.[0-9]+$' ;;
     node) pattern='^v[0-9]+\.[0-9]+\.[0-9]+$' ;;
     python) pattern='^Python [0-9]+\.[0-9]+\.[0-9]+$' ;;

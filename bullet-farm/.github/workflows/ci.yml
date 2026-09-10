@@ -28,6 +28,8 @@ jobs:
           persist-credentials: false
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
       - name: Install checksum-pinned gitleaks 8.21.2
         run: bash ops/ci/install-gitleaks.sh
       - id: lane
@@ -62,6 +64,8 @@ jobs:
           persist-credentials: false
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
       - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
         with:
           toolchain: 1.95.0
@@ -69,6 +73,8 @@ jobs:
         with:
           tool: cargo-nextest@0.9.137
           fallback: none
+      - name: Install gitleaks 8.21.2 for the publication scanner conformance tests
+        run: bash ops/ci/install-gitleaks.sh
       - id: lane
         if: ${{ !cancelled() }}
         name: Hub component partition
@@ -99,16 +105,44 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+          # ops/ci/rust-toolchain-boundary-test.sh exercises the history lane,
+          # and ops/ci/history.sh refuses a shallow clone by design.
+          fetch-depth: 0
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
+      # ops/ci/family-observation-test.sh takes a real family-contract observation
+      # on this runner, and that lane records rustc_pinned/cargo_pinned from
+      # `rustup run 1.97.1`. The Hub itself builds with 1.95.0, so the pinned
+      # kernel toolchain is installed first and 1.95.0 is made the default last.
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
+        with:
+          toolchain: 1.97.1
       - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
         with:
           toolchain: 1.95.0
           components: rustfmt, clippy
+      - name: Install checksum-pinned actionlint 1.7.8
+        run: bash ops/ci/install-actionlint.sh
+      # ops/ci/observation-test.sh replays every lane's observation shape from a
+      # real one taken on this runner, and ops/ci/artifact-check.sh requires each
+      # lane's own tool versions, so the lint job carries the union: cargo-deny
+      # and zizmor for the security and required shapes, Java for contract.
       - uses: taiki-e/install-action@b6ff580856c41316412a0b9b60540fbc6f8c82cc # v2.86.7
         with:
-          tool: actionlint@1.7.8,shellcheck@0.10.0,cargo-nextest@0.9.137
+          tool: shellcheck@0.10.0,cargo-nextest@0.9.137,cargo-deny@0.19.8,zizmor@1.25.2
           fallback: none
+      - uses: actions/setup-java@1bcf9fb12cf4aa7d266a90ae39939e61372fe520 # v5.4.0
+        with:
+          distribution: temurin
+          java-version: "21"
+      - name: Install locked b3sum 1.8.2 for the lint lane doctor
+        run: cargo install --locked --version 1.8.2 b3sum
+      # ops/ci/rust-toolchain-boundary-test.sh exercises the history lane, whose
+      # observation must record a gitleaks version like source-scan and security.
+      - name: Install gitleaks 8.21.2 for the history lane
+        run: bash ops/ci/install-gitleaks.sh
       - name: Install hash-locked Draft 2020-12 validator
         run: |
           bash ops/ci/install-readme-jsonschema.sh
@@ -145,6 +179,8 @@ jobs:
           persist-credentials: false
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
       - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
         with:
           toolchain: 1.95.0
@@ -156,6 +192,8 @@ jobs:
         with:
           tool: cargo-nextest@0.9.137
           fallback: none
+      - name: Populate the locked registry for the offline dependency graph
+        run: cargo fetch --locked
       - id: lane
         if: ${{ !cancelled() }}
         name: Wire contracts and pinned formal models
@@ -188,6 +226,8 @@ jobs:
           persist-credentials: false
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
       - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
         with:
           toolchain: 1.95.0
@@ -229,6 +269,8 @@ jobs:
           persist-credentials: false
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
       - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b
         with:
           toolchain: 1.95.0
@@ -279,6 +321,8 @@ jobs:
           persist-credentials: false
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
+      - name: Install checksum-pinned just 1.58.0
+        run: bash ops/ci/install-just.sh
       - name: Download atomic observations and sanitized reports
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
         with:

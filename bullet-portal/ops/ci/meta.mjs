@@ -141,15 +141,15 @@ assert(
 );
 assert(
   read("ops/ci/fast.sh").includes(
-    'assert-report.mjs vitest "$reports/vitest.json" 183',
+    'assert-report.mjs vitest "$reports/vitest.json" 258',
   ),
-  "exact 183-test Vitest count ratchet absent",
+  "exact 258-test Vitest count ratchet absent",
 );
 assert(
   read("ops/ci/fast.sh").includes(
-    "e60925c824536e3a9fe9dafd4b4ed2beee559bd82f760c527acbc24b84c50f5a",
+    "c66945d0ad6497b92b44da55c2a507f815a62c261c674a15538283ab8d550f40",
   ) && read("ops/ci/coverage.sh").includes(
-    "e60925c824536e3a9fe9dafd4b4ed2beee559bd82f760c527acbc24b84c50f5a",
+    "c66945d0ad6497b92b44da55c2a507f815a62c261c674a15538283ab8d550f40",
   ),
   "exact Vitest identity digest ratchet absent",
 );
@@ -165,7 +165,7 @@ assert(
 );
 assert(
   read("ops/ci/contract.sh").includes(
-    "8a95898f88efe2d2f8c7a2f2883868041ec96cb60a20d31af6761300a94983ad",
+    "ab971010688d4c8a422a452eea2278845d17ae4b6914bd0bba5f136b3e3fe899",
   ),
   "exact mocked Playwright identity digest ratchet absent",
 );

@@ -1,6 +1,6 @@
 //! Public private-render CLI controls using real local FFmpeg/agg derivatives.
 
-use std::process::Command;
+use std::{path::PathBuf, process::Command};
 
 const FIXTURE: &str = r#"
 import hashlib,json,os,runpy,shutil,signal,struct,subprocess,sys,time,zlib
@@ -159,8 +159,12 @@ elif case=='custody':
  invoke('render','portal',source,root/'bad-tool',expect=1,reason='TOOL_HASH_MISMATCH',executable=tool,tool_hash='0'*64)
  assert not (root/'executed').exists()
  tool2=root/'slow';write(tool2,('#!'+str(python)+'\nimport time\ntime.sleep(10)\n').encode());tool2.chmod(0o700)
- begin=time.monotonic();invoke('render','portal',source,root/'timed-out',['--timeout','0.1'],1,'TOOL_TIMEOUT',executable=tool2)
- assert time.monotonic()-begin<3
+ # The budget must outlast the renderer's own setup and fall well short of
+ # the tool's ten-second sleep. At 0.1s the pre-spawn deadline check won
+ # the race and the refusal was RENDER_DEADLINE, so the kill path this
+ # case exists to prove was never reached.
+ begin=time.monotonic();invoke('render','portal',source,root/'timed-out',['--timeout','2'],1,'TOOL_TIMEOUT',executable=tool2)
+ assert time.monotonic()-begin<8
  interrupted=root/'interrupted';pidfile=root/'child.pid'
  tool3=root/'interruptible';write(tool3,('#!'+str(python)+'\nimport os,time\nfrom pathlib import Path\nPath('+repr(str(pidfile))+').write_text(str(os.getpid()))\ntime.sleep(20)\n').encode());tool3.chmod(0o700)
  command=['bash',str(hub/'scripts/demo-gif-render.sh'),str(python),sha(python),sha(implementation),
@@ -220,7 +224,50 @@ elif case=='terminal':
 else:raise AssertionError(case)
 "#;
 
+/// Resolve one local media tool exactly as the Python fixture does (the
+/// environment override, else the default path). An absent tool is a typed
+/// refusal, not a Python traceback; a present tool keeps every assertion.
+fn media_subject(label: &str, variable: &str, default: Option<PathBuf>) -> Option<PathBuf> {
+    let path = std::env::var_os(variable).map(PathBuf::from).or(default);
+    match path {
+        Some(path) if path.is_file() => Some(path),
+        Some(path) => {
+            eprintln!(
+                "MEDIA_CAPTURE_SUBJECTS_UNAVAILABLE: {label} — {} is absent; this media fixture needs a local {label} binary, which hosted single-repo checkouts do not provide",
+                path.display()
+            );
+            None
+        }
+        None => {
+            eprintln!(
+                "MEDIA_CAPTURE_SUBJECTS_UNAVAILABLE: {label} — {variable} is unset and HOME is unset, so no local {label} binary can be located"
+            );
+            None
+        }
+    }
+}
+
 fn fixture(case: &str) {
+    if media_subject(
+        "ffmpeg",
+        "DEMO_GIF_TEST_FFMPEG",
+        Some(PathBuf::from("/usr/bin/ffmpeg")),
+    )
+    .is_none()
+    {
+        return;
+    }
+    if case == "terminal"
+        && media_subject(
+            "agg",
+            "DEMO_GIF_TEST_AGG",
+            std::env::var_os("HOME")
+                .map(|home| PathBuf::from(home).join(".cache/bullet-demo-gif/bin/agg")),
+        )
+        .is_none()
+    {
+        return;
+    }
     let directory = tempfile::tempdir().expect("fixture directory");
     #[cfg(unix)]
     {

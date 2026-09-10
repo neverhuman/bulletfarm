@@ -1,6 +1,7 @@
 //! Attempt startup, state transition, and successful finish orchestration.
 
 mod candidate;
+mod finalize;
 
 use super::cleanup::cleanup_failure;
 use super::session::session_loop;
@@ -90,23 +91,25 @@ pub(super) async fn run_cloned_attempt_guarded(
     {
         Ok(outcome) => {
             heartbeat.abort();
-            let _ = adapter.terminate(&session).await;
-            journal.record("terminated", "success");
             Ok(outcome)
         }
         Err(err) => {
             heartbeat.abort();
-            cleanup_failure(
-                client.as_ref(),
-                adapter.as_ref(),
-                gitd,
-                grant,
-                config,
-                journal.as_ref(),
-                &session,
-                &err,
-            )
-            .await;
+            // Finalization owns termination and the only terminal release.
+            // An error here may follow a committed release or deletion.
+            if !matches!(err, RunnerError::FinalizationUnresolved { .. }) {
+                cleanup_failure(
+                    client.as_ref(),
+                    adapter.as_ref(),
+                    gitd,
+                    grant,
+                    config,
+                    journal.as_ref(),
+                    &session,
+                    &err,
+                )
+                .await;
+            }
             Err(err)
         }
     }
@@ -176,34 +179,13 @@ async fn drive_and_finish(
     let destination = config.preservation_destination()?.to_path_buf();
     let receipt = gitd.preserve(&destination).await?;
     let preservation = CandidatePreservation::bind(&candidate, grant, &destination, receipt)?;
-    journal.record(
-        "candidate_preserved",
-        &format!(
-            "{} {} {}",
-            preservation.candidate_id,
-            preservation.receipt.digest,
-            preservation.receipt.destination.display()
-        ),
-    );
-    check_freeze(heartbeat)?;
-    gitd.cleanup(&preservation.receipt, &candidate.prepared_at)
-        .await?;
-    journal.record("workspace_cleaned", &candidate.id);
-    check_freeze(heartbeat)?;
-    client
-        .release(&ReleaseCall {
-            attempt_id: grant.attempt.id.clone(),
-            outcome: AttemptState::Succeeded,
-            requeue: false,
-        })
-        .await?;
-    journal.record("released", "succeeded");
-    Ok(AttemptOutcome {
+    let outcome = AttemptOutcome {
         attempt_id: grant.attempt.id.clone(),
         fence: grant.attempt.fence,
         candidate,
         preservation,
         repair_rounds: rounds,
         gates,
-    })
+    };
+    finalize::finish(client, adapter, gitd, journal, heartbeat, session, outcome).await
 }

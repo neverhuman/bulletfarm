@@ -13,11 +13,11 @@ that aggregator fail.
 
 | Partition | Selected | Meaning |
 | --- | ---: | --- |
-| standalone | 747 | all component tests outside the provider-contract/simulation, egress, and family partitions; every selected identity executes with zero skipped, including the explicitly feature-enabled verifier fixture tests |
+| standalone | 1248 | all component tests outside the provider-contract/simulation, egress, and family partitions; every selected identity executes with zero skipped, including the explicitly feature-enabled verifier fixture tests |
 | egress | 3 | the exact host-dependent namespace/nftables/CONNECT-proxy identities; only the capability-admitted `egress` lane executes them |
 | contract | 34 | four offline provider protocol binaries plus `bullet-test-simulation` |
 | family | 9 | five `transaction_demo` identities plus `heartbeat_stale`, `kill_retry`, `loop_sim`, and `synthetic_e2e` |
-| total | 793 | exact union of the four disjoint partitions above |
+| total | 1294 | exact union of the four disjoint partitions above |
 
 `ops/ci/inventory-test.sh` independently lists all four partitions, requires
 every set to be nonzero, checks pairwise disjointness and exact union,
@@ -25,6 +25,37 @@ digest-binds all identities, locks the nine family and three egress identities, 
 scans test sources for every `bullet-gitd` resolution site. A new, removed,
 renamed, ignored, or silently reclassified test makes `lint` fail until the
 inventory is reviewed.
+
+The September 10 inventory includes durable operator-session and command-owner
+fixtures, response-loss/restart discovery, private bootstrap custody, concurrent
+credential readers with exclusive writer exclusion, status HTTP waits without
+retained credential locks, generated
+client validation, duplicate decoded JSON-key refusal before durable admission,
+authenticated remote mission reads with malformed/absent subject refusals,
+immutable task/dependency/run acceptance with per-boundary rollback, typed constraint refusals,
+missing-run/orphan-dependency corruption, task-file and journal identity checks,
+and actual CLI/TUI child-process checks. The task CLI also runs against the real daemon
+through login, restart, exact retry and empty-cache discovery. These tests use
+disposable local identities and explicitly synthetic task data; they do not
+establish installed provider execution or release eligibility. Inventory
+enumeration alone is not a successful test execution.
+
+`apps/bullet/tests/operator_tui.rs` holds a synthetic HTTP response until six
+separate CLI processes sharing one private credential directory have rendered
+CONNECTING and navigated. After release they select the requested subject and
+detach independently. A separate held-response case detaches before HTTP
+completion and preserves a shell-quoted reconnect subject. These are Linux PTY
+component regressions; they do not substitute for xbabe2 Tuiwright recordings,
+installed-service revocation/restart acceptance, or native provider evidence.
+
+Six Runner finalization identities cover positive termination acknowledgement before
+release, zero-or-one terminal release without requeue, post-delete response loss,
+failed required journals and receipt-only cleanup admission. The original
+orchestration tests retain their identities. Unresolved finalization retains
+Candidate/receipt references and the primary failure; a failed recovery journal
+write is also exposed. These component proofs do not establish native descendant
+termination, capacity retention beyond lease expiry, atomic Candidate/quota/verifier
+settlement or end-to-end duplicate-cleanup reconciliation.
 
 Every partition list and execution supplies
 `--features bullet-verifier/fixture-executor`. The feature exposes six
@@ -148,7 +179,7 @@ provider conformance.
 
 | Lane | Scope |
 | --- | --- |
-| `fast` | exactly 747 standalone nextest identities, all executed with zero skipped |
+| `fast` | exactly 1248 standalone nextest identities, all executed with zero skipped |
 | `lint` | rustfmt, all-target Clippy, actionlint 1.7.8, ShellCheck 0.10.0, workflow policy, inventory/observation/nightly meta-tests |
 | `contract` | exactly 34 offline provider-contract and simulation tests |
 | `security` | current-tree gitleaks 8.21.2; full cargo-deny 0.19.8 advisories/bans/licenses/sources with independently proved RustSec freshness; zizmor 1.25.2 |

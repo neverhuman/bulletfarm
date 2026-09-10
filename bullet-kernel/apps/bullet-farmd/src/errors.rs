@@ -71,6 +71,27 @@ impl From<LedgerError> for ApiError {
             LedgerError::Store(detail) => Self::Internal(detail),
             LedgerError::UnsupportedSchema { detail } => Self::UnsupportedSchema(detail),
             LedgerError::Domain(err) => Self::from(err),
+            LedgerError::Conversation(error) => {
+                use bullet_application::conversations::ConversationRefusal;
+                let status = match error {
+                    ConversationRefusal::NotFound => StatusCode::NOT_FOUND,
+                    ConversationRefusal::OperatorIngressRequired => StatusCode::FORBIDDEN,
+                    ConversationRefusal::CursorConflict
+                    | ConversationRefusal::SequenceExhausted => StatusCode::CONFLICT,
+                };
+                Self::protocol(
+                    status,
+                    error.reason_code(),
+                    "The message could not be appended to this conversation.",
+                    error.repair(),
+                )
+            }
+            LedgerError::CodingTask(error) => Self::protocol(
+                StatusCode::CONFLICT,
+                error.reason_code(),
+                "The requested coding task conflicts with durable admission constraints.",
+                error.repair(),
+            ),
         }
     }
 }
@@ -92,6 +113,12 @@ fn title_for(code: &str) -> &'static str {
         "STALE_AUTHORITY" => "Stale authority token",
         "FENCE_REUSE" => "Fence invariant violated",
         "IDEMPOTENCY_CONFLICT" => "Idempotency conflict",
+        "COMMAND_OWNERSHIP_CONFLICT" => "Command ownership conflict",
+        "CONVERSATION_NOT_FOUND" => "Conversation not found",
+        "CONVERSATION_CURSOR_CONFLICT" => "Conversation has new messages",
+        "CONVERSATION_SEQUENCE_EXHAUSTED" => "Conversation is full",
+        "CONVERSATION_OPERATOR_INGRESS_REQUIRED" => "Operator authentication required",
+        "OPERATOR_COMMAND_REQUEST_INVALID" => "Invalid operator command query",
         "GRAPH_CONFLICT" => "Graph conflict",
         "INVALID_ID" => "Invalid identifier",
         "INVALID_LEASE_TTL" => "Invalid lease lifetime",
@@ -176,7 +203,7 @@ impl IntoResponse for ApiError {
                 detail,
                 %request_id,
                 %correlation_id,
-                "database requires export and removal before restart"
+                "database preserved pending qualified supervised upgrade or restore"
             );
         }
         if let Self::UnsafeInteger(field) = &self {
@@ -203,7 +230,7 @@ impl IntoResponse for ApiError {
                 "Fetch a fresh projection snapshot, then reconnect with its as_of_sequence as the exclusive cursor."
             }
             Self::UnsupportedSchema(_) => {
-                "Export any data you need, remove the unsupported database, and restart to initialize the current schema."
+                "Preserve the database and use a qualified supervised upgrade or verified backup/restore procedure; do not delete durable work to satisfy startup."
             }
             Self::Internal(_) => {
                 "Retry once; if the failure persists, use request_id and correlation_id to inspect farmd logs and run bullet-family doctor."

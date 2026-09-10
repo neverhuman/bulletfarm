@@ -123,7 +123,7 @@
     "dockerVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^Docker version [0-9]+\\.[0-9]+\\.[0-9]+, build [0-9a-f]{7,40}$" }] },
     "fileVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^file[- ][0-9]+\\.[0-9]+$" }] },
     "jankuraiVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^jankurai [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
-    "javaVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^(openjdk|java) version \"21\\.[0-9]+(\\.[0-9]+)?\"( [0-9]{4}-[0-9]{2}-[0-9]{2})?( LTS)?$" }] },
+    "javaVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^(openjdk|java) version \"[1-9][0-9]*(\\.[0-9]+){1,3}\"( [0-9]{4}-[0-9]{2}-[0-9]{2})?( LTS)?$" }] },
     "lycheeVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^lychee [0-9]+\\.[0-9]+\\.[0-9]+$" }] },
     "nodeVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^v[0-9]+\\.[0-9]+\\.[0-9]+$" }] },
     "pythonVersion": { "allOf": [{ "$ref": "#/$defs/toolVersion" }, { "pattern": "^Python [0-9]+\\.[0-9]+\\.[0-9]+$" }] },

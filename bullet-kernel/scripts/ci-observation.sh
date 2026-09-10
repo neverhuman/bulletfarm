@@ -47,9 +47,20 @@ record_tool() {
   shift
   local value
   if command -v "$1" >/dev/null 2>&1; then
-    value="$("$@" 2>/dev/null | head -n 1)"
-    [[ -n "$value" ]] && tool_versions="$(jq -c --arg key "$key" --arg value "$value" '. + {($key): $value}' <<<"$tool_versions")"
+    # `set -o pipefail` is in force, so a probe that exits nonzero makes the
+    # command substitution itself fail and `set -e` kills the script before any
+    # guard below runs. The runner image has `cargo` but not `cargo nextest`,
+    # which is exactly that case.
+    value="$("$@" 2>/dev/null | head -n 1)" || value=""
+    if [[ -n "$value" ]]; then
+      tool_versions="$(jq -c --arg key "$key" --arg value "$value" '. + {($key): $value}' <<<"$tool_versions")"
+    fi
   fi
+  # A version probe is best effort. `cargo` exists on the runner image while
+  # `cargo nextest` does not, so the probe produced no output, the `&&` chain
+  # returned 1, that became the function's status, and `set -e` killed the
+  # whole observation. Record what is present and say nothing about the rest.
+  return 0
 }
 record_tool git git --version
 record_tool rustc rustc --version

@@ -7,6 +7,8 @@ use tempfile::TempDir;
 
 use crate::test_support::sqlite_fixture;
 
+mod conversations;
+
 fn database() -> (TempDir, std::path::PathBuf) {
     let directory = crate::test_support::private_tempdir();
     let path = directory.path().join("ledger.sqlite3");
@@ -53,8 +55,10 @@ fn unsupported(result: Result<SqliteLedger, LedgerError>) -> LedgerError {
     assert_eq!(error.reason_code(), "UNSUPPORTED_SCHEMA");
     assert!(matches!(error, LedgerError::UnsupportedSchema { .. }));
     let message = error.to_string();
-    assert!(message.contains("Export any data you need"));
-    assert!(message.contains("removing the database file"));
+    assert!(message.contains("Preserve the database"));
+    assert!(message.contains("qualified supervised upgrade or verified backup/restore"));
+    assert!(message.contains("startup never rewrites an unsupported schema"));
+    assert!(!message.contains("removing the database file"));
     error
 }
 

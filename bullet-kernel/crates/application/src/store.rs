@@ -33,9 +33,9 @@ pub enum LedgerError {
     /// Durable store failure.
     #[error("ledger: {0}")]
     Store(String),
-    /// Persisted schema is not the exact disposable pre-1.0 schema this binary owns.
+    /// Persisted schema is not an admitted current schema or supervised predecessor.
     #[error(
-        "unsupported schema: {detail}. Export any data you need before removing the database file and starting fresh; pre-1.0 Bullet Farm databases are not migrated in place"
+        "unsupported schema: {detail}. Preserve the database and use a qualified supervised upgrade or verified backup/restore procedure; startup never rewrites an unsupported schema"
     )]
     UnsupportedSchema {
         /// Exact fail-closed reason suitable for operator logs.
@@ -44,6 +44,12 @@ pub enum LedgerError {
     /// Domain invariant.
     #[error(transparent)]
     Domain(#[from] bullet_domain::DomainError),
+    /// Requested coding task cannot be accepted under its declared constraints.
+    #[error(transparent)]
+    CodingTask(#[from] crate::coding_tasks::CodingTaskRefusal),
+    /// A requested message conflicts with an owned conversation's current state.
+    #[error(transparent)]
+    Conversation(#[from] crate::conversations::ConversationRefusal),
 }
 
 impl LedgerError {
@@ -54,6 +60,8 @@ impl LedgerError {
             Self::Store(_) => "STORE_FAILURE",
             Self::UnsupportedSchema { .. } => "UNSUPPORTED_SCHEMA",
             Self::Domain(err) => err.reason_code(),
+            Self::CodingTask(err) => err.reason_code(),
+            Self::Conversation(err) => err.reason_code(),
         }
     }
 }

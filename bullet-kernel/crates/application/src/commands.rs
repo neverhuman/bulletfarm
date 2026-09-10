@@ -1,5 +1,7 @@
 //! Durable, idempotent commands. Success is not printed before the postcondition.
 
+use crate::coding_tasks::CodingSubmission;
+use crate::run_coding::{is_supported_dispatch_kind, RUN_CODING_KIND};
 use bullet_domain::{CommandId, CommandPhase, Digest, DomainError};
 use serde::{Deserialize, Serialize};
 
@@ -116,7 +118,7 @@ impl CommandRequest {
     /// cannot be encoded.
     pub fn offline_worker_resolution(&self) -> Result<OfflineCommandResolution, DomainError> {
         self.validate()?;
-        let (phase, code, detail, repair) = if self.kind == "run_demo" {
+        let (phase, code, detail, repair) = if is_supported_dispatch_kind(&self.kind) {
             (
                 CommandPhase::Unknown,
                 "EXECUTION_ADAPTER_UNAVAILABLE",
@@ -157,6 +159,12 @@ impl CommandRequest {
         )?;
         validate_text("command kind", &self.kind, MAX_COMMAND_KIND_BYTES, true)?;
         validate_json("command payload", &self.payload)?;
+        if self.kind == RUN_CODING_KIND {
+            CodingSubmission::parse(&self.payload)?;
+        }
+        if self.kind == crate::conversations::CONVERSATION_MESSAGE_KIND {
+            crate::conversations::ConversationMessagePayload::parse(&self.payload)?;
+        }
         Ok(())
     }
 

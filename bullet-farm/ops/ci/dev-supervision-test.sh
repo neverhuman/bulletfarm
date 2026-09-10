@@ -27,8 +27,26 @@ curl_log="$test_root/curl.log"
 printf '#!/bin/sh\nprintf "%%s\\n" "$*" >>"%s"\nexit 0\n' "$curl_log" >"$fake_bin/curl"
 chmod 0700 "$fake_bin/cargo" "$fake_bin/node" "$fake_bin/npm" "$fake_bin/curl"
 
+# scripts/dev.sh resolves the Portal from its own sibling directory and refuses
+# when that checkout is absent, which is the state of every single-repository
+# checkout including a hosted runner. Supervision is a property of dev.sh, not
+# of the family layout, so this case runs a staged Hub inside a fixture family
+# whose only Portal content is what dev.sh actually reads.
+fixture_family="$test_root/family"
+fixture_hub="$fixture_family/bullet-farm"
+fixture_portal="$fixture_family/bullet-portal"
+# scripts/farmd.sh enters the kernel checkout before exec-ing cargo, so the
+# fixture family carries that directory too; the faked cargo needs nothing in it.
+mkdir -p "$fixture_hub/scripts" "$fixture_hub/ops/ci" "$fixture_portal/ops/ci" \
+  "$fixture_family/bullet-kernel"
+cp scripts/dev.sh scripts/farmd.sh scripts/portal.sh "$fixture_hub/scripts/"
+cp ops/ci/toolchain-pins.sh "$fixture_hub/ops/ci/toolchain-pins.sh"
+cp .node-version .npm-version "$fixture_hub/"
+printf '{}\n' >"$fixture_portal/package-lock.json"
+printf '%s\n' 'process.exit(0)' >"$fixture_portal/ops/ci/preinstall-scan.mjs"
+
 set +e
-output="$(PATH="$fake_bin:$PATH" bash scripts/dev.sh 2>&1)"
+output="$(PATH="$fake_bin:$PATH" bash "$fixture_hub/scripts/dev.sh" 2>&1)"
 status=$?
 set -e
 [[ "$status" -eq 1 && "$output" == *'unexpected supervised child exit is a failure'* ]] \
@@ -107,14 +125,16 @@ log "toolchain pin reader rejects malformed, multiline, CRLF, and symlink subjec
 portal_args="$test_root/portal.args"
 printf '#!/bin/sh\nprintf "%%s\\n" "$*" >"%s"\n' "$portal_args" >"$fake_bin/npm"
 chmod 0700 "$fake_bin/npm"
-PATH="$fake_bin:$PATH" bash scripts/portal.sh
+# Both launchers enter a sibling checkout, so they run from the fixture family
+# for the same reason the supervision case does.
+PATH="$fake_bin:$PATH" bash "$fixture_hub/scripts/portal.sh"
 [[ "$(<"$portal_args")" == 'run dev -- --host 127.0.0.1 --port 5173 --strictPort' ]] \
   || { refuse DEV_PORTAL_STRICT_PORT_MISSING "$(<"$portal_args")"; exit 1; }
 
 farmd_args="$test_root/farmd.args"
 printf '#!/bin/sh\nprintf "%%s\\n" "$*" >"%s"\n' "$farmd_args" >"$fake_bin/cargo"
 chmod 0700 "$fake_bin/cargo"
-PATH="$fake_bin:$PATH" BULLET_DATA_DIR="$test_root/data" bash scripts/farmd.sh
+PATH="$fake_bin:$PATH" BULLET_DATA_DIR="$test_root/data" bash "$fixture_hub/scripts/farmd.sh"
 [[ "$(<"$farmd_args")" == 'run --locked -p bullet-farmd -- --data-dir '*'/data --bind 127.0.0.1:7420 --portal-origin http://127.0.0.1:5173' ]] \
   || { refuse DEV_FARMD_LOCKFILE_MISSING "$(<"$farmd_args")"; exit 1; }
 log "dev launchers pin the lockfile and refuse Vite port fallback"

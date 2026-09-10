@@ -46,7 +46,13 @@ tree_oid="$(git rev-parse 'HEAD^{tree}')"
 [[ "$commit_oid" =~ ^[0-9a-f]{40}$ ]] || refuse COMMIT_OID_INVALID "$commit_oid"
 [[ "$tree_oid" =~ ^[0-9a-f]{40}$ ]] || refuse TREE_OID_INVALID "$tree_oid"
 clean=true
-[[ -z "$(git status --porcelain=v1 --untracked-files=all)" ]] || clean=false
+porcelain="$(git status --porcelain=v1 --untracked-files=all)"
+if [[ -n "$porcelain" ]]; then
+  clean=false
+  while IFS= read -r line; do
+    printf '[ci] CI_SUBJECT_DIRTY: %s\n' "${line:3}" >&2
+  done <<<"$porcelain"
+fi
 status=PASS
 (( exit_code == 0 )) || status=FAIL
 

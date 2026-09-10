@@ -223,7 +223,14 @@ mod tests {
         let child_uid: u32 = ready
             .strip_prefix("ready:")
             .and_then(|value| value.strip_suffix('\n'))
-            .and_then(|value| value.parse().ok())
+            .filter(|value| !value.is_empty())
+            .and_then(|value| {
+                value.bytes().try_fold(0u32, |acc, byte| {
+                    byte.is_ascii_digit()
+                        .then(|| acc.checked_mul(10)?.checked_add(u32::from(byte - b'0')))
+                        .flatten()
+                })
+            })
             .expect("child must confirm its retained mapping and UID");
         assert_ne!(child_uid, root.path().metadata().unwrap().uid());
         fs::set_permissions(&path, fs::Permissions::from_mode(0o400)).unwrap();

@@ -1,34 +1,40 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ApiError,
   errorText,
-  exchangeBootstrap,
-  fetchOutbox,
   forgetBrowserSession,
   getCommand,
   hasSessionMaterial,
-  listMissions,
-  newRunDemoEnvelope,
+  newRunCodingEnvelope,
+  type CodingProviderName,
+  type RunCodingFields,
   submitCommand,
 } from "../api";
 import {
   clearPendingCommandIf,
   envelopeForRetryOrCreate,
   loadPendingCommand,
-  pendingConflicts,
   PendingCommandError,
   rememberAdmittedCommand,
   restoredSubjectConflicts,
 } from "../pendingCommand";
 import { CommandCard } from "../components/CommandCard";
+import { CommandHistory } from "../components/CommandHistory";
+import { InsightBoard } from "../components/InsightBoard";
 import { MissionsCard } from "../components/MissionsCard";
 import { OutboxCard } from "../components/OutboxCard";
 import { StatusHeader } from "../components/StatusHeader";
-import type { CommandEnvelope, CommandStatus, Mission, OutboxView } from "../generated/api";
-import { useEventStream } from "../hooks/useEventStream";
+import { OperatorSession } from "../components/OperatorSession";
+import { CodingTaskFields, emptyCodingTask } from "../components/CodingTaskFields";
+import { CodingTaskCard } from "../components/CodingTaskCard";
+import { codingTaskPayload, isCodingTaskPayload } from "../codingTasks";
+import { canonicalCommandPayload } from "../commandIdentity";
+import type {
+  CommandEnvelope,
+  CommandStatus,
+} from "../generated/api";
+import { operatorPart, useOperatorSnapshot } from "../hooks/useOperatorSnapshot";
 import { useHealthProbe } from "../hooks/useHealthProbe";
-import type { Loadable } from "../loadable";
-import { toSnapshotValue, toUnknown } from "../loadable";
 
 type MutationPhase = "IDLE" | Exclude<CommandStatus["status"], "VERIFIED">;
 
@@ -58,71 +64,45 @@ function unverifiableSuccess(commandId: string): string {
   return `command ${commandId} reported durable VERIFIED, but no generated runtime Evidence and Effect receipt contract is available; displayed outcome is UNKNOWN`;
 }
 
+function pendingCodingConflicts(fields: RunCodingFields): boolean {
+  const pending = loadPendingCommand();
+  if (pending === null) return false;
+  if (pending.envelope.kind !== "run_coding") return true;
+  const payload = pending.envelope.payload as Record<string, unknown>;
+  if (isCodingTaskPayload(payload)) {
+    return canonicalCommandPayload(payload) !== canonicalCommandPayload(codingTaskPayload(fields));
+  }
+  if ("schema_version" in payload) return true;
+  // Historical exact retries retain their original authority-bearing bytes.
+  // This branch never constructs a new legacy submission.
+  return (
+    payload.account_id !== fields.accountId ||
+    payload.provider !== fields.provider ||
+    payload.model !== fields.model
+  );
+}
+
 export function ControlTower() {
-  const [missions, setMissions] = useState<Loadable<Mission[]>>({ kind: "loading" });
-  const [outbox, setOutbox] = useState<Loadable<OutboxView>>({ kind: "loading" });
+  const snapshot = useOperatorSnapshot();
+  const missions = operatorPart(snapshot, "missions");
+  const outbox = operatorPart(snapshot, "outbox");
+  const fleet = operatorPart(snapshot, "fleet");
+  const sessions = operatorPart(snapshot, "sessions");
   const [command, setCommand] = useState<CommandStatus | null>(null);
   const [phase, setPhase] = useState<MutationPhase>("IDLE");
   const [error, setError] = useState<string | null>(null);
-  const [bootstrapToken, setBootstrapToken] = useState("");
+  const [accountId, setAccountId] = useState("acct-local");
+  const [model, setModel] = useState("claude-opus-4-6");
+  const [provider, setProvider] = useState<CodingProviderName>("claude");
+  const [task, setTask] = useState(emptyCodingTask);
+  const [effort, setEffort] = useState("");
+  const [taskCommand, setTaskCommand] = useState(false);
+  const [legacyRetry, setLegacyRetry] = useState(false);
   const [sessionMaterial, setSessionMaterial] = useState(hasSessionMaterial);
-  const [authPending, setAuthPending] = useState(false);
-  const [authError, setAuthError] = useState<string | null>(null);
+  const [historyOpen, setHistoryOpen] = useState(false);
   const runningRef = useRef(false);
   const commandGeneration = useRef(0);
   const health = useHealthProbe();
-
-  const refreshMissions = useCallback(async (): Promise<number | null> => {
-    try {
-      const snapshot = await listMissions();
-      setMissions(toSnapshotValue(snapshot.data, snapshot.observedAt, snapshot.source));
-      return snapshot.asOfSequence;
-    } catch (err) {
-      setMissions(toUnknown(`control plane unreachable (${errorText(err)})`));
-      return null;
-    }
-  }, []);
-
-  const refreshOutbox = useCallback(async (): Promise<number | null> => {
-    try {
-      const snapshot = await fetchOutbox();
-      setOutbox(toSnapshotValue(snapshot.data, snapshot.observedAt, snapshot.source));
-      return snapshot.asOfSequence;
-    } catch (err) {
-      setOutbox(toUnknown(`outbox unreachable (${errorText(err)})`));
-      return null;
-    }
-  }, []);
-
-  const refreshSnapshot = useCallback(async (): Promise<number | null> => {
-    const [missionsSequence, outboxSequence] = await Promise.all([
-      refreshMissions(),
-      refreshOutbox(),
-    ]);
-    return missionsSequence === null || outboxSequence === null
-      ? null
-      : Math.min(missionsSequence, outboxSequence);
-  }, [refreshMissions, refreshOutbox]);
-
-  const stream = useEventStream(refreshSnapshot);
-
-  async function onAuthenticate(): Promise<void> {
-    if (authPending || bootstrapToken.trim() === "") {
-      return;
-    }
-    setAuthPending(true);
-    setAuthError(null);
-    try {
-      await exchangeBootstrap(bootstrapToken.trim());
-      setBootstrapToken("");
-      setSessionMaterial(true);
-    } catch (err) {
-      setSessionMaterial(false);
-      setAuthError(errorText(err));
-    } finally {
-      setAuthPending(false);
-    }
-  }
 
   async function reconcile(initial: CommandStatus, generation: number, envelope: CommandEnvelope): Promise<void> {
     let last = initial;
@@ -164,11 +144,11 @@ export function ControlTower() {
         setError(unverifiableSuccess(next.id));
         runningRef.current = false;
         if (commandGeneration.current === generation) {
-          clearPendingCommandIf({
+          if (clearPendingCommandIf({
             commandId: next.id,
             kind: next.kind,
             payloadDigest: next.payload_digest,
-          }, envelope);
+          }, envelope)) setLegacyRetry(false);
         }
         return;
       }
@@ -178,11 +158,11 @@ export function ControlTower() {
     }
     runningRef.current = false;
     if (commandGeneration.current === generation) {
-      clearPendingCommandIf({
+      if (clearPendingCommandIf({
         commandId: last.id,
         kind: last.kind,
         payloadDigest: last.payload_digest,
-      }, envelope);
+      }, envelope)) setLegacyRetry(false);
     }
     if (last.status === "FAILED" || last.status === "UNKNOWN") {
       setCommand(last);
@@ -202,8 +182,26 @@ export function ControlTower() {
     try {
       const pending = loadPendingCommand();
       if (pending === null) return;
-      if (pendingConflicts({ kind: "run_demo", payload: {} })) {
-        throw new PendingCommandError("pending command conflicts with the demo action; reconcile it first");
+      const payload = pending.envelope.payload as Record<string, unknown>;
+      if (pending.kind === "run_coding" && isCodingTaskPayload(payload)) {
+        setTask(payload.task);
+        setAccountId(payload.selection.account_id);
+        setModel(payload.selection.model);
+        setProvider(payload.selection.provider);
+        setEffort(payload.selection.effort ?? "");
+        setTaskCommand(true);
+        setLegacyRetry(false);
+      } else if (pending.kind === "run_coding" && !("schema_version" in payload) && typeof payload.account_id === "string" &&
+          typeof payload.model === "string" &&
+          typeof payload.provider === "string" &&
+          ["claude", "codex", "cursor", "antigravity"].includes(payload.provider)) {
+        setAccountId(payload.account_id);
+        setModel(payload.model);
+        setProvider(payload.provider as CodingProviderName);
+        setTaskCommand(false);
+        setLegacyRetry(true);
+      } else if (pending.commandId === null) {
+        throw new PendingCommandError("pending command cannot be retried as a coding action; reconcile its original envelope");
       }
       if (pending.commandId === null) return;
       runningRef.current = true;
@@ -220,6 +218,9 @@ export function ControlTower() {
       await reconcile(admitted, generation, pending.envelope);
     } catch (err) {
       if (commandGeneration.current !== generation) return;
+      if (err instanceof ApiError && (err.status === 401 || err.status === 403)) {
+        forgetBrowserSession(); setSessionMaterial(false); setHistoryOpen(false);
+      }
       setPhase("UNKNOWN");
       setError(`command reconciliation unknown (${errorText(err)})`);
       runningRef.current = false;
@@ -234,19 +235,21 @@ export function ControlTower() {
     };
   }, []);
 
-  async function onRunDemo(): Promise<void> {
+  async function onRunCoding(): Promise<void> {
     if (runningRef.current) return;
     let generation = commandGeneration.current;
     try {
       const pending = loadPendingCommand();
-      if (pendingConflicts({ kind: "run_demo", payload: {} })) {
-        throw new PendingCommandError("pending command conflicts with the demo action; reconcile it first");
-      }
       if (pending?.commandId !== null && pending?.commandId !== undefined) {
         await resumePending();
         return;
       }
-      const envelope = envelopeForRetryOrCreate(newRunDemoEnvelope);
+      const fields: RunCodingFields = { task, accountId, provider, model, effort: effort === "" ? null : effort };
+      if (pendingCodingConflicts(fields)) {
+        throw new PendingCommandError("pending command conflicts with the coding action; reconcile it first");
+      }
+      const envelope = envelopeForRetryOrCreate(() => newRunCodingEnvelope(fields));
+      setTaskCommand(isCodingTaskPayload(envelope.payload));
       runningRef.current = true;
       generation = commandGeneration.current + 1;
       commandGeneration.current = generation;
@@ -289,45 +292,67 @@ export function ControlTower() {
     <main>
       <h1>Control Tower</h1>
       <p className="tagline">Many minds. One verified line to main.</p>
-      <StatusHeader stream={stream} health={health.state} />
-      {sessionMaterial ? (
-        <p className="pending" data-testid="auth-state">
-          local session material present; farmd revalidates every command
-        </p>
-      ) : (
-        <form
-          className="card"
-          onSubmit={(event) => {
-            event.preventDefault();
-            void onAuthenticate();
-          }}
-        >
-          <h2>Local browser session</h2>
-          <label htmlFor="bootstrap-token">One-time bootstrap token</label>{" "}
-          <input
-            id="bootstrap-token"
-            type="password"
-            autoComplete="off"
-            value={bootstrapToken}
-            onChange={(event) => setBootstrapToken(event.target.value)}
-          />{" "}
-          <button type="submit" disabled={authPending || bootstrapToken.trim() === ""}>
-            Authenticate local session
-          </button>
-          {authError !== null ? (
-            <p className="failed" data-testid="auth-error">
-              {authError}
-            </p>
-          ) : null}
-        </form>
-      )}
+      {snapshot.stream !== undefined && <StatusHeader stream={snapshot.stream} health={health.state} snapshot={snapshot} />}
+      <p className="tagline" data-testid="operator-snapshot-provenance">
+        source {snapshot.kind === "loading" ? "unknown" : snapshot.source} · observed_at{" "}
+        {snapshot.kind === "loading" ? "unknown" : snapshot.observedAt} · event refresh; 10s fallback
+      </p>
+      <button type="button" onClick={snapshot.refresh}>Refresh snapshot</button>
+      <InsightBoard fleet={fleet} sessions={sessions} sessionMaterial={sessionMaterial} />
+      <OperatorSession material={sessionMaterial} onChange={(material) => {
+        setSessionMaterial(material);
+        setHistoryOpen(false);
+        if (!material) { commandGeneration.current += 1; runningRef.current = false; }
+        snapshot.refresh?.();
+      }} />
+      <button type="button" aria-expanded={historyOpen} onClick={() => setHistoryOpen(!historyOpen)}>
+        {historyOpen ? "Hide command history" : "Show command history"}
+      </button>
+      {historyOpen && <CommandHistory onUnauthorized={() => {
+        forgetBrowserSession(); setSessionMaterial(false); setHistoryOpen(false);
+        commandGeneration.current += 1; runningRef.current = false;
+      }} />}
+      <details open>
+      <summary>Advanced coding task</summary>
+      {legacyRetry ? <p>Saved historical request: retry uses its exact original contents.</p> :
+        <CodingTaskFields value={task} onChange={setTask} disabled={runningRef.current} />}
+      <label htmlFor="coding-account">Account</label>{" "}
+      <input
+        id="coding-account"
+        data-testid="coding-account"
+        value={accountId}
+        onChange={(event) => setAccountId(event.target.value)}
+      />{" "}
+      <label htmlFor="coding-model">Model</label>{" "}
+      <input
+        id="coding-model"
+        data-testid="coding-model"
+        value={model}
+        onChange={(event) => setModel(event.target.value)}
+      />{" "}
+      <label htmlFor="coding-provider">Provider</label>{" "}
+      <select
+        id="coding-provider"
+        data-testid="coding-provider"
+        value={provider}
+        onChange={(event) => setProvider(event.target.value as CodingProviderName)}
+      >
+        <option value="claude">claude</option>
+        <option value="codex">codex</option>
+        <option value="cursor">cursor</option>
+        <option value="antigravity">antigravity</option>
+      </select>{" "}
+      <label htmlFor="coding-effort">Effort (optional)</label>{" "}
+      <input id="coding-effort" value={effort} disabled={legacyRetry}
+        onChange={(event) => setEffort(event.target.value)} />{" "}
       <button
         type="button"
         disabled={!sessionMaterial || runningRef.current}
-        onClick={() => void onRunDemo()}
+        onClick={() => void onRunCoding()}
       >
-        Submit durable demo command
+        Submit durable coding command
       </button>
+      </details>
       <p className={PHASE_CLASS[phase]} data-testid="phase">
         command phase: {phase}
       </p>
@@ -339,6 +364,7 @@ export function ControlTower() {
       <MissionsCard missions={missions} />
       <OutboxCard outbox={outbox} />
       {command !== null ? <CommandCard command={command} /> : null}
+      {command !== null && taskCommand ? <CodingTaskCard commandId={command.id} /> : null}
     </main>
   );
 }

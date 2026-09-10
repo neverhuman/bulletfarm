@@ -133,7 +133,10 @@ grep -Fq CARGO_CONFIG_CONTROL_FORBIDDEN "$fixture_root/default-home-config.log" 
 }
 printf '%s\n' 'paths = ["../substituted-dependency"]' \
   >"$hostile_home/.cargo/config.toml"
-if HOME="$hostile_home" enforce_rust_compiler_boundary "$repo_root" \
+# Discovery here is deliberately through HOME, so the ambient CARGO_HOME a
+# hosted runner exports must not select a different Cargo home and refuse
+# CARGO_HOME_FORBIDDEN before this fixture's `paths` key is ever read.
+if (unset CARGO_HOME; HOME="$hostile_home" enforce_rust_compiler_boundary "$repo_root") \
   >"$fixture_root/path-override.log" 2>&1; then
   echo "RUST_COMPILER_BOUNDARY_CANARY_FAILED: Cargo dependency path override was admitted" >&2
   exit 1

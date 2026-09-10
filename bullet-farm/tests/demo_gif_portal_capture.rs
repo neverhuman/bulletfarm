@@ -1,6 +1,54 @@
 #![cfg(target_os = "linux")]
 
-use std::{fs, os::unix::fs::PermissionsExt, path::PathBuf, process::Command};
+use std::{
+    fs,
+    os::unix::fs::PermissionsExt,
+    path::{Path, PathBuf},
+    process::Command,
+};
+
+const PLAYWRIGHT_PROBE: &str = r"
+import {createRequire} from 'node:module';
+import {accessSync, constants} from 'node:fs';
+const {chromium} = createRequire(process.env.PORTAL_PACKAGE_JSON)('playwright');
+accessSync(chromium.executablePath(), constants.X_OK);
+";
+
+/// Every browser case needs Node to resolve `playwright`, with an executable
+/// Chromium, from the portal's `node_modules`. A checkout without that tree
+/// (hosted single-repo CI) refuses by name instead of dying on a raw module
+/// error; when the subject is present every assertion below still applies.
+fn playwright_available(package: &Path) -> bool {
+    let probe = Command::new("timeout")
+        .args([
+            "--kill-after=2s",
+            "20s",
+            "node",
+            "--input-type=module",
+            "-e",
+            PLAYWRIGHT_PROBE,
+        ])
+        .env("PORTAL_PACKAGE_JSON", package)
+        .output();
+    let reason = match probe {
+        Ok(output) if output.status.success() => return true,
+        Ok(output) => {
+            let stderr = String::from_utf8_lossy(&output.stderr);
+            stderr
+                .lines()
+                .find(|line| line.contains("Error:"))
+                .or_else(|| stderr.lines().find(|line| !line.trim().is_empty()))
+                .unwrap_or("probe exited non-zero")
+                .to_owned()
+        }
+        Err(error) => format!("could not start node: {error}"),
+    };
+    eprintln!(
+        "MEDIA_CAPTURE_SUBJECTS_UNAVAILABLE: playwright — node cannot resolve 'playwright' with an executable Chromium from {}; hosted single-repo checkouts do not provide the portal's node_modules ({reason})",
+        package.display()
+    );
+    false
+}
 
 const BROWSER: &str = r#"
 import assert from 'node:assert/strict';
@@ -50,6 +98,9 @@ fn browser_case(body: &str) {
     let package = std::env::var_os("PORTAL_PACKAGE_JSON")
         .map(PathBuf::from)
         .unwrap_or_else(|| hub.parent().unwrap().join("bullet-portal/package.json"));
+    if !playwright_available(&package) {
+        return;
+    }
     let source = format!(
         "{BROWSER}\n{body}\n}} finally {{ clearTimeout(watchdog); await browser.close(); await server.close(); assert.notEqual(server.process().exitCode,null); console.log(JSON.stringify({{fixture:'REAL_CHROMIUM_SYNTHETIC',browser_version:browserVersion,browser_pid:server.process().pid,browser_exit:server.process().exitCode}})); }}"
     );

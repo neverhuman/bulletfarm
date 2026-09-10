@@ -51,12 +51,33 @@ initialize_rust_toolchain_tools() {
   python_sha256="$(sha256_file "$python_executable")" || return 1
   cargo_executable="$(resolved_executable cargo)" || return 1
   cargo_sha256="$(sha256_file "$cargo_executable")" || return 1
+  # `cargo --version` is a rustup shim. On a runner whose toolchain is not yet
+  # provisioned, rustup writes several `info:` progress lines to stderr before
+  # cargo answers, and folding those into the version token made the exact
+  # match refuse a correct Cargo. The streams are separated: stdout must be the
+  # exact token, and stderr may carry rustup provisioning notices and nothing
+  # else, so genuinely unexpected output is still fatal.
+  local cargo_stderr
+  cargo_stderr="$(mktemp)" || return 1
   if ! cargo_version="$("$env_executable" -i HOME="${HOME:-/}" \
     PATH="${cargo_executable%/*}:/usr/bin:/bin" LC_ALL=C TZ=UTC \
-    "$cargo_executable" --version 2>&1)"; then
+    "$cargo_executable" --version 2>"$cargo_stderr")"; then
+    rm -f -- "$cargo_stderr"
     refuse TOOL_VERSION_MISMATCH "Cargo 1.95.0 is required before Cargo execution"
     return 1
   fi
+  # The loop reads the captured stderr and removes that same file on the one
+  # path that returns early; the removal is cleanup, never a concurrent write.
+  # shellcheck disable=SC2094
+  while IFS= read -r noise_line; do
+    noise_line="${noise_line%$'\r'}"
+    [[ -z "$noise_line" || "$noise_line" =~ ^(info|warning): ]] || {
+      rm -f -- "$cargo_stderr"
+      refuse TOOL_VERSION_MISMATCH "Cargo emitted unexpected output: '$noise_line'"
+      return 1
+    }
+  done <"$cargo_stderr"
+  rm -f -- "$cargo_stderr"
   cargo_version="${cargo_version%$'\r'}"
   if [[ ! "$cargo_version" =~ ^cargo\ 1\.95\.0\ \([0-9a-f]{9,40}\ [0-9]{4}-[0-9]{2}-[0-9]{2}\)$ ]]; then
     refuse TOOL_VERSION_MISMATCH \
