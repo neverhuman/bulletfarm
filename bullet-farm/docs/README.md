@@ -71,6 +71,9 @@ green through documentation.
 - [`readme-media/`](readme-media/) contains reproducible, accessible,
   credential-free component observations. Its manifests are not Bullet Evidence
   or release receipts.
+- [`../media/operator-console/`](../media/operator-console/) holds the real
+  xbabe2 authenticated loopback-farmd TUI and Portal GIFs (not replayable, not
+  an installer, HOLD remains, not VERIFIED). Stage-one VHS tapes stay above.
 - [`runbooks/`](runbooks/) describes operator procedures; a runbook does not
   bypass an API or policy gate.
 - [`runbooks/source-setup.md`](runbooks/source-setup.md) separates contributor

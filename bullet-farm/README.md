@@ -89,6 +89,20 @@ Offline suites validate bounded protocol transcripts. They do not execute a live
 
 [Static fallback](docs/readme-media/provider-safety/fallback.png) · [Accessible transcript](docs/readme-media/provider-safety/transcript.txt) · [Reproduction manifest](docs/readme-media/provider-safety/manifest.json)
 
+## Real xbabe2 operator console (not replayable)
+
+These two recordings are real authenticated loopback farmd sessions on xbabe2.
+They are not a trusted installer, not VERIFIED, and not a Claude replace.
+Operating HOLD remains. `release_eligible` is false.
+
+![HOLD-honest operator TUI on loopback farmd: CONNECTING then HOLD, LIVE n, UNBOUND](media/operator-console/operator-tui.gif)
+
+![Same operator, Shift Brief and Control Tower with Head honesty; Send omitted](media/operator-console/operator-portal.gif)
+
+Captions and manifests: [`media/operator-console/README.md`](media/operator-console/README.md).
+Stage-one VHS tapes above stay the reproducible component set (`just readme-check`).
+Validate the pair with `scripts/readme-real-check.sh`.
+
 ## Private capture and rendering
 
 The [capture runbook](docs/demo-gif/README.md) describes native CLI observations

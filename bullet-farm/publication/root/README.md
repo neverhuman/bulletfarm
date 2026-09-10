@@ -29,7 +29,16 @@ Human review is required for integration; local fixture checks do not establish
 hosted success. JeRyu self-hosting and native forge qualification remain separate
 release obligations.
 
-Historical recordings remain available in the source snapshot:
+Current HOLD-honest operator console (real authenticated loopback farmd on
+xbabe2; not an installer; not VERIFIED; HOLD remains; not a Claude replace):
+
+- [operator TUI](bullet-farm/media/operator-console/operator-tui.gif)
+- [operator Portal](bullet-farm/media/operator-console/operator-portal.gif)
+- [captions](bullet-farm/media/operator-console/README.md)
+
+Historical recordings remain available in the source snapshot and are not the
+current operator showcase. The three retained bridge GIFs do not meet the
+required native capture geometry.
 
 - [Contained Claude Candidate recording](bullet-farm/media/dogfood/candidate/dogfood-candidate-hi.gif)
   and [reproduction record](bullet-farm/media/dogfood/README.md): a retained
@@ -39,9 +48,6 @@ Historical recordings remain available in the source snapshot:
 - [Earlier vendor-CLI and Portal recordings](bullet-farm/docs/demo-gif/README.md):
   vendor explanation sessions and a Portal form demonstration, with their
   original limitations. They do not establish the requested provider workflow.
-
-These assets are historical evidence, not the current operator showcase. The
-three retained bridge GIFs do not meet the required native capture geometry.
 The installed TUI and packaged Portal must still demonstrate the same real
 task/run/Attempt/Candidate/review/integration identities, with authenticated
 provider execution and preserved original timing. Follow the existing
