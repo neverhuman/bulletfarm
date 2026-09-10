@@ -8,7 +8,8 @@ authoritative answers live inside the repositories and are indexed by
 **Clone this family:** [https://github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm).
 That monorepo is where people `git clone`, build, and work. Member origins on this machine are
 `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`, and
-`neverhuman/bullet-portal`. A clone is not a trusted installer.
+`neverhuman/bullet-portal`. A clone is not a trusted installer. Unsigned local console: pin Rust 1.95.0 / Node 22.23.2 / npm 10.9.8, then `cd bullet-farm && just preview && just console -- --data-dir "$HOME/.local/state/bullet-operator-console"`. `just setup` stays blocked. HOLD remains. Procedure: [`bullet-farm/docs/runbooks/loopback-console.md`](bullet-farm/docs/runbooks/loopback-console.md).
+
 
 ## Real xbabe2 operator console (not replayable)
 

@@ -20,21 +20,42 @@ The preprints describe the earlier universal release envelope; the current stage
 
 This is a pre-release engineering system, not an installer announcement. A model saying “done,” a process exiting zero, or a pull request opening has no completion authority.
 
-## Source checkout
+## Source checkout and unsigned local console
 
 ```bash
 git clone https://github.com/neverhuman/bulletfarm.git bulletfarm
 cd bulletfarm
 ```
 
-This is the aggregate root, with the Hub under `bullet-farm/`. Read its
-`publication.json` for the recorded member subjects; a remote snapshot may
-precede the latest reviewed local changes. Development and family proof use the
-four independent canonical member checkouts. Their supporting GitHub repositories
-are `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`
-and `neverhuman/bullet-portal`.
+This is the aggregate root, with the Hub under `bullet-farm/`. A source clone
+is not a trusted installer and not VERIFIED. Operating HOLD remains.
+Public installation is not available. The checked-in `family.lock` is a
+diagnostic schema-2 snapshot; it cannot authorize source acquisition or a
+release install.
 
-Public installation is not available. The checked-in `family.lock` is a diagnostic schema-2 snapshot; it cannot authorize source acquisition or a release install. The [source-setup runbook](docs/runbooks/source-setup.md) explains that boundary.
+| Tool | Pin |
+| --- | --- |
+| Rust | 1.95.0 |
+| Node | 22.23.2 |
+| npm | 10.9.8 |
+
+```bash
+cd bullet-farm
+just preview
+# doctor BLOCKED / exit 3 is expected on the schema-2 lock
+just console -- --data-dir "$HOME/.local/state/bullet-operator-console"
+```
+
+Then `bullet auth login` and `bullet tui` as in the
+[unsigned loopback console runbook](docs/runbooks/loopback-console.md).
+`just setup` is the blocked signed-installer wrapper; it refuses without an
+external admitted `bullet-family` binary and still returns `UNSUPPORTED_SCHEMA`
+on the checked-in lock. See [source-setup](docs/runbooks/source-setup.md).
+
+Development and family proof use the four independent canonical member
+checkouts: `neverhuman/bullet-farm`, `neverhuman/bullet-kernel`,
+`neverhuman/bullet-git`, and `neverhuman/bullet-portal`. A remote snapshot may
+precede the latest reviewed local changes.
 
 ## Why Bullet is different
 
@@ -72,7 +93,7 @@ For supervised local UI development:
 just dev
 ```
 
-That command installs the locked Portal dependencies with lifecycle scripts disabled, starts `bullet-farmd` and Vite on loopback with a strict port, waits for both HTTP endpoints, and shuts down both process groups together. Open <http://127.0.0.1:5173>. Portal is a non-authoritative projection: it can display pending, verified, `UNKNOWN`, or contradictory state, but it cannot create authority.
+That command installs the locked Portal dependencies with lifecycle scripts disabled, starts `bullet-farmd` and Vite on loopback with a strict port, waits for both HTTP endpoints, and shuts down both process groups together. Open <http://127.0.0.1:5173>. **`just dev` does not provision a bootstrap token and cannot create an operator session.** Use `just console` for login. Portal is a non-authoritative projection: it can display pending, verified, `UNKNOWN`, or contradictory state, but it cannot create authority.
 
 ## Provider boundary status
 

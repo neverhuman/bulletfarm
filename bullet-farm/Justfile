@@ -24,6 +24,10 @@ preview:
 dev:
     bash scripts/dev.sh
 
+[positional-arguments]
+console *args:
+    bash scripts/operator-console.sh "$@"
+
 readme-record:
     bash scripts/readme-record.sh
 

@@ -2,7 +2,7 @@
 
 Status: **index; each runbook carries its own status**  
 Owner: Bullet Farm maintainers  
-Last reviewed: 2026-08-25  
+Last reviewed: 2026-09-10  
 Component receipt baseline (minimum; replay current-head lanes before use): bullet-farm `d762f86` and the member checkpoints each runbook names
 
 A runbook describes an operator procedure. It cannot bypass an API or policy gate, and its commands prove
@@ -14,6 +14,7 @@ instead of showing an invented output.
 | --- | --- | --- | --- |
 | [`fleet.md`](fleet.md) | multi-agent coordination: claims, heartbeats, handoffs, receipts | enforce path-exclusive claims through `bullet-family coord`; record proof and commit receipts | commit (orchestrator only), authorize a live provider run, create worktrees |
 | [`source-setup.md`](source-setup.md) | contributor bootstrap vs the blocked signed installer; setup transaction rules | run family proof from an existing canonical family; explain why `scripts/setup.sh` refuses on the schema-2 lock | install from a hub-only clone; authenticate the source wrapper; produce installer evidence |
+| [`loopback-console.md`](loopback-console.md) | unsigned loopback farmd + TUI + Portal from a bulletfarm clone | `just console`, one-time `auth login`, HOLD-honest TUI/Portal | signed install; Head Send; production coding; provider spawn; HOLD lift; VERIFIED |
 | [`setup-recovery.md`](setup-recovery.md) | the drill after a setup crash or refusal: doctor → checkout verify → staging check → refused rerun | prove prior vs complete-next state; preserve partial state; show the exact outputs observed on this host | repair anything; reach the complete-next branch under the schema-2 lock; detect a same-UID Git race after the fact |
 | [`schema-removal.md`](schema-removal.md) | every `UNSUPPORTED_SCHEMA` site and the disposable pre-1.0 rule | name the refusal per subject (lock, manifest, release manifest, coord log, policy, SQLite ledger); tell the operator what to keep | export, migrate, or remove anything — no such command exists; regenerate schema 3 without authenticated inputs |
 | [`backup-restore.md`](backup-restore.md) | receipt-bound SQLite snapshot and quarantined restore | create an exact-digest snapshot with a receipt; restore into a new quarantined database | admit a restored database for production; sign the receipt; settle outbox/effect ambiguity |

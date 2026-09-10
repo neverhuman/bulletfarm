@@ -29,6 +29,12 @@ Human review is required for integration; local fixture checks do not establish
 hosted success. JeRyu self-hosting and native forge qualification remain separate
 release obligations.
 
+Clone, pin Rust 1.95.0 / Node 22.23.2 / npm 10.9.8, then from `bullet-farm/`:
+`just preview` (doctor BLOCKED / exit 3 is expected) and
+`just console -- --data-dir "$HOME/.local/state/bullet-operator-console"`.
+That is the unsigned local console, not `just setup`. Procedure:
+[loopback-console runbook](bullet-farm/docs/runbooks/loopback-console.md).
+
 Current HOLD-honest operator console (real authenticated loopback farmd on
 xbabe2; not an installer; not VERIFIED; HOLD remains; not a Claude replace):
 

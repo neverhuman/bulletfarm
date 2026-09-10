@@ -14,17 +14,19 @@ usage() {
 usage: serve.sh --data-dir <abs 0700 dir> [--bind 127.0.0.1:7420]
                 [--portal-origin <exact origin>] [--farmd <bullet-farmd bin>]
                 [--session-file <abs>] [--ready-timeout-s 30]
+                [--leave-bootstrap]
        serve.sh --stop --data-dir <abs dir>
        serve.sh --help
 
 Start: admit/create <data-dir> (0700, self-owned, no symlink), provision the
 lease-transport key once, write the peer registry with a deterministic runner
 id, launch bullet-farmd under setsid (logs in <data-dir>/logs/, 0600), wait for
-/health, obtain the bootstrap token (--bootstrap-token-file when the binary
-lists it, else scraped from stdout), exchange it for cookie+csrf via curl with
-an exact Origin header, and write <session-file> (0600 JSON). Prints only
-non-secret lines: origin=, farmd=, pid=, data_dir=, session_file=,
-bootstrap_path=, log=.
+/health. Default: obtain the bootstrap token (--bootstrap-token-file when the
+binary lists it, else scraped from stdout), exchange it for cookie+csrf via
+curl with an exact Origin header, and write <session-file> (0600 JSON).
+--leave-bootstrap skips that exchange and leaves the token file for
+`bullet auth login`; it never prints the token. Prints only non-secret lines:
+origin=, farmd=, pid=, data_dir=, session_file=, bootstrap_path=, log=.
 
 Stop: send SIGTERM to farmd's process group (pid from <data-dir>/farmd.pid),
 escalate to SIGKILL after 10s, remove the pid file and the session file.
@@ -50,6 +52,7 @@ farmd_bin="${BULLET_FARMD_BIN:-}"
 session_file=""
 ready_timeout_s=30
 stop=0
+leave_bootstrap=0
 
 while [[ $# -gt 0 ]]; do
   case "$1" in
@@ -59,6 +62,7 @@ while [[ $# -gt 0 ]]; do
     --farmd) farmd_bin="${2:-}"; shift 2 ;;
     --session-file) session_file="${2:-}"; shift 2 ;;
     --ready-timeout-s) ready_timeout_s="${2:-}"; shift 2 ;;
+    --leave-bootstrap) leave_bootstrap=1; shift ;;
     --stop) stop=1; shift ;;
     -h|--help) usage; exit 0 ;;
     *) refuse ARG_UNKNOWN "$1" ;;
@@ -274,6 +278,18 @@ origin="$farmd_base"
 # ---------------------------------------------------------------------------
 # obtain the bootstrap token without echoing it
 # ---------------------------------------------------------------------------
+if [[ "$leave_bootstrap" -eq 1 ]]; then
+  printf 'origin=%s\n' "$origin"
+  printf 'farmd=%s\n' "$farmd_base"
+  printf 'pid=%s\n' "$farmd_pid"
+  printf 'data_dir=%s\n' "$data_dir"
+  printf 'session_file=\n'
+  printf 'bootstrap_path=%s\n' "$bootstrap_path"
+  [[ -n "$token_file" ]] && printf 'bootstrap_file=%s\n' "$token_file"
+  printf 'log=%s\n' "$log_file"
+  exit 0
+fi
+
 bootstrap_token=""
 if [[ "$bootstrap_path" == token_file ]]; then
   bootstrap_token="$(<"$token_file")"
