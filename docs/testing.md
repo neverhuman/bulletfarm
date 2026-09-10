@@ -13,7 +13,7 @@ a run.
 | fast | `bash scripts/ci-local.sh fast` | vitest with an asserted case count plus the typed production build. Standalone: it never resolves a sibling repository. This is the pre-push gate (`ops/git-hooks/pre-push`). |
 | lint | `bash scripts/ci-local.sh lint` | actionlint over the workflows, ShellCheck over every `ops/ci` and `scripts` shell file, and `git diff --check`. Discovering zero shell files fails the lane rather than passing empty. |
 | contract | `bash scripts/ci-local.sh contract` | portable bundle typecheck and all five bundle tests, with actual output retained in the sealed observation. |
-| rendered | `bash scripts/ci-local.sh rendered` | all 14 mocked Playwright cases with the same exact identity digest and zero-failure report checks, locally on xbabe2 only. |
+| rendered | `bash scripts/ci-local.sh rendered` | all 14 mocked Playwright cases with the same exact identity digest and zero-failure report checks, locally on xbabe2 only. Authenticated Head Playwright is not this lane. |
 | security | `bash scripts/ci-local.sh security` | `gitleaks detect`, a detector canary that fails the lane if gitleaks accepts a planted credential, the `CSRF_STORAGE_SLOT` symbol guard, `npm audit`, and `zizmor --offline --no-ignores --strict-collection .`. Wrapper: `tools/security-lane.sh`; policy and pins: `agent/security-policy.toml`. |
 | docs | `bash scripts/ci-local.sh docs` | local documentation links resolve, and the CI structure and meta-loss controls hold. |
 | required | `bash scripts/ci-local.sh required` | the canonical local merge gate: fast, lint, contract, security and docs, sequentially and exactly once, each with an observation record. |
@@ -34,6 +34,20 @@ starting a browser or proof daemon. `just setup` installs portable dependencies;
 Hosted CI runs the five portable required lanes. Fresh local rendered, family
 and packaged results are additional integration requirements; hosted green
 does not establish those results or authenticated native-provider completion.
+
+Three browser proof classes stay distinct:
+
+- **Mocked contract Playwright** (`playwright.config.ts`, 14 identities) is
+  secretless and still xbabe2-only under the rendered-host guard. It must not
+  grow authenticated Head cases.
+- **Family / packaged farmd Playwright** (`playwright.real.config.ts`,
+  `playwright.packaged.config.ts`) talks to loopback or embedded farmd with
+  fixture/`UNKNOWN` results. It is not a provider-authenticated Head.
+- **xbabe2-only Head Playwright** is a separate future config
+  (`playwright.head.config.ts`) invoked only by Hub `just xbabe2-head`. It
+  never enters `.github/workflows`. Off-node and CI exit 78 with
+  `XBABE2_PROVIDER_PROOF_UNAVAILABLE`. Kernel `vt100` child-process TUI tests
+  remain the cheap default and are not Tuiwright.
 
 The lanes write their evidence under the CI artifact directory: vitest and
 Playwright reports with asserted case counts, the coverage summary, the recorded

@@ -2,7 +2,7 @@
 
 Status: prepared, not hosted authority
 Owner: Bullet Farm maintainers
-Last reviewed: 2026-08-25
+Last reviewed: 2026-09-10
 
 Portal CI is forge-neutral at the command boundary. The five atomic lanes are
 `bash scripts/ci-local.sh fast|lint|contract|security|docs`; local `required`
@@ -33,6 +33,9 @@ All Tuiwright and Playwright runs, including mocked cases, belong locally on
 `xbabe2` outside CI. `just setup-rendered` checks that host before provisioning
 Chromium. `rendered`, `family`, and `packaged-farmd` retain their 14, 3, and 7
 case inventories and remain additional local integration requirements.
+Authenticated Head Playwright and Tuiwright are **not** hosted: do not add
+them to `.github/workflows`. The xbabe2-only recipe is Hub
+`just xbabe2-head` (exit 78 off-node or under `CI`/`GITHUB_ACTIONS`).
 The security lane then runs gitleaks 8.21.2 over the current
 tree, proves a disposable secret-shaped canary is rejected, runs the full npm
 audit, and runs zizmor 1.25.2. The lint lane requires actionlint 1.7.8 and
