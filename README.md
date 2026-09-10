@@ -86,6 +86,12 @@ recovery in an explicit file. Missing lease inputs refuse with
 `LEASE_TRANSPORT_ADMISSION_UNAVAILABLE`. Candidate admission is also required,
 and serving dispatch selects only `sim`; no subscription Runner is qualified.
 
+Authenticated readers may send `x-bullet-expected-session` to bind a request to
+their selected session. Successful responses, handler absence responses and SSE
+openings return `x-bullet-session-id`; clients validate it before consuming data.
+A replaced cookie refuses with `SESSION_CHANGED`. Authentication failures may
+precede acknowledgement. Legacy readers without the selector remain supported.
+
 ## Quick start
 
 ```bash

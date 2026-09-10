@@ -1,4 +1,4 @@
-# `bullet` CLI reference
+# `bullet` / `bulletfarm` CLI reference
 
 Status: current source components; not an installed or release-qualified operator workflow
 Owner: Bullet Farm maintainers
@@ -19,6 +19,13 @@ explicit `--subject` is selected when the first valid snapshot arrives and is
 retained in the reconnect command if the client detaches first. `--once`, piped
 output and `TERM=dumb` retain synchronous plain-text snapshot behavior. Multiple
 consoles share short credential reads; detaching one does not stop another.
+
+`bulletfarm` compiles the exact same Rust command parser, clients and TUI as
+`bullet`. Every command in this reference accepts either executable name and
+uses the same selected service, private credentials and recovery journals.
+Build both with `cargo build --locked -p bullet --bin bullet --bin bulletfarm`.
+This adds a source build target; the signed package and installed PATH entries
+still require their own installation and lifecycle qualification.
 
 ## Environment
 

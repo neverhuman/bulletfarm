@@ -4,7 +4,7 @@ use std::io::{Read, Write};
 use std::net::TcpListener;
 use std::os::unix::fs::{OpenOptionsExt, PermissionsExt};
 use std::sync::{
-    atomic::{AtomicBool, AtomicUsize, Ordering},
+    atomic::{AtomicBool, AtomicU16, AtomicUsize, Ordering},
     Arc,
 };
 use std::thread::JoinHandle;
@@ -27,6 +27,9 @@ impl Fixture {
         Self::start_with_gate(Arc::new(AtomicBool::new(false)))
     }
     pub fn start_with_gate(gate: Arc<AtomicBool>) -> Self {
+        Self::start_with_gate_and_refusal(gate, Arc::new(AtomicU16::new(0)))
+    }
+    pub fn start_with_gate_and_refusal(gate: Arc<AtomicBool>, refusal: Arc<AtomicU16>) -> Self {
         let directory = tempfile::Builder::new()
             .permissions(std::fs::Permissions::from_mode(0o700))
             .tempdir()
@@ -87,12 +90,18 @@ impl Fixture {
                 if end.load(Ordering::SeqCst) {
                     break;
                 }
-                let body = if bad.load(Ordering::SeqCst) {
+                let status = match refusal.load(Ordering::SeqCst) {
+                    0 => "200 OK",
+                    401 => "401 Unauthorized",
+                    403 => "403 Forbidden",
+                    other => panic!("unsupported fixture refusal: {other}"),
+                };
+                let body = if bad.load(Ordering::SeqCst) || status != "200 OK" {
                     "{}".into()
                 } else {
                     snapshot()
                 };
-                write!(socket,"HTTP/1.1 200 OK\r\nContent-Type: application/json\r\nX-Bullet-As-Of-Sequence: 0\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",body.len()).unwrap();
+                write!(socket,"HTTP/1.1 {status}\r\nContent-Type: application/json\r\nX-Bullet-As-Of-Sequence: 0\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{body}",body.len()).unwrap();
             }
         });
         Self {

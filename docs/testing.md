@@ -13,11 +13,11 @@ that aggregator fail.
 
 | Partition | Selected | Meaning |
 | --- | ---: | --- |
-| standalone | 1251 | all component tests outside the provider-contract/simulation, egress, and family partitions; every selected identity executes with zero skipped, including the explicitly feature-enabled verifier fixture tests |
+| standalone | 1256 | all component tests outside the provider-contract/simulation, egress, and family partitions; every selected identity executes with zero skipped, including the explicitly feature-enabled verifier fixture tests |
 | egress | 3 | the exact host-dependent namespace/nftables/CONNECT-proxy identities; only the capability-admitted `egress` lane executes them |
 | contract | 34 | four offline provider protocol binaries plus `bullet-test-simulation` |
 | family | 9 | five `transaction_demo` identities plus `heartbeat_stale`, `kill_retry`, `loop_sim`, and `synthetic_e2e` |
-| total | 1297 | exact union of the four disjoint partitions above |
+| total | 1302 | exact union of the four disjoint partitions above |
 
 `ops/ci/inventory-test.sh` independently lists all four partitions, requires
 every set to be nonzero, checks pairwise disjointness and exact union,
@@ -47,6 +47,15 @@ detach independently. A separate held-response case detaches before HTTP
 completion and preserves a shell-quoted reconnect subject. These are Linux PTY
 component regressions; they do not substitute for xbabe2 Tuiwright recordings,
 installed-service revocation/restart acceptance, or native provider evidence.
+
+`apps/bullet/tests/operator_tui_startup.rs` adds six-client private-credential
+contention and missing-credential recovery, plus observed-data clearing on
+synthetic HTTP 401/403 and recovery when that fixture accepts reads again.
+The initial shell paints before credential discovery; help and navigation remain
+usable while discovery or HTTP waits. A separate shell execution regression
+checks reconnect path quoting, HOME expansion, and path-component boundaries.
+These checks establish neither real enrollment/revocation nor the 250 ms p95
+first-paint target; those remain installed-host qualification obligations.
 
 Six Runner finalization identities cover positive termination acknowledgement before
 release, zero-or-one terminal release without requeue, post-delete response loss,
@@ -179,7 +188,7 @@ provider conformance.
 
 | Lane | Scope |
 | --- | --- |
-| `fast` | exactly 1251 standalone nextest identities, all executed with zero skipped |
+| `fast` | exactly 1256 standalone nextest identities, all executed with zero skipped |
 | `lint` | rustfmt, all-target Clippy, actionlint 1.7.8, ShellCheck 0.10.0, workflow policy, inventory/observation/nightly meta-tests |
 | `contract` | exactly 34 offline provider-contract and simulation tests |
 | `security` | current-tree gitleaks 8.21.2; full cargo-deny 0.19.8 advisories/bans/licenses/sources with independently proved RustSec freshness; zizmor 1.25.2 |

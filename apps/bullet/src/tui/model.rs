@@ -98,6 +98,16 @@ pub(super) struct Model {
 }
 
 impl Model {
+    pub(super) fn clear_owner(&mut self) {
+        self.snapshot = None;
+        self.error = None;
+        self.rows.clear();
+        self.selected_id = None;
+        self.mission = None;
+        self.task = None;
+        self.scroll = 0;
+        self.destination.clear();
+    }
     pub(super) fn update(&mut self, result: Result<OperatorSnapshot, String>) {
         match result {
             Ok(snapshot)
@@ -135,7 +145,9 @@ impl Model {
             .unwrap_or(0)
     }
     pub(super) fn observation(&self) -> &'static str {
-        if self.error.is_some() {
+        if self.error.is_some() && self.snapshot.is_none() {
+            "UNAVAILABLE"
+        } else if self.error.is_some() {
             "STALE"
         } else if self.snapshot.is_none() {
             "CONNECTING"
