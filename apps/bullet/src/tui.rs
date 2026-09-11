@@ -1,12 +1,15 @@
 //! The operator console is a consumer of the same atomic snapshot as the Portal.
 
+#[cfg(unix)]
+mod loader;
 mod model;
+mod submissions;
 mod ui;
 
 use clap::Args;
 use std::path::PathBuf;
 
-#[derive(Args, Default)]
+#[derive(Args)]
 pub(crate) struct TuiArgs {
     /// Private credentials saved by bullet auth login.
     #[arg(long)]
@@ -28,27 +31,28 @@ pub(crate) fn run(_args: TuiArgs) -> Result<(), String> {
 pub(crate) fn run(args: TuiArgs) -> Result<(), String> {
     use crossterm::event::{self, Event, KeyCode, KeyEventKind, KeyModifiers};
     use std::io::IsTerminal;
-    use std::sync::mpsc;
     use std::time::{Duration, Instant};
 
-    let directory = crate::auth::state_dir(args.state_dir)?;
-    let credentials = crate::auth::store::CredentialStore::read_credentials(&directory)?
-        .ok_or("AUTH_REQUIRED: run bullet auth login")?;
-    let mut state = model::Model {
-        destination: crate::client::terminal_text(&credentials.farmd),
-        ..model::Model::default()
-    };
+    let mut state = model::Model::default();
     let mut reconnect = args.subject;
     if args.once
         || !std::io::stdout().is_terminal()
         || std::env::var("TERM").as_deref() == Ok("dumb")
     {
+        let directory = crate::auth::state_dir(args.state_dir)?;
+        let credentials = crate::auth::store::CredentialStore::read_credentials(&directory)?
+            .ok_or("AUTH_REQUIRED: run bullet auth login")?;
+        state.destination = crate::client::terminal_text(&credentials.farmd);
         state.update(crate::client::operator_snapshot(&credentials));
-        if let Ok((coding, next_after)) = crate::client::coding_commands(&credentials, 0) {
-            state.set_coding(coding, next_after);
-        }
+        state
+            .submissions
+            .update(crate::client::coding_commands(&credentials));
         if let Some(subject) = reconnect {
-            state.reconnect(&subject);
+            if subject.starts_with("cmd_") && state.submissions.error.is_some() {
+                state.error = state.submissions.error.clone();
+            } else {
+                state.reconnect(&subject);
+            }
         }
         println!("{}", state.plain());
         return state.error.map_or(Ok(()), Err);
@@ -56,47 +60,67 @@ pub(crate) fn run(args: TuiArgs) -> Result<(), String> {
     if !std::io::stdin().is_terminal() {
         return Err("TUI_TERMINAL_REQUIRED: use --once".into());
     }
-    let (request_tx, request_rx) = mpsc::sync_channel::<u64>(1);
-    let (response_tx, response_rx) = mpsc::sync_channel(1);
-    // This thread only performs GETs; dropping the client never cancels farm work.
-    std::thread::spawn(move || {
-        while let Ok(after) = request_rx.recv() {
-            let snapshot = crate::client::operator_snapshot(&credentials);
-            let (coding, next_after) = crate::client::coding_commands(&credentials, after)
-                .unwrap_or_else(|_| (Vec::new(), None));
-            if response_tx.send((snapshot, coding, next_after)).is_err() {
-                break;
-            }
-        }
-    });
     let mut terminal = ratatui::try_init().map_err(|_| "TUI_TERMINAL_UNAVAILABLE")?;
     let _restore = RestoreTerminal;
-    let palette = ui::Palette::detect();
-    // First paint must not wait for any network request, even on a cold connection.
+    let color = std::env::var_os("NO_COLOR").is_none();
+    // Paint before even starting credential or destination discovery.
     terminal
-        .draw(|frame| ui::draw(frame, &mut state, palette))
+        .draw(|frame| ui::draw(frame, &mut state, color))
         .map_err(|_| "TUI_DRAW_FAILED")?;
+    let (request_tx, response_rx) = loader::start(args.state_dir.clone());
+    let mut directory = args.state_dir;
+    let mut identity = None;
     request_tx
-        .try_send(state.coding_after)
+        .try_send(())
         .map_err(|_| "TUI_REFRESH_UNAVAILABLE")?;
     let mut next_refresh = Instant::now() + Duration::from_secs(2);
     let mut pending = true;
     state.refresh_pending = true;
     loop {
-        if let Ok((snapshot, coding, next_after)) = response_rx.try_recv() {
-            pending = false;
-            state.refresh_pending = false;
-            state.update(snapshot);
-            state.set_coding(coding, next_after);
-            if state.snapshot.is_some() {
-                if let Some(subject) = reconnect.take() {
-                    state.reconnect(&subject);
+        while let Ok(event) = response_rx.try_recv() {
+            match event {
+                loader::Event::Credentials {
+                    identity: owner,
+                    directory: path,
+                    destination,
+                } => {
+                    if identity.as_ref() != Some(&owner) {
+                        state.clear_owner();
+                    }
+                    identity = Some(owner);
+                    directory = Some(path);
+                    state.destination = destination;
+                }
+                loader::Event::Snapshot { operator, commands } => {
+                    pending = false;
+                    state.submissions.update(*commands);
+                    state.update(*operator);
+                    state.rebuild();
+                    let ready = reconnect.as_deref().is_some_and(|subject| {
+                        if subject.starts_with("cmd_") {
+                            state.submissions.snapshot.is_some()
+                                && state.submissions.error.is_none()
+                        } else {
+                            state.snapshot.is_some() && state.error.is_none()
+                        }
+                    });
+                    if ready {
+                        if let Some(subject) = reconnect.take() {
+                            state.reconnect(&subject);
+                        }
+                    }
+                }
+                loader::Event::Authentication(error) => {
+                    pending = false;
+                    identity = None;
+                    state.clear_owner();
+                    state.update(Err(error));
                 }
             }
         }
         if !pending && Instant::now() >= next_refresh {
             request_tx
-                .try_send(state.coding_after)
+                .try_send(())
                 .map_err(|_| "TUI_REFRESH_UNAVAILABLE")?;
             pending = true;
             state.refresh_pending = true;
@@ -104,7 +128,7 @@ pub(crate) fn run(args: TuiArgs) -> Result<(), String> {
         }
         state.refresh_pending = pending;
         terminal
-            .draw(|frame| ui::draw(frame, &mut state, palette))
+            .draw(|frame| ui::draw(frame, &mut state, color))
             .map_err(|_| "TUI_DRAW_FAILED")?;
         if !event::poll(Duration::from_millis(100)).map_err(|_| "TUI_INPUT_FAILED")? {
             continue;
@@ -132,28 +156,24 @@ pub(crate) fn run(args: TuiArgs) -> Result<(), String> {
             KeyCode::Down | KeyCode::Char('j') => state.step(1),
             KeyCode::Enter => state.enter(),
             KeyCode::Char('r') if !pending => next_refresh = Instant::now(),
-            KeyCode::Char('n') | KeyCode::Char(']') if !pending && state.page_coding(true) => {
-                next_refresh = Instant::now();
-            }
-            KeyCode::Char('p') | KeyCode::Char('[') if !pending && state.page_coding(false) => {
-                next_refresh = Instant::now();
-            }
             _ => (),
         }
     }
     drop(request_tx);
     ratatui::restore();
-    let subject = state
-        .selected_id
+    let subject = reconnect
         .as_deref()
-        .or(reconnect.as_deref())
+        .or(state.selected_id.as_deref())
         .map(crate::client::terminal_text)
-        .map(|text| model::redact_ledger_hex(&text))
         .unwrap_or_default()
         .replace('\'', "'\\''");
-    let path = reconnect_state_dir(&directory);
+    let path = directory
+        .as_deref()
+        .map(reconnect_state_dir)
+        .map(|path| format!(" --state-dir {path}"))
+        .unwrap_or_default();
     println!(
-        "DETACHED: durable work continues. Reconnect: bullet tui --state-dir '{path}'{}",
+        "DETACHED: durable work continues. Reconnect: bullet tui{path}{}",
         if subject.is_empty() {
             String::new()
         } else {
@@ -165,14 +185,58 @@ pub(crate) fn run(args: TuiArgs) -> Result<(), String> {
 
 #[cfg(unix)]
 fn reconnect_state_dir(directory: &std::path::Path) -> String {
-    let raw = crate::client::terminal_text(&directory.to_string_lossy()).replace('\'', "'\\''");
-    let Ok(home) = std::env::var("HOME") else {
-        return raw;
+    let home = std::env::var_os("HOME").map(PathBuf::from);
+    reconnect_path_word(directory, home.as_deref())
+}
+
+#[cfg(unix)]
+fn reconnect_path_word(directory: &std::path::Path, home: Option<&std::path::Path>) -> String {
+    let quote = |path: &std::path::Path| {
+        format!(
+            "'{}'",
+            crate::client::terminal_text(&path.to_string_lossy()).replace('\'', "'\\''")
+        )
     };
-    let home = crate::client::terminal_text(&home);
-    raw.strip_prefix(&home)
-        .map(|rest| format!("$HOME{rest}"))
-        .unwrap_or(raw)
+    if let Some(home) = home.filter(|path| !path.as_os_str().is_empty()) {
+        if let Ok(rest) = directory.strip_prefix(home) {
+            return if rest.as_os_str().is_empty() {
+                "\"$HOME\"".into()
+            } else {
+                format!("\"$HOME\"/{}", quote(rest))
+            };
+        }
+    }
+    quote(directory)
+}
+
+#[cfg(all(test, unix))]
+mod tests {
+    use super::reconnect_path_word;
+    use std::path::Path;
+
+    #[test]
+    fn reconnect_path_preserves_shell_expansion_quotes_and_home_boundaries() {
+        let home = Path::new("/home/operator");
+        assert_eq!(reconnect_path_word(home, Some(home)), "\"$HOME\"");
+        let word = reconnect_path_word(Path::new("/home/operator/state ' $(false)"), Some(home));
+        assert_eq!(word, "\"$HOME\"/'state '\\'' $(false)'");
+        let output = std::process::Command::new("sh")
+            .arg("-c")
+            .arg(format!("printf '%s' {word}"))
+            .output()
+            .unwrap();
+        assert!(output.status.success());
+        let expected = Path::new(&std::env::var_os("HOME").unwrap()).join("state ' $(false)");
+        assert_eq!(output.stdout, expected.as_os_str().as_encoded_bytes());
+        assert_eq!(
+            reconnect_path_word(Path::new("/home/operator-extra/state"), Some(home)),
+            "'/home/operator-extra/state'"
+        );
+        assert_eq!(
+            reconnect_path_word(Path::new("/tmp/private state"), None),
+            "'/tmp/private state'"
+        );
+    }
 }
 
 #[cfg(unix)]
