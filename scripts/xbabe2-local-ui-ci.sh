@@ -12,30 +12,34 @@ case "$selection" in
   --list)
     printf '%s\n' \
       'rendered: Portal scripts/ci-local.sh rendered; exact Playwright identities checked by ops/ci/rendered.sh' \
-      'tuiwright: UNAVAILABLE; a pinned recording CLI is not an executable qualification suite' \
+      'tuiwright: Kernel scripts/ci-local.sh tuiwright; exact admitted harness and Bullet binaries required' \
       'all: requires both suites; unavailable is non-passing'
     exit 0 ;;
   all|rendered|tuiwright) ;;
   *) printf 'LOCAL_UI_SELECTION_INVALID: %s\n' "$selection" >&2; exit 2 ;;
 esac
-if [[ "${CI:-}" == true || "${CI:-}" == 1 || "${GITHUB_ACTIONS:-}" == true \
-  || "${GITHUB_ACTIONS:-}" == 1 || "${XBABE2_LOCAL_UI_CI:-}" != 1 \
+if [[ ${CI+x} || ${GITHUB_ACTIONS+x} || "${XBABE2_LOCAL_UI_CI:-}" != 1 \
   || "$(hostname -s)" != xbabe2 ]]; then
   printf 'XBABE2_LOCAL_UI_UNAVAILABLE: explicit xbabe2 local execution outside CI is required\n' >&2
   exit 78
 fi
-if [[ "$selection" != rendered ]]; then
-  printf '%s\n' \
-    'TUIWRIGHT_SUITE_UNAVAILABLE: no admitted Rust Tuiwright qualification suite and exact inventory exist yet' \
-    'Recording/help/version probes and ordinary PTY component tests cannot satisfy this requirement' >&2
+kernel="$family/bullet-kernel"
+portal="$family/bullet-portal"
+if [[ "$selection" != rendered && ( ! -f "$kernel/scripts/ci-local.sh" || ! -f "$kernel/ops/ci/tuiwright.sh" ) ]]; then
+  printf 'TUIWRIGHT_SUITE_UNAVAILABLE: canonical Kernel qualification lane is missing\n' >&2
   exit 78
 fi
-portal="$family/bullet-portal"
-if [[ ! -f "$portal/scripts/ci-local.sh" || ! -f "$portal/ops/ci/rendered.sh" ]]; then
+if [[ "$selection" != tuiwright && ( ! -f "$portal/scripts/ci-local.sh" || ! -f "$portal/ops/ci/rendered.sh" ) ]]; then
   printf 'PLAYWRIGHT_SUITE_UNAVAILABLE: canonical Portal rendered lane is missing\n' >&2
   exit 78
 fi
-# The Portal dispatcher owns source admission, actual browser execution, exact
-# selected/completed identity validation, report retention and final read-back.
-printf 'Running rendered component suite only; Tuiwright remains unavailable\n' >&2
-exec bash "$portal/scripts/ci-local.sh" rendered
+# Member dispatchers own admission, execution and selected/completed evidence.
+# Never replace either execution with a saved receipt or a tool version probe.
+if [[ "$selection" != rendered ]]; then
+  printf 'Running Tuiwright component suite\n' >&2
+  bash "$kernel/scripts/ci-local.sh" tuiwright
+fi
+if [[ "$selection" != tuiwright ]]; then
+  printf 'Running rendered component suite\n' >&2
+  exec bash "$portal/scripts/ci-local.sh" rendered
+fi
