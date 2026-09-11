@@ -130,7 +130,7 @@ Receipt-kind reverse edges: `artifact` 8, `containment` 1, `forge` 2, `operation
 | contracts/v1alpha1/schema-bundle.json | 5b47756bcab8bc88aa24c42a5bcf535e6cbcf95241151b5ebfc50055e7d0b167 |
 | docs/schemas/bullet.assurance-inventory.v1.schema.json | fb00a7e88263db61a8c00c241eeceb822ac718b285e91c37078805acbf467c4e |
 | policy/assurance-inventory-v1.json | d0df5aea6d15366246b8b58ae998605c8f30240be2859eb593bb567e9f16326f |
-| policy/corpus-coverage-v1.json | 2416d5968e716b5868a22c863e7b7f1c34cf4ee840a0d7b800778d75390ea587 |
+| policy/corpus-coverage-v1.json | 54d6e255e076b5a59a09b5956307ee3b6a8fa85872881a150b7c9225fcf5d50c |
 | policy/v1alpha1/invariant-registry.json | 5b9c57329de0e812fdc441455ab7467e20b52f89f36c67d5787d562c5a7d67e5 |
 
 ## Boundary

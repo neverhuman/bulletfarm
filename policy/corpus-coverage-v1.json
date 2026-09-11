@@ -9186,9 +9186,9 @@
     "kind": "test",
     "repo": "bullet-portal",
     "path": "src/pages/ShiftBriefPage.test.tsx",
-    "symbol": "carries each durable surface's own provenance and reads the shared missions list once"
+    "symbol": "carries one shared provenance for every durable surface and refreshes it together"
    },
-   "note": "Codex 2026-08-26: full source/as-of/observed-at asserted for Fleet only; Control Tower and Mission Graph as-of only; other durable reads fail in test"
+   "note": "2026-09-10: nine durable rows share snapshot provenance/refresh; six absent surfaces stay unknown. Full section and installed acceptance remain W6."
   },
   {
    "id": "nightshift.w2.gate-vs-readiness",
