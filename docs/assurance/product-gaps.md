@@ -1,7 +1,7 @@
 # Product gap register
 
 Status: **operator index; not runtime or release authority**  
-Last reviewed: 2026-09-10
+Last reviewed: 2026-09-11
 Owner: Bullet Farm maintainers
 
 This page answers “what is still missing before Bullet Farm is a product?”
@@ -17,6 +17,21 @@ supporting repositories. Commit `912dddf` selects that destination for new
 requests; historical request identities and destinations remain intact. Supporting
 source PRs and audit scores do not establish complete aggregate CI. Separately
 accepted Jeryu self-hosting and forge-certification obligations remain in scope.
+
+The [11 September full audit](deep-audit-20260911.md) is the latest dated repair
+input, with [159-file baseline coverage](deep-audit-20260911.inventory.json),
+107 member docs and six exact outer mirrors. It confirms the public blank TUI GIF,
+reviews the proposed dark diagnostic repair, records all scheduled CI failures and
+unexecuted cells, and identifies the missing Head/admission/native/verifier chain.
+The [updated work order](xbabe2-development-closeout.md) gives bounded implementation
+packets, all fifteen surfaces, daily CLI/channels, complete failure campaigns,
+installed/provider/media milestones and all active research/profile/WP obligations.
+Local Hub f431/Kernel899 required passes remain exact component evidence; Portal
+d00's admitted required failed after fast/build. Concurrent proposals and later
+documentation cannot inherit those passes. All G/profile/HOLD statuses stay unchanged.
+
+The older dated observations below remain historical evidence; use the latest audit
+for current repairs and re-read exact source before implementation.
 
 The [9 September deep audit](deep-audit-20260909.md) records the current production
 bridge, all CI execution gaps, actual account/runtime discovery, media defects and
