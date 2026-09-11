@@ -31,6 +31,7 @@ real_start() {
     command -v "$tool" >/dev/null 2>&1 || real_die TOOL_UNAVAILABLE "$tool"
   done
   REAL_FFPROBE="$(command -v ffprobe)"
+  REAL_FFMPEG="$(command -v ffmpeg)"
   REAL_PYTHON="$(command -v python3)"
   [[ -f "$REAL_HUB/scripts/lib/demo-gif-render.py" ]] || real_die TOOL_UNAVAILABLE demo-gif-render.py
   REAL_TMP="$(mktemp -d)"
@@ -45,7 +46,7 @@ real_cleanup() { [[ -z "$REAL_TMP" ]] || rm -rf -- "$REAL_TMP"; }
 real_validate() {
   # -B: importing the tracked renderer must not drop a __pycache__ into the
   # source tree this gate is supposed to leave alone.
-  "$REAL_PYTHON" -IB - "$1" "$2" "$REAL_FFPROBE" "$REAL_HUB" "$REAL_MAX_GIF_BYTES" <<'PY'
+  "$REAL_PYTHON" -IB - "$1" "$2" "$REAL_FFPROBE" "$REAL_HUB" "$REAL_MAX_GIF_BYTES" "$REAL_FFMPEG" <<'PY'
 import importlib.util
 import json
 import math
@@ -56,7 +57,7 @@ import sys
 from datetime import datetime
 from pathlib import Path
 
-root, name, ffprobe, hub, max_gif = sys.argv[1:6]
+root, name, ffprobe, hub, max_gif, ffmpeg = sys.argv[1:7]
 root, max_gif = Path(root), int(max_gif)
 WIDTH, HEIGHT = 1920, 1080
 MEMBERS = ["bullet-farm", "bullet-git", "bullet-kernel", "bullet-portal"]
@@ -64,6 +65,16 @@ CLAIMS = ["self-test", "real-recording", "real-provider-turn", "local-observatio
           "transaction-offline-bridge", "candidate-preserved", "known-defects-shown", "no-gate-cleared"]
 MANDATORY = ["local-observation", "no-gate-cleared"]
 FORBIDDEN = ["TRANSACTION_PROOF", "independent", "LIVE_PROOF", "release", "self-hosted-v1"]
+# Ink coverage: share of sampled pixels whose luma differs from that frame's
+# modal (background) level. Measured on this family's own recordings: the
+# published blank tape peaked at 0.174%, operator-tui at 2.5%, operator-portal
+# at 5.2%. The tolerance must exceed GIF palette dithering of a flat colour,
+# which spreads one colour across ~32 luma levels and would otherwise read as
+# 56% ink; at 32 a dithered flat frame reads 0.000%.
+INK_MIN_PERCENT = 1.0
+INK_TOLERANCE = 32
+INK_SAMPLE_FRAMES = 32
+INK_PIXEL_STRIDE = 17
 HEX64 = re.compile(r"^[0-9a-f]{64}$")
 HEX40 = re.compile(r"^[0-9a-f]{40}$")
 ANSI = re.compile(r"\x1b(?:[@-Z\\-_]|\[[0-?]*[ -/]*[@-~]|\][^\x07]*(?:\x07|\x1b\\))")
@@ -192,6 +203,32 @@ def gif_delays(data):
             if marker != 0x3B or pos != len(data) or pending is not None or not delays:
                 refuse("GIF_FORMAT", "GIF_TRAILER_INVALID")
             return delays, frames
+
+
+def peak_ink_percent(path, frames):
+    """Largest share of non-background pixels over a sample of decoded frames."""
+    step = max(1, frames // INK_SAMPLE_FRAMES)
+    command = [ffmpeg, "-v", "error", "-nostdin", "-i", str(path),
+               "-vf", f"select='not(mod(n\\,{step}))'", "-fps_mode", "passthrough",
+               "-f", "rawvideo", "-pix_fmt", "gray", "-"]
+    try:
+        done = subprocess.run(command, capture_output=True, timeout=300, check=False)
+    except (OSError, subprocess.SubprocessError) as error:
+        refuse("FFMPEG", type(error).__name__)
+    if done.returncode != 0:
+        refuse("FFMPEG", done.stderr.decode("utf-8", "replace").strip()[:96] or f"exit {done.returncode}")
+    pixels = WIDTH * HEIGHT
+    raw = done.stdout
+    if len(raw) < pixels:
+        refuse("RENDER_BLANK", f"decoded {len(raw)} bytes, under one {WIDTH}x{HEIGHT} frame")
+    peak = 0.0
+    for index in range(len(raw) // pixels):
+        sample = raw[index * pixels:(index + 1) * pixels][::INK_PIXEL_STRIDE]
+        counts = [sample.count(value) for value in range(256)]
+        background = max(range(256), key=counts.__getitem__)
+        ink = sum(c for value, c in enumerate(counts) if abs(value - background) > INK_TOLERANCE)
+        peak = max(peak, 100 * ink / len(sample))
+    return peak
 
 
 def probe(*entries, path):
@@ -389,6 +426,18 @@ if not 0 < duration <= 900:
 if kind == "portal" and manifest["portal"]["frames"] != len(delays):
     refuse("FRAMES", f"portal.frames={manifest['portal']['frames']} native={len(delays)}")
 
+# --- rendered pixels ---------------------------------------------------------
+# Every structural rule above is satisfied by a recording of a blank screen, and
+# one shipped: operator-tui.gif declared "real-recording" over draw cycles that
+# flushed zero cells, because the recorder handed the TUI a 0x0 pty. The cast
+# entropy rules below catch that for a terminal; this reads the published pixels,
+# so it also covers a portal recording (which has no cast) and the case where the
+# cast is rich while the render pipeline produced nothing.
+ink = peak_ink_percent(gif_path, len(delays))
+if ink < INK_MIN_PERCENT:
+    refuse("RENDER_BLANK",
+           f"peak ink coverage {ink:.3f}% is under {INK_MIN_PERCENT}%: no visible foreground")
+
 # --- master and text screening ---------------------------------------------
 declared = {m.group(0).lower() for m in HEX64_ANY.finditer(manifest_text)}
 scan_text(manifest_text, f"{name}.manifest.json", declared)
@@ -477,8 +526,13 @@ real_check() {
 }
 
 # --- self-test ---------------------------------------------------------------
-real_fixture_gif() {  # path geometry
+real_fixture_gif() {  # path geometry: foreground band on the dark ground, so the ink floor is met
   ffmpeg -nostdin -hide_banner -loglevel error -y -f lavfi -i "color=c=0x0d1117:size=$2:rate=2" \
+    -vf "drawbox=x=0:y=0:w=iw:h=ih/8:color=0xe3edf7:t=fill" -frames:v 2 "$1"
+}
+
+real_fixture_gif_blank() {  # path geometry: one flat colour, the shape of the published white tape
+  ffmpeg -nostdin -hide_banner -loglevel error -y -f lavfi -i "color=c=0xeceff4:size=$2:rate=2" \
     -frames:v 2 "$1"
 }
 
@@ -649,6 +703,9 @@ real_self_test() {
   real_expect_refusal UNSAFE_FILE 'symlinked gif'
   real_case; real_manifest_edit '.terminal.cols = 80'
   real_expect_refusal CAST_GEOMETRY 'cast/manifest grid mismatch'
+  real_case; real_fixture_gif_blank "$REAL_CASE/$REAL_NAME.gif" 1920x1080
+  real_refresh "$REAL_CASE" "$REAL_NAME"
+  real_expect_refusal RENDER_BLANK 'flat frame, the shape of the white tape'
   real_case
   printf '%s\n' \
     '{"version": 2, "width": 126, "height": 29, "timestamp": 1788960494, "title": "self-test"}' \
