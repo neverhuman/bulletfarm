@@ -85,9 +85,12 @@ if [[ "$(uname -s)" == Linux ]]; then
     "${hosted[@]}" "${subjects[@]}" "RUNNER_TEMP=$evidence" env -u BULLET_TUIWRIGHT_BULLET_BIN \
     bash "$fixture/scripts/ci-local.sh" operator-tui
   [[ "$(<"$evidence/bullet-operator-tui-12-1/receipt.json")" == 'historical receipt' ]] || fail 'historical stage overwritten'
+  # This pure source check does not acquire a compiler target. Importing lib.sh
+  # would try to adopt the canonical parent proof target in this unrelated fixture.
   # shellcheck disable=SC2016 # Evaluated literally in the child shell.
-  source_check='source "$1/ops/ci/lib.sh"; source "$1/ops/ci/operator-tui-hosted.sh"; cd "$REPO_ROOT"; hosted_verify_source'
-  bash -c "$source_check" _ "$fixture" || fail 'clean raw source rejected'
+  source_check='REPO_ROOT="$1"; refuse() { printf "%s: %s\n" "$1" "$2" >&2; return 1; }; source "$1/ops/ci/operator-tui-hosted.sh"; cd "$REPO_ROOT"; hosted_verify_source'
+  CARGO_TARGET_DIR="$evidence/unrelated-parent-target" \
+    bash -c "$source_check" _ "$fixture" || fail 'clean raw source rejected'
   git -C "$fixture" update-index --assume-unchanged ops/ci/inventory.sh
   printf '\n# hidden changed bytes\n' >>"$fixture/ops/ci/inventory.sh"
   [[ -z "$(git -C "$fixture" status --porcelain)" ]] || fail 'masked fixture not masked'
