@@ -5,8 +5,8 @@
 
 Control-plane modular monolith for Bullet Farm. Agents start at [`AGENTS.md`](AGENTS.md).
 Product-surface claims and the CI inventory were last reviewed 2026-09-12
-against source subject `025001dd`.
-<!-- bullet-doc-review:v1 subject=025001dd55e1ffc52e63311b191a818eeeb037b9 max_distance=25 paths=apps/bullet/src/main.rs,apps/bullet/src/auth/session.rs,apps/bullet/src/auth/store.rs,apps/bullet/src/client.rs,apps/bullet/src/coding/http.rs,apps/bullet/src/tui.rs,apps/bullet/src/tui/loader.rs,apps/bullet/src/tui/model.rs,apps/bullet/src/tui/ui.rs,apps/bullet/src/tui/fleet.rs,crates/adapters/src/sqlite/migrations.rs,crates/adapters/src/sqlite/migrations/catalog.rs,apps/bullet-farmd/src/main.rs,apps/bullet-farmd/src/lease_transport_rpc.rs,crates/runner/src/lib.rs,crates/runner/src/signed_lease_rpc.rs,crates/verifier/src/lib.rs,crates/adapters/src/sqlite/backup/create.rs,crates/adapters/src/sqlite/backup/restore.rs,crates/adapters/src/sqlite/open.rs,apps/bullet-farmd/src/main/launch.rs,apps/bullet-runner/src/main.rs,crates/runner/src/signed_lease_rpc/recovery.rs,ops/ci/inventory.sh -->
+against source subject `f8a2b5c`.
+<!-- bullet-doc-review:v1 subject=f8a2b5cde2231f40503ae3f427013677f40a63c9 max_distance=25 paths=apps/bullet/src/main.rs,apps/bullet/src/auth/session.rs,apps/bullet/src/auth/store.rs,apps/bullet/src/client.rs,apps/bullet/src/coding/http.rs,apps/bullet/src/tui.rs,apps/bullet/src/tui/loader.rs,apps/bullet/src/tui/model.rs,apps/bullet/src/tui/ui.rs,apps/bullet/src/tui/fleet.rs,crates/adapters/src/sqlite/migrations.rs,crates/adapters/src/sqlite/migrations/catalog.rs,apps/bullet-farmd/src/main.rs,apps/bullet-farmd/src/lease_transport_rpc.rs,crates/runner/src/lib.rs,crates/runner/src/signed_lease_rpc.rs,crates/verifier/src/lib.rs,crates/adapters/src/sqlite/backup/create.rs,crates/adapters/src/sqlite/backup/restore.rs,crates/adapters/src/sqlite/open.rs,apps/bullet-farmd/src/main/launch.rs,apps/bullet-runner/src/main.rs,crates/runner/src/signed_lease_rpc/recovery.rs,ops/ci/inventory.sh,.github/workflows/ci.yml,ops/ci/operator-tui.sh,ops/ci/operator-tui-hosted.sh,ops/qualification/tuiwright/src/cases.rs -->
 Evidence classes follow
 `bullet-farm/docs/release.md`; nothing in this repository is `LIVE_PROOF` or
 `RELEASE_PROOF`, and every receipt named here is a component receipt.
@@ -120,9 +120,10 @@ bullet_demo_dir="$(mktemp -d /tmp/bullet-demo.XXXXXXXX)"
 BULLET_DATA_DIR="$bullet_demo_dir" cargo run --locked -p bullet --bin bullet -- demo
 ```
 
-Keep the private absolute directory and its receipt for inspection. The default
-`./target/demo` path currently fails ledger path admission; an absolute private
-directory avoids that source defect without claiming a product fix.
+Keep the private directory and its receipt for inspection. Without an explicit
+`BULLET_DATA_DIR`, demo and initialization use `XDG_STATE_HOME/bullet/ledger`
+or `HOME/.local/state/bullet/ledger`; invalid default bases refuse. These
+component commands do not initialize the complete coding workflow.
 
 Run `just setup` only if this checkout has not yet been prepared (toolchain
 and repo-side dependencies).
@@ -188,6 +189,7 @@ contract and family partitions must be complete and disjoint.
 | contract | `just contract` | exactly 34 offline provider-protocol and simulation tests, executed once; no sibling daemon | `COMPONENT_PROOF` / `SYNTHETIC_PROOF` |
 | security | `just security` | gitleaks (no-git); `cargo deny fetch db` plus a lane-side freshness proof of the RustSec advisory database (refuses at 14 days); `cargo deny --locked check licenses advisories bans sources` against the committed `deny.toml`; `zizmor --offline --no-ignores --strict-collection .github`; a missing tool, a missing `deny.toml`, or an absent/stale advisory database fails | hygiene gate; no evidence class |
 | docs | `just docs` | generated-contract drift, workspace rustdoc, and repository-relative Markdown links | hygiene gate; no evidence class |
+| operator-tui | `bash scripts/ci-local.sh operator-tui` | explicit admitted profile; hosted Linux builds both aliases and the pinned harness, runs real PTYs and validates artifact subjects; xbabe2 installed/live admission remains separate | component only; no hosted or live qualification without its actual admitted run |
 | required | `just check` | fast, lint, contract, security, and docs sequentially, exactly once | unsigned component observation only |
 | family | `BULLET_GITD_BIN=/canonical/absolute/bullet-gitd BULLET_GITD_SHA256=<lowercase-sha256> just family` | exactly nine connected family tests: five transaction-demo identities, three runner identities, and `synthetic_e2e`; missing, relative, non-canonical, non-executable, or digest-mismatched daemon subjects fail | family observation only; not registered until immutable family provisioning exists |
 | offline transaction component | `BULLET_GITD_BIN=/canonical/absolute/bullet-gitd BULLET_GITD_SHA256=<lowercase-sha256> just proof-transaction-offline` | builds locked Kernel subjects offline, runs durable scope and Candidate authority through product Runner/production Gitd, fixture verification, exact Candidate delivery/read-back, stale-fence refusal, and `OUTCOME_UNKNOWN` reconciliation, then retains strict JSON | unsigned `COMPONENT_PROOF`; fixture verifier; explicitly ineligible for transaction/release admission |
@@ -197,8 +199,11 @@ contract and family partitions must be complete and disjoint.
 | toolchain-msrv | `just toolchain-msrv` | release-schema observation under Rust 1.95.0; separate from standalone required CI and still family-bound while its frozen receipt argv tests all targets | `COMPONENT_PROOF`; unsigned input to a future release receipt only |
 
 `.github/workflows/ci.yml` scans source and lockfiles before dependency work,
-then runs the five atomic lanes in parallel and converges on exact context
-`CI / required`. Scheduled diagnostics cover external links, advisories,
+then runs fast, lint, contract, security, docs and the admitted Linux
+`operator-tui` component job before converging on exact context `CI / required`.
+The aggregate requires all seven predecessor jobs, including preflight, and
+validates retained Tuiwright subjects and artifacts. Hosted execution on this
+source still requires a successful remote run. Scheduled diagnostics cover external links, advisories,
 coverage, full-history secrets, and macOS/Windows compile plus typed refusal.
 All hosted observations are unsigned `DIAGNOSTIC_ONLY`, not Evidence or release
 receipts. See [CI and test inventory](docs/testing.md).
