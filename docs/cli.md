@@ -67,7 +67,7 @@ consoles share short credential reads; detaching one does not stop another.
 | `coding task <id>` | read accepted task/runtime selection, server task/run IDs and exact queue blockers from one authenticated snapshot; validate its payload digest even without a local journal |
 | `coding status <id>` | GET the same command subject using saved credentials; correlate kind and payload digest with its local journal when present |
 | `coding board` | fleet, sessions and outbox from one authenticated `/api/v1/operator-snapshot`; separate public health and optional `--command` observations. Empty fleet is zero lease rows. `--json` emits the observed projection objects. |
-| `coding watch` | poll the same board; `--interval-ms` must be ≥ 1 (`WATCH_INTERVAL_INVALID` otherwise). Not a coordinator fleet. |
+| `coding watch` | poll the same board; `--interval-ms` must be ≥ 1 (`WATCH_INTERVAL_INVALID` otherwise). `--max-idle` defaults to 5 consecutive poll failures, then exits nonzero with `WATCH_POLL_FAILED`; a successful poll resets the count. Zero refuses with `WATCH_MAX_IDLE_INVALID`. Not a coordinator fleet. |
 | `coding harness-check` | report `BULLET_HARNESS_*` PRESENT/ABSENT without spawning a provider. Exit 2 when unbound (`COMMAND_CODING_HARNESS_UNBOUND`). |
 | `coding stop` | typed `STOP_UNIMPLEMENTED` and exit 2; does not SIGKILL a provider |
 
@@ -115,6 +115,13 @@ durable commands. Follow `next_after` with `--after`, using the same authenticat
 state directory. Each page has its own atomic snapshot watermark; pages do not
 form one cross-page snapshot. Historical commands without a recorded operator
 owner are not adopted. Discovery performs GETs and does not resubmit work.
+
+New schema-2 journals store the serialized UTF-8 HTTP body before submission.
+Retries send those recorded bytes directly, including their whitespace and escapes.
+Recovery validates the stored body against the envelope and reports
+`request_bytes=RECORDED_EXACT`. Historical schema-1 journals are never rewritten;
+their original serialization was not retained, so retries reconstruct the same
+semantic request and report `request_bytes=RECONSTRUCTED_V1`.
 
 The journal contains the request and destination, not session credentials. A
 different input or endpoint for an existing key is a conflict. Human output

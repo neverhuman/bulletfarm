@@ -429,7 +429,9 @@ mod tests {
         assert!(watch_errors(&mut errors, 2, true));
         assert_eq!(errors, 2);
         assert!(watch_errors(&mut 0, 1, true));
-        assert!(watch_errors(&mut u64::MAX, u64::MAX, true));
+        errors = u64::MAX;
+        assert!(watch_errors(&mut errors, u64::MAX, true));
+        assert_eq!(errors, u64::MAX);
     }
 
     #[test]
