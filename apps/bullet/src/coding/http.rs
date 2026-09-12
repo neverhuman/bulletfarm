@@ -34,7 +34,24 @@ pub(crate) fn request_query(
     headers: &[(&str, &str)],
     body: Option<&Value>,
 ) -> Result<HttpResponse, String> {
-    request_inner(farmd, method, path, query, headers, body, false).map(|(response, _)| response)
+    let bytes = body
+        .map(serde_json::to_vec)
+        .transpose()
+        .map_err(|_| "FARMD_REQUEST_ENCODING_FAILED")?;
+    request_inner(farmd, method, path, query, headers, bytes.as_deref(), false)
+        .map(|(response, _)| response)
+}
+
+/// Send the bytes committed by the request journal without reserializing JSON.
+pub(super) fn request_bytes(
+    farmd: &str,
+    method: &str,
+    path: &str,
+    headers: &[(&str, &str)],
+    body: &[u8],
+) -> Result<HttpResponse, String> {
+    request_inner(farmd, method, path, &[], headers, Some(body), false)
+        .map(|(response, _)| response)
 }
 
 /// Session discovery has one fixed authenticated endpoint. Its acknowledgement
@@ -62,7 +79,7 @@ fn request_inner(
     path: &str,
     query: &[(&str, &str)],
     headers: &[(&str, &str)],
-    body: Option<&Value>,
+    body: Option<&[u8]>,
     observe_session: bool,
 ) -> Result<(HttpResponse, Option<String>), String> {
     parse_loopback(farmd)?;
@@ -100,7 +117,9 @@ fn request_inner(
         request = request.header(name, value);
     }
     if let Some(body) = body {
-        request = request.json(body);
+        request = request
+            .header(CONTENT_TYPE, "application/json")
+            .body(body.to_vec());
     }
     let response = request.send().map_err(|_| {
         "FARMD_REQUEST_FAILED: reconnect and reconcile the original command before retrying"

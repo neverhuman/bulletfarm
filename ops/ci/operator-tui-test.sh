@@ -2,6 +2,11 @@
 # Component route/refusal tests only. This does not execute Cargo or Tuiwright.
 set -euo pipefail
 umask 077
+harness=''
+if [[ $# -ne 0 ]]; then
+  [[ $# -eq 2 && $1 == --harness && $2 == /* && -f $2 && -x $2 && ! -L $2 ]] || exit 2
+  harness="$2"
+fi
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 evidence="$(mktemp -d "${TMPDIR:-/tmp}/bullet-operator-tui-route.XXXXXXXX")"
 fixture="$evidence/repository"
@@ -23,6 +28,7 @@ assert_refusal() {
     -u BULLET_TUIWRIGHT_CARGO_BIN -u BULLET_TUIWRIGHT_CARGO_SHA256 \
     -u BULLET_TUIWRIGHT_RUSTC_BIN -u BULLET_TUIWRIGHT_RUSTC_SHA256 \
     -u BULLET_TUIWRIGHT_BULLET_BIN -u BULLET_TUIWRIGHT_BULLET_SHA256 \
+    -u BULLET_TUIWRIGHT_PROFILE -u BULLET_TUIWRIGHT_WORKFLOW_SHA256 \
     -u BULLET_TUIWRIGHT_OUTPUT -u BULLET_TUIWRIGHT_SOURCE_SHA256 "$@" \
     >"$evidence/$name.stdout" 2>"$evidence/$name.stderr" || status=$?
   [[ "$status" -eq "$expected_status" ]] || fail "$name exit=$status expected=$expected_status"
@@ -39,6 +45,63 @@ for variable in CI GITHUB_ACTIONS; do
       "$variable=$value" bash "$fixture/scripts/ci-local.sh" operator-tui
   done
 done
+# Hosted selection is explicit; malformed metadata refuses before any compiler.
+assert_refusal unknown-profile 78 OPERATOR_TUI_PROFILE_UNSUPPORTED \
+  BULLET_TUIWRIGHT_PROFILE=unknown bash "$fixture/scripts/ci-local.sh" operator-tui
+assert_refusal hosted-without-context 78 OPERATOR_TUI_HOSTED_CONTEXT_INVALID \
+  BULLET_TUIWRIGHT_PROFILE=hosted-component bash "$fixture/scripts/ci-local.sh" operator-tui
+hosted=(BULLET_TUIWRIGHT_PROFILE=hosted-component CI=true GITHUB_ACTIONS=true RUNNER_OS=Linux)
+if [[ "$(uname -s)" == Linux ]]; then
+  for variable in CI GITHUB_ACTIONS RUNNER_OS; do
+    assert_refusal "hosted-invalid-$variable" 78 OPERATOR_TUI_HOSTED_CONTEXT_INVALID \
+      "${hosted[@]}" "$variable=false" bash "$fixture/scripts/ci-local.sh" operator-tui
+  done
+  assert_refusal hosted-missing-subjects 1 OPERATOR_TUI_HOSTED_SUBJECT_INVALID \
+    "${hosted[@]}" GITHUB_RUN_ID= GITHUB_RUN_ATTEMPT= bash "$fixture/scripts/ci-local.sh" operator-tui
+  # Fresh test repository, not a checkout/worktree of any product repository.
+  rm "$fixture/.git/HEAD"
+  git -c init.defaultBranch=main init -q "$fixture"
+  mkdir -p "$fixture/.github/workflows"
+  cp "$root/.github/workflows/ci.yml" "$fixture/.github/workflows/"
+  printf '.ci-artifacts/\n' >"$fixture/.gitignore"
+  git -C "$fixture" add .
+  git -C "$fixture" -c user.name=fixture -c user.email=fixture@example.invalid \
+    -c core.hooksPath=/dev/null commit -qm 'Synthetic admission refusal fixture'
+  fixture_commit="$(git -C "$fixture" rev-parse HEAD)"
+  workflow_sha="$(sha256sum "$fixture/.github/workflows/ci.yml" | cut -d ' ' -f1)"
+  subjects=("GITHUB_WORKSPACE=$fixture" GITHUB_JOB=operator-tui GITHUB_EVENT_NAME=push GITHUB_RUN_ID=12 GITHUB_RUN_ATTEMPT=1
+    "GITHUB_SHA=$fixture_commit" "GITHUB_WORKFLOW_SHA=$fixture_commit"
+    GITHUB_REPOSITORY=fixture/component GITHUB_REF=refs/heads/main
+    GITHUB_WORKFLOW_REF=fixture/component/.github/workflows/ci.yml@refs/heads/main
+    "BULLET_TUIWRIGHT_WORKFLOW_SHA256=$workflow_sha")
+  for event in push pull_request merge_group; do
+    assert_refusal "hosted-admitted-$event" 1 OPERATOR_TUI_BINARY_INPUT_INVALID \
+      "${hosted[@]}" "${subjects[@]}" "GITHUB_EVENT_NAME=$event" \
+      bash "$fixture/scripts/ci-local.sh" operator-tui
+  done
+  for invalid in GITHUB_RUN_ID=0 GITHUB_RUN_ATTEMPT=01 GITHUB_EVENT_NAME=schedule \
+    GITHUB_SHA=bad GITHUB_WORKFLOW_SHA=bad GITHUB_REPOSITORY=bad \
+    GITHUB_WORKFLOW_REF=fixture/other/.github/workflows/ci.yml@refs/heads/main; do
+    assert_refusal "hosted-${invalid%%=*}" 1 OPERATOR_TUI_HOSTED_SUBJECT_INVALID \
+      "${hosted[@]}" "${subjects[@]}" "$invalid" bash "$fixture/scripts/ci-local.sh" operator-tui
+  done
+  for invalid in GITHUB_JOB=other GITHUB_WORKSPACE=/tmp; do
+    assert_refusal "hosted-${invalid%%=*}" 1 OPERATOR_TUI_HOSTED_WORKSPACE_INVALID \
+      "${hosted[@]}" "${subjects[@]}" "$invalid" bash "$fixture/scripts/ci-local.sh" operator-tui
+  done
+  zeros40="$(printf '%040d' 0)"; zeros64="$(printf '%064d' 0)"
+  assert_refusal hosted-wrong-commit 1 OPERATOR_TUI_HOSTED_SOURCE_CHANGED \
+    "${hosted[@]}" "${subjects[@]}" "GITHUB_SHA=$zeros40" bash "$fixture/scripts/ci-local.sh" operator-tui
+  assert_refusal hosted-wrong-workflow 1 OPERATOR_TUI_HOSTED_WORKFLOW_CHANGED \
+    "${hosted[@]}" "${subjects[@]}" "BULLET_TUIWRIGHT_WORKFLOW_SHA256=$zeros64" \
+    bash "$fixture/scripts/ci-local.sh" operator-tui
+  assert_refusal hosted-absent-workflow-commit 1 OPERATOR_TUI_HOSTED_WORKFLOW_CHANGED \
+    "${hosted[@]}" "${subjects[@]}" "GITHUB_WORKFLOW_SHA=$zeros40" \
+    bash "$fixture/scripts/ci-local.sh" operator-tui
+  printf 'uncommitted source\n' >"$fixture/dirty"
+  assert_refusal hosted-dirty-source 1 OPERATOR_TUI_HOSTED_SOURCE_CHANGED \
+    "${hosted[@]}" "${subjects[@]}" bash "$fixture/scripts/ci-local.sh" operator-tui
+fi
 # Direct execution cannot bypass wrapper-owned target admission. This case is
 # host-dependent only in refusal reason and invokes no qualified child.
 if [[ "$(uname -s)" == Linux && "$(</proc/sys/kernel/hostname)" == xbabe2 ]]; then
@@ -53,7 +116,7 @@ grep -Fq 'operator-tui) bash ops/ci/operator-tui.sh ;;' "$fixture/scripts/ci-loc
 # shellcheck disable=SC2016 # Match literal source, not test environment expansions.
 grep -Fq '"$cargo_bin" build --frozen --release' "$fixture/ops/ci/operator-tui.sh" || fail 'frozen build absent'
 # shellcheck disable=SC2016 # Match literal source, not test environment expansions.
-grep -Fq '"$output/harness" component --bullet "$bullet_bin" --sha256 "$bullet_sha"' "$fixture/ops/ci/operator-tui.sh" || fail 'real component invocation absent'
+grep -Fq '"$output/harness" "$profile" --bullet "$bullet_bin" --sha256 "$bullet_sha"' "$fixture/ops/ci/operator-tui.sh" || fail 'real component invocation absent'
 # shellcheck disable=SC2016 # Match literal source, not test environment expansions.
 grep -Fq '.selected == $selected[0] and [.completed[].id] == $selected[0]' "$fixture/ops/ci/operator-tui.sh" || fail 'selection/completion equality absent'
 
@@ -94,3 +157,34 @@ if [[ "$(uname -s)" == Linux && "$(</proc/sys/kernel/hostname)" == xbabe2 ]]; th
     bash "$fixture/scripts/ci-local.sh" operator-tui
 fi
 printf 'operator-tui-test: PASS (route/refusals only; actual Tuiwright unexecuted)\n'
+
+# This opt-in runs the real compiled Rust validator, never a shell stand-in.
+# Its expected refusals stop before any PTY/fixture launch or evidence creation.
+if [[ -n "$harness" ]]; then
+  harness_sha="$(sha256sum "$harness" | cut -d ' ' -f1)"
+  native_args=(hosted-component --bullet /missing --sha256 "$zeros64" --output "$evidence/must-not-exist")
+  native_subjects=("${subjects[@]}" "GITHUB_WORKSPACE=$root")
+  assert_refusal native-default-hosted 1 TUIWRIGHT_HOSTED_RUN_REFUSED \
+    CI=true "$harness" component --bullet /missing --sha256 "$zeros64" --output "$evidence/must-not-exist"
+  for invalid in CI=false GITHUB_ACTIONS=false RUNNER_OS=false; do
+    assert_refusal "native-${invalid%%=*}" 1 TUIWRIGHT_HOSTED_CONTEXT_INVALID \
+      "${hosted[@]}" "${native_subjects[@]}" "$invalid" "$harness" "${native_args[@]}"
+  done
+  for invalid in GITHUB_RUN_ID=0 GITHUB_RUN_ATTEMPT=01 GITHUB_EVENT_NAME=schedule \
+    GITHUB_SHA=bad GITHUB_WORKFLOW_SHA=bad GITHUB_REPOSITORY=bad \
+    GITHUB_WORKFLOW_REF=wrong BULLET_TUIWRIGHT_WORKFLOW_SHA256=bad; do
+    assert_refusal "native-${invalid%%=*}" 1 TUIWRIGHT_HOSTED_SUBJECT_INVALID \
+      "${hosted[@]}" "${native_subjects[@]}" "$invalid" "$harness" "${native_args[@]}"
+  done
+  for invalid in GITHUB_JOB=other GITHUB_WORKSPACE=/tmp; do
+    assert_refusal "native-${invalid%%=*}" 1 TUIWRIGHT_HOSTED_WORKSPACE_INVALID \
+      "${hosted[@]}" "${native_subjects[@]}" "$invalid" "$harness" "${native_args[@]}"
+  done
+  for event in push pull_request merge_group; do
+    assert_refusal "native-exact-source-$event" 1 TUIWRIGHT_HOSTED_SOURCE_CHANGED \
+      "${hosted[@]}" "${native_subjects[@]}" "GITHUB_EVENT_NAME=$event" "$harness" "${native_args[@]}"
+  done
+  [[ ! -e "$evidence/must-not-exist" && "$(sha256sum "$harness" | cut -d ' ' -f1)" == "$harness_sha" ]] \
+    || fail 'native refusal altered artifact subjects'
+  printf 'operator-tui-test: actual Rust profile refusals PASS; component scenarios NOT_RUN\n'
+fi

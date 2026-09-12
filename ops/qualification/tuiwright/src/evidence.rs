@@ -53,6 +53,8 @@ impl Evidence {
             "Cargo.toml",
             "Cargo.lock",
             "src/main.rs",
+            "src/profile.rs",
+            "src/junit.rs",
             "src/launcher.rs",
             "src/session.rs",
             "src/cases.rs",
@@ -96,7 +98,10 @@ impl Evidence {
     }
 
     fn artifact(&mut self, name: &str, value: &Value) -> Result<()> {
-        let bytes = serde_json::to_vec_pretty(value)?;
+        self.artifact_bytes(name, &serde_json::to_vec_pretty(value)?)
+    }
+
+    fn artifact_bytes(&mut self, name: &str, bytes: &[u8]) -> Result<()> {
         ensure!(bytes.len() <= 2_000_000, "ARTIFACT_SIZE_LIMIT");
         let path = self.directory.join(name);
         let mut file = OpenOptions::new()
@@ -104,7 +109,7 @@ impl Evidence {
             .write(true)
             .mode(0o600)
             .open(&path)?;
-        file.write_all(&bytes)?;
+        file.write_all(bytes)?;
         file.sync_all()?;
         self.artifacts
             .push(json!({"path":name,"bytes":bytes.len(),"sha256":hash(&path)?}));
@@ -170,6 +175,8 @@ impl Evidence {
         self.artifacts.push(
             json!({"path":"events.jsonl","sha256":hash(&self.directory.join("events.jsonl"))?}),
         );
+        let junit = crate::junit::render(&self.selected, &self.completed, failures)?;
+        self.artifact_bytes("junit.xml", junit.as_bytes())?;
         let complete = self.selected.len() == self.completed.len();
         let manifest = json!({"schema":1,"evidence_class":"COMPONENT_PROOF",
             "outcome":if complete && failures.is_empty(){"PASS"}else{"FAIL"},

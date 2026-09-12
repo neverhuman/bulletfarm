@@ -88,6 +88,9 @@ pub(crate) enum CodingCommands {
         command: Option<String>,
         #[arg(long, default_value_t = 1000)]
         interval_ms: u64,
+        /// Consecutive poll errors before this client exits. Zero is refused.
+        #[arg(long, default_value_t = 5)]
+        max_idle: u64,
         #[arg(long)]
         json: bool,
     },

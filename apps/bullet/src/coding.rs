@@ -69,12 +69,9 @@ pub(crate) fn run(command: CodingCommands) -> ExitCode {
         }
         CodingCommands::Retry { connection, id, json } => print_command(
             connection.load().and_then(|session| {
-                let request = journal::reconciliation_request(&session, &id)?
+                let (body, request) = journal::reconciliation_body(&session, &id)?
                     .ok_or("COMMAND_JOURNAL_REQUIRED: recover the original submission journal before retrying")?;
-                let payload: Value = serde_json::from_str(&request.payload)
-                    .map_err(|_| "COMMAND_JOURNAL_CORRUPT")?;
-                let envelope = json!({"idempotency_key":request.idempotency_key,"kind":request.kind,"payload":payload});
-                submit_prepared(&session, envelope, request)
+                submit_prepared(&session, body, request)
             }), json),
         CodingCommands::Task { connection, id, json } => {
             match connection.load().and_then(|session| task::get(&session, &id)) {
@@ -110,6 +107,7 @@ pub(crate) fn run(command: CodingCommands) -> ExitCode {
             connection,
             command,
             interval_ms,
+            max_idle,
             json,
         } => {
             let session = match connection.load() {
@@ -120,8 +118,15 @@ pub(crate) fn run(command: CodingCommands) -> ExitCode {
                 Ok(value) => value,
                 Err(error) => return fail(error),
             };
+            let max_idle = match admit_max_idle(max_idle) {
+                Ok(value) => value,
+                Err(error) => return fail(error),
+            };
+            let mut errors = 0;
             loop {
-                match load_board(&session, command.as_deref()) {
+                let result = load_board(&session, command.as_deref());
+                let exhausted = watch_errors(&mut errors, max_idle, result.is_err());
+                match result {
                     Ok(board) => {
                         if !json && render::color_wanted(false) {
                             print!("{}", render::screen_home(true));
@@ -129,6 +134,9 @@ pub(crate) fn run(command: CodingCommands) -> ExitCode {
                         print_board(&board, json);
                     }
                     Err(error) => eprintln!("bullet: {}", crate::client::terminal_text(&error)),
+                }
+                if exhausted {
+                    return fail(format!("WATCH_POLL_FAILED: {errors} consecutive errors"));
                 }
                 thread::sleep(Duration::from_millis(interval));
             }
@@ -229,16 +237,17 @@ fn submit(session: &Session, request: SubmitRequest<'_>) -> Result<Value, String
 #[cfg(unix)]
 fn submit_prepared(
     session: &Session,
-    envelope: Value,
+    envelope: journal::RequestBody,
     expected: bullet_application::CommandRequest,
 ) -> Result<Value, String> {
     let command_id = expected.id();
     eprintln!(
-        "COMMAND_JOURNALED: {command_id}; idempotency_key={}",
+        "COMMAND_JOURNALED: {command_id}; request_bytes={}; idempotency_key={}",
+        envelope.provenance,
         crate::client::terminal_text(&expected.idempotency_key)
     );
     let observed = crate::auth::session::status(&session.credentials)?;
-    let response = http::request(
+    let response = http::request_bytes(
         &session.farmd,
         "POST",
         "/api/v1/commands",
@@ -248,7 +257,7 @@ fn submit_prepared(
             (CSRF_HEADER, &session.csrf),
             ("X-Bullet-Expected-Session", &observed.session_id),
         ],
-        Some(&envelope),
+        envelope.bytes.as_bytes(),
     )
     .map_err(|error| {
         format!(
@@ -266,7 +275,7 @@ fn submit_prepared(
 #[cfg(not(unix))]
 fn submit_prepared(
     _session: &Session,
-    _envelope: Value,
+    _envelope: journal::RequestBody,
     _expected: bullet_application::CommandRequest,
 ) -> Result<Value, String> {
     Err("AUTH_PRIVATE_STORE_UNSUPPORTED".into())
@@ -346,6 +355,18 @@ fn admit_interval(interval_ms: u64) -> Result<u64, String> {
     Ok(interval_ms)
 }
 
+fn admit_max_idle(max_idle: u64) -> Result<u64, String> {
+    if max_idle == 0 {
+        return Err("WATCH_MAX_IDLE_INVALID: consecutive poll errors must be >= 1".into());
+    }
+    Ok(max_idle)
+}
+
+fn watch_errors(errors: &mut u64, max_idle: u64, failed: bool) -> bool {
+    *errors = if failed { errors.saturating_add(1) } else { 0 };
+    *errors >= max_idle
+}
+
 fn random_hex(bytes: usize) -> Result<String, String> {
     let mut buffer = vec![0_u8; bytes];
     std::fs::File::open("/dev/urandom")
@@ -396,6 +417,19 @@ mod tests {
             .unwrap_err()
             .contains("WATCH_INTERVAL_INVALID"));
         assert_eq!(admit_interval(1000).unwrap(), 1000);
+        assert!(admit_max_idle(0)
+            .unwrap_err()
+            .contains("WATCH_MAX_IDLE_INVALID"));
+        assert_eq!(admit_max_idle(5).unwrap(), 5);
+        let mut errors = 0;
+        assert!(!watch_errors(&mut errors, 2, true));
+        assert!(!watch_errors(&mut errors, 2, false));
+        assert_eq!(errors, 0, "successful polling resets consecutive failures");
+        assert!(!watch_errors(&mut errors, 2, true));
+        assert!(watch_errors(&mut errors, 2, true));
+        assert_eq!(errors, 2);
+        assert!(watch_errors(&mut 0, 1, true));
+        assert!(watch_errors(&mut u64::MAX, u64::MAX, true));
     }
 
     #[test]

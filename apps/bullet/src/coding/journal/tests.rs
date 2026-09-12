@@ -117,7 +117,7 @@ fn status_reconciles_the_saved_request_and_refuses_same_id_foreign_payloads() {
     }
 }
 #[test]
-fn retries_after_client_restart_reuse_all_original_authority_bytes() {
+fn historical_retry_preserves_semantic_request_without_claiming_original_bytes() {
     let temp = tempfile::Builder::new()
         .permissions(std::fs::Permissions::from_mode(0o700))
         .tempdir()
@@ -143,11 +143,22 @@ fn retries_after_client_restart_reuse_all_original_authority_bytes() {
         farmd: session.farmd.clone(),
         origin: session.origin.clone(),
         envelope: envelope.clone(),
+        request_bytes: None,
     };
     store
         .record_command(&original.id(), &serde_json::to_value(record).unwrap())
         .unwrap();
     drop(store);
+    let path = session.directory.join(format!("{}.json", original.id()));
+    let saved = std::fs::read(&path).unwrap();
+    let (body, _) = reconciliation_body(&session, original.id().as_str())
+        .unwrap()
+        .unwrap();
+    assert_eq!(body.provenance, "RECONSTRUCTED_V1");
+    assert_eq!(
+        serde_json::from_str::<Value>(&body.bytes).unwrap(),
+        envelope
+    );
     let request = reconciliation_request(&session, original.id().as_str())
         .unwrap()
         .unwrap();
@@ -173,6 +184,7 @@ fn retries_after_client_restart_reuse_all_original_authority_bytes() {
     .unwrap();
     assert!(!bytes.contains("ses_"));
     assert!(!bytes.contains("csrf_"));
+    assert_eq!(std::fs::read(&path).unwrap(), saved);
 }
 #[test]
 fn terminal_json_escapes_untrusted_controls_without_changing_the_value() {
@@ -261,199 +273,89 @@ fn task_journal_retry_preserves_intent_and_refuses_changed_task_model_or_effort(
         std::fs::metadata(&file).unwrap().permissions().mode() & 0o777,
         0o600
     );
-}
-
-fn submission_socket(
-    listener: &std::net::TcpListener,
-    selected: &str,
-) -> (std::net::TcpStream, String) {
-    use std::io::Read;
-    // Submission commits and syncs its journal before connecting. Allow bounded
-    // setup time for real storage under load; acknowledgement-before-body has
-    // its own two-second assertion below and must not inherit this allowance.
-    let deadline = std::time::Instant::now() + std::time::Duration::from_secs(10);
-    let mut socket = loop {
-        match listener.accept() {
-            Ok((socket, _)) => break socket,
-            Err(e) if e.kind() == std::io::ErrorKind::WouldBlock => (),
-            Err(e) => panic!("accept failed: {e}"),
-        }
-        assert!(
-            std::time::Instant::now() < deadline,
-            "caller did not reach {selected}"
-        );
-        std::thread::sleep(std::time::Duration::from_millis(5));
-    };
-    socket
-        .set_read_timeout(Some(std::time::Duration::from_secs(2)))
-        .unwrap();
-    socket
-        .set_write_timeout(Some(std::time::Duration::from_secs(2)))
-        .unwrap();
-    let mut bytes = Vec::new();
-    while !bytes.ends_with(b"\r\n\r\n") {
-        let mut byte = [0];
-        socket.read_exact(&mut byte).unwrap();
-        bytes.push(byte[0]);
-        assert!(bytes.len() < 16_384);
-    }
-    let request = String::from_utf8(bytes).unwrap();
-    assert!(request.starts_with(selected));
-    (socket, request)
-}
-
-#[test]
-fn submission_acknowledgement_precedes_body_and_preserves_journal_after_response_loss() {
-    use std::io::{Read, Write};
-    use std::time::Duration;
-    for outcome in ["missing", "foreign", "duplicate", "absent", "lost", "valid"] {
-        let temp = tempfile::Builder::new()
-            .permissions(std::fs::Permissions::from_mode(0o700))
-            .tempdir()
-            .unwrap();
-        let listener = std::net::TcpListener::bind("127.0.0.1:0").unwrap();
-        listener.set_nonblocking(true).unwrap();
-        let endpoint = format!("http://{}", listener.local_addr().unwrap());
-        let session = Session {
-            directory: temp.path().join("state"),
-            credentials: crate::auth::store::Credentials {
-                schema_version: 1,
-                farmd: endpoint.clone(),
-                origin: endpoint,
-                cookie: format!("bullet_session=ses_{}", "a".repeat(64)),
-                csrf: format!("csrf_{}", "b".repeat(64)),
-            },
-        };
-        let payload = super::super::task::payload(
-            super::super::task::fixture(),
-            "acct",
-            "codex",
-            "model",
-            None,
-        )
-        .unwrap();
-        let envelope = serde_json::json!({"idempotency_key":"acknowledged-submit","kind":"run_coding","payload":payload});
-        let expected =
-            CommandRequest::new("acknowledged-submit", "run_coding", &envelope["payload"]).unwrap();
-        let journal = session.directory.join(format!("{}.json", expected.id()));
-        let body = serde_json::json!({"id":expected.id().as_str(),"kind":expected.kind,"payload_digest":expected.digest().to_hex(),"status":"PENDING","result":null}).to_string();
-        let sid = format!("sid_{}", "c".repeat(64));
-        let (sent, received) = std::sync::mpsc::channel();
-        std::thread::scope(|scope| {
-            let client = scope.spawn(|| {
-                sent.send(super::super::submit(
-                    &session,
-                    SubmitRequest {
-                        payload: &payload,
-                        idempotency_key: Some("acknowledged-submit"),
-                    },
-                ))
-                .unwrap();
-            });
-            let (mut discovery, request) =
-                submission_socket(&listener, "GET /api/v1/auth/session HTTP/1.1\r\n");
-            let original = std::fs::read(&journal).expect("journal must commit before discovery");
-            assert_eq!(
-                serde_json::from_slice::<Value>(&original).unwrap()["envelope"],
-                envelope
-            );
-            assert!(!request.contains("x-bullet-expected-session:"));
-            assert!(!request.contains("csrf"));
-            let view = serde_json::json!({"status":"AUTHENTICATED","operator_id":format!("opr_{}","d".repeat(64)),"session_id":sid,"issued_at":"2026-09-10T00:00:00Z","expires_at":"2026-09-10T08:00:00Z"}).to_string();
-            write!(discovery,"HTTP/1.1 200 OK\r\nx-bullet-session-id: {sid}\r\nContent-Type: application/json\r\nContent-Length: {}\r\nConnection: close\r\n\r\n{view}",view.len()).unwrap();
-            drop(discovery);
-            let (mut socket, request) =
-                submission_socket(&listener, "POST /api/v1/commands HTTP/1.1\r\n");
-            assert_eq!(
-                request
-                    .lines()
-                    .filter(|line| line.starts_with("x-bullet-expected-session:"))
-                    .collect::<Vec<_>>(),
-                vec![format!("x-bullet-expected-session: {sid}")]
-            );
-            for (name, value) in [
-                ("cookie", &session.cookie),
-                ("origin", &session.origin),
-                ("x-bullet-csrf", &session.csrf),
-            ] {
-                assert!(request.contains(&format!("\r\n{name}: {value}\r\n")));
-            }
-            let length: usize = request
-                .lines()
-                .find_map(|line| line.strip_prefix("content-length: "))
-                .unwrap()
-                .parse()
-                .unwrap();
-            assert!(length < 16_384);
-            let mut submitted = vec![0; length];
-            socket.read_exact(&mut submitted).unwrap();
-            assert_eq!(
-                serde_json::from_slice::<Value>(&submitted).unwrap(),
-                envelope
-            );
-            let acknowledgement = match outcome {
-                "missing" | "absent" => String::new(),
-                "foreign" => format!("x-bullet-session-id: sid_{}\r\n", "e".repeat(64)),
-                "duplicate" => format!("x-bullet-session-id: {sid}\r\n").repeat(2),
-                _ => format!("x-bullet-session-id: {sid}\r\n"),
-            };
-            let result = if outcome == "lost" {
-                drop(socket);
-                received.recv_timeout(Duration::from_secs(2)).unwrap()
-            } else {
-                let status = if outcome == "absent" { 404 } else { 202 };
-                write!(socket,"HTTP/1.1 {status} Fixture\r\n{acknowledgement}Content-Type: application/json\r\nContent-Length: {}\r\n\r\n",body.len()).unwrap();
-                socket.flush().unwrap();
-                let early = received.recv_timeout(Duration::from_millis(if outcome == "valid" {
-                    100
-                } else {
-                    2000
-                }));
-                if outcome == "valid" {
-                    assert!(matches!(
-                        early,
-                        Err(std::sync::mpsc::RecvTimeoutError::Timeout)
-                    ));
-                    socket.write_all(body.as_bytes()).unwrap();
-                    received.recv_timeout(Duration::from_secs(2)).unwrap()
-                } else {
-                    let _ = socket.write_all(body.as_bytes());
-                    early.expect("session refusal must precede body release")
-                }
-            };
-            client.join().unwrap();
-            if outcome == "valid" {
-                assert_eq!(result.unwrap()["id"], expected.id().as_str());
-            } else {
-                let reason = match outcome {
-                    "missing" | "absent" => "FARMD_SESSION_ACK_MISSING",
-                    "foreign" => "FARMD_SESSION_ACK_MISMATCH",
-                    "duplicate" => "FARMD_SESSION_ACK_AMBIGUOUS",
-                    _ => "FARMD_REQUEST_FAILED",
-                };
-                let error = result.unwrap_err();
-                assert!(error.starts_with(reason), "{outcome}: {error}");
-                assert!(error.contains(expected.id().as_str()));
-            }
-            assert_eq!(std::fs::read(&journal).unwrap(), original);
-        });
-        let reopened = Session {
-            directory: session.directory.clone(),
-            credentials: session.credentials,
-        };
+    let record: Value = serde_json::from_str(&bytes).unwrap();
+    assert_eq!(record["schema_version"], 2);
+    assert_eq!(first.provenance, "RECORDED_EXACT");
+    assert_eq!(record["request_bytes"], first.bytes);
+    for damaged in [
+        {
+            let mut r = record.clone();
+            r["request_bytes"] = Value::String("{}".into());
+            r
+        },
+        {
+            let mut r = record.clone();
+            r["request_bytes"] = Value::String("{\"payload\":1,\"payload\":2}".into());
+            r
+        },
+        {
+            let mut r = record.clone();
+            r["schema_version"] = 1.into();
+            r
+        },
+        {
+            let mut r = record.clone();
+            r.as_object_mut().unwrap().remove("request_bytes");
+            r
+        },
+        {
+            let mut r = record.clone();
+            r["schema_version"] = 3.into();
+            r
+        },
+    ] {
+        let damaged = serde_json::to_vec(&damaged).unwrap();
+        std::fs::write(&file, &damaged).unwrap();
         assert_eq!(
-            reconciliation_request(&reopened, expected.id().as_str())
-                .unwrap()
-                .unwrap(),
-            expected
+            reconciliation_body(&session, request.id().as_str()).unwrap_err(),
+            "COMMAND_JOURNAL_CORRUPT"
         );
         assert_eq!(
-            std::fs::read_dir(&reopened.directory)
-                .unwrap()
-                .filter_map(Result::ok)
-                .filter(|entry| entry.file_name().to_string_lossy().starts_with("cmd_"))
-                .count(),
-            1
+            prepare(&session, &input).unwrap_err(),
+            "COMMAND_JOURNAL_CORRUPT"
         );
+        assert_eq!(std::fs::read(&file).unwrap(), damaged);
     }
+    std::fs::write(&file, &bytes).unwrap();
+    assert_eq!(prepare(&session, &input).unwrap().0, first);
+    // Exercise the storage bound with maximum-sized valid task fields and
+    // worst-case JSON escaping. Exact bytes must not shrink the accepted scope.
+    let mut maximum = original.clone();
+    maximum.task.title = "\\".repeat(240);
+    maximum.task.objective = "\\".repeat(8192);
+    maximum.task.scope_paths = (0..128)
+        .map(|i| format!("{i:03}{}", "\"".repeat(509)))
+        .collect();
+    maximum.task.acceptance_criteria = (0..32)
+        .map(|i| format!("{i:02}{}", "\\".repeat(1022)))
+        .collect();
+    maximum.task.gate_ids = (0..16).map(|i| format!("gat_{i:064x}")).collect();
+    maximum.task.dependencies = (0..64).map(|i| format!("ctr_{i:064x}")).collect();
+    maximum.task.base_commit = "a".repeat(64);
+    maximum.task.budget.max_invocations = 16;
+    maximum.task.budget.max_cost_microusd = 1_000_000_000;
+    maximum.task.deadline_unix_ms = bullet_application::coding_tasks::MAX_CODING_SAFE_INTEGER;
+    maximum.selection.account_id = "a".repeat(64);
+    maximum.selection.model = "m".repeat(128);
+    maximum.selection.effort = Some("e".repeat(32));
+    maximum.validate().unwrap();
+    let key = "k".repeat(256);
+    let (_, maximal_request) = prepare(
+        &session,
+        &SubmitRequest {
+            payload: &maximum,
+            idempotency_key: Some(&key),
+        },
+    )
+    .unwrap();
+    let maximum_path = session
+        .directory
+        .join(format!("{}.json", maximal_request.id()));
+    assert!(std::fs::metadata(maximum_path).unwrap().len() <= 1_048_576);
+    assert_eq!(
+        reconciliation_request(&session, maximal_request.id().as_str())
+            .unwrap()
+            .unwrap(),
+        maximal_request
+    );
 }

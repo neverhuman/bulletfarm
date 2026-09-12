@@ -4,7 +4,9 @@ mod cases;
 mod custody;
 mod evidence;
 mod fixture;
+mod junit;
 mod launcher;
+mod profile;
 mod session;
 
 use anyhow::{bail, ensure, Context, Result};
@@ -43,17 +45,7 @@ fn run() -> Result<()> {
         eprintln!("SIGNED_INSTALLED_PACKAGE_ADMISSION_REQUIRED: package verification and authenticated installation qualification predecessors are unavailable");
         std::process::exit(78);
     }
-    ensure!(cfg!(target_os = "linux"), "TUIWRIGHT_PLATFORM_UNAVAILABLE");
-    ensure!(
-        std::env::var_os("CI").is_none() && std::env::var_os("GITHUB_ACTIONS").is_none(),
-        "TUIWRIGHT_HOSTED_RUN_REFUSED"
-    );
-    ensure!(
-        std::fs::read_to_string("/proc/sys/kernel/hostname")?.trim() == "xbabe2",
-        "TUIWRIGHT_HOST_NOT_ADMITTED"
-    );
-    ensure!(args.len() == 7 && args[0] == "component" && args[1] == "--bullet"
-        && args[3] == "--sha256" && args[5] == "--output", "USAGE: component --bullet /absolute/bullet --sha256 SHA256 --output /absolute/new-directory");
+    let profile = profile::admit(&args)?;
     let binary = PathBuf::from(&args[2]);
     ensure!(
         binary.is_absolute() && binary.canonicalize()? == binary,
@@ -73,6 +65,7 @@ fn run() -> Result<()> {
     let output = PathBuf::from(&args[6]);
     ensure!(output.is_absolute(), "OUTPUT_ABSOLUTE_PATH_REQUIRED");
     let mut report = evidence::Evidence::create(&output, &binary, &args[4], &selected)?;
+    report.event("profile", "admitted_component_context", profile.clone())?;
     // The watchdog is independent of any blocking Page/fixture cleanup. A killed
     // run leaves incomplete artifacts and cannot emit an accepted manifest.
     let (deadline_done, deadline_receiver) = std::sync::mpsc::channel::<()>();
@@ -112,6 +105,11 @@ fn run() -> Result<()> {
     }
     if evidence::hash(&binary)? != args[4] {
         failures.push("BINARY_CHANGED_DURING_RUN".into());
+    }
+    match profile::admit(&args) {
+        Ok(observed) if observed == profile => {}
+        Ok(_) => failures.push("PROFILE_SUBJECT_CHANGED_DURING_RUN".into()),
+        Err(error) => failures.push(format!("PROFILE_RECHECK_FAILED: {error:#}")),
     }
     report
         .finish(&failures)
