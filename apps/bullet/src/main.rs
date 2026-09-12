@@ -160,10 +160,36 @@ enum ContractsCommands {
     Check,
 }
 
-fn data_dir() -> PathBuf {
-    std::env::var("BULLET_DATA_DIR")
-        .map(PathBuf::from)
-        .unwrap_or_else(|_| PathBuf::from("./target/demo"))
+fn data_dir() -> Result<PathBuf, String> {
+    if let Some(configured) = std::env::var_os("BULLET_DATA_DIR") {
+        if configured.is_empty() {
+            return Err("BULLET_DATA_DIR_INVALID: explicit directory is empty".into());
+        }
+        // Explicit relative paths retain their existing ledger admission rules.
+        return Ok(PathBuf::from(configured));
+    }
+    let (variable, base, suffix) = if let Some(base) = std::env::var_os("XDG_STATE_HOME") {
+        ("XDG_STATE_HOME", PathBuf::from(base), "bullet/ledger")
+    } else if let Some(base) = std::env::var_os("HOME") {
+        ("HOME", PathBuf::from(base), ".local/state/bullet/ledger")
+    } else {
+        return Err("BULLET_DATA_DIR_DEFAULT_UNAVAILABLE: set HOME or XDG_STATE_HOME".into());
+    };
+    let normalized: PathBuf = base.components().collect();
+    if !base.is_absolute()
+        || base.components().any(|part| {
+            matches!(
+                part,
+                std::path::Component::ParentDir | std::path::Component::CurDir
+            )
+        })
+        || normalized.as_os_str() != base.as_os_str()
+    {
+        return Err(format!(
+            "BULLET_DATA_DIR_DEFAULT_INVALID: {variable} must be an absolute normal path"
+        ));
+    }
+    Ok(base.join(suffix))
 }
 
 #[cfg(target_os = "linux")]
@@ -222,7 +248,7 @@ fn run(command: Commands) -> Result<(), String> {
         Commands::Coding { .. } => unreachable!("coding is handled in main"),
         Commands::Farm { command } => match command {
             FarmCommands::Init => {
-                let dir = data_dir();
+                let dir = data_dir()?;
                 ensure_private_data_dir(&dir)?;
                 let path = dir.join("ledger.sqlite");
                 SqliteLedger::open(&path).map_err(|err| format!("init ledger: {err}"))?;
@@ -242,7 +268,7 @@ fn run(command: Commands) -> Result<(), String> {
             } => maintenance::restore(&backup, &receipt, &destination),
         },
         Commands::Demo => demo(),
-        Commands::DemoSynthetic { target } => demo_synthetic::run(target, data_dir()),
+        Commands::DemoSynthetic { target } => demo_synthetic::run(target, data_dir()?),
         Commands::Contracts { command } => match command {
             ContractsCommands::Generate => contracts::generate(),
             ContractsCommands::Check => contracts::check(),
@@ -254,8 +280,8 @@ fn run(command: Commands) -> Result<(), String> {
 }
 
 fn demo() -> Result<(), String> {
-    let dir = data_dir();
-    fs::create_dir_all(&dir).map_err(|err| format!("create data dir: {err}"))?;
+    let dir = data_dir()?;
+    ensure_private_data_dir(&dir)?;
     let path = dir.join("ledger.sqlite");
     let mut ledger = SqliteLedger::open(&path).map_err(|err| format!("open ledger: {err}"))?;
     let receipt = run_demo(&mut ledger).map_err(|err| format!("demo failed: {err}"))?;

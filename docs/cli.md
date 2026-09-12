@@ -31,7 +31,7 @@ consoles share short credential reads; detaching one does not stop another.
 
 | Variable | Used by | Meaning |
 | --- | --- | --- |
-| `BULLET_DATA_DIR` | `farm init`, `demo`, `demo-synthetic` | data directory; default `./target/demo` currently fails ledger path admission; use an absolute private directory |
+| `BULLET_DATA_DIR` | `farm init`, `demo`, `demo-synthetic` | nonempty explicit data directory (normal relative overrides retain existing ledger admission); otherwise `$XDG_STATE_HOME/bullet/ledger`, falling back to `$HOME/.local/state/bullet/ledger`. Default bases must be absolute normal paths; missing or invalid bases refuse before writing |
 | `BULLET_POLICY_PATH` | `authority mint-launch-grant`, `provider live-conformance` | absolute path overriding `<data-dir>/policy/policy.json` |
 | `BULLET_PROVIDER_KILL=1` | every provider argv build | kill switch; refuses every spawn (`PROVIDER_KILL_ACTIVE`) |
 | `NO_COLOR` | `auth status`, `coding board`/`watch`/`harness-check`, `tui` | present means text labels only; color also requires a TTY |
