@@ -1,6 +1,7 @@
 use crate::{evidence::Evidence, fixture::Fixture, session::Session};
 use anyhow::{bail, ensure, Result};
 use serde_json::json;
+use std::os::unix::fs::PermissionsExt;
 use std::path::Path;
 use std::sync::atomic::Ordering;
 use std::time::{Duration, Instant};
@@ -28,6 +29,7 @@ pub fn run(id: &str, binary: &Path, evidence: &mut Evidence) -> Result<()> {
 fn bare_alias(id: &str, binary: &Path, evidence: &mut Evidence) -> Result<()> {
     let home = tempfile::Builder::new()
         .prefix("bullet-first-launch-")
+        .permissions(std::fs::Permissions::from_mode(0o700))
         .tempdir()?;
     let mut session = Session::start_bare(binary, home.path())?;
     evidence.event(
