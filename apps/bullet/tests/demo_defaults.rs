@@ -72,28 +72,43 @@ fn component_demo(output: &Output, directory: &Path) {
     assert_eq!(receipt["materialize_idempotent"], true);
 }
 
-#[test]
-fn both_aliases_demo_uses_private_home_or_preferred_xdg_state() {
-    for binary in ALIASES {
-        for use_xdg in [false, true] {
-            let root = private_root();
-            let home = private_home(root.path());
-            let xdg = root.path().join("state");
-            let mut environment = vec![("HOME", home.as_path())];
-            let expected = if use_xdg {
-                environment.push(("XDG_STATE_HOME", xdg.as_path()));
-                xdg.join("bullet/ledger")
-            } else {
-                home.join(".local/state/bullet/ledger")
-            };
-            let output = invoke(binary, root.path(), &["demo"], &environment);
-            component_demo(&output, &expected);
-            assert!(!root.path().join("target").exists());
-            if use_xdg {
-                assert!(!home.join(".local").exists());
-            }
-        }
+fn demo_default(binary: &str, use_xdg: bool) {
+    let root = private_root();
+    let home = private_home(root.path());
+    let xdg = root.path().join("state");
+    let mut environment = vec![("HOME", home.as_path())];
+    let expected = if use_xdg {
+        environment.push(("XDG_STATE_HOME", xdg.as_path()));
+        xdg.join("bullet/ledger")
+    } else {
+        home.join(".local/state/bullet/ledger")
+    };
+    let output = invoke(binary, root.path(), &["demo"], &environment);
+    component_demo(&output, &expected);
+    assert!(!root.path().join("target").exists());
+    if use_xdg {
+        assert!(!home.join(".local").exists());
     }
+}
+
+#[test]
+fn bullet_demo_uses_private_home_state() {
+    demo_default(ALIASES[0], false);
+}
+
+#[test]
+fn bullet_demo_prefers_private_xdg_state() {
+    demo_default(ALIASES[0], true);
+}
+
+#[test]
+fn bulletfarm_demo_uses_private_home_state() {
+    demo_default(ALIASES[1], false);
+}
+
+#[test]
+fn bulletfarm_demo_prefers_private_xdg_state() {
+    demo_default(ALIASES[1], true);
 }
 
 #[test]
@@ -110,36 +125,33 @@ fn both_aliases_farm_init_uses_private_default_without_demo_receipt() {
     }
 }
 
-#[test]
-fn both_aliases_preserve_explicit_absolute_and_relative_precedence() {
-    for binary in ALIASES {
-        for relative in [false, true] {
-            let root = private_root();
-            let home = private_home(root.path());
-            let xdg = root.path().join("state");
-            let expected = root.path().join("override");
-            // Existing loose directories are made private before ledger creation.
-            fs::create_dir(&expected).unwrap();
-            fs::set_permissions(&expected, fs::Permissions::from_mode(0o775)).unwrap();
-            let configured = if relative {
-                Path::new("override")
-            } else {
-                expected.as_path()
-            };
-            let output = invoke(
-                binary,
-                root.path(),
-                &["demo"],
-                &[
-                    ("HOME", &home),
-                    ("XDG_STATE_HOME", &xdg),
-                    ("BULLET_DATA_DIR", configured),
-                ],
-            );
-            component_demo(&output, &expected);
-            assert!(!xdg.exists());
-            assert!(!home.join(".local").exists());
-        }
+fn demo_explicit(binary: &str, relative: bool) {
+    let root = private_root();
+    let home = private_home(root.path());
+    let xdg = root.path().join("state");
+    let expected = root.path().join("override");
+    // Existing loose directories are made private before ledger creation.
+    fs::create_dir(&expected).unwrap();
+    fs::set_permissions(&expected, fs::Permissions::from_mode(0o775)).unwrap();
+    let configured = if relative {
+        Path::new("override")
+    } else {
+        expected.as_path()
+    };
+    let output = invoke(
+        binary,
+        root.path(),
+        &["demo"],
+        &[
+            ("HOME", &home),
+            ("XDG_STATE_HOME", &xdg),
+            ("BULLET_DATA_DIR", configured),
+        ],
+    );
+    component_demo(&output, &expected);
+    assert!(!xdg.exists());
+    assert!(!home.join(".local").exists());
+    if relative {
         let root = private_root();
         let output = invoke(
             binary,
@@ -152,6 +164,26 @@ fn both_aliases_preserve_explicit_absolute_and_relative_precedence() {
             .contains("SQLite path contains an empty or non-normal component"));
         assert!(!root.path().join("override/ledger.sqlite").exists());
     }
+}
+
+#[test]
+fn bullet_demo_preserves_absolute_override_precedence() {
+    demo_explicit(ALIASES[0], false);
+}
+
+#[test]
+fn bullet_demo_preserves_relative_override_admission() {
+    demo_explicit(ALIASES[0], true);
+}
+
+#[test]
+fn bulletfarm_demo_preserves_absolute_override_precedence() {
+    demo_explicit(ALIASES[1], false);
+}
+
+#[test]
+fn bulletfarm_demo_preserves_relative_override_admission() {
+    demo_explicit(ALIASES[1], true);
 }
 
 #[test]
