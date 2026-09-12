@@ -70,6 +70,19 @@ pub fn children() -> Result<BTreeSet<i32>> {
 
 impl Session {
     pub fn start(binary: &Path, args: &[String], nonce_override: Option<&str>) -> Result<Self> {
+        Self::start_with_home(binary, args, nonce_override, None)
+    }
+
+    pub fn start_bare(binary: &Path, home: &Path) -> Result<Self> {
+        Self::start_with_home(binary, &[], None, Some(home))
+    }
+
+    fn start_with_home(
+        binary: &Path,
+        args: &[String],
+        nonce_override: Option<&str>,
+        home: Option<&Path>,
+    ) -> Result<Self> {
         let rendezvous = tempfile::Builder::new().prefix("btw-").tempdir()?;
         let socket_path = rendezvous.path().join("launch");
         let listener = UnixListener::bind(&socket_path)?;
@@ -91,6 +104,12 @@ impl Session {
                 binary.to_string_lossy().into_owned(),
             ])
             .args(args.iter().cloned())
+            // Never inherit an ambient fixture-home override into normal cases.
+            .env(
+                "BULLET_TUIWRIGHT_FIXTURE_HOME",
+                home.map(|path| path.to_string_lossy().into_owned())
+                    .unwrap_or_default(),
+            )
             .size(120, 30)
             .scrollback(100)
             .timeout(Duration::from_secs(5));

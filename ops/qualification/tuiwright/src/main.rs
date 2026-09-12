@@ -8,6 +8,7 @@ mod junit;
 mod launcher;
 mod profile;
 mod session;
+mod validate;
 
 use anyhow::{bail, ensure, Context, Result};
 use std::path::PathBuf;
@@ -22,6 +23,9 @@ fn main() {
 
 fn run() -> Result<()> {
     let args = std::env::args().skip(1).collect::<Vec<_>>();
+    if args.first().map(String::as_str) == Some("--validate-hosted") {
+        return validate::cli(&args[1..]);
+    }
     if args.first().map(String::as_str) == Some("--launch") {
         return launcher::run(&args[1..]);
     }

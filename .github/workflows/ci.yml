@@ -330,12 +330,73 @@ jobs:
           if-no-files-found: error
           retention-days: 14
 
+  operator-tui:
+    name: operator-tui
+    needs: preflight
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+          fetch-depth: 0
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b # pinned action
+        with:
+          toolchain: 1.97.1
+      - id: lane
+        if: ${{ !cancelled() }}
+        name: Both source-built aliases through real PTYs
+        env:
+          BULLET_TUIWRIGHT_PROFILE: hosted-component
+        run: |
+          BULLET_TUIWRIGHT_WORKFLOW_SHA256="$(sha256sum .github/workflows/ci.yml | cut -d ' ' -f1)"
+          export BULLET_TUIWRIGHT_WORKFLOW_SHA256
+          set +e
+          bash scripts/ci-local.sh operator-tui
+          code=$?
+          set -e
+          printf 'exit_code=%s\n' "$code" >>"$GITHUB_OUTPUT"
+          exit "$code"
+      - name: Write unsigned diagnostic observation
+        if: ${{ always() }}
+        env:
+          EXIT_CODE: ${{ steps.lane.outputs.exit_code || '1' }}
+        run: |
+          artifacts=()
+          receipt="$RUNNER_TEMP/bullet-operator-tui-$GITHUB_RUN_ID-$GITHUB_RUN_ATTEMPT/receipt.json"
+          if [[ -f "$receipt" && ! -L "$receipt" ]]; then
+            mkdir -p .ci-artifacts/operator-tui
+            cp "$receipt" .ci-artifacts/operator-tui/receipt.json
+            artifacts+=(.ci-artifacts/operator-tui/receipt.json)
+          fi
+          bash scripts/ci-observation.sh operator-tui "$EXIT_CODE" 'bash scripts/ci-local.sh operator-tui' "${artifacts[@]}"
+      - name: Upload operator observation
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: kernel-operator-tui-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-artifacts/observations/operator-tui.json
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+      - name: Retain component originals and primary failures
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
+        with:
+          name: kernel-operator-tui-run-${{ github.run_id }}-${{ github.run_attempt }}
+          path: ${{ runner.temp }}/bullet-operator-tui-${{ github.run_id }}-${{ github.run_attempt }}
+          include-hidden-files: true
+          if-no-files-found: error
+          retention-days: 14
+
   required:
     name: required
     if: ${{ always() }}
-    needs: [preflight, fast, lint, contract, security, docs]
+    needs: [preflight, fast, lint, contract, security, docs, operator-tui]
     runs-on: ubuntu-24.04
-    timeout-minutes: 5
+    timeout-minutes: 20
     env:
       EXPECTED_COMMIT: ${{ github.sha }}
       PREFLIGHT_RESULT: ${{ needs.preflight.result }}
@@ -344,10 +405,15 @@ jobs:
       CONTRACT_RESULT: ${{ needs.contract.result }}
       SECURITY_RESULT: ${{ needs.security.result }}
       DOCS_RESULT: ${{ needs.docs.result }}
+      OPERATOR_TUI_RESULT: ${{ needs.operator-tui.result }}
     steps:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+          fetch-depth: 0
+      - uses: dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b # pinned action
+        with:
+          toolchain: 1.97.1
       - name: Install checksum-pinned ripgrep 14.1.1
         run: bash ops/ci/install-ripgrep.sh
       - name: Download preflight observation
@@ -380,8 +446,27 @@ jobs:
         with:
           name: kernel-docs-${{ github.run_id }}-${{ github.run_attempt }}
           path: .ci-artifacts/atomic/observations
+      - name: Download operator observation
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: kernel-operator-tui-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-artifacts/atomic/observations
+      - name: Download operator component originals
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4.3.0
+        with:
+          name: kernel-operator-tui-run-${{ github.run_id }}-${{ github.run_attempt }}
+          path: .ci-artifacts/atomic/operator-tui
+      - name: Build current-source evidence validator
+        run: |
+          set -euo pipefail
+          validator_target="$(mktemp -d "$RUNNER_TEMP/bullet-tui-validator.XXXXXX")"
+          export CARGO_TARGET_DIR="$validator_target"
+          cargo build --locked --manifest-path ops/qualification/tuiwright/Cargo.toml --bin bullet-tuiwright-qualification
+          validator="$validator_target/debug/bullet-tuiwright-qualification"
+          printf 'BULLET_TUIWRIGHT_VALIDATOR=%s\n' "$validator" >>"$GITHUB_ENV"
+          printf 'BULLET_TUIWRIGHT_VALIDATOR_SHA256=%s\n' "$(sha256sum "$validator" | cut -d ' ' -f1)" >>"$GITHUB_ENV"
       - name: Reject failed, skipped, cancelled, missing, or malformed predecessors
         run: >-
           bash ops/ci/aggregate.sh .ci-artifacts/atomic "$EXPECTED_COMMIT"
           "$PREFLIGHT_RESULT" "$FAST_RESULT" "$LINT_RESULT"
-          "$CONTRACT_RESULT" "$SECURITY_RESULT" "$DOCS_RESULT"
+          "$CONTRACT_RESULT" "$SECURITY_RESULT" "$DOCS_RESULT" "$OPERATOR_TUI_RESULT"

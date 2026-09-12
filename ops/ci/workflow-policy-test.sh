@@ -183,6 +183,16 @@ expect_scheduled_failure HOSTED_AUDIT_OBSERVATION_DRIFT
 sed -i '/^  audit:$/,$d' "$workflow_test_root/scheduled.yml"
 expect_scheduled_failure HOSTED_ACTION_INVENTORY_DRIFT
 
+# New required terminal job cannot be removed, skipped, or replaced by a no-op.
+sed -i '/^  operator-tui:$/,/^  required:$/ s|bash scripts/ci-local.sh operator-tui|true # omitted terminal proof|' "$workflow_test_root/ci.yml"
+expect_required_workflow_failure HOSTED_OPERATOR_CONTEXT_DRIFT
+sed -i '/^  operator-tui:$/a\    if: ${{ false }}' "$workflow_test_root/ci.yml"
+expect_required_workflow_failure HOSTED_OPERATOR_CONTEXT_DRIFT
+# Keep workflow result variable names literal in this hostile YAML fixture.
+# shellcheck disable=SC2016
+sed -i 's/"$DOCS_RESULT" "$OPERATOR_TUI_RESULT"/"$DOCS_RESULT"/' "$workflow_test_root/ci.yml"
+expect_required_workflow_failure HOSTED_AGGREGATE_STEP_DRIFT
+
 expect_audit_source_failure() {
   local reason="$1" output code
   set +e

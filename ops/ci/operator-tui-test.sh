@@ -13,7 +13,7 @@ fixture="$evidence/repository"
 mkdir -p "$fixture/scripts" "$fixture/ops/ci" "$fixture/.git" "$fixture/ops/qualification"
 : >"$fixture/.git/HEAD"
 cp "$root/scripts/ci-local.sh" "$fixture/scripts/"
-cp "$root/ops/ci/"{operator-tui.sh,lib.sh,inventory.sh} "$fixture/ops/ci/"
+cp "$root/ops/ci/"{operator-tui.sh,operator-tui-hosted.sh,lib.sh,inventory.sh} "$fixture/ops/ci/"
 cp -R "$root/ops/qualification/tuiwright" "$fixture/ops/qualification/"
 sha256sum "$root/scripts/ci-local.sh" "$root/ops/ci/operator-tui.sh" \
   "$root/ops/ci/operator-tui-test.sh" >"$evidence/source.sha256"
@@ -46,11 +46,13 @@ for variable in CI GITHUB_ACTIONS; do
   done
 done
 # Hosted selection is explicit; malformed metadata refuses before any compiler.
+assert_refusal hosted-helper-direct 78 OPERATOR_TUI_WRAPPER_REQUIRED \
+  bash "$fixture/ops/ci/operator-tui-hosted.sh"
 assert_refusal unknown-profile 78 OPERATOR_TUI_PROFILE_UNSUPPORTED \
   BULLET_TUIWRIGHT_PROFILE=unknown bash "$fixture/scripts/ci-local.sh" operator-tui
 assert_refusal hosted-without-context 78 OPERATOR_TUI_HOSTED_CONTEXT_INVALID \
   BULLET_TUIWRIGHT_PROFILE=hosted-component bash "$fixture/scripts/ci-local.sh" operator-tui
-hosted=(BULLET_TUIWRIGHT_PROFILE=hosted-component CI=true GITHUB_ACTIONS=true RUNNER_OS=Linux)
+hosted=(BULLET_TUIWRIGHT_BULLET_BIN=/missing BULLET_TUIWRIGHT_PROFILE=hosted-component CI=true GITHUB_ACTIONS=true RUNNER_OS=Linux)
 if [[ "$(uname -s)" == Linux ]]; then
   for variable in CI GITHUB_ACTIONS RUNNER_OS; do
     assert_refusal "hosted-invalid-$variable" 78 OPERATOR_TUI_HOSTED_CONTEXT_INVALID \
@@ -74,6 +76,25 @@ if [[ "$(uname -s)" == Linux ]]; then
     GITHUB_REPOSITORY=fixture/component GITHUB_REF=refs/heads/main
     GITHUB_WORKFLOW_REF=fixture/component/.github/workflows/ci.yml@refs/heads/main
     "BULLET_TUIWRIGHT_WORKFLOW_SHA256=$workflow_sha")
+  assert_refusal hosted-source-build-route 1 OPERATOR_TUI_RUNNER_TEMP_INVALID \
+    "${hosted[@]}" "${subjects[@]}" RUNNER_TEMP=/missing env -u BULLET_TUIWRIGHT_BULLET_BIN \
+    bash "$fixture/scripts/ci-local.sh" operator-tui
+  mkdir "$evidence/bullet-operator-tui-12-1"
+  printf 'historical receipt\n' >"$evidence/bullet-operator-tui-12-1/receipt.json"
+  assert_refusal hosted-occupied-stage 1 OPERATOR_TUI_OUTPUT_NOT_FRESH \
+    "${hosted[@]}" "${subjects[@]}" "RUNNER_TEMP=$evidence" env -u BULLET_TUIWRIGHT_BULLET_BIN \
+    bash "$fixture/scripts/ci-local.sh" operator-tui
+  [[ "$(<"$evidence/bullet-operator-tui-12-1/receipt.json")" == 'historical receipt' ]] || fail 'historical stage overwritten'
+  # shellcheck disable=SC2016 # Evaluated literally in the child shell.
+  source_check='source "$1/ops/ci/lib.sh"; source "$1/ops/ci/operator-tui-hosted.sh"; cd "$REPO_ROOT"; hosted_verify_source'
+  bash -c "$source_check" _ "$fixture" || fail 'clean raw source rejected'
+  git -C "$fixture" update-index --assume-unchanged ops/ci/inventory.sh
+  printf '\n# hidden changed bytes\n' >>"$fixture/ops/ci/inventory.sh"
+  [[ -z "$(git -C "$fixture" status --porcelain)" ]] || fail 'masked fixture not masked'
+  assert_refusal hidden-source-bytes 1 OPERATOR_TUI_RAW_SOURCE_CHANGED \
+    bash -c "$source_check" _ "$fixture"
+  git -C "$fixture" update-index --no-assume-unchanged ops/ci/inventory.sh
+  git -C "$fixture" checkout HEAD -- ops/ci/inventory.sh
   for event in push pull_request merge_group; do
     assert_refusal "hosted-admitted-$event" 1 OPERATOR_TUI_BINARY_INPUT_INVALID \
       "${hosted[@]}" "${subjects[@]}" "GITHUB_EVENT_NAME=$event" \

@@ -83,6 +83,12 @@ admit_binary() {
   [[ "$(sha256_file "$path")" == "$digest" ]] \
     || { refuse OPERATOR_TUI_BINARY_DIGEST_MISMATCH "$label"; return 1; }
 }
+if [[ "$profile" == hosted-component && ! ${BULLET_TUIWRIGHT_BULLET_BIN+x} ]]; then
+  # shellcheck source=ops/ci/operator-tui-hosted.sh
+  source "$REPO_ROOT/ops/ci/operator-tui-hosted.sh"
+  hosted_build_and_run
+  exit $?
+fi
 cargo_bin="${BULLET_TUIWRIGHT_CARGO_BIN:-}"
 cargo_sha="${BULLET_TUIWRIGHT_CARGO_SHA256:-}"
 rustc_bin="${BULLET_TUIWRIGHT_RUSTC_BIN:-}"

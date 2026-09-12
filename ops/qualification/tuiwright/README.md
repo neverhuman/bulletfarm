@@ -1,8 +1,8 @@
-# Local Tuiwright component qualification
+# Tuiwright component qualification
 
-This standalone Rust workspace executes actual Tuiwright `Page` sessions on
-xbabe2. It is separate from Kernel's hosted portable workspace and does not add
-tests or dependencies to that workspace. All twelve selected identities must
+This standalone Rust workspace executes actual Tuiwright `Page` sessions through
+an explicit local or hosted component profile. It remains separate from Kernel's
+portable workspace. All thirteen enumerated identities must
 complete successfully. Missing prerequisites, changed binaries, failed cases,
 lost custody, and incomplete execution never become success.
 An independent 180-second watchdog holds a pidfd for the harness itself. If a
@@ -10,8 +10,11 @@ driver or cleanup operation stops progressing, deadline termination leaves
 incomplete, nonpassing observations. Parent-fixture termination polls for at
 most five seconds; its diagnostic pipe is read without blocking.
 
-The four product cases launch the selected Bullet executable against private
-synthetic credentials and a bounded loopback HTTP fixture. They cover six
+The five product cases launch the selected executable. The bare-alias case passes
+no arguments, uses an empty private fixture HOME, and checks the account-required
+shell, keyboard help, and clean detach. It does not establish completed onboarding
+or a working goal editor. The other four use private synthetic credentials and a
+bounded loopback HTTP fixture. They cover six
 concurrent clients while HTTP responses are withheld, six while credential
 storage is locked, six without credentials, and 401/403 owner revocation and
 recovery. Actual keys, help, navigation, resizing, independent detach and
@@ -50,13 +53,38 @@ Bullet executable's SHA-256:
 The output directory must not exist. The harness creates it with mode 0700 and
 uses create-once mode-0600 artifacts. It records selected/completed identities,
 failures, action and screen observations, monotonic timing, process exits,
-reaping, source hashes observed at runtime, and executable hashes. It checks
+reaping, source hashes observed at runtime, and executable hashes. A hash-bound
+`junit.xml` contains each selected scenario and one `run_integrity` row; incomplete
+scenarios and cleanup failures are errors, never skipped successes. It checks
 the Bullet hash again after execution. The required external review must still
 bind the built executable to the frozen source; runtime source hashes alone
 cannot establish that binding.
 
-`CI` or `GITHUB_ACTIONS` being present refuses execution, including values such
-as `false`. Component execution requires Linux and the exact xbabe2 hostname.
+The default `component` profile refuses when `CI` or `GITHUB_ACTIONS` is present,
+including values such as `false`, and requires Linux with the exact xbabe2 hostname.
+The explicit `hosted-component` profile requires genuine GitHub Actions Linux
+context: supported event, run and attempt, exact clean source commit/tree, workflow
+commit and bytes, canonical workspace, and the `operator-tui` job. It does not mask
+CI variables or impersonate xbabe2.
+
+The hosted `operator-tui` job uses `scripts/ci-local.sh operator-tui` with that
+profile. The dispatcher builds both CLI aliases from the checkout and the pinned
+harness, then runs every scenario separately against each alias. The suites run
+sequentially on a dedicated job; six-client scenarios retain all six clients.
+Compiler JSON, copied executables, terminal observations, failures and receipts
+remain bound to the exact source and run. Raw tracked blobs and executable modes
+are checked before and after builds and runs, including changes hidden by Git
+index flags. The required aggregate builds its validator from trusted checkout
+source and checks downloaded subjects, artifact inventories, selection/completion,
+process outcomes and JUnit. Downloaded executables are never the validator.
+
+These are implemented component gates, not a claim that this revision has already
+passed hosted execution. Before/after source checks do not establish continuous
+write prevention or hostile-process source custody. Runtime source hashes alone
+cannot establish a source-to-binary binding. Raw terminal transcripts remain
+unavailable from the pinned Page reader API; screen observations and output byte
+counts are not substituted for them.
+
 The `installed` mode exits 78 with
 `SIGNED_INSTALLED_PACKAGE_ADMISSION_REQUIRED`: the signed package and
 authenticated installation consumers are not yet available. No production

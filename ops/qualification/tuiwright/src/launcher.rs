@@ -3,8 +3,10 @@ use anyhow::{bail, ensure, Context, Result};
 use rustix::process::{getppid, set_parent_process_death_signal, Signal};
 use rustix::termios::{tcgetattr, tcsetattr, OptionalActions, SpecialCodeIndex};
 use std::io::{Read, Write};
+use std::os::unix::fs::MetadataExt;
 use std::os::unix::net::UnixStream;
 use std::os::unix::process::CommandExt;
+use std::path::Path;
 use std::process::Command;
 use std::time::Duration;
 
@@ -30,14 +32,29 @@ pub fn run(args: &[String]) -> Result<()> {
         "LAUNCH_PARENT_CHANGED"
     );
     drop(socket);
-    let error = Command::new(&args[3])
+    let mut command = Command::new(&args[3]);
+    command
         .args(&args[4..])
         .env_clear()
         .env("TERM", "xterm-256color")
         .env("COLORTERM", "truecolor")
-        .env("LC_ALL", "C.UTF-8")
-        .exec();
-    Err(error).context("LAUNCH_EXEC_FAILED")
+        .env("LC_ALL", "C.UTF-8");
+    if let Some(home) =
+        std::env::var_os("BULLET_TUIWRIGHT_FIXTURE_HOME").filter(|value| !value.is_empty())
+    {
+        let home = Path::new(&home);
+        let metadata = home.symlink_metadata()?;
+        ensure!(
+            home.is_absolute()
+                && home.canonicalize()? == home
+                && metadata.is_dir()
+                && metadata.uid() == rustix::process::getuid().as_raw()
+                && metadata.mode() & 0o777 == 0o700,
+            "FIXTURE_HOME_UNTRUSTED"
+        );
+        command.env("HOME", home).current_dir(home);
+    }
+    Err(command.exec()).context("LAUNCH_EXEC_FAILED")
 }
 
 /// Explicit harness fixture for lifecycle faults, never product evidence.

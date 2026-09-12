@@ -6,7 +6,8 @@ use std::sync::atomic::Ordering;
 use std::time::{Duration, Instant};
 use tuiwright::Key;
 
-pub const IDENTITIES: [&str; 4] = [
+pub const IDENTITIES: [&str; 5] = [
+    "bare_alias_first_launch",
     "six_withheld_http",
     "six_locked_credentials",
     "six_missing_credentials",
@@ -15,12 +16,42 @@ pub const IDENTITIES: [&str; 4] = [
 
 pub fn run(id: &str, binary: &Path, evidence: &mut Evidence) -> Result<()> {
     match id {
+        "bare_alias_first_launch" => bare_alias(id, binary, evidence),
         "six_withheld_http" => six_clients(id, binary, evidence, "CONNECTING"),
         "six_locked_credentials" => six_clients(id, binary, evidence, "AUTH_BUSY"),
         "six_missing_credentials" => six_clients(id, binary, evidence, "AUTH_REQUIRED"),
         "revoked_owner_recovery" => revoked(id, binary, evidence),
         _ => bail!("CASE_UNKNOWN"),
     }
+}
+
+fn bare_alias(id: &str, binary: &Path, evidence: &mut Evidence) -> Result<()> {
+    let home = tempfile::Builder::new()
+        .prefix("bullet-first-launch-")
+        .tempdir()?;
+    let mut session = Session::start_bare(binary, home.path())?;
+    evidence.event(
+        id,
+        "launch",
+        json!({"binary":binary,"arguments":[],"home":"private empty fixture"}),
+    )?;
+    session.wait_text("AUTH_REQUIRED")?;
+    session.wait_text("Ctrl+C detach")?;
+    evidence.screen(
+        id,
+        0,
+        "first-launch-account-required",
+        session.page().screen(),
+    )?;
+    key(id, 0, &session, Key::Char('?'), evidence)?;
+    session.wait_text("Operator help")?;
+    key(id, 0, &session, Key::Esc, evidence)?;
+    session
+        .page()
+        .expect_screen()
+        .not_to_contain_text("Operator help")?;
+    evidence.event(id, "detached", serde_json::to_value(session.detach()?)?)?;
+    Ok(())
 }
 
 fn spawn(binary: &Path, fixture: &Fixture) -> Result<Session> {

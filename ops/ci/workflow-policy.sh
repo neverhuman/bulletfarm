@@ -53,7 +53,7 @@ required_patterns=(
   '^    name: required$'
   '^  required:$'
   '^    if:.*always\(\)'
-  'needs: \[preflight, fast, lint, contract, security, docs\]'
+  'needs: \[preflight, fast, lint, contract, security, docs, operator-tui\]'
   'uses: actions/download-artifact@[0-9a-f]{40}'
   'bash ops/ci/aggregate\.sh'
   "\"\\${literal_dollar}EXPECTED_COMMIT\""
@@ -70,9 +70,9 @@ done
    "$(rg -c '^    name: required$' .github/workflows/ci.yml)" -eq 1 ]] \
   || { refuse PROTECTED_CONTEXT_DRIFT "workflow CI / job required must be unique"; exit 1; }
 
-[[ "$(rg -c 'name: Write unsigned diagnostic observation' .github/workflows/ci.yml)" -eq 6 &&
+[[ "$(rg -c 'name: Write unsigned diagnostic observation' .github/workflows/ci.yml)" -eq 7 &&
    "$(rg -c 'name: Upload sanitized diagnostics' .github/workflows/ci.yml)" -eq 6 ]] \
-  || { refuse ATOMIC_OBSERVATION_INVENTORY_DRIFT "six lanes must write and upload observations"; exit 1; }
+  || { refuse ATOMIC_OBSERVATION_INVENTORY_DRIFT "seven lanes must write observations; six retain the existing sanitized upload layout"; exit 1; }
 
 # shellcheck source=ops/ci/workflow-contract.sh
 source "$(dirname "${BASH_SOURCE[0]}")/workflow-contract.sh"

@@ -9,6 +9,26 @@ use std::path::{Path, PathBuf};
 use std::time::Instant;
 use tuiwright::ScreenSnapshot;
 
+pub const SOURCE_NAMES: &[&str] = &[
+    "Cargo.toml",
+    "Cargo.lock",
+    "src/main.rs",
+    "src/profile.rs",
+    "src/junit.rs",
+    "src/validate.rs",
+    "src/validate/cleanup.rs",
+    "src/validate/tests.rs",
+    "src/launcher.rs",
+    "src/session.rs",
+    "src/cases.rs",
+    "src/fixture.rs",
+    "src/evidence.rs",
+    "src/custody.rs",
+    "README.md",
+    "LICENSE-JANKURAI",
+    "LICENSE-JETBRAINS-MONO",
+];
+
 pub fn hash(path: &Path) -> Result<String> {
     let mut file = File::open(path)?;
     let mut hash = Sha256::new();
@@ -49,22 +69,7 @@ impl Evidence {
             .open(directory.join("events.jsonl"))?;
         let mut sources = Vec::new();
         let root = Path::new(env!("CARGO_MANIFEST_DIR"));
-        for name in [
-            "Cargo.toml",
-            "Cargo.lock",
-            "src/main.rs",
-            "src/profile.rs",
-            "src/junit.rs",
-            "src/launcher.rs",
-            "src/session.rs",
-            "src/cases.rs",
-            "src/fixture.rs",
-            "src/evidence.rs",
-            "src/custody.rs",
-            "README.md",
-            "LICENSE-JANKURAI",
-            "LICENSE-JETBRAINS-MONO",
-        ] {
+        for name in SOURCE_NAMES {
             let path = root.join(name);
             sources.push(json!({"path":name,"sha256":hash(&path)?}));
         }

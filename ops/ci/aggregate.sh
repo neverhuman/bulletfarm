@@ -6,9 +6,9 @@ set -euo pipefail
 source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 cd "$REPO_ROOT"
 
-lanes=(preflight fast lint contract security docs)
-[[ "$#" -eq 8 ]] \
-  || { refuse CI_JOB_MISSING "expected artifact root, commit, and six results"; exit 1; }
+lanes=(preflight fast lint contract security docs operator-tui)
+[[ "$#" -eq 9 ]] \
+  || { refuse CI_JOB_MISSING "expected artifact root, commit, and seven results"; exit 1; }
 artifact_root="$1"
 EXPECTED_COMMIT="$2"
 shift 2
@@ -68,6 +68,7 @@ for lane in "${lanes[@]}"; do
   expected_artifact=''
   case "$lane" in
     fast) expected_artifact='.ci-artifacts/junit/fast.xml' ;;
+    operator-tui) expected_artifact='.ci-artifacts/operator-tui/receipt.json' ;;
     contract) expected_artifact='.ci-artifacts/junit/contract.xml' ;;
   esac
   actual_hashes="$(jq -r '.artifact_hashes | length' "$observation")"
@@ -112,8 +113,18 @@ printf '%s\n' \
   observations/fast.json \
   observations/lint.json \
   observations/preflight.json \
+  observations/operator-tui.json \
+  operator-tui/receipt.json \
   observations/security.json \
   >"$expected_files"
+if [[ -f "$artifact_root/operator-tui/receipt.json" && ! -L "$artifact_root/operator-tui/receipt.json" ]]; then
+  if ! jq -er '.artifacts | arrays | select(length > 0) | .[] | .path | strings | "operator-tui/" + .' \
+      "$artifact_root/operator-tui/receipt.json" >>"$expected_files"; then
+    refuse CI_OPERATOR_TUI_INVENTORY_INVALID 'nonempty receipt artifact inventory required' || true
+    status=1
+  fi
+fi
+sort -u -o "$expected_files" "$expected_files"
 find "$artifact_root" -mindepth 1 \( -type f -o -type l \) -printf '%P\n' | sort -u >"$actual_files"
 if ! cmp -s "$expected_files" "$actual_files"; then
   diff -u "$expected_files" "$actual_files" >&2 || true
@@ -122,4 +133,17 @@ if ! cmp -s "$expected_files" "$actual_files"; then
 fi
 
 [[ "$status" -eq 0 ]] || exit 1
-log "CI / required: six jobs bind clean observations to $EXPECTED_COMMIT^{tree}"
+# Never execute a binary from the downloaded evidence. The required job builds
+# this validator from its trusted exact-source checkout and binds its bytes.
+validator="${BULLET_TUIWRIGHT_VALIDATOR:-}"
+validator_sha="${BULLET_TUIWRIGHT_VALIDATOR_SHA256:-}"
+artifact_absolute="$(realpath -e -- "$artifact_root")"
+[[ "$validator" == /* && -f "$validator" && -x "$validator" && ! -L "$validator" \
+  && "$(realpath -e -- "$validator")" == "$validator" \
+  && "$validator" != "$artifact_absolute"/* && "$validator_sha" =~ ^[0-9a-f]{64}$ \
+  && "$(sha256_file "$validator")" == "$validator_sha" \
+  && "$(od -An -tx1 -N4 -- "$validator" | tr -d ' \n')" == 7f454c46 ]] \
+  || { refuse CI_OPERATOR_TUI_VALIDATOR_INVALID 'source-built native validator required'; exit 1; }
+"$validator" --validate-hosted "$artifact_absolute/operator-tui" \
+  || { refuse CI_OPERATOR_TUI_EVIDENCE_INVALID 'native evidence consumer refused'; exit 1; }
+log "CI / required: seven jobs bind clean observations and operator evidence to $EXPECTED_COMMIT^{tree}"

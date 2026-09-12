@@ -71,7 +71,8 @@ expected_context_digest() {
     contract) printf '%s\n' 0364cba18f2252a4957320523d1f510f8768825f81b0962025ea53c376256d49 ;;
     security) printf '%s\n' 04cfdf6285d6c4cd8e5fc33386fc07ddd6356be28d8177129156380bfd890ede ;;
     docs) printf '%s\n' 855016434cd98c694bebeb38ef08a5a670497710aef707179ceb280fb994186e ;;
-    required) printf '%s\n' 0f37994093e5a4a261cabf88ae4aecccf1f19ff0f052d96735a2d1e46e9fb891 ;;
+    operator-tui) printf '%s\n' e7cb262ba57da58227a307240213116f9048646de8e8f75326996fc48b52ff5b ;;
+    required) printf '%s\n' d3a0c7512912f354f81cfdc5cf6d8c990152586f6ec772f2102dc4c4a84c1504 ;;
     *) return 2 ;;
   esac
 }
@@ -82,8 +83,8 @@ validate_required_context() {
   expected="$(expected_context_digest header)"
   [[ "$actual" == "$expected" ]] \
     || { refuse HOSTED_WORKFLOW_CONTEXT_DRIFT "$actual"; return 1; }
-  expect_job_inventory "$workflow" preflight fast lint contract security docs required || return 1
-  for subject in preflight fast lint contract security docs required; do
+  expect_job_inventory "$workflow" preflight fast lint contract security docs operator-tui required || return 1
+  for subject in preflight fast lint contract security docs operator-tui required; do
     block="$(workflow_job_block "$workflow" "$subject")"
     actual="$(sha256_text "$block")"
     expected="$(expected_context_digest "$subject")"
@@ -195,6 +196,7 @@ expected_download_step() {
     contract) name='Download contract observation and JUnit'; destination='.ci-artifacts/atomic' ;;
     security) name='Download security observation'; destination='.ci-artifacts/atomic/observations' ;;
     docs) name='Download docs observation'; destination='.ci-artifacts/atomic/observations' ;;
+    operator-tui) name='Download operator observation'; destination='.ci-artifacts/atomic/observations' ;;
     *) return 2 ;;
   esac
   printf '%s\n' \
@@ -211,7 +213,7 @@ expected_aggregate_step() {
     '        run: >-' \
     '          bash ops/ci/aggregate.sh .ci-artifacts/atomic "$EXPECTED_COMMIT"' \
     '          "$PREFLIGHT_RESULT" "$FAST_RESULT" "$LINT_RESULT"' \
-    '          "$CONTRACT_RESULT" "$SECURITY_RESULT" "$DOCS_RESULT"'
+    '          "$CONTRACT_RESULT" "$SECURITY_RESULT" "$DOCS_RESULT" "$OPERATOR_TUI_RESULT"'
 }
 
 workflow_environment() {
@@ -281,9 +283,9 @@ expect_upload_paths() {
 
 validate_required_workflow() {
   local workflow="$1" lane block actual expected required expected_steps anchor
-  expect_global_action_count "$workflow" upload-artifact 6 || return 1
-  expect_global_action_count "$workflow" download-artifact 6 || return 1
-  expect_job_inventory "$workflow" preflight fast lint contract security docs required || return 1
+  expect_global_action_count "$workflow" upload-artifact 8 || return 1
+  expect_global_action_count "$workflow" download-artifact 8 || return 1
+  expect_job_inventory "$workflow" preflight fast lint contract security docs operator-tui required || return 1
   if rg -n '^[[:space:]]+(defaults|shell|container|services):|^[[:space:]]+(BASH_ENV|ENV|PATH):' "$workflow"; then
     refuse HOSTED_EXECUTION_ENV_DRIFT "$workflow"
     return 1
@@ -335,12 +337,15 @@ validate_required_workflow() {
       || { refuse HOSTED_UPLOAD_STEP_DRIFT "$lane"; return 1; }
   done
 
+  block="$(workflow_job_block "$workflow" operator-tui)"
+  [[ "$(sha256_text "$block")" == "$(expected_context_digest operator-tui)" ]] \
+    || { refuse HOSTED_OPERATOR_CONTEXT_DRIFT operator-tui; return 1; }
   required="$(workflow_job_block "$workflow" required)"
   [[ "$(rg -Fxc '    runs-on: ubuntu-24.04' <<<"$required")" -eq 1 ]] \
     || { refuse HOSTED_RUNNER_DRIFT required; return 1; }
-  [[ "$(rg -c '^      - ' <<<"$required")" -eq 9 &&
+  [[ "$(rg -c '^      - ' <<<"$required")" -eq 13 &&
      "$(rg -Fxc '    if: ${{ always() }}' <<<"$required")" -eq 1 &&
-     "$(rg -Fxc '    needs: [preflight, fast, lint, contract, security, docs]' <<<"$required")" -eq 1 ]] \
+     "$(rg -Fxc '    needs: [preflight, fast, lint, contract, security, docs, operator-tui]' <<<"$required")" -eq 1 ]] \
     || { refuse HOSTED_REQUIRED_JOB_DRIFT required; return 1; }
   expected="$(printf '%s\n' \
     '    env:' \
@@ -350,7 +355,8 @@ validate_required_workflow() {
     '      LINT_RESULT: ${{ needs.lint.result }}' \
     '      CONTRACT_RESULT: ${{ needs.contract.result }}' \
     '      SECURITY_RESULT: ${{ needs.security.result }}' \
-    '      DOCS_RESULT: ${{ needs.docs.result }}')"
+    '      DOCS_RESULT: ${{ needs.docs.result }}' \
+    '      OPERATOR_TUI_RESULT: ${{ needs.operator-tui.result }}')"
   actual="$(job_environment "$required")"
   [[ "$actual" == "$expected" ]] \
     || { refuse HOSTED_RESULT_BINDING_DRIFT required; return 1; }
@@ -391,7 +397,7 @@ validate_required_workflow() {
   [[ "$actual" == "$expected" ]] \
     || { refuse HOSTED_ARCHIVE_LAYOUT_DRIFT "$actual"; return 1; }
   actual="$(sha256sum "$workflow" | awk '{ print $1 }')"
-  [[ "$actual" == 5ac1b2c114587970e152c0ea8f73a273fec4c2c1512bc2c82aa8acb32ebf48d8 ]] \
+  [[ "$actual" == baf5f15db4ba5208a1861ecad6df861c1ff8b6cbe686df7abce08bd911842f77 ]] \
     || { refuse HOSTED_REQUIRED_CONTEXT_DRIFT "$actual"; return 1; }
 }
 
