@@ -1,7 +1,7 @@
 # Product gap register
 
 Status: **operator index; not runtime or release authority**  
-Last reviewed: 2026-09-11
+Last reviewed: 2026-09-12
 Owner: Bullet Farm maintainers
 
 This page answers “what is still missing before Bullet Farm is a product?”
@@ -29,6 +29,19 @@ installed/provider/media milestones and all active research/profile/WP obligatio
 Historical Hub f431/Kernel899 required passes remain exact component evidence;
 Portal d00's admitted required failed after fast/build. Concurrent proposals and later
 documentation cannot inherit those passes. All G/profile/HOLD statuses stay unchanged.
+
+The September 12 continuation is mapped to existing U1a.1 and H1/H2 in the
+[closeout work order](xbabe2-development-closeout.md#current-evidence-and-immediate-corrections):
+Kernel `c036765` passes canonical required with 1290 selected fast tests. Reviewed
+main reconciliation retains authenticated journal/containment boundaries and private
+demo defaults. `f8a2b5c` passes 13 component PTY scenarios for each default alias;
+its required run failed stale documentation after tests/lint/security passed. Reviewed
+`191ab0a` corrects the documentation and passes complete required. The hosted job and strict artifact/
+JUnit consumer are implemented, but GitHub rejected publication for missing workflow
+scope; hosted execution remains unqualified. Exact request retention preserves
+historical reconstruction honestly. Owner-bound drafts, settlement, executing Head,
+raw transcripts, full user journeys and Portal admission remain open. Portal has a
+concrete reviewed preparation, not execution authority. No G/profile/HOLD status changes.
 
 The older dated observations below remain historical evidence; use the latest audit
 for current repairs and re-read exact source before implementation.
