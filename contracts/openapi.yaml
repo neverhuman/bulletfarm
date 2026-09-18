@@ -8,7 +8,19 @@ info:
     must match the configured Portal origin; read requests do not require
     CSRF. Operator read responses use Cache-Control: no-store. SSE closes
     when its opening session expires or is revoked; reconnect requires
-    current authority. /health and /openapi.yaml are public.
+    current authority. Clients may bind GET/HEAD reads and the POST command-submission and
+    self-revocation operations with x-bullet-expected-session; a selector differing from the authenticated
+    cookie is refused with SESSION_CHANGED before the handler executes.
+    Successful reads, selected mutations, handler absence responses, and SSE
+    openings acknowledge the authenticated subject in x-bullet-session-id, including downstream
+    400/404/410/500 handler responses. The acknowledgement is mandatory after
+    successful session authentication (and Origin/CSRF authentication for
+    mutations). Self-revocation acknowledges the same session after durable
+    revocation. Authentication refusals
+    may occur before acknowledgement. Legacy requests without a selector remain
+    supported; clients requiring session binding must refuse missing or
+    mismatched acknowledgements before consuming data or replaying a command.
+    /health and /openapi.yaml are public.
 servers:
   - url: http://127.0.0.1:7420
 paths:
@@ -30,6 +42,8 @@ paths:
           description: OpenAPI document
   /api/v1/operator-snapshot:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: All durable operator projections from one atomic ledger snapshot
@@ -41,7 +55,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -49,6 +63,8 @@ paths:
         "200":
           description: One compatible operator view; any corrupt component refuses the whole response
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -67,6 +83,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/missions:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: List missions
@@ -78,7 +96,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -86,6 +104,8 @@ paths:
         "200":
           description: missions
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -108,6 +128,7 @@ paths:
         - browserSession: []
       summary: Mission graph projection
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: path
           name: id
           required: true
@@ -121,7 +142,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -129,6 +150,8 @@ paths:
         "200":
           description: mission view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -146,6 +169,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "404":
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           description: missing
           content:
             application/problem+json:
@@ -153,6 +179,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/demo:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Demo receipt re-derived from ledger rows, or null before a run
@@ -164,7 +192,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -172,6 +200,8 @@ paths:
         "200":
           description: receipt or null
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -238,6 +268,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/auth/session:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       summary: Current durable operator session metadata
       description: No bearer, CSRF token or credential digest is returned. Sessions survive restart until expiry, revocation or restore-epoch change.
       security:
@@ -246,6 +278,8 @@ paths:
         "200":
           description: Authenticated session identity and absolute lifetime
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             Cache-Control:
               required: true
               schema: { type: string, const: no-store }
@@ -260,7 +294,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is denied
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -279,6 +313,7 @@ paths:
         - browserSession: []
           csrfToken: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: header
           name: Origin
           required: true
@@ -293,6 +328,8 @@ paths:
         "200":
           description: Durable self-revocation acknowledgement, without credentials
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             Cache-Control:
               required: true
               schema: { type: string, const: no-store }
@@ -305,6 +342,9 @@ paths:
                 $ref: "#/components/schemas/SessionRevocationView"
         "400":
           description: body is not an exact empty object
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           content:
             application/problem+json:
               schema:
@@ -316,7 +356,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Origin or CSRF refusal
+          description: Origin or CSRF refusal, or SESSION_CHANGED before mutation when the selected session differs from the authenticated cookie.
           content:
             application/problem+json:
               schema:
@@ -338,6 +378,7 @@ paths:
       security:
         - browserSession: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: query
           name: after
           description: Canonical decimal submitted-event cursor, without leading zeros except zero itself.
@@ -350,6 +391,8 @@ paths:
         "200":
           description: Current owned command states from one compatible ledger snapshot
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               required: true
               schema: { type: integer, minimum: 0, maximum: 9007199254740991 }
@@ -373,7 +416,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Supplied Origin is not the configured origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -407,6 +450,7 @@ paths:
         - browserSession: []
           csrfToken: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: header
           name: Origin
           required: true
@@ -421,6 +465,8 @@ paths:
         "202":
           description: initial or exact-replay durable command status
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               required: true
               schema: { type: integer, minimum: 0, maximum: 9007199254740991 }
@@ -433,6 +479,9 @@ paths:
                 $ref: "#/components/schemas/CommandStatus"
         "400":
           description: malformed or non-exact command
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           content:
             application/problem+json:
               schema:
@@ -444,13 +493,16 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Origin or CSRF refusal
+          description: Origin or CSRF refusal, or SESSION_CHANGED before mutation when the selected session differs from the authenticated cookie.
           content:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/Problem"
         "409":
           description: idempotency key is bound to another exact request or outside the authenticated operator history
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           content:
             application/problem+json:
               schema:
@@ -465,6 +517,7 @@ paths:
       security:
         - browserSession: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: path
           name: id
           required: true
@@ -472,7 +525,7 @@ paths:
             $ref: "#/components/schemas/CommandId"
       responses:
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -480,6 +533,8 @@ paths:
         "200":
           description: PENDING, APPLIED, VERIFIED, FAILED, or UNKNOWN durable truth
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               required: true
               schema: { type: integer, minimum: 0, maximum: 9007199254740991 }
@@ -503,6 +558,9 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "404":
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           description: command not found
           content:
             application/problem+json:
@@ -518,6 +576,7 @@ paths:
       security:
         - browserSession: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: query
           name: after
           description: Canonical decimal cursor, without leading zeros except zero itself.
@@ -530,6 +589,8 @@ paths:
         "200":
           description: One atomic owned conversation observation
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               required: true
               schema: { type: integer, minimum: 0, maximum: 9007199254740991 }
@@ -553,7 +614,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Supplied Origin is not the configured origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -574,6 +635,7 @@ paths:
       security:
         - browserSession: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: path
           name: conversation_id
           required: true
@@ -591,6 +653,8 @@ paths:
         "200":
           description: One atomic owned conversation observation
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               required: true
               schema: { type: integer, minimum: 0, maximum: 9007199254740991 }
@@ -614,12 +678,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Supplied Origin is not the configured origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/Problem"
         "404":
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           description: No owned conversation exists for this subject
           content:
             application/problem+json:
@@ -642,6 +709,7 @@ paths:
       security:
         - browserSession: []
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: path
           name: id
           required: true
@@ -651,6 +719,8 @@ paths:
         "200":
           description: One atomic coding observation
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               required: true
               schema: { type: integer, minimum: 0, maximum: 9007199254740991 }
@@ -674,12 +744,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: Origin refused
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/Problem"
         "404":
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           description: No owned task-shaped coding command exists for this subject
           content:
             application/problem+json:
@@ -693,6 +766,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/outbox:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Outbox rows with real delivery phases
@@ -704,7 +779,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -712,6 +787,8 @@ paths:
         "200":
           description: outbox rows
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -734,6 +811,7 @@ paths:
         Replay is bounded to 1024 events and unavailable or retained-away cursors
         return a typed 410 before the event stream is opened.
       parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
         - in: query
           name: after
           required: false
@@ -752,12 +830,15 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
                 $ref: "#/components/schemas/Problem"
         "200":
+          headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
           description: text/event-stream of Event frames
           content:
             text/event-stream:
@@ -777,6 +858,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/ready:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: The next ready work package
@@ -788,7 +871,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -796,6 +879,8 @@ paths:
         "200":
           description: next dispatchable package
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -808,6 +893,8 @@ paths:
                 $ref: "#/components/schemas/ReadySnapshot"
   /api/v1/fleet:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Fleet projection (spec 25.5) of active lease rows and the ready queue
@@ -823,7 +910,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -831,6 +918,8 @@ paths:
         "200":
           description: fleet view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -849,6 +938,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/sessions:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Session Supervisor projection (spec 25.7) of attempt rows by state
@@ -864,7 +955,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -872,6 +963,8 @@ paths:
         "200":
           description: session supervisor view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -890,6 +983,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/context-lineage:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Context Lineage projection (spec 25.8) of immutable initial capsules
@@ -905,7 +1000,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -913,6 +1008,8 @@ paths:
         "200":
           description: context lineage view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -931,6 +1028,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/merge-rail:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Merge Rail projection (spec 25.13) of Candidates, effect intents, and receipts
@@ -945,7 +1044,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -953,6 +1052,8 @@ paths:
         "200":
           description: merge rail view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -971,6 +1072,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/quality-lab:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Quality Lab projection (spec 25.14) of evidence rows with typed outcomes
@@ -985,7 +1088,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -993,6 +1096,8 @@ paths:
         "200":
           description: quality lab view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -1011,6 +1116,8 @@ paths:
                 $ref: "#/components/schemas/Problem"
   /api/v1/audit:
     get:
+      parameters:
+        - $ref: "#/components/parameters/ExpectedSession"
       security:
         - browserSession: []
       summary: Incidents and Audit projection (spec 25.15) of the bounded durable event tail
@@ -1026,7 +1133,7 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
         "403":
-          description: supplied Origin is not the configured Portal origin
+          description: Supplied Origin is denied or the expected session differs from the authenticated cookie (SESSION_CHANGED).
           content:
             application/problem+json:
               schema:
@@ -1034,6 +1141,8 @@ paths:
         "200":
           description: audit view
           headers:
+            x-bullet-session-id:
+              $ref: "#/components/headers/AcknowledgedSession"
             X-Bullet-As-Of-Sequence:
               description: Latest durable event sequence covered by this snapshot.
               required: true
@@ -1051,6 +1160,22 @@ paths:
               schema:
                 $ref: "#/components/schemas/Problem"
 components:
+  parameters:
+    ExpectedSession:
+      name: x-bullet-expected-session
+      in: header
+      required: false
+      description: Exact selected session; mismatch with the authenticated cookie refuses before reading data or performing the selected mutation.
+      schema:
+        type: string
+        pattern: '^sid_[0-9a-f]{64}$'
+  headers:
+    AcknowledgedSession:
+      required: true
+      description: Authenticated session selected before the handler; validate before consuming data, accepting mutation results or treating absence as permission to replay. Self-revocation acknowledges its original session.
+      schema:
+        type: string
+        pattern: '^sid_[0-9a-f]{64}$'
   securitySchemes:
     browserSession:
       type: apiKey

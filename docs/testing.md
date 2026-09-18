@@ -13,11 +13,11 @@ that aggregator fail.
 
 | Partition | Selected | Meaning |
 | --- | ---: | --- |
-| standalone | 1265 | all component tests outside the provider-contract/simulation, egress, and family partitions; every selected identity executes with zero skipped, including the explicitly feature-enabled verifier fixture tests |
+| standalone | 1288 | all component tests outside the provider-contract/simulation, egress, and family partitions; every selected identity executes with zero skipped, including the explicitly feature-enabled verifier fixture tests |
 | egress | 3 | the exact host-dependent namespace/nftables/CONNECT-proxy identities; only the capability-admitted `egress` lane executes them |
 | contract | 34 | four offline provider protocol binaries plus `bullet-test-simulation` |
 | family | 9 | five `transaction_demo` identities plus `heartbeat_stale`, `kill_retry`, `loop_sim`, and `synthetic_e2e` |
-| total | 1311 | exact union of the four disjoint partitions above |
+| total | 1334 | exact union of the four disjoint partitions above |
 
 `ops/ci/inventory-test.sh` independently lists all four partitions, requires
 every set to be nonzero, checks pairwise disjointness and exact union,
@@ -38,10 +38,26 @@ and actual CLI/TUI child-process checks. The task CLI also runs against the real
 through login, restart, exact retry and empty-cache discovery. These tests use
 disposable local identities and explicitly synthetic task data; they do not
 establish installed provider execution or release eligibility. Inventory
-enumeration alone is not a successful test execution. The September 11
-closeout inventory, hashed from a real nextest JSON, adds six standalone
-identities (v2 binding credential forward, ledger D1, HTTP then real-runner
-stub D1, hex-safe TUI paint, Codex argv, Cursor typed empty-stream refusal).
+enumeration alone is not a successful test execution. The earlier September 11
+revision added two real SQLite lease-key collision/replay cases and two
+default-entry startup cases. The preceding read-session revision added eight
+standalone identities: three HTTP expected-session/acknowledgement cases, two
+generated session-discovery response cases, and three authenticated read-caller
+cases. They exercise held bodies, missing/foreign/duplicate acknowledgements,
+body/header agreement, credential replacement, and owner-bound absence through
+real TCP fixtures.
+
+The current revision adds two standalone identities for command submission and
+session revocation. Real TCP fixtures require the expected session on each POST
+and validate the response acknowledgement before its body. Missing, foreign or
+duplicate acknowledgements and response loss preserve the original command
+journal or local credentials; successful revocation removes credentials only
+after the acknowledged response completes. Actual nextest enumeration binds
+these two additions with no removals. Focused execution passed all 19 selected
+HTTP, journal, session and coding-operator tests. The complete current required
+lane remains pending and is a separate check.
+The retained real-runner test proves refusal before provider child start when
+containment is unadmitted. It does not establish worker-to-provider execution.
 
 `apps/bullet/tests/operator_tui.rs` holds a synthetic HTTP response until six
 separate CLI processes sharing one private credential directory have rendered
@@ -182,7 +198,7 @@ provider conformance.
 
 | Lane | Scope |
 | --- | --- |
-| `fast` | exactly 1265 standalone nextest identities, all executed with zero skipped |
+| `fast` | exactly 1288 standalone nextest identities, all executed with zero skipped |
 | `lint` | rustfmt, all-target Clippy, actionlint 1.7.8, ShellCheck 0.10.0, workflow policy, inventory/observation/nightly meta-tests |
 | `contract` | exactly 34 offline provider-contract and simulation tests |
 | `security` | current-tree gitleaks 8.21.2; full cargo-deny 0.19.8 advisories/bans/licenses/sources with independently proved RustSec freshness; zizmor 1.25.2 |

@@ -9,8 +9,10 @@ for tool in awk cargo-nextest cmp cp jq mktemp rg sort; do
   require_tool "$tool" || exit 1
 done
 
+readonly terminal_group=operator-terminal
+readonly terminal_filter='binary_id(=bullet::operator_terminal) | binary_id(=bullet::operator_tui) | binary_id(=bullet::operator_tui_startup)'
 readonly group=sqlite-migration-identity
-readonly filter='(binary_id(bullet-adapters) & test(sqlite::migrations::)) | (binary_id(bullet-adapters::candidate_preparation) & test(=schema::exact_schema_eighteen_is_refused_without_byte_mutation))'
+readonly migration_filter='(binary_id(bullet-adapters) & test(sqlite::migrations::)) | (binary_id(bullet-adapters::candidate_preparation) & test(=schema::exact_schema_eighteen_is_refused_without_byte_mutation))'
 readonly receipt_group=command-receipt-filesystem-hostiles
 readonly receipt_filter='binary_id(bullet-runner::bin/bullet-command-worker) & (test(=receipt::tests::candidate_identity::cleanup_target_and_every_tombstone_subject_are_exact) | test(=receipt::tests::candidate_identity::preservation_token_state_artifact_and_cleanup_substitutions_refuse) | test(=receipt::tests::ledger::semantic_ledger_substitutions_refuse_without_further_mutation) | test(=receipt::tests::provider_fixture::provider_transcript_drift_truncation_open_shape_and_symlink_refuse) | test(=receipt::tests::provider_fixture::self_consistent_provider_operation_substitutions_refuse))'
 readonly receipt_timeout='slow-timeout = { period = "45s", terminate-after = 2 }'
@@ -22,7 +24,10 @@ trap cleanup EXIT
 validate_timeout_config() {
   local config="$1"
   awk -v fast_timeout="$fast_timeout" \
-    -v migration_filter="filter = '$filter'" \
+    -v terminal_filter="filter = '$terminal_filter'" \
+    -v terminal_group="test-group = '$terminal_group'" \
+    -v terminal_group_line="$terminal_group = { max-threads = 1 }" \
+    -v migration_filter="filter = '$migration_filter'" \
     -v migration_group="test-group = 'sqlite-migration-identity'" \
     -v migration_group_line="sqlite-migration-identity = { max-threads = 1 }" \
     -v receipt_filter="filter = '$receipt_filter'" \
@@ -34,14 +39,17 @@ validate_timeout_config() {
         if (section_entries != 3 || section_fast_timeouts != 1 ||
             section_fast_fail != 1 || section_fast_threads != 1) invalid = 1
       } else if (section == "test_groups") {
-        if (section_entries != 2 || section_migration_group_lines != 1 ||
-            section_receipt_group_lines != 1) invalid = 1
+        if (section_entries != 3 || section_migration_group_lines != 1 ||
+            section_receipt_group_lines != 1 || section_terminal_group_lines != 1) invalid = 1
       } else if (section == "fast_override") {
         if (section_entries == 2 && section_migration_filters == 1 && section_migration_groups == 1) {
           migration_override_blocks++
         } else if (section_entries == 3 && section_receipt_filters == 1 &&
                    section_receipt_groups == 1 && section_timeouts == 1) {
           receipt_override_blocks++
+        } else if (section_entries == 3 && section_terminal_filters == 1 &&
+                   section_terminal_groups == 1 && section_terminal_weights == 1) {
+          terminal_override_blocks++
         } else {
           invalid = 1
         }
@@ -49,6 +57,10 @@ validate_timeout_config() {
     }
     function reset_section() {
       section_entries = 0
+      section_terminal_group_lines = 0
+      section_terminal_filters = 0
+      section_terminal_groups = 0
+      section_terminal_weights = 0
       section_fast_timeouts = 0
       section_fast_fail = 0
       section_fast_threads = 0
@@ -95,12 +107,16 @@ validate_timeout_config() {
     }
     section == "test_groups" {
       section_entries++
+      if ($0 == terminal_group_line) section_terminal_group_lines++
       if ($0 == migration_group_line) section_migration_group_lines++
       if ($0 == receipt_group_line) section_receipt_group_lines++
       next
     }
     section == "fast_override" {
       section_entries++
+      if ($0 == terminal_filter) section_terminal_filters++
+      if ($0 == terminal_group) section_terminal_groups++
+      if ($0 == "threads-required = 4") section_terminal_weights++
       if ($0 == migration_filter) section_migration_filters++
       if ($0 == migration_group) section_migration_groups++
       if ($0 == receipt_filter) section_receipt_filters++
@@ -116,7 +132,8 @@ validate_timeout_config() {
     END {
       close_section()
       exit !(fast_sections == 1 && test_group_sections == 1 &&
-             migration_override_blocks == 1 && receipt_override_blocks == 1 && !invalid)
+             migration_override_blocks == 1 && receipt_override_blocks == 1 &&
+             terminal_override_blocks == 1 && !invalid)
     }
   ' "$config"
 }
@@ -302,7 +319,7 @@ done
   || { refuse NEXTEST_SCHEMA_GROUP_INVALID 'expected one max-one migration group'; exit 1; }
 [[ "$(rg -Fxc 'test-group = '\''sqlite-migration-identity'\''' .config/nextest.toml)" -eq 1 ]] \
   || { refuse NEXTEST_SCHEMA_GROUP_INVALID 'group must have exactly one override'; exit 1; }
-rg -Fxq "filter = '$filter'" .config/nextest.toml \
+rg -Fxq "filter = '$migration_filter'" .config/nextest.toml \
   || { refuse NEXTEST_SCHEMA_FILTER_DRIFT 'migration group filter changed'; exit 1; }
 [[ "$(rg -Fxc "$receipt_group = { max-threads = 1 }" .config/nextest.toml)" -eq 1 ]] \
   || { refuse NEXTEST_RECEIPT_GROUP_INVALID 'expected one max-one filesystem-hostile group'; exit 1; }
@@ -332,7 +349,7 @@ cargo nextest --color never show-config test-groups --locked --workspace "${NEXT
 
 rg -Fxq 'group: sqlite-migration-identity (max threads = 1)' "$test_root/show-config" \
   || { refuse NEXTEST_SCHEMA_GROUP_INVALID 'nextest did not apply max-threads=1'; exit 1; }
-rg -Fq "* override for fast profile with filter '$filter':" "$test_root/show-config" \
+rg -Fq "* override for fast profile with filter '$migration_filter':" "$test_root/show-config" \
   || { refuse NEXTEST_SCHEMA_OVERRIDE_MISSING 'nextest did not apply the exact fast override'; exit 1; }
 
 awk '
@@ -407,9 +424,13 @@ awk '
 cmp -s "$test_root/receipt-expected" "$test_root/receipt-group-actual" \
   || { refuse NEXTEST_RECEIPT_GROUP_EXPANSION_DRIFT 'receipt group must contain exactly five reviewed identities'; exit 1; }
 
-cargo nextest run --locked --workspace "${NEXTEST_FEATURES[@]}" --profile fast \
-  --run-ignored all -E "$receipt_filter"
+# shellcheck source=ops/ci/nextest-terminal-groups-test.sh
+source ops/ci/nextest-terminal-groups-test.sh
+
+# This shares the fast profile's raw output path. Retain its predecessor and
+# publish under a distinct lane instead of overwriting the full fast report.
+run_partition_tests lint-receipt-group fast 5 "$receipt_filter"
 
 rg -Fxq 'bash ops/ci/nextest-groups-test.sh' ops/ci/lint.sh \
   || { refuse NEXTEST_SCHEMA_GROUP_ROUTING_MISSING ops/ci/lint.sh; exit 1; }
-log 'nextest controls passed: 26 serialized migrations and five bounded receipt hostiles'
+log 'nextest controls passed: 26 serialized migrations, five bounded receipt hostiles and three exclusive terminal binaries'

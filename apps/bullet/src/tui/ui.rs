@@ -78,7 +78,7 @@ pub(super) fn draw(frame: &mut Frame<'_>, model: &mut Model, palette: Palette) {
     let areas = Layout::vertical([
         Constraint::Length(3),
         Constraint::Min(3),
-        Constraint::Length(3),
+        Constraint::Length(4),
     ])
     .split(frame.area());
     frame.render_widget(
@@ -121,16 +121,19 @@ pub(super) fn draw(frame: &mut Frame<'_>, model: &mut Model, palette: Palette) {
     // The hints are most needed exactly when something has gone wrong, so an
     // error is shown above them rather than replacing them.
     const HINTS: &str = "Ctrl+K navigate · Tab panes · j/k move · Enter detail · Esc back · r refresh · n/p submissions page · J raw JSON · ? help · submit via bullet coding submit · Ctrl+C detach";
-    let message = match model.error.as_deref().map(crate::client::terminal_text) {
-        Some(error) => format!("{error}\n{HINTS}"),
-        None => HINTS.to_string(),
-    };
+    let footer = Layout::vertical([Constraint::Length(1), Constraint::Min(2)]).split(areas[2]);
+    let message = model
+        .error
+        .as_deref()
+        .map(crate::client::terminal_text)
+        .unwrap_or_default();
+    frame.render_widget(Paragraph::new(message).style(style.fg(amber)), footer[0]);
     frame.render_widget(
-        Paragraph::new(message)
-            .style(style.fg(amber))
+        Paragraph::new(HINTS)
+            .style(style.fg(cyan))
             .wrap(Wrap { trim: true })
             .block(Block::default().borders(Borders::TOP)),
-        areas[2],
+        footer[1],
     );
     if model.palette {
         let height = (palette_len() as u16)
@@ -202,6 +205,24 @@ mod tests {
         assert!(text.contains("STOP_UNIMPLEMENTED"));
         assert!(text.contains("Ctrl+C"));
         assert!(!text.contains("VERIFIED"));
+        model.help = false;
+        terminal
+            .draw(|frame| draw(frame, &mut model, Palette::none()))
+            .unwrap();
+        let text = terminal
+            .backend()
+            .buffer()
+            .content
+            .iter()
+            .map(|cell| cell.symbol())
+            .collect::<String>();
+        for label in ["FARMD_UNAVAILABLE", "Ctrl+K", "Tab panes", "Ctrl+C detach"] {
+            assert!(text.contains(label), "missing {label}: {text}");
+        }
+        assert_eq!(Palette::indexed().cyan, Color::Cyan);
+        assert_eq!(Palette::indexed().amber, Color::Yellow);
+        assert_eq!(Palette::truecolor().bg, Color::Rgb(8, 16, 31));
+
         assert!(terminal
             .backend()
             .buffer()
