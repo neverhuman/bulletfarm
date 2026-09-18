@@ -1,7 +1,0 @@
-[profile.fast]
-fail-fast = false
-junit = { path = "junit.xml" }
-
-[profile.contract]
-fail-fast = false
-junit = { path = "junit.xml" }

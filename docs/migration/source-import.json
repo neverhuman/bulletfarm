@@ -1,0 +1,18 @@
+{
+  "source": "archive/bf/heads/main",
+  "source_sha": "0cc243ab26cf7c584564b1aba7e5eb0160a0da5d",
+  "original_bulletfarm_main": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+  "unchanged_files": 55,
+  "changed": {
+    "AGENTS.md": "Superseded PR 12 instructions; sole canonical repository and checkout; current user direction and HOLD retained.",
+    "README.md": "Superseded PR 12 product status; canonical identity, CI badge and temporary command state.",
+    "Cargo.toml": "Only repository URL changed; package, binary, library and dependencies unchanged."
+  },
+  "added": [
+    "docs/implementation-plan.md",
+    "docs/migration/README.md",
+    "docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md"
+  ],
+  "preserved_spec_sha256": "1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb",
+  "verification": "Every other source path, mode and blob ID matches the archived bf/main tree; no runtime changes."
+}

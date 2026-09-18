@@ -1,3 +1,0 @@
-{"seq":1,"kind":"session_start","ok":true}
-{"seq":2,"kind":"quota","observation":"unknown","reason":"probe failed"}
-{"seq":3,"kind":"dispatch_blocked","reason":"unknown quota is not capacity"}

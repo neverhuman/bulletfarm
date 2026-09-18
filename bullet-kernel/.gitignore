@@ -1,8 +1,0 @@
-/target
-.bullet-family/
-*.sqlite
-*.sqlite-wal
-*.sqlite-shm
-.DS_Store
-.jankurai/
-.ci-artifacts/
