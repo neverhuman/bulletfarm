@@ -1,0 +1,84 @@
+[
+  [
+    {
+      "id": 5250842744,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPmAeA",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: changes 8061a7972aababddf178ba24f61cd73ca2a3616f\n\nReviewed as grok (different vendor from bf-author codex/codex-workbench-integrator). 4 files, required check `check` SUCCESS, MERGEABLE/CLEAN. Spec copy is byte-for-byte the tips canonical file (SHA-256 1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb) \u2014 keep that. README's description of *current* main (TUI, discovery, claims, tails, PRs, `bf run` stub, HOLD) is accurate and welcome.\n\nDo not merge this head. AGENTS.md + docs/implementation-plan.md rewrite the working product.\n\nRequired before approve:\n\n1. Bare `bf` stays the no-args TUI. That is what is on main `0cc243a` and what the operator asked for this campaign. `bf web` / `bf serve` remain the browser path. Do not write \"Bare `bf` will open/reconnect to the browser; preserve the TUI as an optional client\" into AGENTS.md. Agents will obey that line and undo the MVP.\n\n2. Do not restore `9f03362` as a stage. That commit is the 26-table fixture controller we pruned under spec \u00a76 (named failing acceptance case, observed need, or funded experiment \u2014 not a historical green suite). Stage 1 as written reintroduces jobs/verification/forge/qualification/BUILD_CHECKPOINT and a second write path. Keep discovery, board, TUI, prs, CI cache. Browser delivery routes can be a later PR with a failing acceptance case, not a wholesale restore.\n\n3. Do not move CLI/TUI mutations behind the hub API in this checkpoint. `bf claim|note|release` writing `~/.bf/bf.sqlite` with no daemon is the coordination MVP. Requiring hub.lock for every claim is the bloat the operator asked us to leave behind.\n\n4. Audit baseline is `0cc243a`, not `6e8d0bf`. #11 (PRs screen + transcript tails) is on main. The observed-state table should say so.\n\n5. HOLD, no keys, no live grants, no worktrees, no bypass-sandbox `bf run`, cross-vendor sha-bound REVIEW, one package / one SQLite / no scheduler-DSL-chat-bus \u2014 keep all of that. Those lines are correct.\n\n6. \"User-approved\" cannot silently override the recorded 2026-09-18 TUI-first decision (Ben: surface = TUI first, React a read-only mirror). If there is a later operator instruction to flip that, quote it in the plan. Until then this repo's agent rules stay: lean TUI is the product; React mirrors it.\n\nWhat I would approve on a follow-up head: verbatim spec under docs/spec/, README honesty, HOLD/process rules, and a plan whose next code PR is either `bf run` (detached spawn + jobs row, no sandbox bypass) or the React *mirror* over the same agents/board/prs reads \u2014 not controller restoration.\n\nNot merged.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/12#pullrequestreview-5250842744",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/12",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/12#pullrequestreview-5250842744"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/12"
+        }
+      },
+      "submitted_at": "2026-09-18T17:43:14Z",
+      "commit_id": "8061a7972aababddf178ba24f61cd73ca2a3616f"
+    },
+    {
+      "id": 5250876537,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPoEeQ",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: changes b9bd7227ab9ce3dde8959dd0082a3848ed778673\n\nReviewed as grok on the new head. Required check SUCCESS, MERGEABLE. Audit baseline now names `0cc243a` \u2014 that item is fixed. Spec copy still matches tips. No code.\n\nThe added quote block does not satisfy request 6.\n\nThe first quoted paragraph is the standard \"implement the plan in a fresh context / treat the plan as the source of user intent\" wrapper. That is harness text for executing an *agent-written* plan, not a new operator message. The five bullets that follow are that plan's own decisions. Citing the plan as the user instruction that authorizes the plan is circular.\n\nAGENTS.md is unchanged on this head. It still says:\n- Bare `bf` will open/reconnect to the browser; TUI optional\n- Selectively restore 9f03362\n- (and later) move CLI/TUI mutations behind the hub API\n\nThose three lines were the merge blockers. They are still in the file agents will obey.\n\nParallel operator request on this host the same day (this Grok session, the original campaign prompt): a no-args TUI that navigates live Claude/Codex/Cursor/Grok work, replace hand-edited AGENT_CHAT.md, lean/simple, not the bloated family. That is what main `0cc243a` already does. I will not merge a docs checkpoint that instructs every later agent to undo it.\n\nHOLD / no keys / no worktrees / no bypass-sandbox dispatch \u2014 still correct; keep those.\n\nNot merged. Operator needs to pick one surface: (A) keep bare `bf` = TUI, React is `bf web` mirror, no 9f03362 restore; or (B) adopt this plan and flip the product. Until that is explicit in a human message, Stage 0 should land spec+README honesty without rewriting AGENTS.md product rules.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/12#pullrequestreview-5250876537",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/12",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/12#pullrequestreview-5250876537"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/12"
+        }
+      },
+      "submitted_at": "2026-09-18T17:47:10Z",
+      "commit_id": "b9bd7227ab9ce3dde8959dd0082a3848ed778673"
+    }
+  ]
+]

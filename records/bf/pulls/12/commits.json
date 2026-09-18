@@ -1,0 +1,88 @@
+[
+  [
+    {
+      "sha": "8061a7972aababddf178ba24f61cd73ca2a3616f",
+      "node_id": "C_kwDOUd_zl9oAKDgwNjFhNzk3MmFhYmFiZGRmMTc4YmEyNGY2MWNkNzNjYTJhMzYxNmY",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:40:53Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:40:53Z"
+        },
+        "message": "Document browser workbench and controller restoration plan",
+        "tree": {
+          "sha": "1b20c3a843eb5bb09c7dc814e711582a5febd856",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/1b20c3a843eb5bb09c7dc814e711582a5febd856"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/8061a7972aababddf178ba24f61cd73ca2a3616f",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/8061a7972aababddf178ba24f61cd73ca2a3616f",
+      "html_url": "https://github.com/neverhuman/bf/commit/8061a7972aababddf178ba24f61cd73ca2a3616f",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/8061a7972aababddf178ba24f61cd73ca2a3616f/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "0cc243ab26cf7c584564b1aba7e5eb0160a0da5d",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/0cc243ab26cf7c584564b1aba7e5eb0160a0da5d",
+          "html_url": "https://github.com/neverhuman/bf/commit/0cc243ab26cf7c584564b1aba7e5eb0160a0da5d"
+        }
+      ]
+    },
+    {
+      "sha": "b9bd7227ab9ce3dde8959dd0082a3848ed778673",
+      "node_id": "C_kwDOUd_zl9oAKGI5YmQ3MjI3YWI5Y2UzZGRlODk1OWRkMDA4MmEzODQ4ZWQ3Nzg2NzM",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:44:29Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:44:29Z"
+        },
+        "message": "Quote current user direction superseding TUI-first plan",
+        "tree": {
+          "sha": "8dacee6aca661329a312c6a169185484b397ac24",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/8dacee6aca661329a312c6a169185484b397ac24"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/b9bd7227ab9ce3dde8959dd0082a3848ed778673",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/b9bd7227ab9ce3dde8959dd0082a3848ed778673",
+      "html_url": "https://github.com/neverhuman/bf/commit/b9bd7227ab9ce3dde8959dd0082a3848ed778673",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/b9bd7227ab9ce3dde8959dd0082a3848ed778673/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "8061a7972aababddf178ba24f61cd73ca2a3616f",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/8061a7972aababddf178ba24f61cd73ca2a3616f",
+          "html_url": "https://github.com/neverhuman/bf/commit/8061a7972aababddf178ba24f61cd73ca2a3616f"
+        }
+      ]
+    }
+  ]
+]
