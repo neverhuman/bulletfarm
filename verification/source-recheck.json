@@ -1,0 +1,34 @@
+[
+  {
+    "repository": "bf",
+    "changed_or_added_refs": [],
+    "no_longer_advertised_refs": [
+      "refs/pull/12/merge"
+    ],
+    "lfs_pointers": []
+  },
+  {
+    "repository": "bullet-farm",
+    "changed_or_added_refs": [],
+    "no_longer_advertised_refs": [],
+    "lfs_pointers": []
+  },
+  {
+    "repository": "bullet-kernel",
+    "changed_or_added_refs": [],
+    "no_longer_advertised_refs": [],
+    "lfs_pointers": []
+  },
+  {
+    "repository": "bullet-git",
+    "changed_or_added_refs": [],
+    "no_longer_advertised_refs": [],
+    "lfs_pointers": []
+  },
+  {
+    "repository": "bullet-portal",
+    "changed_or_added_refs": [],
+    "no_longer_advertised_refs": [],
+    "lfs_pointers": []
+  }
+]

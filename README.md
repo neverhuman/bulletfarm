@@ -43,3 +43,23 @@ for the capture/verification implementation. Tools are historical diagnostics, n
 This archive does not by itself authorize deletion. Both migration PRs, independent reviews,
 installation/data/PR-discovery checks, independent-backup restoration, final source recheck
 and operator-assisted deletion authentication must pass the active migration plan's gates.
+
+## Completed preservation checks
+
+The object-level local audit recovered 46 further commits outside named-ref/reflog
+reachability. `local-commit-index.json` maps them to explicit immutable archive tags,
+with original object IDs and authorship. These supplement the 1,475 inventoried refs.
+All 7,074 historical source blobs were scanned; only four reviewed redaction-test
+canaries matched credential patterns. No new credential-pattern finding remained.
+
+The independent private backup is split into six ordered parts of at most 50 MiB.
+Restoration verifies all six Git mirrors, 1,475 original refs plus 46 supplemental
+commits, all 2,997 exported files including 1,766 artifact ZIPs, SQLite integrity, and
+the old binaries/symlink. Fresh GitHub evidence bytes match their manifest. Source
+recheck found no new or changed refs; the closed PR 12 merge ref is no longer advertised
+but is preserved in its original archive tag. No LFS pointers were present.
+
+PR A's final head passes local, fresh-checkout and hosted checks. Consolidation is still
+pending independent approval/merge, serialized PR B and the remaining cutover/deletion
+gates. `verification/pr-a-verification.json` records the checkpoint without claiming
+completion or live qualification.

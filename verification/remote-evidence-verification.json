@@ -1,0 +1,7 @@
+{
+  "archive_commit": "8901ce1309339f40386eed7fb7c874f6d1d22f4c",
+  "source": "fresh GitHub mirror",
+  "evidence_files_verified": 2997,
+  "artifact_bytes": "all 1766 match manifest and original GitHub digest when provided",
+  "status": "passed"
+}

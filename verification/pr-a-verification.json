@@ -1,0 +1,11 @@
+{
+  "head": "3b42a64372ab59b57a8d015c32426ee7de412462",
+  "local_scripts_check": "passed; pinned Node 22.23.2/npm 10.9.8; formatting, Clippy, embedded assets, 53 Rust tests, 1 web test; 1 pre-existing benchmark ignored",
+  "fresh_checkout_scripts_check": "passed at same head",
+  "fresh_check_log_sha256": "0a1532b4aa60558339ba1b5dd665463b20f823b1d8119815f506f6e053189b95",
+  "hosted_check": "https://github.com/neverhuman/bulletfarm/actions/runs/35381210867",
+  "hosted_conclusion": "success",
+  "PR": "https://github.com/neverhuman/bulletfarm/pull/1",
+  "review_state": "Changes requested solely over older TUI-first direction; current user explicitly adopted browser/controller roadmap. Alternate reviewer requested; PR A not merged.",
+  "remaining": "PR B, installation/identity/data checks, cutover, final recheck, archival and operator-assisted deletion remain pending. No controller implementation resumed."
+}

@@ -1,0 +1,14 @@
+{
+  "private_backup_parts": 6,
+  "max_part_bytes": 52428800,
+  "archive_sha256": "eb3709e68aaf35944a822e435bd20f52ba78f90bab0401a2c72e2acbcaa8025e",
+  "restored_mirrors": 6,
+  "original_refs_verified": 1475,
+  "additional_local_commits_verified": 46,
+  "evidence_files_verified": 2997,
+  "artifacts_verified": 1766,
+  "sqlite_integrity": "ok",
+  "original_launchers": "restored with matching checksums and original symlink",
+  "status": "passed",
+  "scope": "Restoration of original source/evidence/local backup; migration PR B and installation gates remain pending."
+}
