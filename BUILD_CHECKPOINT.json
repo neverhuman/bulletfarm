@@ -1,0 +1,121 @@
+{
+  "schema_version": 1,
+  "status": "implementation_incomplete",
+  "recorded_at": "2026-09-18",
+  "source": {
+    "repository": "neverhuman/bulletfarm",
+    "pr": 1,
+    "runtime_source_base": "3b42a64372ab59b57a8d015c32426ee7de412462",
+    "checkpoint_candidate": "Resolve the Git commit containing this file; the recorded runtime source base precedes this documentation-only update.",
+    "canonical_spec": "docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md",
+    "canonical_spec_sha256": "1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb",
+    "tips_source_hashes": {
+      "START_HERE.md": "0d7652b43504949fa2e71999bf2cb6f1b7ab25971e2334d1fb3db5f9e4740632",
+      "BULLETFARM_FINAL_ENGINEERING_SPEC.md": "1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb",
+      "BULLETFARM_FINAL_ENGINEERING_SPEC(1).md": "ec3d305487dcd715df3b8b17050aaaf21144f664b0f53919334feaa246cfeec8"
+    }
+  },
+  "current_behavior": [
+    "Four-provider local session discovery and bounded transcript tails",
+    "SQLite coordination board with claims, heartbeats, notes, releases and generated digest",
+    "TUI and plain snapshot plus read-only PR aggregation",
+    "Human-only recorded process-group stop",
+    "Pinned SQLite hub skeleton with private bootstrap/session and exact-byte command receipts",
+    "Embedded React assets whose project/draft/work/event routes are not implemented"
+  ],
+  "nonclaims": [
+    "No BF3 package is complete on this source head.",
+    "Historical fixture PASS and BUILD_CHECKPOINT records do not certify current code.",
+    "The unavailable tips validator, schemas, examples, backlog and validation report were not run or recovered.",
+    "No live executor, isolation profile, general verifier or real publication adapter is qualified.",
+    "Operating HOLD remains effective; this checkpoint grants no live authority."
+  ],
+  "checks": {
+    "local_scripts_check": "passed on the documentation candidate: embedded assets, formatting, Clippy, 53 passing Rust tests and one web test; one benchmark ignored",
+    "fresh_checkout_scripts_check": "passed on the prior PR head",
+    "hosted_check": "passed on the prior PR head",
+    "note": "The pushed documentation head still requires hosted check and different-vendor exact-head review before merge."
+  },
+  "coverage": {
+    "acceptance_ids": [
+      "BF3-001-AC01", "BF3-001-AC02", "BF3-001-AC03",
+      "BF3-002-AC01", "BF3-002-AC02", "BF3-002-AC03",
+      "BF3-003-AC01", "BF3-003-AC02", "BF3-003-AC03",
+      "BF3-004-AC01", "BF3-004-AC02", "BF3-004-AC03",
+      "BF3-005-AC01", "BF3-005-AC02", "BF3-005-AC03",
+      "BF3-006-AC01", "BF3-006-AC02", "BF3-006-AC03",
+      "BF3-007-AC01", "BF3-007-AC02", "BF3-007-AC03",
+      "BF3-008-AC01", "BF3-008-AC02", "BF3-008-AC03",
+      "BF3-009-AC01", "BF3-009-AC02", "BF3-009-AC03",
+      "BF3-010-AC01", "BF3-010-AC02", "BF3-010-AC03",
+      "BF3-011-AC01", "BF3-011-AC02", "BF3-011-AC03",
+      "BF3-012-AC01", "BF3-012-AC02", "BF3-012-AC03",
+      "BF3-013-AC01", "BF3-013-AC02", "BF3-013-AC03",
+      "BF3-014-AC01", "BF3-014-AC02", "BF3-014-AC03",
+      "BF3-015-AC01", "BF3-015-AC02", "BF3-015-AC03",
+      "BF3-016-AC01", "BF3-016-AC02", "BF3-016-AC03",
+      "BF3-017-AC01", "BF3-017-AC02", "BF3-017-AC03",
+      "BF3-018-AC01", "BF3-018-AC02", "BF3-018-AC03",
+      "BF3-019-AC01", "BF3-019-AC02", "BF3-019-AC03",
+      "BF3-020-AC01", "BF3-020-AC02", "BF3-020-AC03",
+      "BF3-021-AC01", "BF3-021-AC02", "BF3-021-AC03",
+      "BF3-022-AC01", "BF3-022-AC02", "BF3-022-AC03",
+      "BF3-023-AC01", "BF3-023-AC02", "BF3-023-AC03",
+      "BF3-024-AC01", "BF3-024-AC02", "BF3-024-AC03",
+      "BF3-025-AC01", "BF3-025-AC02", "BF3-025-AC03",
+      "BF3-026-AC01", "BF3-026-AC02", "BF3-026-AC03",
+      "BF3-027-AC01", "BF3-027-AC02", "BF3-027-AC03",
+      "BF3-028-AC01", "BF3-028-AC02", "BF3-028-AC03",
+      "BF3-029-AC01", "BF3-029-AC02", "BF3-029-AC03",
+      "BF3-030-AC01", "BF3-030-AC02", "BF3-030-AC03"
+    ],
+    "runtime_scenario_ids": [
+      "AT-001", "AT-002", "AT-003", "AT-004", "AT-005", "AT-006", "AT-007", "AT-008", "AT-009", "AT-010",
+      "AT-011", "AT-012", "AT-013", "AT-014", "AT-015", "AT-016", "AT-017", "AT-018", "AT-019", "AT-020",
+      "AT-021", "AT-022", "AT-023", "AT-024", "AT-025", "AT-026", "AT-027", "AT-028", "AT-029", "AT-030",
+      "AT-031", "AT-032", "AT-033", "AT-034", "AT-035", "AT-036", "AT-037", "AT-038", "AT-039", "AT-040",
+      "AT-041", "AT-042", "AT-043", "AT-044", "AT-045", "AT-046", "AT-047", "AT-048", "AT-049", "AT-050",
+      "AT-051", "AT-052",
+      "HF01", "HF02", "HF03", "HF04", "HF05", "HF06", "HF07", "HF08", "HF09", "HF10",
+      "HF11", "HF12", "HF13", "HF14", "HF15", "HF16", "HF17", "HF18", "HF19", "HF20",
+      "CF01", "CF02", "CF03", "CF04", "CF05", "CF06", "CF07", "CF08"
+    ]
+  },
+  "packages": [
+    {"id":"BF3-001","gate":"G0","status":"partial","scenarios":["AT-032"],"gap":"No current gate oracle or complete source/owner/deployment decision."},
+    {"id":"BF3-002","gate":"G0","status":"partial","scenarios":["AT-001","AT-002","HF01"],"gap":"Strict parser exists; canonical types, schemas, examples and semantic validators are absent."},
+    {"id":"BF3-003","gate":"G0","status":"partial","scenarios":["AT-003","AT-004","HF16"],"gap":"Bounded DB and replay exist; complete state/job/effect/outbox kernel does not."},
+    {"id":"BF3-004","gate":"G0","status":"partial","scenarios":["AT-005","AT-006","HF17","CF06"],"gap":"Session skeleton exists; membership/capabilities/scoped reads and unified client mutations do not."},
+    {"id":"BF3-005","gate":"G0","status":"not_started","scenarios":["AT-007","AT-008","AT-009","CF05"],"gap":"No complete grants, holds, accounting or completion reserve."},
+    {"id":"BF3-006","gate":"G0","status":"not_started","scenarios":["AT-010","AT-011"],"gap":"No immutable Git plan publication and atomic activation/current-validity contract."},
+    {"id":"BF3-007","gate":"G0","status":"not_started","scenarios":["AT-012"],"gap":"Historical fakes are outside active tree; no current bounded adapter fixture path."},
+    {"id":"BF3-008","gate":"G1","status":"not_started","scenarios":["AT-013","AT-014","HF06","HF09","CF01"],"gap":"No qualified isolation profile or honest physical occupancy lifecycle."},
+    {"id":"BF3-009","gate":"G1","status":"partial","scenarios":["AT-016","AT-017","AT-018","AT-019","AT-020","AT-022","HF07","HF08","CF03"],"gap":"Direct coordination claims exist; no unified allocator or all-job durable recovery."},
+    {"id":"BF3-010","gate":"G1","status":"blocked_by_qualification_and_hold","scenarios":["AT-026","HF02","HF03","HF04","HF05"],"gap":"No selected live transport has passed isolation/conformance; live use also requires HOLD authority."},
+    {"id":"BF3-011","gate":"G1","status":"not_started","scenarios":["AT-021","AT-030","AT-031","AT-033","AT-034","AT-044","HF11","CF02"],"gap":"No current immutable Candidate and independent protected verifier path."},
+    {"id":"BF3-012","gate":"G1","status":"not_started","scenarios":["AT-015","AT-023","AT-024","AT-035","AT-036","AT-037"],"gap":"No durable credential-separated publication and reconciliation adapter."},
+    {"id":"BF3-013","gate":"G1","status":"not_started","scenarios":[],"gap":"No installed real browser-to-independently-checked-draft-PR recovery demonstration."},
+    {"id":"BF3-014","gate":"G2","status":"partial","scenarios":["AT-040"],"gap":"Observation exists; owner lanes, fairness, grants and external-work reconciliation do not."},
+    {"id":"BF3-015","gate":"G2","status":"partial","scenarios":["AT-038","AT-039"],"gap":"Human-only stop exists; takeover, return and respecification do not."},
+    {"id":"BF3-016","gate":"G2","status":"not_started","scenarios":["AT-027"],"gap":"No second qualified coding-provider family."},
+    {"id":"BF3-017","gate":"G2","status":"not_started","scenarios":["AT-025","HF12"],"gap":"No persistent bounded planning/conversations/accepted-plan task packets."},
+    {"id":"BF3-018","gate":"G2","status":"partial","scenarios":["HF19"],"gap":"Embedded React shell exists; its primary reads/events and shared client authority are absent."},
+    {"id":"BF3-019","gate":"G2","status":"not_started","scenarios":["AT-041","AT-042","CF04"],"gap":"No protected native integration and assembled-outcome validity."},
+    {"id":"BF3-020","gate":"G2","status":"not_started","scenarios":["AT-028","AT-029","AT-043","AT-047","HF10","CF08"],"gap":"No complete cost/window/route accounting."},
+    {"id":"BF3-021","gate":"G2","status":"partial","scenarios":["AT-045","AT-046","HF20","CF07"],"gap":"Repository migration backup is proven; product restore/retention/export/import is not."},
+    {"id":"BF3-022","gate":"G2","status":"not_started","scenarios":["AT-052"],"gap":"No current team fault/release/performance/independent-rebuild evidence."},
+    {"id":"BF3-023","gate":"G3","status":"not_started","scenarios":["AT-048","AT-049","HF13","HF14","HF18"],"gap":"No controlled learning/shadow/promotion system."},
+    {"id":"BF3-024","gate":"G3","status":"not_started","scenarios":[],"gap":"Grok Build executor qualification not performed."},
+    {"id":"BF3-025","gate":"G3","status":"not_started","scenarios":["AT-050"],"gap":"No named existing production pipeline integrated."},
+    {"id":"BF3-026","gate":"G3","status":"not_started","scenarios":["AT-051"],"gap":"No signed Slack thin client."},
+    {"id":"BF3-027","gate":"G3","status":"not_started","scenarios":[],"gap":"Grok Bot and SMS capabilities not independently identified/validated."},
+    {"id":"BF3-028","gate":"G3","status":"not_started","scenarios":["HF15"],"gap":"OpenJarvis component boundary evaluation not performed."},
+    {"id":"BF3-029","gate":"G3","status":"not_started","scenarios":[],"gap":"Architecture replacement/federation need not evaluated from measured G2 evidence."},
+    {"id":"BF3-030","gate":"G3","status":"not_started","scenarios":[],"gap":"No evidence-selected forge-native improvement decision/implementation."}
+  ],
+  "next": [
+    "Complete and merge consolidation PR A after new checks and independent exact-head review.",
+    "Complete the serialized command/installer PR B and retire five redundant repositories after all gates.",
+    "Start BF3-001; do not begin a dependent package until its prerequisites and evidence are current."
+  ]
+}

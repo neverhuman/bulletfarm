@@ -2,8 +2,11 @@
 
 The sole authoritative repository is `neverhuman/bulletfarm`, developed in
 `/home/ubuntu/bulletfarm`. Supporting components are ordinary directories, never submodules
-or separate product repositories. The user-approved [consolidation](docs/migration/README.md)
-and [implementation plan](docs/implementation-plan.md) govern development.
+or separate product repositories. The user-approved [consolidation](docs/migration/README.md),
+[implementation plan](docs/implementation-plan.md), and exhaustive
+[gap-closure plan](docs/closure-plan.md) govern development. The closure plan maps every
+canonical package, acceptance criterion and runtime scenario and requires zero open issues
+and pull requests between serialized slices. Keep `BUILD_CHECKPOINT.json` truthful.
 The [canonical 3.0 specification](docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md) governs;
 the `(1)` document is provenance, not an alternative architecture or backlog.
 

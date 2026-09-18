@@ -1,5 +1,12 @@
 # BulletFarm: one workbench, one controller, one verified delivery path
 
+The exhaustive current-state, tips reconciliation, BF3-001–030 acceptance/scenario matrix,
+zero-open-PR queue rule and final completion audit are in the
+[complete gap-closure plan](closure-plan.md). This document supplies the product journey and
+engineering rationale; the closure plan prevents a feature, issue or supplied input from
+falling out of the execution queue. `BUILD_CHECKPOINT.json` is the machine-readable truthful
+snapshot and must be updated after every reviewed slice.
+
 User-approved implementation direction, 2026-09-18. This repository plan supersedes
 the earlier private dashboard/pruning direction. The sole repository is
 `neverhuman/bulletfarm`, with canonical checkout `/home/ubuntu/bulletfarm`.
