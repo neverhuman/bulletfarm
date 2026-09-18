@@ -164,6 +164,65 @@ fn prs_exits_one_when_gh_is_unavailable() {
 }
 
 #[test]
+fn retired_product_slugs_collapse_to_bulletfarm() {
+    use bf::prs::canonicalize_product_slug;
+    for slug in [
+        "neverhuman/bf",
+        "neverhuman/bullet-farm",
+        "neverhuman/bullet-kernel",
+        "neverhuman/bullet-git",
+        "neverhuman/bullet-portal",
+    ] {
+        assert_eq!(
+            canonicalize_product_slug(slug),
+            "neverhuman/bulletfarm",
+            "{slug}"
+        );
+    }
+    assert_eq!(
+        canonicalize_product_slug("neverhuman/bulletfarm"),
+        "neverhuman/bulletfarm"
+    );
+    assert_eq!(
+        canonicalize_product_slug("neverhuman/jeryu"),
+        "neverhuman/jeryu"
+    );
+    assert_eq!(canonicalize_product_slug("acme/bf"), "acme/bf");
+}
+
+#[test]
+fn prs_maps_retired_origins_onto_one_canonical_slug() {
+    let data = tempfile::tempdir().unwrap();
+    let retired = repo_with_origin("git@github.com:neverhuman/bf.git");
+    let sibling = repo_with_origin("https://github.com/neverhuman/bullet-kernel.git");
+    let live = repo_with_origin("git@github.com:neverhuman/fixture-a.git");
+    for repo in [&retired, &sibling, &live] {
+        let out = bf(
+            data.path(),
+            repo.path(),
+            &shim_path(),
+            &["claim", "src/", "-m", "x", "--as", "t"],
+        );
+        assert_eq!(out.status.code(), Some(0), "{}", stderr(&out));
+    }
+    let out = bf(data.path(), data.path(), &shim_path(), &["prs"]);
+    assert_eq!(out.status.code(), Some(0), "{}", stderr(&out));
+    let text = stdout(&out);
+    assert!(
+        text.contains("neverhuman/fixture-a#12"),
+        "live fixture must still list:\n{text}"
+    );
+    assert!(
+        !text.contains("neverhuman/bf#"),
+        "retired slug must not be queried as itself:\n{text}"
+    );
+    assert!(
+        !text.contains("neverhuman/bullet-kernel#"),
+        "retired slug must not be queried as itself:\n{text}"
+    );
+}
+
+#[test]
 fn slug_from_origin_maps_every_github_form() {
     use bf::prs::slug_from_origin;
     for url in [

@@ -1,6 +1,7 @@
-//! `bf` — see and steer every coding agent on this host. Bare `bf` opens the screen; the other
-//! verbs are one-liners agents run from any shell. Exit codes: 0 ok · 1 error · 2 conflict or
-//! refusal (overlapping claim, stale claim, denied stop) · 3 not implemented yet · 64 bad input.
+//! `bulletfarm` (`bf`) — see and steer every coding agent on this host. Bare invocation opens
+//! the screen; the other verbs are one-liners agents run from any shell. Exit codes: 0 ok ·
+//! 1 error · 2 conflict or refusal (overlapping claim, stale claim, denied stop) · 3 not
+//! implemented yet · 64 bad input. Both names share `~/.bf` / `BF_DATA_DIR`.
 use bf::{Error, Hub, Result};
 use clap::{Parser, Subcommand};
 use serde::{Deserialize, Serialize};
@@ -12,9 +13,9 @@ use uuid::Uuid;
 
 #[derive(Parser)]
 #[command(
-    name = "bf",
+    name = env!("CARGO_BIN_NAME"),
     version,
-    about = "See and steer every coding agent on this host. `bf` alone opens the screen.",
+    about = "See and steer every coding agent on this host. `bulletfarm` or `bf` alone opens the screen.",
     after_help = "Agents coordinate with: bf board · bf claim <paths> -m \"why\" · bf heartbeat <id> · bf release <id> --proof '<cmd>' · bf note -m \"…\" --to <agent>"
 )]
 struct Cli {
