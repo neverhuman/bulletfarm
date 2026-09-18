@@ -1,0 +1,93 @@
+[exception_surface]
+owner = "ops"
+docs_url = "docs/errors.md"
+required_fields = ["purpose", "reason", "common_fixes", "docs_url", "repair_hint"]
+rerun = "cargo test --locked --test assurance_controls"
+
+[[error_kind]]
+name = "invalid_input"
+purpose = "reject malformed CLI, lock, manifest, policy, contract, or archive input before mutation"
+reason = "the supplied subject does not satisfy its strict schema or path contract"
+common_fixes = [
+  "read the stable error code and repair guidance before retrying",
+  "regenerate derived files with their mapped command instead of editing them",
+]
+docs_url = "docs/errors.md#invalid-input"
+repair_hint = "rerun the owner/test-map command for the rejected subject"
+
+[[error_kind]]
+name = "conflict"
+purpose = "preserve one-writer, no-replace, and exact-subject transaction boundaries"
+reason = "current durable or filesystem state conflicts with the requested transition"
+common_fixes = [
+  "read back current state before issuing a new command",
+  "use a new idempotency subject when the intended operation is genuinely different",
+]
+docs_url = "docs/errors.md#conflict-or-changed-subject"
+repair_hint = "inspect coordinator status or the exact destination before retrying"
+
+[[error_kind]]
+name = "unsupported_schema"
+purpose = "fail closed on persisted or wire data the current binary cannot interpret"
+reason = "the subject uses a schema version outside the admitted set"
+common_fixes = [
+  "use the explicit export/removal procedure for disposable pre-1.0 state",
+  "install the exact binary and lock version that own the subject",
+]
+docs_url = "docs/errors.md#unsupported-or-corrupt-state"
+repair_hint = "follow the schema-removal or setup-recovery runbook; never rewrite the bytes in place"
+
+[[error_kind]]
+name = "corrupt_state"
+purpose = "stop replay when append-only coordination or generated authority state is incomplete"
+reason = "checksums, framing, sequence, or required records do not form one valid state"
+common_fixes = [
+  "preserve the bytes for diagnosis before cleanup",
+  "restore from independently verified backup or rebuild only generated projections",
+]
+docs_url = "docs/errors.md#unsupported-or-corrupt-state"
+repair_hint = "run the owning integrity test and recovery procedure before any mutation"
+
+[[error_kind]]
+name = "dependency_unavailable"
+purpose = "refuse an operation when a required tool, source, credential, service, or artifact is absent"
+reason = "a named prerequisite could not be admitted as the exact expected subject"
+common_fixes = [
+  "run bullet-family doctor --json and address the named BLOCKED check",
+  "provision the pinned prerequisite without substituting an ambient executable or credential",
+]
+docs_url = "docs/errors.md#dependency-unavailable"
+repair_hint = "rerun doctor, then only the narrow lane named by the failed prerequisite"
+
+[[error_kind]]
+name = "verification_failed"
+purpose = "keep transport or component success separate from verified product truth"
+reason = "the exact subject failed a required check, signature, digest, proof, or read-back"
+common_fixes = [
+  "inspect the exact failing subject and raw proof output",
+  "produce new evidence after repairing or changing the subject",
+]
+docs_url = "docs/errors.md#verification-failed"
+repair_hint = "rerun the mapped proof without skip, ignore, or allow-failure behavior"
+
+[[error_kind]]
+name = "outcome_unknown"
+purpose = "prevent ambiguous local or remote effects from being classified as success or failure"
+reason = "the operation may have happened but authoritative read-back has not resolved it"
+common_fixes = [
+  "reconcile by the original request and exact desired-state identity",
+  "do not dispatch a second write or switch providers",
+]
+docs_url = "docs/errors.md#outcome-unknown"
+repair_hint = "run read-back/reconciliation; keep the subject frozen until it reaches verified or refused"
+
+[[error_kind]]
+name = "receipt_missing"
+purpose = "keep component observations from silently becoming release authority"
+reason = "the requested profile requires independently signed exact-subject evidence that is not registered"
+common_fixes = [
+  "run the tagged proof with the admitted signer and trusted-time policy",
+  "register the receipt only after kind-specific semantic verification",
+]
+docs_url = "docs/errors.md#receipt-missing"
+repair_hint = "run bullet-family check release --json and follow the repair field for the blocked gate"

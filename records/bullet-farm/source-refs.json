@@ -1,0 +1,154 @@
+[
+  {
+    "oid": "55e86b2bcf96044ad57a997ab41768deea336681",
+    "ref": "refs/heads/archive/github-snapshot-20260909"
+  },
+  {
+    "oid": "02d92bebe42ef91a12a1bbad6b581607cbb5e5b5",
+    "ref": "refs/heads/archive/jeryu-02d92be"
+  },
+  {
+    "oid": "12b43866e3d7f1be21af3f17fc52d04db226fe43",
+    "ref": "refs/heads/claude/hub-green"
+  },
+  {
+    "oid": "26a8554bdbc1eb14c9733f1fd3b30f1b963e6d4b",
+    "ref": "refs/heads/codex/ci-java-observation-20260909"
+  },
+  {
+    "oid": "10972467653a58ef34dec78a051aca35a61598f8",
+    "ref": "refs/heads/cursor/asap-oid-pin"
+  },
+  {
+    "oid": "18568fe8d60934c96670de1e24c755f90bef61fe",
+    "ref": "refs/heads/cursor/asap-operator-loop"
+  },
+  {
+    "oid": "3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+    "ref": "refs/heads/cursor/jankurai-90-github"
+  },
+  {
+    "oid": "062b754a530fbf75e6dff60b0d662576b6206fdf",
+    "ref": "refs/heads/cursor/operator-console-recorders"
+  },
+  {
+    "oid": "414f999cd4d87c580b3d60353de24ecd687d4ea3",
+    "ref": "refs/heads/cursor/operator-console-stranger"
+  },
+  {
+    "oid": "7b36cc104e7d9a30b423c334c849ae87a5b0db85",
+    "ref": "refs/heads/cursor/oss-hygiene"
+  },
+  {
+    "oid": "c58fc5b943e161120a667b8339e4943f8b86a1c5",
+    "ref": "refs/heads/cursor/v02-a1-recorder"
+  },
+  {
+    "oid": "0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+    "ref": "refs/heads/cursor/v02-b2-harness"
+  },
+  {
+    "oid": "4fc068767b42785d46e72d84e7e7e0fd1b350590",
+    "ref": "refs/heads/cursor/v02-honesty-oids"
+  },
+  {
+    "oid": "216621ad7c028748f6b4cbbb9437019bac0fa820",
+    "ref": "refs/heads/cursor/v02-p7-rows"
+  },
+  {
+    "oid": "8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+    "ref": "refs/heads/cursor/v02-postmerge-docs"
+  },
+  {
+    "oid": "d1ed66284d029dfbf90e63896d21ed0db1d307b4",
+    "ref": "refs/heads/cursor/xbabe2-closeout-docs"
+  },
+  {
+    "oid": "2143d4bf5a803375245f00c9b0d4b644311b744d",
+    "ref": "refs/heads/cursor/xbabe2-head"
+  },
+  {
+    "oid": "430d9c4fec46a40efb838cd2e696726de811103a",
+    "ref": "refs/heads/main"
+  },
+  {
+    "oid": "3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+    "ref": "refs/pull/1/head"
+  },
+  {
+    "oid": "7b36cc104e7d9a30b423c334c849ae87a5b0db85",
+    "ref": "refs/pull/10/head"
+  },
+  {
+    "oid": "c58fc5b943e161120a667b8339e4943f8b86a1c5",
+    "ref": "refs/pull/11/head"
+  },
+  {
+    "oid": "0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+    "ref": "refs/pull/12/head"
+  },
+  {
+    "oid": "8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+    "ref": "refs/pull/13/head"
+  },
+  {
+    "oid": "216621ad7c028748f6b4cbbb9437019bac0fa820",
+    "ref": "refs/pull/14/head"
+  },
+  {
+    "oid": "4fc068767b42785d46e72d84e7e7e0fd1b350590",
+    "ref": "refs/pull/15/head"
+  },
+  {
+    "oid": "18568fe8d60934c96670de1e24c755f90bef61fe",
+    "ref": "refs/pull/16/head"
+  },
+  {
+    "oid": "10972467653a58ef34dec78a051aca35a61598f8",
+    "ref": "refs/pull/17/head"
+  },
+  {
+    "oid": "56dcc27337f17522b07e4ec16dd290c819faa297",
+    "ref": "refs/pull/18/head"
+  },
+  {
+    "oid": "12374d5e6c176b872f12ef78fde1381c187c320b",
+    "ref": "refs/pull/19/head"
+  },
+  {
+    "oid": "d1ed66284d029dfbf90e63896d21ed0db1d307b4",
+    "ref": "refs/pull/2/head"
+  },
+  {
+    "oid": "70295782dc56e038979bc395cfb4e8b5d5059d97",
+    "ref": "refs/pull/20/head"
+  },
+  {
+    "oid": "12b43866e3d7f1be21af3f17fc52d04db226fe43",
+    "ref": "refs/pull/3/head"
+  },
+  {
+    "oid": "a26e28b3e7eee3545de6a2d53e741d58fd353dc9",
+    "ref": "refs/pull/4/head"
+  },
+  {
+    "oid": "2143d4bf5a803375245f00c9b0d4b644311b744d",
+    "ref": "refs/pull/5/head"
+  },
+  {
+    "oid": "422e9b26483ad9d2b1f2ded0690b59dcca2ab446",
+    "ref": "refs/pull/6/head"
+  },
+  {
+    "oid": "d5530ae5fc93a9cebe0b1f26a1ae5f3ca0294df8",
+    "ref": "refs/pull/7/head"
+  },
+  {
+    "oid": "062b754a530fbf75e6dff60b0d662576b6206fdf",
+    "ref": "refs/pull/8/head"
+  },
+  {
+    "oid": "414f999cd4d87c580b3d60353de24ecd687d4ea3",
+    "ref": "refs/pull/9/head"
+  }
+]

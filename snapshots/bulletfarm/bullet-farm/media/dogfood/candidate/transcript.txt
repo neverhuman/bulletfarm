@@ -1,0 +1,82 @@
+  BULLET FARM  one contained provider turn becomes a reviewable Candidate
+  host xbabe2 · claude 2.1.266 · real account · real spend · recorded live
+
+1  The provider is a root-staged runtime, not whatever is on PATH
+$ ls -l /usr/lib/bullet/providers/claude/2.1.266/bin/claude
+-r-xr-xr-x 1 root root 215940592 Sep  9 11:00 /usr/lib/bullet/providers/claude/2.1.266/bin/claude
+$ b3sum .../bin/claude   vs   the enrolled digest
+23078eb938c327061efe99fa0e0f153915c57ef1f7c6c1955b782ba2ca5df9e0
+"executable_blake3":"23078eb938c327061efe99fa0e0f153915c57ef1f7c6c1955b782ba2ca5df9e0"
+  the enrollment pins that exact binary. any other one is refused.
+
+2  The turn gets no network, no host environment, no writable tree
+  bwrap --unshare-all --clearenv --ro-bind <clone> /workspace --chdir /workspace
+  slirp4netns + nftables default-drop, one allowlisted provider host
+  ANTHROPIC_API_KEY, GH_TOKEN and SSH_AUTH_SOCK are dropped, not masked.
+  destructive writes are structurally impossible: there is nothing writable.
+
+3  Running it now, on Bullet Farm's own kernel source
+$ proof-transaction-offline.sh   BULLET_TXN_PROVIDER=claude
+  farmd + production gitd + the product Runner + a real provider turn
+
+  /    0s   bwrap=4 claude=6   provider turn running inside bwrap     -    2s   bwrap=4 claude=6   provider turn running inside bwrap     \    3s   bwrap=4 claude=6   provider turn running inside bwrap     |    5s   bwrap=4 claude=6   provider turn running inside bwrap     /    7s   bwrap=4 claude=6   provider turn running inside bwrap     -    8s   bwrap=4 claude=6   provider turn running inside bwrap     \   10s   bwrap=4 claude=6   provider turn running inside bwrap     |   11s   bwrap=4 claude=6   provider turn running inside bwrap     /   13s   bwrap=4 claude=6   provider turn running inside bwrap     -   14s   bwrap=4 claude=6   provider turn running inside bwrap     \   16s   bwrap=4 claude=6   provider turn running inside bwrap     |   17s   bwrap=4 claude=6   provider turn running inside bwrap     /   19s   bwrap=4 claude=6   provider turn running inside bwrap     -   20s   bwrap=4 claude=6   provider turn running inside bwrap     \   22s   bwrap=4 claude=6   provider turn running inside bwrap     |   23s   bwrap=4 claude=6   provider turn running inside bwrap     /   25s   bwrap=4 claude=6   provider turn running inside bwrap     -   26s   bwrap=4 claude=6   provider turn running inside bwrap     \   28s   bwrap=4 claude=6   provider turn running inside bwrap     |   29s   bwrap=4 claude=6   provider turn running inside bwrap     /   31s   bwrap=4 claude=6   provider turn running inside bwrap     -   32s   bwrap=4 claude=6   provider turn running inside bwrap     \   34s   bwrap=4 claude=6   provider turn running inside bwrap     |   35s   bwrap=4 claude=6   provider turn running inside bwrap     /   37s   bwrap=4 claude=6   provider turn running inside bwrap     -   39s   bwrap=4 claude=6   provider turn running inside bwrap     \   40s   bwrap=4 claude=6   provider turn running inside bwrap     |   42s   bwrap=4 claude=6   provider turn running inside bwrap     /   43s   bwrap=4 claude=6   provider turn running inside bwrap     -   45s   bwrap=4 claude=6   provider turn running inside bwrap     \   46s   bwrap=4 claude=6   provider turn running inside bwrap     |   48s   bwrap=4 claude=6   provider turn running inside bwrap     /   49s   bwrap=4 claude=6   provider turn running inside bwrap     -   51s   bwrap=4 claude=6   provider turn running inside bwrap     \   52s   bwrap=4 claude=6   provider turn running inside bwrap     |   54s   bwrap=4 claude=6   provider turn running inside bwrap     /   55s   bwrap=4 claude=6   provider turn running inside bwrap     -   57s   bwrap=4 claude=6   provider turn running inside bwrap     \   58s   bwrap=4 claude=6   provider turn running inside bwrap     |   60s   bwrap=4 claude=6   provider turn running inside bwrap     /   61s   bwrap=4 claude=6   provider turn running inside bwrap     -   63s   bwrap=4 claude=6   provider turn running inside bwrap     \   64s   bwrap=4 claude=6   provider turn running inside bwrap     |   66s   bwrap=4 claude=6   provider turn running inside bwrap     /   67s   bwrap=4 claude=6   provider turn running inside bwrap     -   69s   bwrap=4 claude=6   provider turn running inside bwrap     \   70s   bwrap=4 claude=6   provider turn running inside bwrap     |   72s   bwrap=4 claude=6   provider turn running inside bwrap     /   74s   bwrap=4 claude=6   provider turn running inside bwrap     -   75s   bwrap=4 claude=6   provider turn running inside bwrap     \   77s   bwrap=4 claude=6   provider turn running inside bwrap     |   78s   bwrap=4 claude=6   provider turn running inside bwrap     /   80s   bwrap=4 claude=6   provider turn running inside bwrap     -   81s   bwrap=4 claude=6   provider turn running inside bwrap     \   83s   bwrap=4 claude=6   provider turn running inside bwrap     |   84s   bwrap=4 claude=6   provider turn running inside bwrap     /   86s   bwrap=4 claude=6   provider turn running inside bwrap     -   87s   bwrap=4 claude=6   provider turn running inside bwrap     \   89s   bwrap=4 claude=6   provider turn running inside bwrap     |   90s   bwrap=4 claude=6   provider turn running inside bwrap     /   92s   bwrap=4 claude=6   provider turn running inside bwrap     -   93s   bwrap=4 claude=6   provider turn running inside bwrap     \   95s   bwrap=4 claude=6   provider turn running inside bwrap     |   96s   bwrap=4 claude=6   provider turn running inside bwrap     /   98s   bwrap=4 claude=6   provider turn running inside bwrap     -   99s   bwrap=4 claude=6   provider turn running inside bwrap     done in 101s                                                        
+
+
+4  What the Runner journalled, from the run you just watched
+  journal seq 1: lease_acquired: attempt atm_9277482c33cb7ef16f7224d6f26be6a32f1d50d9be7a91cce11805d1a206cc9f fence 1
+  journal seq 2: workspace_cloned: /home/ubuntu/bullet-e2e/20260909T132822Z/artifacts/runner-execution/work/atm_9277482c33cb7ef16f7224d6f26be6a32f1d50d9be7a91cce11805d1a206cc9f/generations/generation-00000000000000000000/repo
+  journal seq 3: turn_finished: invocation atm_9277482c33cb7ef16f7224d6f26be6a32f1d50d9be7a91cce11805d1a206cc9f exit Some(0)   a real, billed model turn
+  journal seq 4: patch_applied: 1 paths   the model's own proposal
+  journal seq 5: gate_result: gate gat_8888888888888888888888888888888888888888888888888888888888888888 exit Some(0) timed_out false
+  journal seq 6: candidate_grant_authenticated: atm_9277482c33cb7ef16f7224d6f26be6a32f1d50d9be7a91cce11805d1a206cc9f
+  journal seq 7: candidate_prepared: can_59af8ce73f3a16e1dae963662f1636f015168cbc04f4aeee5c5fd37bcfc9d66a
+  journal seq 8: candidate_preserved: can_59af8ce73f3a16e1dae963662f1636f015168cbc04f4aeee5c5fd37bcfc9d66a 6cadf4ea8c883a4b841fc5619bc7e0d7bb0d6733de2c9778051394e684ce6271 /home/ubuntu/bullet-e2e/20260909T132822Z/artifacts/preserve
+  journal seq 9: released: succeeded
+  journal seq 10: terminated: GITD_REFUSED
+  journal seq 11: released: failed requeue=true ok=false
+
+  the last two lines are a real, open defect, shown rather than hidden:
+  the Runner releases its lease before gitd cleans the workspace, and
+  gitd's cleanup re-reads that lease online. The Candidate is already
+  prepared and preserved by then. It reproduces on the simulator too.
+
+5  The Candidate, opened from the bundle that run preserved
+$ git -C /tmp/tmp.3VFdBthrZo log --oneline -1
+=cc51825 (HEAD -> bullet/var_f5e07d094c137554082f5c980800e97f7dde55d5ab6fdf07a404e9f230b6884e/atm_9277482c33cb7ef16f7224d 6f26be6a32f1d50d9be7a91cce11805d1a206cc9f, origin/bullet/var_f5e07d094c137554082f5c980800e97f7dde55d5ab6fdf07a404e9f230b 6884e/atm_9277482c33cb7ef16f7224d6f26be6a32f1d50d9be7a91cce11805d1a206cc9f, origin/HEAD) bullet: candidate for chg_02ebb e07bdec44ff7c389858d6c7177c8d35791978405e7714c4ad1cff560db2
+>$ git show --stat HEAD
+= PONG.txt | 1 +
+ 1 file changed, 1 insertion(+)
+>$ git show HEAD
+diff --git a/PONG.txt b/PONG.txt
+new file mode 100644
+index 0000000..e60c884
+--- /dev/null
++++ b/PONG.txt
+@@ -0,0 +1 @@
++PONG
+
+6  The receipt claims nothing it has not earned
+$ python3 -m json.tool dogfood-receipt.json
+  {
+      "schema_version": "v0",
+      "kind": "DOGFOOD_READ_ONLY_RECEIPT",
+      "class": "DOGFOOD_READ_ONLY",
+      "release_eligible": false,
+      "transaction_eligible": false,
+      "live_eligible": false,
+      "profile_eligible": false,
+      "candidate_eligible": false,
+      "scm_eligible": false,
+      "effect_eligible": false,
+      "verification_eligible": false,
+      "custody": "OPERATOR_LOCAL_KEY_SAME_UID",
+      "proposal_blake3": "f567f48a0a7525036cbdabae25e5d93e0a361289afe1df1579271c74f0678e2a",
+      "enrolled_runtime_version": "2.1.266",
+      "wall_ms": 47997,
+      "total_cost_micro_usd": 529592
+  }
+
+  every eligibility flag is false. this clears no release gate,
+  and the artifact says so itself rather than a footnote saying it.
+
+  Bullet Farm   github.com/neverhuman/bulletfarm

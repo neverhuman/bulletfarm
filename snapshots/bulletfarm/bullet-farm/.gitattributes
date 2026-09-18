@@ -1,0 +1,6 @@
+* text=auto eol=lf
+
+fixtures/** -text -eol
+*.gif -text
+*.pdf -text
+*.png -text

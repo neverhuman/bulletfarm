@@ -1,0 +1,24 @@
+name: Feature request
+description: Describe a task Bullet should help you complete.
+body:
+  - type: textarea
+    id: goal
+    attributes:
+      label: What are you trying to do?
+      description: Describe the task and who needs it.
+    validations:
+      required: true
+  - type: textarea
+    id: current
+    attributes:
+      label: What happens today?
+      description: Include an example or current workaround.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: What would a successful result look like?
+      description: Explain the behavior you need and how you would recognize success.
+    validations:
+      required: true

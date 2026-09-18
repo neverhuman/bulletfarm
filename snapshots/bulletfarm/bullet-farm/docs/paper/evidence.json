@@ -1,0 +1,87 @@
+{
+  "schema_version": "bullet.paper-evidence.v1",
+  "snapshot": {
+    "id": "20260825-stage1-r3",
+    "captured_at": "2026-08-25T07:56:43Z",
+    "source_date_epoch": 1787644603,
+    "stage": "architecture-component-assurance",
+    "family_clean": false,
+    "transaction_proof": false
+  },
+  "repositories": [
+    {"name":"bullet-farm","path":"bullet-farm","commit":"3039878371b661571e5b917660a0fe18b36afc69","tree":"8239b81c1c1a071bb92193ac601ad8fa5ee9bc3f","clean_at_capture":false},
+    {"name":"bullet-kernel","path":"bullet-kernel","commit":"ca380bc4ffd44909fc2644589fdedc81c44f5d28","tree":"5c0a9392f88d789bde01738a6eee54cb2e03eb97","clean_at_capture":false},
+    {"name":"bullet-git","path":"bullet-git","commit":"fb715b25c3b21d6d051e38a3f1f9e58c54ffdbfb","tree":"cb03723bbd59a4df1797b01c7eed321b54d01fb1","clean_at_capture":true},
+    {"name":"bullet-portal","path":"bullet-portal","commit":"95108e37d64364a25426cb65d320650c6bcf8b4d","tree":"50ee4db5f3b9729545af9b3a20c3ae88648c2a00","clean_at_capture":false}
+  ],
+  "toolchain": {
+    "rustc":"rustc 1.95.0 (59807616e 2026-04-14)",
+    "cargo":"cargo 1.95.0 (f2d3ce0bd 2026-03-21)",
+    "git":"git version 2.43.0",
+    "just":"just 1.58.0",
+    "jq":"jq-1.7",
+    "pdflatex":"pdfTeX 3.141592653-2.6-1.40.25 (TeX Live 2023/Debian)",
+    "bibtex":"BibTeX 0.99d (TeX Live 2023/Debian)",
+    "poppler":"pdfinfo version 24.02.0"
+  },
+  "commands": [
+    {"repository":"bullet-farm","command":"cargo run --locked --quiet --bin bullet-family -- doctor --json","outcome":"BLOCKED","exit_code":0,"boundary":"Read-only family installation inventory; unsupported schema-2 lock remains blocked by design"},
+    {"repository":"bullet-farm","command":"cargo run --locked --quiet --bin bullet-family -- check release --json","outcome":"BLOCKED","exit_code":3,"boundary":"26 blocked of 26 evaluated release gates; negative inventory only"},
+    {"repository":"bullet-farm","command":"just fast","outcome":"PASS","exit_code":0,"boundary":"Hub fast component lane; not a family transaction"},
+    {"repository":"bullet-farm","command":"just demo","outcome":"PASS","exit_code":0,"boundary":"Deterministic demonstration; not a TRANSACTION_PROOF or LIVE_PROOF"},
+    {"repository":"bullet-farm","command":"just contract","outcome":"PASS","exit_code":0,"boundary":"Generated wire/contract component proof"},
+    {"repository":"bullet-farm","command":"cargo test --locked -p bullet-wire --test policy_registry","outcome":"PASS","exit_code":0,"boundary":"Machine registry validation; planned invariants remain unimplemented"},
+    {"repository":"bullet-farm","command":"just audit","outcome":"PASS_COMPONENT_BLOCKED_FOR_RELEASE","exit_code":0,"boundary":"Deterministic local audit; score, caps, hard findings, and missing portable hosted artifact block release"},
+    {"repository":"bullet-farm","command":"bash formal/model-check.sh","outcome":"PASS","exit_code":0,"boundary":"Two bounded safety models at pinned state counts; not a system proof"},
+    {"repository":"bullet-kernel","command":"bash scripts/ci-local.sh required","outcome":"PASS","exit_code":0,"boundary":"Kernel component and contract tests only"},
+    {"repository":"bullet-git","command":"bash scripts/ci-local.sh required","outcome":"PASS","exit_code":0,"boundary":"BulletGit component and contract tests only; production clone remains AUTHORITY_CONTRACT_UNAVAILABLE"},
+    {"repository":"bullet-portal","command":"bash scripts/ci-local.sh required","outcome":"PASS","exit_code":0,"boundary":"Portal component, bundle, and browser fixtures only"}
+  ],
+  "results": {
+    "doctor":{"outcome":"BLOCKED","reason":"UNSUPPORTED_SCHEMA and stale checked family.lock are retained fail-closed"},
+    "release_gates":{"outcome":"BLOCKED","evaluated":26,"blocked":26},
+    "fast":{"outcome":"PASS","evidence_class":"Component-proved"},
+    "demo":{"outcome":"PASS","evidence_class":"Component-proved","transaction_gate_eligible":false},
+    "formal":{"outcome":"PASS","models":2,"scope":"bounded safety only"},
+    "invariant_registry":{"outcome":"PASS","tests":10,"enforced_gate0_entries":3},
+    "audit":{"outcome":"PASS_COMPONENT_BLOCKED_FOR_RELEASE","score":58,"raw_score":58,"caps":10,"hard_findings":29,"soft_findings":15,"portable_hosted_artifact":false},
+    "transaction_proof":{"outcome":"ABSENT"},
+    "live_proof":{"outcome":"ABSENT"},
+    "release_proof":{"outcome":"ABSENT"}
+  },
+  "maturity": ["Designed","Component-proved","Transaction-proved","Live/release-proved"],
+  "external_observations": [
+    {"name":"Gas Town","subject":"v1.2.1 / 319d33a91b2deca59bba6dd26be6b9daf8eaacf6","observed_at":"2026-08-25","url":"https://github.com/gastownhall/gastown/releases/tag/v1.2.1"},
+    {"name":"Gas City","subject":"v1.4.1 / 58ef17e3bd685fd5cf7f21286277b208d3324590","observed_at":"2026-08-25","url":"https://github.com/gastownhall/gascity/releases/tag/v1.4.1"},
+    {"name":"DeepSeek Harness","subject":"dsh-v0.1.1-rc.2 / b150a551b8d465e31e418e1b2eaf5e79bbb7d28e","observed_at":"2026-08-25","url":"https://github.com/deepseek-ai/DeepSeek-Harness/releases/tag/dsh-v0.1.1-rc.2"},
+    {"name":"Omnigent","subject":"v0.10.0 / 40755dd8dddb07e1eb6e4055d1d9936e184ceb9b","observed_at":"2026-08-25","url":"https://github.com/omnigent-ai/omnigent/releases/tag/v0.10.0"},
+    {"name":"OpenAI Codex","subject":"Official CLI and cloud documentation; proprietary/hosted behavior is black-box limited","observed_at":"2026-08-25","url":"https://developers.openai.com/codex/cli"},
+    {"name":"Claude Code","subject":"Official overview; proprietary behavior is black-box limited","observed_at":"2026-08-25","url":"https://docs.anthropic.com/en/docs/claude-code/overview"},
+    {"name":"Cursor","subject":"Official agent overview; proprietary behavior is black-box limited","observed_at":"2026-08-25","url":"https://docs.cursor.com/agent/overview"},
+    {"name":"GitHub Copilot coding agent","subject":"Official documentation; hosted behavior is black-box limited","observed_at":"2026-08-25","url":"https://docs.github.com/en/copilot/concepts/agents/coding-agent/about-coding-agent"},
+    {"name":"Jules","subject":"Official documentation; hosted behavior is black-box limited","observed_at":"2026-08-25","url":"https://jules.google/docs/"},
+    {"name":"Devin","subject":"Official documentation; hosted behavior is black-box limited","observed_at":"2026-08-25","url":"https://docs.devin.ai/"},
+    {"name":"Kiro","subject":"Official documentation; proprietary behavior is black-box limited","observed_at":"2026-08-25","url":"https://kiro.dev/docs/"},
+    {"name":"Gemini CLI","subject":"commit 812f7a2bcf20b6e80e2e50c3c8fa8e26567bc1e8","observed_at":"2026-08-25","url":"https://github.com/google-gemini/gemini-cli/tree/812f7a2bcf20b6e80e2e50c3c8fa8e26567bc1e8"},
+    {"name":"OpenHands / Agent Canvas","subject":"commit 150e76046db026dd944df0506642dc9b7b99391e","observed_at":"2026-08-25","url":"https://github.com/All-Hands-AI/OpenHands/tree/150e76046db026dd944df0506642dc9b7b99391e"},
+    {"name":"SWE-agent","subject":"commit 3ea751c087f32b16e039a2233dd6eefecef325d5","observed_at":"2026-08-25","url":"https://github.com/princeton-nlp/SWE-agent/tree/3ea751c087f32b16e039a2233dd6eefecef325d5"},
+    {"name":"mini-SWE-agent","subject":"commit 25941c89cfbc91eb40b3f8756348c91d9977d57e","observed_at":"2026-08-25","url":"https://github.com/SWE-agent/mini-swe-agent/tree/25941c89cfbc91eb40b3f8756348c91d9977d57e"},
+    {"name":"Aider","subject":"commit 5dc9490bb35f9729ef2c95d00a19ccd30c26339c","observed_at":"2026-08-25","url":"https://github.com/Aider-AI/aider/tree/5dc9490bb35f9729ef2c95d00a19ccd30c26339c"},
+    {"name":"Cline","subject":"commit 4f5f2384076e1eef461f53c8eb7d0ece6e0bb552","observed_at":"2026-08-25","url":"https://github.com/cline/cline/tree/4f5f2384076e1eef461f53c8eb7d0ece6e0bb552"},
+    {"name":"Continue","subject":"commit 5522c6f44ca0ac3528b37244818fbfa39b5af470","observed_at":"2026-08-25","url":"https://github.com/continuedev/continue/tree/5522c6f44ca0ac3528b37244818fbfa39b5af470"},
+    {"name":"Goose","subject":"commit f1d32e8dbbdf4c7265178904f00283af110ada1c","observed_at":"2026-08-25","url":"https://github.com/block/goose/tree/f1d32e8dbbdf4c7265178904f00283af110ada1c"},
+    {"name":"Roo Code","subject":"commit b867ec9145750d0ae1ff7f02d35406e9bf2a0b16","observed_at":"2026-08-25","url":"https://github.com/RooCodeInc/Roo-Code/tree/b867ec9145750d0ae1ff7f02d35406e9bf2a0b16"},
+    {"name":"Agent Client Protocol","subject":"commit 5acaa3acda11e29d523193bfb3401c8497f5a90e","observed_at":"2026-08-25","url":"https://github.com/agentclientprotocol/agent-client-protocol/tree/5acaa3acda11e29d523193bfb3401c8497f5a90e"},
+    {"name":"Model Context Protocol","subject":"commit 57ac4a2ec742e0cb7622d899b0f5d3bcf769fd69","observed_at":"2026-08-25","url":"https://github.com/modelcontextprotocol/modelcontextprotocol/tree/57ac4a2ec742e0cb7622d899b0f5d3bcf769fd69"}
+  ],
+  "artifact_hashes": [
+    {"path":"../repos.manifest.toml","sha256":"5639ce51dcbb31a38c306b7227bcf06a7bafb6358478ac3f65ad96fadb74d525"},
+    {"path":"family.lock","sha256":"46f962883530104df3f1ebff9887c48a130f224cf4f1a9e2f579e2a2d1e7f9ee"},
+    {"path":"docs/release.md","sha256":"2b9c2c082cc4119ea0fc4f6e51ecdd7480b32bff73c8174a2c33db6b4df5d5ad"},
+    {"path":"docs/assurance/invariant-registry.md","sha256":"b64fcf4dfeb22e3e15cf836547a047b5e593967845c076907729548e136b20a3"},
+    {"path":"formal/model-lock.json","sha256":"d9f231b85898623b8770302b7f3b23e4e2e6804b73d348b53baadebbc8297f4f"},
+    {"path":"formal/toolchain.lock.json","sha256":"495b4d878c72bf4385bd7167ee68199cf780047e3e4042b2c06d2834d58f5c7e"},
+    {"path":"policy/v1alpha1/policy.json","sha256":"0c6581c27988b2c9c31ce1a31dfed4b78ab44953b2e85ce5ba1839f0de465e5b"},
+    {"path":"docs/assurance/competitor-snapshot.md","sha256":"af70bba8bb4b41b38922b74ded2fa0230610e37289541b05b20ce0101dae6471"}
+  ]
+}

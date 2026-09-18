@@ -1,0 +1,12 @@
+.fusion/
+/.fusion.stage.*
+.bullet-family/
+.jankurai/
+.ci-artifacts/
+.ci-upload/
+.ci-tools/
+target/
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm
+.DS_Store

@@ -1,0 +1,89 @@
+{
+  "account": "REDACTED",
+  "binaries": {
+    "bullet": {
+      "sha256": "7a55b89202ee0b62feb14800ac7bb56252fee6fbe6de90379df64aab1c5e3677"
+    },
+    "bullet-farmd": {
+      "sha256": "7267c87936032661464339a0918bf6bba562d6d7511779d14f5093f8437fe0e7"
+    }
+  },
+  "canvas": {
+    "background_rgb": null,
+    "method": "NONE",
+    "native_height": 1080,
+    "native_width": 1920,
+    "offset_x": 0,
+    "offset_y": 0
+  },
+  "capture_sha256": "7d3342a5ccd3e45df7450bc7b9e7e641cb92e74b81995679e79b9d15c4989e47",
+  "claims": [
+    "local-observation",
+    "no-gate-cleared",
+    "real-recording"
+  ],
+  "gif": {
+    "bytes": 174727,
+    "sha256": "60d40828c64b7737040262131b8167f0af63d2e1aaf3aefa08daceaf5a0af49b"
+  },
+  "host": "xbabe2",
+  "kind": "portal",
+  "master": {
+    "ffv1_sha256": "57da9397eb44b2510ce0305208ab8bc7b21bc80668f982dd4ec41591fcfcfbd9",
+    "frames_framemd5_sha256": "edb76567d53fc8d5347a34fb19602a5b6a0c1218c3f48cbc74bc17a7d6d95edc"
+  },
+  "members": {
+    "bullet-farm": {
+      "dirty": false,
+      "oid": "a36306fe0428eaa57fd5d0d527e3e3488f062622"
+    },
+    "bullet-git": {
+      "dirty": false,
+      "oid": "4e33103673f535fde871ef26cffe05460674293b"
+    },
+    "bullet-kernel": {
+      "dirty": false,
+      "oid": "1d4771197434b29fb116c808eed9c69e310a0c42"
+    },
+    "bullet-portal": {
+      "dirty": true,
+      "oid": "00b13bfa299a80f1b390505663eff7b4c6c35a8e"
+    }
+  },
+  "name": "operator-portal",
+  "portal": {
+    "frames": 4
+  },
+  "provider": {
+    "name": "none",
+    "runtime_version": "0.0.0"
+  },
+  "receipt": {
+    "algorithm": "sha256",
+    "digest": "f36059e6691504d336f7b47e65758794229cae129d46558673d35906182e5008"
+  },
+  "recorded_at": "2026-09-10T20:17:01Z",
+  "recorder": {
+    "path": "scripts/media/record-portal.sh",
+    "sha256": "3862b11ec6a5f9c32514619dc91a042960e389b6b812a1856ec31bbbcd88571b"
+  },
+  "release_eligible": false,
+  "render_receipt_sha256": "ce6d026e83606753a231060bcf85c7e132ec77c5172f41a76088db392b6d3b37",
+  "render_tools": {
+    "agg": null,
+    "ffmpeg": {
+      "sha256": "e7e7fb30477f717e6f55f9180a70386c62677ef8a4d4d1a5d948f4098aa3eb99",
+      "version": "version"
+    },
+    "python": {
+      "sha256": "1643dacd9feaedc58f3cc581e4d22577dfe25c09b10282936186ccf0f2e61118",
+      "version": "3.12.3"
+    }
+  },
+  "run": {
+    "attempt_id": "atm_547358bb2b6e2e35c7747d7b1ca0eccace781d1ab0272e9bb5ff5ad2f0e2cebb",
+    "candidate_id": null,
+    "command_id": "cmd_c504f4f85c74fb32514a5ef828a4d1abaf7a5f7714fbc3ff1a06673aa1a8f1e2"
+  },
+  "schema": "bullet.real-media.v1"
+}

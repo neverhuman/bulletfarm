@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Build the React page and mirror web/dist into the committed web/bundle that build.rs embeds.
+# --check: fail if the committed bundle is stale (CI); otherwise rewrite it.
+set -euo pipefail
+cd "$(dirname "$0")/.."
+npm --prefix web run build
+python3 - "$@" <<'PYTHON'
+import sys, shutil
+from pathlib import Path
+source, target = Path('web/dist'), Path('web/bundle')
+expected = {str(p.relative_to(source)): p.read_bytes() for p in source.rglob('*') if p.is_file()}
+actual = {str(p.relative_to(target)): p.read_bytes() for p in target.rglob('*') if p.is_file()} if target.exists() else {}
+if '--check' in sys.argv:
+    if expected != actual:
+        raise SystemExit('Bundled workbench is stale. Run bash scripts/build-web and commit web/bundle.')
+    sys.exit(0)
+if target.exists():
+    shutil.rmtree(target)
+for name, data in expected.items():
+    path = target / name
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_bytes(data)
+print(f'web/bundle rewritten: {len(expected)} files')
+PYTHON

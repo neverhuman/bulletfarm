@@ -1,0 +1,22 @@
+# Proof-only harness. Excluded from the Hub workspace and never linked into any
+# shipped binary, but still inventoried and digest-pinned: exclusion from the
+# product build is not a reason to leave executable proof code unbound.
+#
+# The dependency is an immutable source and revision, not a machine-local path,
+# so the harness resolves identically on any host that can reach the remote.
+# The empty table makes this its own workspace root. Without it cargo reads the
+# Hub's workspace at ../../Cargo.toml, refuses with "current package believes
+# it's in a workspace when it's not", and the lane cannot build at all. Doing it
+# here rather than through an `exclude` in the Hub manifest keeps every product
+# manifest byte-identical, which is the promise the proof-only class rests on.
+[workspace]
+
+[package]
+name = "bullet-devnode-tui"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[dev-dependencies]
+anyhow = "=1.0.100"
+tuiwright = { git = "https://github.com/neverhuman/jankurai", rev = "4dfbdfa3585f1928d5f996d7b5e14608dff14a03" }

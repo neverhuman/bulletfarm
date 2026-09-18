@@ -1,0 +1,42 @@
+[
+  {
+    "oid": "9600d668b61c861d86368995eb1e70d4a50e85e3",
+    "ref": "refs/heads/archive/github-snapshot-20260909"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/heads/archive/jeryu-379587c"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/heads/claude/gitd-receipt-cleanup"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/heads/cursor/jankurai-90-bullet-git"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/heads/cursor/jankurai-90-github"
+  },
+  {
+    "oid": "808f47db71d8c72ee2afa363665e3c4e4dafa783",
+    "ref": "refs/heads/main"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/pull/1/head"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/pull/2/head"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/pull/3/head"
+  },
+  {
+    "oid": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "ref": "refs/pull/4/head"
+  }
+]

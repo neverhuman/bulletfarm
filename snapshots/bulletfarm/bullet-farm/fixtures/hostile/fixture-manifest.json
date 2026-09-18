@@ -1,0 +1,1 @@
+{"fixtures":[{"blake3":"c9393d9a7d32dc01f08886eb7e098423d482c3becbab32459f52c85d6ec11835","bytes":31835,"classification":"hostile_forensic_input","path":"fixtures/hostile/team-original.bin","runtime_authority":false,"sha256":"013f19032017ea5e27f69717f5e294e46aa56fbdabe31619ecfa0f77ac4007bf"}],"schema_version":"v1alpha1"}

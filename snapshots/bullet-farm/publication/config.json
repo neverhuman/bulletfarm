@@ -1,0 +1,19 @@
+{
+  "schema_version": "bullet.publication-config.v2",
+  "destination": "https://github.com/neverhuman/bulletfarm.git",
+  "root_files": {
+    ".github/ISSUE_TEMPLATE/bug.yml": "publication/root/.github/ISSUE_TEMPLATE/bug.yml",
+    ".github/ISSUE_TEMPLATE/config.yml": "publication/root/.github/ISSUE_TEMPLATE/config.yml",
+    ".github/ISSUE_TEMPLATE/feature.yml": "publication/root/.github/ISSUE_TEMPLATE/feature.yml",
+    ".github/PULL_REQUEST_TEMPLATE.md": "publication/root/.github/PULL_REQUEST_TEMPLATE.md",
+    ".github/workflows/publication.yml": "publication/root/.github/workflows/publication.yml",
+    "AGENTS.md": "publication/root/AGENTS.md",
+    "CONTRIBUTING.md": "publication/root/CONTRIBUTING.md",
+    "LICENSE": "publication/root/LICENSE",
+    "NOTICE": "publication/root/NOTICE",
+    "README.md": "publication/root/README.md",
+    "SECURITY.md": "publication/root/SECURITY.md",
+    "SUPPORT.md": "publication/root/SUPPORT.md",
+    "repos.manifest.toml": "publication/root/repos.manifest.toml"
+  }
+}

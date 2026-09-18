@@ -1,0 +1,60 @@
+name: Bug report
+description: Report a reproducible problem with Bullet.
+body:
+  - type: markdown
+    attributes:
+      value: |
+        For a suspected vulnerability, follow the [security policy](https://github.com/neverhuman/bullet-farm/blob/main/SECURITY.md).
+        Review logs before sharing them. Do not include tokens, cookies, private state, or unreviewed provider transcripts.
+        Changes are implemented in the owning member repository; an aggregate report can be routed there.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Where did this happen?
+      options:
+        - CLI, TUI, or Runner (Kernel)
+        - Browser interface (Portal)
+        - Candidate, workspace, or Git journal (BulletGit)
+        - Installation, documentation, or aggregate (Hub)
+        - Unsure
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source or installed version
+      description: Include the aggregate or member commit, or the installed package version.
+    validations:
+      required: true
+  - type: input
+    id: environment
+    attributes:
+      label: Environment
+      description: Operating system, architecture, and browser or terminal where relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction
+      description: Give the smallest sequence of commands or actions that shows the problem.
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: observed
+    attributes:
+      label: Observed behavior
+      description: Include the error and exit status. Say if the operation's outcome is unknown.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Reviewed diagnostics
+      description: Optional minimal logs or check results, with secrets and private content removed. Include failed or unexecuted checks.

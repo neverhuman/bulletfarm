@@ -1,0 +1,172 @@
+{
+  "schema": "bullet.health-audit-baseline.v1",
+  "classification": "HISTORICAL_UNQUALIFIED_AUDITOR_OBSERVATION",
+  "authority": "planning-and-repair-routing-only",
+  "captured_date": "2026-09-08",
+  "queue": "health-repair-queue.jsonl",
+  "queue_initial_sha256": "72c0c0a49db20c05861472d08af469ac2ff4367a993e932409e498b55cb863e4",
+  "counts": {
+    "findings": 165,
+    "high": 109,
+    "medium": 56,
+    "caps": 28,
+    "rows": 193
+  },
+  "subjects": [
+    {
+      "repository": "bullet-farm",
+      "subject": {
+        "head": "1b28afa4fe8c397b5010630af58f3d8b86493411",
+        "tree": "c8e326832ade51ce5d71f972ae3f086cb5e8ea76",
+        "source_digest": "a728fcebed74875499afab669141df176fb60d243c0ced31af7124a32c8c12f0",
+        "snapshot_sha256": "2f35a1db17fd5556c5e555c37adc6fe38880caaa7f21249615471ae8ab0755d5",
+        "dirty_status": " M publication/config.json\n M src/publication/mod.rs\n M src/publication/store.rs\n?? src/publication/ci_render.rs\n"
+      },
+      "report": {
+        "sha256": "5a4f987d9d8e1069c3620783014956566c2c3f5fdeb314acc5b0fbcb504c650d",
+        "fingerprint": "sha256:475cebfac0db85d33ffe9752ff8c30c451c77e96012c931c5eb1f2928f795ecf",
+        "generated_at": "1788891202",
+        "auditor_sha256": "9e6b8857a26f6004d4c74e510e13b06d880f2e2ae0c89502698889ed690c5d6c",
+        "auditor_version": "1.6.0",
+        "run_id": "1788891202"
+      },
+      "counts": {
+        "findings": 46,
+        "high": 25,
+        "medium": 21,
+        "caps": 6
+      },
+      "score": 65,
+      "raw_score": 65,
+      "exit": 1
+    },
+    {
+      "repository": "bullet-kernel",
+      "subject": {
+        "head": "463d7aa6c6e4d2507575d5221f9eaba02be6ad4c",
+        "tree": "e2871d554f7edeeddc2deb5ba9337c15cf0de8ed",
+        "source_digest": "89b0ddca013e8fc22bf796156a15410d118494c0146890b4f39e85c9aa79cb52",
+        "snapshot_sha256": "d311498f195c5c082668a7833ef1858ecd9a3aa976167ad09abc83ce797f6c4a",
+        "dirty_status": " M crates/adapters/src/sqlite/backup.rs\n M crates/adapters/src/sqlite/backup/create.rs\n M crates/adapters/src/sqlite/backup/restore.rs\n?? crates/adapters/src/sqlite/backup/staged.rs\n"
+      },
+      "report": {
+        "sha256": "5d82001309e7e171c4ab992d75642a14f04291d73ce3ae8344f4665104b7eba3",
+        "fingerprint": "sha256:f2c42a9fe115987da72e18617fa064e994d8b081273a8695e0cc9febd1b9a868",
+        "generated_at": "1788891200",
+        "auditor_sha256": "9e6b8857a26f6004d4c74e510e13b06d880f2e2ae0c89502698889ed690c5d6c",
+        "auditor_version": "1.6.0",
+        "run_id": "1788891200"
+      },
+      "counts": {
+        "findings": 65,
+        "high": 47,
+        "medium": 18,
+        "caps": 12
+      },
+      "score": 64,
+      "raw_score": 72,
+      "exit": 1
+    },
+    {
+      "repository": "bullet-git",
+      "subject": {
+        "head": "7c999f545a419d03fc94cdce2d804172bc3f0574",
+        "tree": "61f9cf31409ae95d918f10c58a0a71f5b4fe18e7",
+        "source_digest": "8037e48ec9d561a860bdeccab85bbcb81c4b006428552e77807515db01a5f271",
+        "snapshot_sha256": "87d70823ade188ae1397a7154edce6d0b6b6f5f05f5f234edf1a7ef43bd2a0ff",
+        "dirty_status": ""
+      },
+      "report": {
+        "sha256": "9daa911642166e36c82a2902eb651b99b92b28106765fde7089e8c8795815db1",
+        "fingerprint": "sha256:2070f79da1b4f53348a9aa5e52e6947575be5bfb7ab3d1dfac72de829da4ee5c",
+        "generated_at": "1788891188",
+        "auditor_sha256": "9e6b8857a26f6004d4c74e510e13b06d880f2e2ae0c89502698889ed690c5d6c",
+        "auditor_version": "1.6.0",
+        "run_id": "1788891188"
+      },
+      "counts": {
+        "findings": 16,
+        "high": 10,
+        "medium": 6,
+        "caps": 3
+      },
+      "score": 64,
+      "raw_score": 72,
+      "exit": 1
+    },
+    {
+      "repository": "bullet-portal",
+      "subject": {
+        "head": "3cc19fd388dfbedfca689f1703f9dc719ea9ac23",
+        "tree": "42a023a75de4955a1305f4e96057ddc2b85fad71",
+        "source_digest": "616fa95da7f999d7c50cc7883403a159f4af45d7dd5dee7cc9d789e33a0eac11",
+        "snapshot_sha256": "174e51b2847dd534afaeb212f1ba46e3732370a10cf632553fb96ef383df5a12",
+        "dirty_status": ""
+      },
+      "report": {
+        "sha256": "1c2fb0e6a9a74b6c81cf7faa97c9d7c40602c03e66633f0c0e21b6943861fe54",
+        "fingerprint": "sha256:7af58da9a93b23c66fbfd662d033d375b929a75683b29f134b8c8d2d608b2bc1",
+        "generated_at": "1788891188",
+        "auditor_sha256": "9e6b8857a26f6004d4c74e510e13b06d880f2e2ae0c89502698889ed690c5d6c",
+        "auditor_version": "1.6.0",
+        "run_id": "1788891188"
+      },
+      "counts": {
+        "findings": 38,
+        "high": 27,
+        "medium": 11,
+        "caps": 7
+      },
+      "score": 68,
+      "raw_score": 69,
+      "exit": 1
+    }
+  ],
+  "reproducers": {
+    "historical-full-audit": {
+      "preconditions": [
+        "Restore the exact recorded source snapshot, including preserved dirty files; HEAD alone is insufficient for Hub and Kernel",
+        "Select the original auditor executable by recorded SHA256 to reproduce the historical diagnostic; it is not an admitted acceptance artifact",
+        "Use distinct fresh output paths and preserve all prior reports",
+        "Reaudit changed sources with the admitted auditor after qualification and link the new subject without rewriting this baseline"
+      ],
+      "argv": [
+        "<exact-original-auditor>",
+        "audit",
+        "<exact-source-checkout>",
+        "--full",
+        "--no-score-history",
+        "--policy",
+        "<exact-source-checkout>/agent/audit-policy.toml",
+        "--fail-under",
+        "90",
+        "--fail-on",
+        "critical",
+        "--fail-on",
+        "high",
+        "--json",
+        "<fresh-output>/repo-score.json",
+        "--md",
+        "<fresh-output>/repo-score.md",
+        "--repair-queue-jsonl",
+        "<fresh-output>/repair-queue.jsonl",
+        "--timings-json",
+        "<fresh-output>/timings.json"
+      ]
+    }
+  },
+  "disposition_rules": [
+    "Rows preserve auditor observations, not 193 confirmed defects",
+    "Every initial row requires contextual triage, a reproducer, a repair owner and independent acceptance evidence before closure",
+    "Changed or missing paths, lower CLI thresholds, new exceptions and higher unqualified scores do not close rows",
+    "Caps are separately fingerprinted occurrences; link underlying findings without dropping them",
+    "Record Bullet repair, auditor repair or narrow reviewed exception and retained before/after evidence, preserving unsafe counterparts",
+    "Original auditor repair queues omitted some full-report findings; this queue retains all165 findings",
+    "Optional rule_id is null when absent in the original finding, whose dictionary is preserved verbatim as structured data"
+  ],
+  "limits": [
+    "Installed executable identified as 1.6.11 while these reports embed 1.6.0",
+    "No current health, full-family, hosted CI, provider or release acceptance",
+    "G1-G18 and all product/diagnostic profiles remain governed by the existing typed assurance inventory"
+  ]
+}

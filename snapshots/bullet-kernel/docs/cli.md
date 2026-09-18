@@ -1,0 +1,431 @@
+# `bullet` CLI reference
+
+Status: current source components; not an installed or release-qualified operator workflow
+Owner: Bullet Farm maintainers
+Last reviewed: 2026-09-12
+Source of truth: `apps/bullet/src/{main,auth,client,coding,mission,tui,transaction,authority,provider,maintenance,contracts}.rs`,
+their supporting modules, `apps/bullet/src/authority/mint.rs`, and the process-bin sources below.
+<!-- bullet-doc-review:v1 subject=cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e max_distance=25 paths=apps/bullet/src/main.rs,apps/bullet/src/tui/loader.rs,apps/bullet/src/tui/fleet.rs,apps/bullet/src/coding/http.rs,apps/bullet/src/mission.rs,apps/bullet/src/mission/remote.rs,apps/bullet/src/auth.rs,apps/bullet/src/auth/input.rs,apps/bullet/src/auth/session.rs,apps/bullet/src/auth/store.rs,apps/bullet/src/client.rs,apps/bullet/src/client/coherence.rs,apps/bullet/src/coding.rs,apps/bullet/src/coding/args.rs,apps/bullet/src/coding/task.rs,apps/bullet-farmd/src/commands/coding.rs,crates/application/src/coding_tasks.rs,crates/application/src/coding_tasks/validation.rs,crates/adapters/src/sqlite/coding_tasks/admission.rs,apps/bullet/src/coding/journal.rs,apps/bullet/src/coding/discovery.rs,apps/bullet/src/tui.rs,apps/bullet/src/tui/model.rs,apps/bullet/src/tui/ui.rs,apps/bullet/src/transaction.rs,apps/bullet/src/authority.rs,apps/bullet/src/provider.rs,apps/bullet/src/maintenance.rs,apps/bullet/src/contracts.rs,apps/bullet-farmd/src/main.rs,apps/bullet-farmd/src/main/bootstrap.rs,apps/bullet-runner/src/main.rs,apps/bullet-effects/src/main.rs,crates/adapters/src/sqlite/backup/create.rs,crates/adapters/src/sqlite/backup/restore.rs,crates/adapters/src/sqlite/open.rs,apps/bullet-farmd/src/main/launch.rs,crates/runner/src/signed_lease_rpc/recovery.rs -->
+
+`auth`, `coding`, remote `mission` reads and `tui` consume the loopback daemon. The local ledger helpers
+and guarded provider qualification paths remain separate. The operator controls
+below have component proofs; they do not establish installed provider execution,
+independent verification, integration or release acceptance. Operating HOLD
+continues until its actual predecessor admission and operator checkpoint.
+
+`bulletfarm` compiles the same command dispatcher as `bullet`, with equivalent
+flags and exit contracts. Run `bullet` with no subcommand to open the operator TUI.
+Advanced subcommands remain available for auth, diagnostics, and maintenance.
+The default durable Head conversation and first-class chat/assistant commands
+remain unimplemented.
+
+Interactive `bullet tui` draws CONNECTING before credential or network discovery;
+navigation and Ctrl+C detach remain available while discovery waits. An
+explicit `--subject` is selected after command discovery settles and its relevant
+snapshot is valid, and is
+retained in the reconnect command if the client detaches first. `--once`, piped
+output and `TERM=dumb` retain synchronous plain-text snapshot behavior. Multiple
+consoles share short credential reads; detaching one does not stop another.
+
+## Environment
+
+| Variable | Used by | Meaning |
+| --- | --- | --- |
+| `BULLET_DATA_DIR` | `farm init`, `demo`, `demo-synthetic` | data directory; default `./target/demo` currently fails ledger path admission; use an absolute private directory |
+| `BULLET_POLICY_PATH` | `authority mint-launch-grant`, `provider live-conformance` | absolute path overriding `<data-dir>/policy/policy.json` |
+| `BULLET_PROVIDER_KILL=1` | every provider argv build | kill switch; refuses every spawn (`PROVIDER_KILL_ACTIVE`) |
+| `NO_COLOR` | `auth status`, `coding board`/`watch`/`harness-check`, `tui` | present means text labels only; color also requires a TTY |
+
+## Commands
+
+| Command | Effect |
+| --- | --- |
+| `farm init` | on Linux, admit/create a self-owned non-symlink 0700 `<data-dir>`, create `ledger.sqlite`, and run migrations; other platforms refuse |
+| `farm backup --database <existing> --output <absent> --receipt <absent>` | private recovered SQLite snapshot with authentic schema-22/23/24/25/26/27, foreign-key and integrity checks, then a separate unsigned BLAKE3 receipt; a receipt failure can leave an unusable orphan snapshot |
+| `farm reap --database <existing>` | reclaim every writer lease already expired in the offline database; running farmd performs the same maintenance on its own tick |
+| `farm restore --backup <snapshot> --receipt <receipt> --destination <absent>` | verify exact receipt-bound schema-22/23/24/25/26/27 bytes, preserve schema/authority, advance the restore epoch, publish to an absent destination and read back; the result stays quarantined (normal open refuses) |
+| `demo` | deterministic ledger simulation; writes `<data-dir>/receipts.json`; fails on its own safety checks and unless Candidate/Evidence/Effect all remain unproduced |
+| `demo-synthetic [--target <origin repo>]` | simulator-only integration scaffold; while production authority is unavailable it exits failed with a typed refusal and no Candidate |
+| `transaction --json` | emit the typed `transaction_proof: "ABSENT"`, `transaction_gate_eligible: false` receipt and exit 2; omitting `--json` also refuses |
+| `contracts generate` | regenerate TypeScript, Rust models and JSON Schema together from `contracts/openapi.yaml` |
+| `contracts check` | fail when any generated TypeScript, Rust or JSON Schema output is stale |
+| `authority keygen` | create the operator launch-grant signing key; see below |
+| `authority mint-launch-grant` | mint one signed launch grant from the durable active lease; see below |
+| `provider live-conformance` | run the guarded 13-step live path for one provider; see below |
+| `mission list` / `mission status --mission <id>` | read the mission list or one stored graph from an authenticated atomic operator snapshot; `--json` retains its sequence, time and source |
+| `mission materialize` / `mission status --data-dir <directory> --mission <id>` | explicit local component helpers: materialize a plan revision (same seed + input replays the same ids; changed input refuses) / print the local stored graph |
+| `run show` / `run print-preimages` | verify and render one run receipt (recomputes the body digest; follows the embedded selection-receipt chain link) / emit BLAKE3 preimages for paths at an exact base commit; see below |
+| `dogfood read-only` | one contained read-only dogfood compose under ADR 0015; not a release profile, not live-conformance; see below |
+| `auth login` | exchange one-time bootstrap using hidden input, or `--stdin`; save private credentials for the selected loopback `--farmd` and exact allowed `--origin` |
+| `auth status` | check the saved session against the daemon and show nonsecret operator/session IDs and expiry |
+| `auth revoke` / `auth logout` | revoke the current server session; remove local credentials only after a matching acknowledgement |
+| `auth forget` | remove only the local credential copy; does not revoke server authority or remove request journals |
+| `tui` | read authenticated atomic operator snapshots, navigate missions/tasks/Attempts/Candidates/events/context and separately observed Submissions, and detach with an exact reconnect subject |
+| `coding submit` | journal the exact `run_coding` envelope before POST using saved credentials. Requires `--task <contract.json>`, `--account`, `--provider` ∈ `claude\|codex\|cursor\|antigravity`, and `--model`; optional `--effort` records the exact requested setting, and `--idempotency-key` reuses the original journal on exact retry. Secret-bearing argument flags are retired. |
+| `coding list` | discover this operator's durable command IDs and current phases after journal loss; `--after` resumes the returned cursor and `--limit` bounds each page to 1–100 commands |
+| `coding retry <id>` | resend only the exact saved journal, including a historical owned request; missing journal refuses without submitting |
+| `coding task <id>` | read accepted task/runtime selection, server task/run IDs and exact queue blockers from one authenticated snapshot; validate its payload digest even without a local journal |
+| `coding status <id>` | GET the same command subject using saved credentials; correlate kind and payload digest with its local journal when present |
+| `coding board` | fleet, sessions and outbox from one authenticated `/api/v1/operator-snapshot`; separate public health and optional `--command` observations. Empty fleet is zero lease rows. `--json` emits the observed projection objects. |
+| `coding watch` | poll the same board; `--interval-ms` must be ≥ 1 (`WATCH_INTERVAL_INVALID` otherwise). Not a coordinator fleet. |
+| `coding harness-check` | report `BULLET_HARNESS_*` PRESENT/ABSENT without spawning a provider. Exit 2 when unbound (`COMMAND_CODING_HARNESS_UNBOUND`). |
+| `coding stop` | typed `STOP_UNIMPLEMENTED` and exit 2; does not SIGKILL a provider |
+
+`talk`, `ask`, `head`, `setup`, and `serve` are not CLI commands. Native Head,
+Slack Socket Mode, Telegram, and a product installer remain typed absent.
+Hub `scripts/setup.sh` is contributor bootstrap only.
+
+## Operator client custody and recovery
+
+Run `bullet auth login` and `bullet tui` through SSH on xbabe2. Browser access
+uses an SSH forward to the packaged Portal once installation is qualified.
+Current source functionality does not establish that installation. Authentication
+defaults to `http://127.0.0.1:7420`; the selected Origin must equal the daemon's
+allowed Origin. HTTP destinations must be explicit numeric loopback addresses.
+
+The default private directory is `$XDG_STATE_HOME/bullet/operator`, falling back
+to `$HOME/.local/state/bullet/operator`. `--state-dir` selects another absolute
+private directory for auth, coding, remote mission and TUI commands. Its owner-only credentials
+are serialized with a file lock, validated through directory descriptors and
+fsynced before acknowledgement. Do not obtain bootstrap credentials from logs or
+pass them as command arguments. Existing, corrupt, linked or displaced files
+produce explicit refusal instead of being overwritten.
+
+Credential reads use a short shared lock, allowing simultaneous CLI and TUI
+readers. `auth status` releases this lock before waiting for HTTP. Login,
+revocation, forgetting credentials and request-journal writes retain exclusive
+custody; an overlapping client receives `AUTH_BUSY` while a writer owns the
+store. TUI refresh discovers credentials in a background worker and checks their
+identity again after each request. A changed login clears the previous owner's
+display; delayed responses from that identity are discarded. Missing or busy
+credentials leave navigation available, and refresh can recover without restart.
+
+Authenticated reads first observe `/api/v1/auth/session`, bind its acknowledged
+session ID, and send `X-Bullet-Expected-Session` on the selected read. Submission
+and revocation also bind that session. Missing, duplicate or mismatched
+`X-Bullet-Session-Id` responses refuse before body consumption, including absence
+results. This transport fence does not supply the unfinished durable composer
+or browser recovery journal.
+
+Submission prints a nonsecret journaled command ID before sending. After response
+loss, run `bullet coding status <id>` with the same state directory, or retry the
+exact input and idempotency key, or use `bullet coding retry <id>`. Preserve the journal when the outcome is unknown.
+After local journal loss, `bullet coding list` discovers the current operator's
+durable commands. Follow `next_after` with `--after`, using the same authenticated
+state directory. Each page has its own atomic snapshot watermark; pages do not
+form one cross-page snapshot. Historical commands without a recorded operator
+owner are not adopted. Discovery performs GETs and does not resubmit work.
+
+The journal contains the request and destination, not session credentials. A
+different input or endpoint for an existing key is a conflict. Human output
+separates the server phase from independently unchecked receipt verification;
+terminal control sequences in untrusted data are escaped. Explicit JSON output
+preserves its value while escaping unsafe terminal characters.
+
+`bullet mission list` and `bullet mission status --mission <id>` use the saved
+authenticated destination and one validated atomic snapshot per invocation.
+`--state-dir` selects the credential store; optional `--farmd` must exactly match
+its saved destination. Missing missions and malformed responses fail explicitly.
+These reads do not open a local ledger. For legacy component inspection, supply
+`mission status --data-dir <directory> --mission <id>`; local mode rejects
+`--state-dir`, `--farmd` and `--json`. Materialization remains a local helper.
+
+Open Fleet, Ready Queue and Outbox through Ctrl+K to inspect lease liveness,
+queued work and delivery records. These views use the operator snapshot and
+show their exact subjects and observation sequence. Empty rows do not imply
+provider execution or successful delivery.
+
+The TUI uses Ctrl+K for a jump list of Portal surface titles (six unknown
+surfaces stay `no ledger subject` and do not invent a view), Tab for panes,
+arrows or j/k for selection, Enter for details, Escape for back, `?` for help,
+`r` for one snapshot refresh, and `J` to toggle raw JSON in the detail pane.
+Ctrl+C detaches and prints a reconnect command; it does not cancel work
+(`STOP_UNIMPLEMENTED`). The status line is text-first: `HOLD`, `LIVE n` from
+snapshot lease liveness, `UNBOUND`, `HEAD_RUNTIME_BINDING_REQUIRED`,
+`CONNECTING` / `OBSERVED` / `STALE`, and `refresh pending` while a GET waits.
+Empty views say zero rows, not a green fleet. Selection stays bound to a subject
+across updates. Failed or regressing snapshots retain previous data with typed
+`STALE` / `FARMD_SNAPSHOT_REGRESSED` / `UNKNOWN`. `NO_COLOR` preserves every
+label without color; `--once`, redirected output and `TERM=dumb` use a plain
+snapshot. Current TUI updates are polled GETs. Native controls, exact queue
+blockers and approval mutations remain separate unfinished backend/UI
+obligations.
+
+Submissions displays actual command records from `/api/v1/commands`, with its
+own sequence, observation time and source. It does not manufacture a Mission,
+Task or Attempt from a command ID. The first page is bounded to 100 records;
+use `coding list --after <cursor>` for subsequent pages. The inspector and
+reconnect command preserve full subject IDs and digests. Typed session and CSRF
+credentials are kept outside the view, and terminal controls are escaped.
+
+## Durable conversation API
+
+The shared conversation backend accepts `conversation_message` only through
+authenticated `POST /api/v1/commands`. Its closed
+`bullet.conversation-message.v1` payload contains required `cursor` and `content`.
+A null cursor starts a server-identified thread. A reply supplies the exact
+current `{conversation_id, message_id, sequence}` read from the server; a stale
+cursor returns `CONVERSATION_CURSOR_CONFLICT` without saving another message.
+The original content is preserved, limited to 32768 UTF-8 bytes. Caller-selected
+roles, head identities and execution authority are refused.
+
+An `APPLIED` command receipt confirms the human message and its queued head-turn
+reference were saved atomically with operator ownership and audit records.
+Retrying the exact original command returns that original receipt even after
+the thread advances. Generic outbox/audit rows contain references rather than
+the message text. This acknowledgement establishes neither an assistant reply
+nor successful coding.
+
+`GET /api/v1/conversations` discovers owned threads in stable creation order.
+`GET /api/v1/conversations/{conversation_id}` returns complete messages, the
+current cursor and `HEAD_RUNTIME_BINDING_REQUIRED`. Both support bounded
+`after`/`limit` pages with a snapshot watermark and `Cache-Control: no-store`;
+the index cursor is a creation-event sequence and the message cursor is a
+thread-local sequence. Separate pages are separate snapshots. A revoked
+session cannot read either endpoint. Readers reject inconsistent prior history
+and assistant rows without a validated native outcome.
+
+Schema 27 appends immutable conversation, message and head-request tables.
+Recognized prior schemas return `UPGRADE_REQUIRED` without rewriting their
+files. The Portal Head overlay journals `conversation_message` and binds GET
+refresh to the `APPLIED` receipt; every GET still carries
+`HEAD_RUNTIME_BINDING_REQUIRED`. There is no `bullet talk` / `ask` / `head`
+command. Slack stays `SLACK_BIND_UNAVAILABLE` pending an append-only schema-28
+bind row; Telegram stays `TELEGRAM_UNAVAILABLE`. Native Head outcome, guided
+migration, and HOLD lift remain separate implementation work.
+These backend tests use isolated synthetic identities and make no live-provider
+or installation claim.
+
+## `authority keygen`
+
+| Flag | Required | Default | Meaning |
+| --- | --- | --- | --- |
+| `--data-dir <abs>` | yes | — | absolute Kernel data directory |
+| `--issuer <label>` | no | `bullet-kernel` | issuer label recorded in policy and every grant |
+| `--key-id <label>` | no | `launch-grant-alpha` | key label recorded in policy and every grant |
+
+Creates `<data-dir>/authority/launch-grant.key` (directory 0700, file 0600,
+64 raw PASETO v4.public secret bytes, `create_new`, never overwritten) and
+prints `key_file`, `public_key_hex`, and an `issuer_key_v1` JSON object
+(`key_purpose: authority-signing`, `algorithm: paseto-v4.public`,
+`audiences: ["provider-runner"]`, active now, expiring in 365 days, retained
+24 h beyond expiry) for the operator to ratify into a new policy generation.
+Stderr reminds that a v1alpha1 policy keeps live admission disabled regardless.
+Errors carry `LAUNCH_GRANT_INVALID` (relative path, existing key, custody
+violation). Unix only.
+
+## `authority mint-launch-grant`
+
+Lease facts are read from the ledger, never from the operator. No process is
+spawned. Stdout is the `SignedLaunchGrant` JSON (`schema_version`, `issuer`,
+`key_id`, `paseto`); diagnostics go to stderr.
+
+| Flag | Required | Default | Constraint |
+| --- | --- | --- | --- |
+| `--data-dir <abs>` | yes | — | holds `ledger.sqlite`, `authority/launch-grant.key`, `policy/policy.json` |
+| `--attempt <id>` | yes | — | `atm_` + 64 hex; must hold the durable active lease |
+| `--receipt <abs>` | yes | — | `ProviderConformanceReceipt` JSON; regular file, no symlink, ≤ 64 KiB, digest must verify |
+| `--provider <name>` | yes | — | must equal the receipt provider |
+| `--executable <abs>` | yes | — | must equal the receipt path; bytes are re-digested and must equal `executable_blake3` |
+| `--profile <id>` | yes | — | `prf_` + 64 hex; must equal the receipt profile |
+| `--model <label>` | yes | — | bounded printable identifier |
+| `--adapter <label>` | no | `<provider>-adapter` | bounded printable identifier |
+| `--credential-generation <u64>` | no | `1` | ≤ 2^53−1 |
+| `--sandbox-manifest-digest <hex64>` | yes | — | digest of the sandbox manifest the child runs under (`EgressPolicy::allowlist_digest` for the real backend) |
+| `--environment-digest <hex64>` | yes | — | `environment_digest` of the admission's staged child environment |
+| `--budget-invocations <u64>` | yes | — | ≥ 1 |
+| `--budget-wall-ms <u64>` | yes | — | ≥ 1 |
+| `--budget-cost-micro-usd <u64>` | yes | — | — |
+| `--gate-id <id>` | yes, repeatable | — | `gat_` + 64 hex; 1..=16 unique values |
+| `--ttl-ms <u64>` | no | `15000` | clamped to the lease remainder and to 15 000 |
+| `--issuer <label>` | no | `bullet-kernel` | operator key issuer label |
+| `--key-id <label>` | no | `launch-grant-alpha` | operator key label |
+
+Check order and stable error prefixes:
+
+1. `--data-dir`, `--receipt`, `--executable` absolute.
+2. Policy load (`BULLET_POLICY_PATH` or `<data-dir>/policy/policy.json`):
+   `POLICY_UNAVAILABLE` (missing, relative, symlink, non-regular) or
+   `POLICY_INVALID` (oversize, non-canonical, `UNSUPPORTED_POLICY_SCHEMA`,
+   `INVALID_POLICY_WINDOW`, key lifecycle codes, `UNSAFE_POLICY`,
+   `LIVE_ADMISSION_REQUIRES_GENERATION`, `LIVE_ADMISSION_REQUIRES_RUNNER_KEY`).
+   Accepted `schema_version` values are `v1alpha1` and `v1alpha2` (ADR 0012).
+3. Operator key custody: 0600, self-owned, regular, exactly 64 bytes
+   (`LAUNCH_GRANT_INVALID`).
+4. `authority_key_at(issuer, key_id, "provider-runner", now)`: policy window
+   (`POLICY_NOT_ACTIVE`), registered active unrevoked
+   `authority-signing`/`paseto-v4.public` key for that audience
+   (`LAUNCH_GRANT_KEY_UNKNOWN`); the file's public half must equal the policy's.
+5. Receipt load and `verify()`; `--provider`/`--executable`/`--profile` must
+   equal the receipt; executable bytes must match (`ADMISSION_REFUSED`).
+6. `--attempt` parse (`INVALID_ID`).
+7. `LedgerLaunchGrantIssuer::mint`: durable active lease read inside the
+   coherent lease check, nonce persisted, claims signed. Ledger or issuer
+   refusals surface with their own reason codes.
+8. Stdout: the grant. Stderr, when the policy keeps
+   `sandbox_policy.live_admission_enabled = false`: a note that the grant will
+   be refused as `POLICY_LIVE_ADMISSION_DISABLED` at admission. Under the
+   checked-in v1alpha1 policy that is always the case.
+
+Committed at `0d848f6`: immediately after the policy loads, stderr reports
+`bullet: policy schema_version=<v1alpha1|v1alpha2> generation=<n>
+live_admission_enabled=<bool> digest=<hex>` and `validate_at(now)` runs
+(`POLICY_NOT_ACTIVE` outside the window; `LIVE_ADMISSION_REQUIRES_RUNNER_KEY`
+when a v1alpha2 policy enables live admission without an active
+`provider-runner` key at `now`). The committed policy fixture is v1alpha1,
+generation 1, live admission disabled.
+
+## `provider live-conformance`
+
+| Flag | Required | Default | Constraint |
+| --- | --- | --- | --- |
+| `--data-dir <abs>` | yes | — | ledger, key, policy, receipts |
+| `--provider <name>` | yes | — | one of `claude`, `codex`, `cursor`, `agy` |
+| `--executable <abs>` | no | PATH lookup of `claude` / `codex` / `cursor-agent` / `agy` | canonicalized before use |
+| `--max-cost-micro-usd <u64>` | no | `50000` | tightest cost cap |
+
+Fixed inputs: wall timeout 180 s, grant TTL 15 000 ms, issuer `bullet-kernel`,
+key `launch-grant-alpha`, profile email `operator@bullet.farm`, adapter
+`<provider>-adapter`, model `<provider>-default`, credential generation 1,
+seed `live-conformance-<provider>`, one random 64-hex canary. The real
+`bullet-harness-egress` backend is always used; `agy` maps to the
+`antigravity` allowlist.
+
+Exit codes: `0` outcome `PONG`; `78` outcome `REFUSED` (neutral). The checked-in
+v1alpha1 policy returns `POLICY_LIVE_ADMISSION_DISABLED` at `POLICY`. A valid,
+active v1alpha2 policy reaches `RUNTIME_PROBE_UNAVAILABLE` at `ADMISSION` for
+all four production adapters, before operator-key read, graph/Mission or lease/
+nonce writes, egress preparation, or provider spawn. An invalid or inactive
+v1alpha2 policy fails at `POLICY`; `1` also covers outcome
+`FAILED` or a pre-run error (relative
+`--data-dir`, unknown provider, executable not found, policy or ledger open
+failure). Stdout first prints `policy: schema_version=… generation=…
+live_admission_enabled=… digest=…`, and every run prints `receipt: <path>`;
+receipts are sealed and fsync'd
+to `<data-dir>/live/<provider>-<utc>.json` on every outcome. The 13 steps and
+the receipt fields are listed in
+[`architecture.md`](architecture.md#live-conformance-path).
+
+The v1alpha1 receipt has `POLICY=REFUSED` and 12 `NOT_RUN` records. The valid
+v1alpha2 product receipt has `POLICY=PASS`, `ADMISSION=REFUSED`, and all other
+11 records—including `OPERATOR_KEY` and `LEASE`—`NOT_RUN`; the observation is
+checked early but mapped to the existing `ADMISSION` slot. The CLI opens its
+SQLite ledger before orchestration, but the refusal creates no Mission, graph,
+lease, or nonce row.
+
+## `run`
+
+`run show <receipt>` verifies before it renders: it recomputes the receipt's
+body digest over the canonical body bytes for the receipt's schema, and for an
+effect-chain receipt it decodes the embedded selection receipt and requires
+`selection_binding.receipt_body_digest` to equal that receipt's own
+`body_digest`. A flipped byte refuses with `RECEIPT_BODY_DIGEST_MISMATCH`; an
+unknown `schema_version` refuses without printing any body field; every render
+carries `eligibility 0/9 — NOT a release receipt`.
+
+`run print-preimages --repo <abs> --base-sha <sha> <path>...` prints one JSON
+line per path: `{"kind":"digest","digest":"<blake3 of git show base:path>"}`,
+or `{"kind":"absent"}` when the path does not exist at that commit. Digests
+match `b3sum --no-names` exactly.
+
+## `dogfood read-only`
+
+One contained read-only dogfood turn (ADR 0015). Clears no release gate; the
+receipt is a purpose-separated operational observation with every eligibility
+flag false, and the release registry refuses it as evidence.
+
+| Flag | Required | Default | Constraint |
+| --- | --- | --- | --- |
+| `--provider <name>` | no | `claude` | one of `claude`, `codex`, `cursor`, `antigravity`; only `claude` has a wired dispatch — the rest refuse `DOGFOOD_PROVIDER_UNIMPLEMENTED` before any staging |
+| `--data-dir <abs>` | yes | — | self-owned 0700 runtime directory |
+| `--policy <abs>` | yes | — | 0600 v1alpha2 policy, `policy_generation >= 2`, `live_admission_enabled` **false** (`true` is refused twice) |
+| `--binding <abs>` | yes | — | `DogfoodBindingV1` JSON: audience `dogfood-runner`, operation `read-only-propose` |
+| `--enrollment <abs>` | yes | — | must equal `<data-dir>/policy/enrollments/<provider>.json`; executable path and BLAKE3 must match it |
+| `--issuer <label>` / `--key-id <label>` | yes | — | fixture labels refused (`launch-grant-alpha` etc.) |
+| `--executable <abs>` | yes | — | re-hashed at the argv chokepoint; drift from the enrollment refuses |
+| `--credential source,target,blake3` | no | — | repeatable exact staged grants |
+| `--workdir <abs>` | yes | — | owner-private 0700 snapshot of the subject; the live family root is denylisted |
+| `--prompt <text>` | yes for a turn | — | absent is designed-neutral 78 |
+| `--max-budget-usd <f64>` | no | enrollment max | the enrollment cap still wins |
+| `--receipt <abs>` | yes | — | create-once 0600; overwrite refused |
+
+Exit codes: `0` a receipt was written; `78` designed-neutral (missing input,
+namespaces unavailable, containment unavailable); `1` typed refusal (live
+admission enabled, binding/enrollment mismatch, fixture key, argv drift).
+
+## Advanced coding task controls
+
+The intended default experience is a conversation about goals, progress and decisions
+with the head of the farm. Today the Portal Head overlay can queue human
+`conversation_message` rows; CLI `talk`/`ask`/`head` and Slack delivery are
+not implemented. The durable task controls below remain the coding-intent
+interface.
+
+`coding submit` sends `bullet.run-coding.v2` through the existing authenticated
+`POST /api/v1/commands`. A task contract records the objective, exact repository
+and base commit, scope paths, acceptance criteria, immutable gate selectors,
+earlier accepted task dependencies, shared invocation/cost limits and deadline.
+The daemon derives the accepted task revision and run-tracking identities. A
+runtime selection records the explicit account, provider, model and nullable effort.
+
+Start from [the illustrative task contract](examples/coding-task.json), replacing
+its repository, commit and gate selectors with the intended admitted subjects.
+Those example IDs do not authorize access to a repository or provider.
+
+```bash
+bullet coding submit --task task.json --account "$BULLET_ACCOUNT_ID" \
+  --provider codex --model "$BULLET_MODEL_ID" --idempotency-key my-task-v1
+bullet coding task <command-id> --json
+bullet coding retry <command-id> --json
+```
+
+The task, dependency edges, run tracking, command ownership, outbox and submission
+audit commit together. Exact retry returns the original command current phase
+without admitting another invocation. Different task or runtime fields under the
+same key are an idempotency conflict. New caller-supplied launch nonces,
+reservations and allocated runners are refused; historical owned requests keep
+their exact retry/read semantics.
+
+Accepted intent binds a request-digest nonce and quota reservation so dispatch
+may claim the task. `coding task` reports `CODING_BINDING_ADMISSION_UNAVAILABLE`
+only when that binding is missing, plus dependency evidence blockers and an
+expired deadline as applicable. Intent still allocates no Runner lease or live
+provider grant. Fresh expired deadlines, missing accepted dependencies and
+invocation-limit exhaustion have distinct typed refusals. This packet does not
+yet enforce aggregate monetary liabilities; accepted limits remain constraints
+for later provider work.
+
+`board` and `watch` read atomic operator projections with textual status labels.
+`NO_COLOR` or non-TTY output disables ANSI. All work reads require the saved
+operator session. Legacy internal component fixtures still exercise the historical
+worker adapter; they do not establish the new task scheduling or provider path.
+Operating HOLD, native control completion and independent evidence admission remain
+open; `coding stop` continues to refuse with `STOP_UNIMPLEMENTED`.
+
+## Daemons and process bins
+
+`bullet-farmd --provision-bootstrap-token <absolute-path>`
+creates a bootstrap token in an absent file and exits. Its existing parent must
+be owned by the current user with mode 0700; the created file has mode 0600.
+Provisioning cannot be combined with startup flags. It refuses symlinks and
+existing files and never prints the token.
+Normal startup accepts that file with `--bootstrap-token-file <absolute-path>`;
+it requires an owned, single-link, mode-0600 regular file below an admitted
+private parent. Without this flag, new bootstrap exchanges are disabled while
+existing durable sessions remain usable. Deliver the token privately to
+`bullet auth login`; it is consumed once and is never recovered from logs.
+
+| Binary | Flags | Notes |
+| --- | --- | --- |
+| `bullet-farmd` | `--data-dir` (default `./target/demo`), `--bind` (default `127.0.0.1:7420`; non-loopback refused), `--portal-origin <exact loopback origin>`, `--worker-token-file <protected file>`, `--reap-interval-ms <1..=500>`, `--lease-transport-socket <abs>` with durable `--lease-peer-registry` + `--lease-transport-key` (0700 parent, 0600 key); debug builds also expose `--fixture-lease-peer-registration <runner:epoch>` | routes in [`README.md`](../README.md#farmd-routes); the internal reconciler is inert without the worker token; the socket refuses without durable local registry/key (or the debug-only fixture) |
+| `bullet-runner` | `--lease-socket`, `--farmd-uid`, `--socket-gid`, `--lease-recovery` admit `SignedLeaseRpcClient::new_admitted`; missing any lease input returns typed `LEASE_TRANSPORT_ADMISSION_UNAVAILABLE`; explicit Candidate request/key, workspace/preservation, source/base, identity, scope/gates and idempotency inputs are also required; `--provider` accepts `sim`, `claude`, `codex`, `cursor`, `agy`, and `antigravity`. `claude` still requires the contained read-only `--dogfood-*` admission inputs and a positive `--dogfood-max-budget-usd`. Other providers validate `--signed-in-executable` and `--model`, then refuse before child launch with `PROVIDER_ADMISSION_INCOMPLETE: SIGNED_IN_CONTAINMENT_UNAVAILABLE`. They never construct `SimAdapter`. | HTTP `/v1/leases/*` stays unmounted; `HttpLeaseClient` remains unreachable |
+| `bullet-verifier` | arguments are ignored | always refuses before reading stdin with `VERIFICATION_INTENT_ADMISSION_UNAVAILABLE`; emits no evidence |
+| `bullet-verifier-fixture` | non-default `fixture-executor` feature; `--stdin` fixture JSON | credential-free component-test executor; output is explicitly `COMPONENT_PROOF`, `UNSIGNED_FIXTURE`, and ineligible for independent Evidence |
+| `bullet-effects` | no arguments, or `serve <durable-queue-dir>` | no arguments run a component `LocalBareForge` loss/reconciliation demo; `serve` processes at most one UNKNOWN job to `QUARANTINED` and reports `live_forge_success:false` |
+
+The Runner requires an observed zero process exit, no timeout, and a matching
+successful terminal event before applying a proposal. Failed-run proposals are
+retained as private artifacts; they do not produce a successful Attempt or an
+accepted Candidate. The signed-in refusal tests prove prelaunch refusal only;
+real worker execution, writable containment and native-terminal qualification
+remain open.

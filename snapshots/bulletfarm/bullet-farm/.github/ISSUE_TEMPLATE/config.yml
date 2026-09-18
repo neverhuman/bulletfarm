@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Unsigned local console runbook
+    url: https://github.com/neverhuman/bullet-farm/blob/main/docs/runbooks/loopback-console.md
+    about: Clone, just preview, just console. Not a trusted installer.

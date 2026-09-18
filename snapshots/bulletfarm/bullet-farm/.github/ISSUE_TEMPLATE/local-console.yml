@@ -1,0 +1,27 @@
+name: I cannot log in locally
+description: Unsigned loopback console failed. Do not paste tokens.
+title: "local console: "
+labels: []
+body:
+  - type: markdown
+    attributes:
+      value: >
+        Do not paste bootstrap tokens, cookies, CSRF values, or `/home/` paths.
+        This is not a trusted-installer or HOLD-lift request.
+  - type: checkboxes
+    id: path
+    attributes:
+      label: Path taken
+      options:
+        - label: I cloned neverhuman/bulletfarm (four sibling trees), not hub-only
+        - label: Rust 1.95.0, Node 22.23.2, npm 10.9.8
+        - label: `just preview` reported doctor BLOCKED / exit 3
+        - label: I used `just console` (not `just dev` or `just setup`)
+        - label: `--data-dir` was absolute under `$HOME`, not `/tmp`, not inside the clone
+  - type: textarea
+    id: refusal
+    attributes:
+      label: Typed refusal (non-secret)
+      description: Paste only OPERATOR_CONSOLE_* / DOGFOOD_OPS_* / setup: CODE lines.
+    validations:
+      required: true

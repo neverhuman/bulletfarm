@@ -1,0 +1,37 @@
+[stack]
+id = "rust-ts-vite-react-sqlite"
+version = "0.4.0"
+
+# The Hub has no application/domain or database runtime. Its Rust surfaces are
+# onboarding orchestration plus the versioned wire-contract crate.
+[rust]
+domain_paths = []
+forbidden_domain_imports = [
+  "std::fs",
+  "std::env",
+  "std::net",
+  "std::time::SystemTime",
+  "rand::",
+  "sqlx::",
+  "reqwest::"
+]
+
+[typescript]
+web_paths = []
+forbidden_web_imports = []
+generated_contract_paths = ["contracts/generated"]
+
+[python]
+allowed_truth_paths = []
+
+[queues]
+adapter_paths = []
+event_contract_paths = []
+generated_type_paths = ["contracts/generated"]
+client_markers = []
+
+[db]
+root_paths = []
+migration_paths = []
+constraint_paths = []
+schema_version = "not-applicable"

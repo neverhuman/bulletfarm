@@ -1,0 +1,94 @@
+[
+  {
+    "oid": "29870ac6162e63f8e1a352766b8e917cc3c07e59",
+    "ref": "refs/heads/archive/github-snapshot-20260909"
+  },
+  {
+    "oid": "8c7a911496bc1d115b8e6281a7fbc15404fabe23",
+    "ref": "refs/heads/archive/jeryu-8c7a911"
+  },
+  {
+    "oid": "9a620a5c58a5bb71e5d29e3a8b940404a33fcc4e",
+    "ref": "refs/heads/archive/jeryu-9a620a5"
+  },
+  {
+    "oid": "dbb57bee978bb870555029e18cd14ea5b87e2413",
+    "ref": "refs/heads/codex/authenticated-connected-proof"
+  },
+  {
+    "oid": "b470cbbc747269ab9c351f8cdad0d039ab40e520",
+    "ref": "refs/heads/codex/npm-bin-links-20260909"
+  },
+  {
+    "oid": "4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c",
+    "ref": "refs/heads/codex/xbabe2-operator-recovery"
+  },
+  {
+    "oid": "f946cdc648c4ca5225a7b60eb9cbe12b31425343",
+    "ref": "refs/heads/codex/xbabe2-operator-wave1"
+  },
+  {
+    "oid": "13233f777e57d1917cf74c6568a807fb786518bc",
+    "ref": "refs/heads/cursor/bf-a06-custody"
+  },
+  {
+    "oid": "1f2a35a6bc46429b0bd24bc0b74787af9c32b79c",
+    "ref": "refs/heads/cursor/bf-a06-pending-envelope"
+  },
+  {
+    "oid": "2c5564addcf3a39b37a3bfe909270391083a24d9",
+    "ref": "refs/heads/cursor/head-overlay-v1"
+  },
+  {
+    "oid": "ca1c22def568556289b62ae49034a2cc968c0c4e",
+    "ref": "refs/heads/cursor/jankurai-90-bullet-portal"
+  },
+  {
+    "oid": "954bb57b3a68f46eae592da67d738d565e3975cf",
+    "ref": "refs/heads/cursor/jankurai-90-github"
+  },
+  {
+    "oid": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+    "ref": "refs/heads/main"
+  },
+  {
+    "oid": "44a2ccd61bb6e929eaac72b44831545760d49301",
+    "ref": "refs/heads/root/plan-first-cycle-20260911"
+  },
+  {
+    "oid": "954bb57b3a68f46eae592da67d738d565e3975cf",
+    "ref": "refs/pull/1/head"
+  },
+  {
+    "oid": "1f2a35a6bc46429b0bd24bc0b74787af9c32b79c",
+    "ref": "refs/pull/2/head"
+  },
+  {
+    "oid": "13233f777e57d1917cf74c6568a807fb786518bc",
+    "ref": "refs/pull/3/head"
+  },
+  {
+    "oid": "ca1c22def568556289b62ae49034a2cc968c0c4e",
+    "ref": "refs/pull/4/head"
+  },
+  {
+    "oid": "f946cdc648c4ca5225a7b60eb9cbe12b31425343",
+    "ref": "refs/pull/5/head"
+  },
+  {
+    "oid": "4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c",
+    "ref": "refs/pull/6/head"
+  },
+  {
+    "oid": "dbb57bee978bb870555029e18cd14ea5b87e2413",
+    "ref": "refs/pull/7/head"
+  },
+  {
+    "oid": "2c5564addcf3a39b37a3bfe909270391083a24d9",
+    "ref": "refs/pull/8/head"
+  },
+  {
+    "oid": "44a2ccd61bb6e929eaac72b44831545760d49301",
+    "ref": "refs/pull/9/head"
+  }
+]

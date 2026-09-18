@@ -1,0 +1,19 @@
+# Scan every exact reachable object, including metadata and binary text hunks.
+# Repository-local ignore files and inline allow directives are not admitted.
+[extend]
+useDefault = true
+
+# Public BLAKE3 test commitment, independently traced to projection_digest().
+# Historical findings: Hub 9a5def68d367a27bf4f3d452bbbaf45982648b00 and
+# 5683c49298cfa7c393285e81497f80a4c71673a8, dogfood signing fixtures.
+# Match only this field and exact public value; never all digests or test paths.
+# Public Portal sessionStorage lookup label; returned CSRF tokens are values.
+# Historical blobs: 0bfbd9134ed3cad81907c7a47d83f6edd2efeaa7,
+# 61752ff7bfbd083b43447cf91c9a950c7a6e22d4, aef07f3c6f37d282e625cb75add95cc8b8f3de97.
+# The detector match starts at F_STORAGE_KEY; anchor the complete exact match.
+[allowlist]
+description = "Reviewed public projection commitment and browser storage label"
+regexTarget = "match"
+regexes = [
+    '''^F_STORAGE_KEY = "bullet-farm\.csrf\.v1"$''',
+    '''credential_projection_digest":"add2d0ddbd69262533f950dc6374b7f28917e39d8b7aa4ff64caf5df3d5fb9dd''']

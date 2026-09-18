@@ -1,0 +1,97 @@
+{
+  "account": "REDACTED",
+  "binaries": {
+    "bullet": {
+      "sha256": "42cbb8efbf0356828287615cfa2ff7a581fa9512cfa93442b1d03f80352a4bfd"
+    },
+    "bullet-farmd": {
+      "sha256": "b21497d5bc70a7fee7fad3366c1702097b722dd7a84d553e620bff8c738c93f7"
+    }
+  },
+  "canvas": {
+    "background_rgb": "171b21",
+    "method": "GIF_LOGICAL_SCREEN_EXPANSION",
+    "native_height": 1078,
+    "native_width": 1913,
+    "offset_x": 3,
+    "offset_y": 1
+  },
+  "capture_sha256": "dc2a39c3737b32f4b07539d7500f5ca067206fabeb1975cdd8b58952b448ed2d",
+  "claims": [
+    "local-observation",
+    "no-gate-cleared",
+    "real-recording"
+  ],
+  "gif": {
+    "bytes": 244815,
+    "sha256": "1b55423d63f4d9501068e431e1f30a6b3289b9a9c2abec4905cdc450bf92fc30"
+  },
+  "host": "xbabe2",
+  "kind": "terminal",
+  "master": {
+    "cast_sha256": "53a673d2d3f10b23defcab2cf2f455689ae7a2860556c0dd7bbba46cebe6a6cb"
+  },
+  "members": {
+    "bullet-farm": {
+      "dirty": false,
+      "oid": "76076e9ced368cdce7d3e39823d2bdc4c7d67804"
+    },
+    "bullet-git": {
+      "dirty": false,
+      "oid": "4e33103673f535fde871ef26cffe05460674293b"
+    },
+    "bullet-kernel": {
+      "dirty": true,
+      "oid": "53f6d96c335fb28cff7e631d8faa668681761dfb"
+    },
+    "bullet-portal": {
+      "dirty": false,
+      "oid": "d00c88ae1122c7cbad13ff7228bdf9a24424d9a9"
+    }
+  },
+  "name": "operator-tui",
+  "provider": {
+    "name": "none",
+    "runtime_version": "0.0.0"
+  },
+  "receipt": {
+    "algorithm": "sha256",
+    "digest": "ea24d61fdb4ae2316d819bb7af386333fcc03834f8a5b63e89da8ec751007089"
+  },
+  "recorded_at": "2026-09-11T04:42:30Z",
+  "recorder": {
+    "path": "scripts/media/record-tui.sh",
+    "sha256": "b4991706d3314a60cb138bd8e873665b32528e1ec62748be85d8604dc3c62406"
+  },
+  "release_eligible": false,
+  "render_receipt_sha256": "e228857f1c054192982715750e95ac1b7780c2e383520949849c62a9594cf61a",
+  "render_tools": {
+    "agg": {
+      "sha256": "59673469d625df6f55c72159c84ffbb7af1348ac379d0e79db43f4b80fb986a3",
+      "version": "1.5.0"
+    },
+    "ffmpeg": {
+      "sha256": "ed16af623947494a72e284b6eb8ff225f2da22b38b5d5069c2fd4b4ba3384e41",
+      "version": "6.1.1-3ubuntu5"
+    },
+    "python": {
+      "sha256": "1643dacd9feaedc58f3cc581e4d22577dfe25c09b10282936186ccf0f2e61118",
+      "version": "3.12.3"
+    }
+  },
+  "run": {
+    "attempt_id": "atm_7a64522074a099ac3971f411bc6ce2623b8d7595742c480b94a827460781e9ba",
+    "candidate_id": null,
+    "command_id": "cmd_b26696118b5ae1d68a8dd54341eb5529fab2743ebc91af469cd9a40b5efb9999"
+  },
+  "schema": "bullet.real-media.v1",
+  "terminal": {
+    "cols": 225,
+    "font_family": "agg-default-chain",
+    "font_size": 14,
+    "line_height": 1.4,
+    "renderer": "fontdue",
+    "rows": 54,
+    "theme": "github-dark"
+  }
+}

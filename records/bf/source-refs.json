@@ -1,0 +1,62 @@
+[
+  {
+    "oid": "b9bd7227ab9ce3dde8959dd0082a3848ed778673",
+    "ref": "refs/heads/codex/workbench-plan"
+  },
+  {
+    "oid": "0cc243ab26cf7c584564b1aba7e5eb0160a0da5d",
+    "ref": "refs/heads/main"
+  },
+  {
+    "oid": "9f0336268fa54ed0407524740dda6c520c7c600f",
+    "ref": "refs/pull/1/head"
+  },
+  {
+    "oid": "a42ce8df62f6cf9db749654e8a49540b3b307e6e",
+    "ref": "refs/pull/10/head"
+  },
+  {
+    "oid": "ebbb589243283c7b9f2bda3e906bbcfd712a8ec3",
+    "ref": "refs/pull/11/head"
+  },
+  {
+    "oid": "b9bd7227ab9ce3dde8959dd0082a3848ed778673",
+    "ref": "refs/pull/12/head"
+  },
+  {
+    "oid": "a1597470666b729c561128940c6b0b4c813bb5da",
+    "ref": "refs/pull/12/merge"
+  },
+  {
+    "oid": "e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba",
+    "ref": "refs/pull/2/head"
+  },
+  {
+    "oid": "04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932",
+    "ref": "refs/pull/3/head"
+  },
+  {
+    "oid": "d9a08d80763a9972275e29a1f87483a169ae7ae1",
+    "ref": "refs/pull/4/head"
+  },
+  {
+    "oid": "2eef1a2f2a082958778e56a2b621713ec1a1b771",
+    "ref": "refs/pull/5/head"
+  },
+  {
+    "oid": "f2403f76c414a8036c15ef789a9452beefef04b6",
+    "ref": "refs/pull/6/head"
+  },
+  {
+    "oid": "e7de3e72055539a4bb4c26b0e10be80b9820472d",
+    "ref": "refs/pull/7/head"
+  },
+  {
+    "oid": "093184dc7579824f404c1d4ee6d7b200511c742c",
+    "ref": "refs/pull/8/head"
+  },
+  {
+    "oid": "1fd7bc152e622ac9c3385b6b8dd1c68432d7c99b",
+    "ref": "refs/pull/9/head"
+  }
+]

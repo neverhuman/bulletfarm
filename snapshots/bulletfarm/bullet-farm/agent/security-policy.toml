@@ -1,0 +1,7 @@
+schema_version = "1.0.0"
+enabled_tools = ["gitleaks", "cargo-deny", "zizmor"]
+required_tools = ["gitleaks", "cargo-deny", "zizmor"]
+advisory_tools = []
+
+[severity_thresholds]
+fail_lane_on = "high"

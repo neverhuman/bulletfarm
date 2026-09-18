@@ -1,0 +1,37 @@
+[
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/heads/main",
+    "archive_tag": "archive/bulletfarm/heads/main"
+  },
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/local/HEAD",
+    "archive_tag": "archive/bulletfarm/local/HEAD"
+  },
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/local/heads/codex/consolidate-repository",
+    "archive_tag": "archive/bulletfarm/local/heads/codex/consolidate-repository"
+  },
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/local/heads/main",
+    "archive_tag": "archive/bulletfarm/local/heads/main"
+  },
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/local/reflog/3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "archive_tag": "archive/bulletfarm/local/reflog/3b7b474b163b513bdc94a6e8a026a392dcad3aa8"
+  },
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/local/remotes/origin/HEAD",
+    "archive_tag": "archive/bulletfarm/local/remotes/origin/HEAD"
+  },
+  {
+    "oid": "3b7b474b163b513bdc94a6e8a026a392dcad3aa8",
+    "ref": "refs/local/remotes/origin/main",
+    "archive_tag": "archive/bulletfarm/local/remotes/origin/main"
+  }
+]

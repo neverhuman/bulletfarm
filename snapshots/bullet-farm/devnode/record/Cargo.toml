@@ -1,0 +1,25 @@
+# Proof-only recorder. Never a product dependency, never published, and built by
+# no lane other than ops/ci/devnode.sh, which refuses to run anywhere but the
+# development host. Pinned in ops/ci/lib.sh as a proof manifest for the same
+# reason devnode/tui is: a harness no lane can see is a harness nobody reviews.
+#
+# The empty table makes this its own workspace root; without it cargo reads the
+# Hub's workspace and refuses to build.
+[workspace]
+
+[package]
+name = "bullet-devnode-record"
+version = "0.0.0"
+edition = "2021"
+publish = false
+
+[[bin]]
+name = "bullet-devnode-record"
+path = "src/main.rs"
+
+[dependencies]
+anyhow = "=1.0.100"
+image = { version = "=0.25.10", default-features = false, features = ["png"] }
+serde_json = "=1.0.145"
+sha2 = "=0.10.9"
+tuiwright = { git = "https://github.com/neverhuman/jankurai", rev = "4dfbdfa3585f1928d5f996d7b5e14608dff14a03" }

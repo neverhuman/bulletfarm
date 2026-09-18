@@ -1,0 +1,40 @@
+% Shared vector figure used by the IEEE paper and executive brief.
+\newcommand{\BulletArchitectureFigure}[1]{%
+\begin{tikzpicture}[
+  x=1cm,y=1cm,>=Latex,
+  plane/.style={draw,rounded corners=2pt,minimum width=2.45cm,minimum height=.82cm,align=center,font=\sffamily\scriptsize,fill=blue!5},
+  subject/.style={draw,rounded corners=2pt,align=center,font=\sffamily\scriptsize,fill=green!7,inner sep=4pt},
+  warning/.style={draw,dashed,rounded corners=2pt,align=center,font=\sffamily\scriptsize,fill=orange!10,inner sep=4pt},
+  flow/.style={->,line width=.6pt},
+  reconcile/.style={->,dashed,line width=.7pt,color=orange!80!black}
+]
+\node[plane] (control) at (0,0) {CONTROL\\Mission, lease, fence};
+\node[plane] (execution) at (3.0,0) {EXECUTION\\proposal only};
+\node[plane] (verification) at (6.0,0) {VERIFICATION\\independent gate};
+\node[plane] (delivery) at (9.0,0) {DELIVERY\\protected effect};
+\node[plane] (audit) at (12.0,0) {AUDIT/UI\\truthful projection};
+
+\node[subject,below=.9cm of control] (attempt) {incarnation-fenced\\Attempt};
+\node[subject,below=.9cm of execution] (candidate) {BulletGit sole writer\\private clone $\rightarrow$ Candidate};
+\node[subject,below=.9cm of verification] (evidence) {Evidence binds\\exact Candidate OID};
+\node[subject,below=.9cm of delivery] (effect) {Jeryu / mirror\\CAS + read-back};
+\node[subject,below=.9cm of audit] (projection) {receipt projection\\including UNKNOWN};
+
+\draw[flow] (control) -- node[above,font=\tiny]{grant} (execution);
+\draw[flow] (execution) -- node[above,font=\tiny]{typed patch} (verification);
+\draw[flow] (verification) -- node[above,font=\tiny]{verified subject} (delivery);
+\draw[flow] (delivery) -- node[above,font=\tiny]{observation} (audit);
+\draw[flow] (attempt) -- (candidate);
+\draw[flow] (candidate) -- (evidence);
+\draw[flow] (evidence) -- (effect);
+\draw[flow] (effect) -- (projection);
+
+\node[warning,below=.8cm of effect] (unknown) {timeout $\Rightarrow$ durable UNKNOWN\\read back; adopt exact effect or quarantine};
+\draw[reconcile] (effect) -- (unknown);
+\draw[reconcile] (unknown.west) to[bend left=22] node[below,font=\tiny]{never blind retry} (effect.south west);
+\draw[reconcile] (unknown.east) -- (projection.south west);
+
+\node[draw,dotted,fit=(execution)(candidate),inner sep=7pt,label={[font=\tiny]below left:BulletGit trust boundary}] {};
+\node[draw,dotted,fit=(delivery)(effect)(unknown),inner sep=7pt,label={[font=\tiny]below right:Jeryu/effect boundary}] {};
+\end{tikzpicture}%
+}

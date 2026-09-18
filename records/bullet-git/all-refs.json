@@ -1,0 +1,872 @@
+[
+  {
+    "oid": "9600d668b61c861d86368995eb1e70d4a50e85e3",
+    "ref": "refs/heads/archive/github-snapshot-20260909",
+    "archive_tag": "archive/bullet-git/heads/archive/github-snapshot-20260909"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/heads/archive/jeryu-379587c",
+    "archive_tag": "archive/bullet-git/heads/archive/jeryu-379587c"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/heads/claude/gitd-receipt-cleanup",
+    "archive_tag": "archive/bullet-git/heads/claude/gitd-receipt-cleanup"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/heads/cursor/jankurai-90-bullet-git",
+    "archive_tag": "archive/bullet-git/heads/cursor/jankurai-90-bullet-git"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/heads/cursor/jankurai-90-github",
+    "archive_tag": "archive/bullet-git/heads/cursor/jankurai-90-github"
+  },
+  {
+    "oid": "808f47db71d8c72ee2afa363665e3c4e4dafa783",
+    "ref": "refs/heads/main",
+    "archive_tag": "archive/bullet-git/heads/main"
+  },
+  {
+    "oid": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "ref": "refs/local/HEAD",
+    "archive_tag": "archive/bullet-git/local/HEAD"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/local/heads/claude/gitd-receipt-cleanup",
+    "archive_tag": "archive/bullet-git/local/heads/claude/gitd-receipt-cleanup"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/local/heads/cursor/hosted-ci-docs-git",
+    "archive_tag": "archive/bullet-git/local/heads/cursor/hosted-ci-docs-git"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/local/heads/cursor/jankurai-90-bullet-git",
+    "archive_tag": "archive/bullet-git/local/heads/cursor/jankurai-90-bullet-git"
+  },
+  {
+    "oid": "4e33103673f535fde871ef26cffe05460674293b",
+    "ref": "refs/local/heads/main",
+    "archive_tag": "archive/bullet-git/local/heads/main"
+  },
+  {
+    "oid": "7c999f545a419d03fc94cdce2d804172bc3f0574",
+    "ref": "refs/local/heads/review/publication-staging-20260908",
+    "archive_tag": "archive/bullet-git/local/heads/review/publication-staging-20260908"
+  },
+  {
+    "oid": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "ref": "refs/local/heads/root/plan-first-cycle-20260911",
+    "archive_tag": "archive/bullet-git/local/heads/root/plan-first-cycle-20260911"
+  },
+  {
+    "oid": "025fcb804bc790e3dab188c8e2b82127418604f8",
+    "ref": "refs/local/reflog/025fcb804bc790e3dab188c8e2b82127418604f8",
+    "archive_tag": "archive/bullet-git/local/reflog/025fcb804bc790e3dab188c8e2b82127418604f8"
+  },
+  {
+    "oid": "02672db332978438f059df749fd9832f3043ddf7",
+    "ref": "refs/local/reflog/02672db332978438f059df749fd9832f3043ddf7",
+    "archive_tag": "archive/bullet-git/local/reflog/02672db332978438f059df749fd9832f3043ddf7"
+  },
+  {
+    "oid": "041ae4a856d18b4af1cc6e823f56f3f8b54deef9",
+    "ref": "refs/local/reflog/041ae4a856d18b4af1cc6e823f56f3f8b54deef9",
+    "archive_tag": "archive/bullet-git/local/reflog/041ae4a856d18b4af1cc6e823f56f3f8b54deef9"
+  },
+  {
+    "oid": "08179e316f96a24eccd4dd9ecca83caa7ffa4688",
+    "ref": "refs/local/reflog/08179e316f96a24eccd4dd9ecca83caa7ffa4688",
+    "archive_tag": "archive/bullet-git/local/reflog/08179e316f96a24eccd4dd9ecca83caa7ffa4688"
+  },
+  {
+    "oid": "08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+    "ref": "refs/local/reflog/08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+    "archive_tag": "archive/bullet-git/local/reflog/08a58ba5f6a4ecc5985fd81fc336bb0838a555af"
+  },
+  {
+    "oid": "0d5fc55666e5e19c4d10cda537ae540030a58e2b",
+    "ref": "refs/local/reflog/0d5fc55666e5e19c4d10cda537ae540030a58e2b",
+    "archive_tag": "archive/bullet-git/local/reflog/0d5fc55666e5e19c4d10cda537ae540030a58e2b"
+  },
+  {
+    "oid": "0dbb23638c93cd182651346f71cf0901fcdc19cd",
+    "ref": "refs/local/reflog/0dbb23638c93cd182651346f71cf0901fcdc19cd",
+    "archive_tag": "archive/bullet-git/local/reflog/0dbb23638c93cd182651346f71cf0901fcdc19cd"
+  },
+  {
+    "oid": "0e9e94f8e05a5bfc2ea7fb9ad6b70ba22f9ca5ca",
+    "ref": "refs/local/reflog/0e9e94f8e05a5bfc2ea7fb9ad6b70ba22f9ca5ca",
+    "archive_tag": "archive/bullet-git/local/reflog/0e9e94f8e05a5bfc2ea7fb9ad6b70ba22f9ca5ca"
+  },
+  {
+    "oid": "11a29e94a21e71199f6b384f7d0e69bc6ae72f16",
+    "ref": "refs/local/reflog/11a29e94a21e71199f6b384f7d0e69bc6ae72f16",
+    "archive_tag": "archive/bullet-git/local/reflog/11a29e94a21e71199f6b384f7d0e69bc6ae72f16"
+  },
+  {
+    "oid": "11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+    "ref": "refs/local/reflog/11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+    "archive_tag": "archive/bullet-git/local/reflog/11cdb56f145b56e764f46ce21a5fe91bff8ed6aa"
+  },
+  {
+    "oid": "124b600df3c7c983d51a95161662d817d0d2f0a8",
+    "ref": "refs/local/reflog/124b600df3c7c983d51a95161662d817d0d2f0a8",
+    "archive_tag": "archive/bullet-git/local/reflog/124b600df3c7c983d51a95161662d817d0d2f0a8"
+  },
+  {
+    "oid": "15e484d5050fb2cd889931358f2661fe1bdfa14f",
+    "ref": "refs/local/reflog/15e484d5050fb2cd889931358f2661fe1bdfa14f",
+    "archive_tag": "archive/bullet-git/local/reflog/15e484d5050fb2cd889931358f2661fe1bdfa14f"
+  },
+  {
+    "oid": "1b1b8c8cc8f9f2310dff01c4dbfb84ae6993c3bb",
+    "ref": "refs/local/reflog/1b1b8c8cc8f9f2310dff01c4dbfb84ae6993c3bb",
+    "archive_tag": "archive/bullet-git/local/reflog/1b1b8c8cc8f9f2310dff01c4dbfb84ae6993c3bb"
+  },
+  {
+    "oid": "1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+    "ref": "refs/local/reflog/1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+    "archive_tag": "archive/bullet-git/local/reflog/1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89"
+  },
+  {
+    "oid": "1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+    "ref": "refs/local/reflog/1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+    "archive_tag": "archive/bullet-git/local/reflog/1c2fd1d28b2d2c66ba090b9c074394c29a1149a7"
+  },
+  {
+    "oid": "1e31659760e9eb35daff645a5800bb11f06416d5",
+    "ref": "refs/local/reflog/1e31659760e9eb35daff645a5800bb11f06416d5",
+    "archive_tag": "archive/bullet-git/local/reflog/1e31659760e9eb35daff645a5800bb11f06416d5"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/local/reflog/1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "archive_tag": "archive/bullet-git/local/reflog/1e9d1afbfa64d0381f48c4a295efeb4f36715ce1"
+  },
+  {
+    "oid": "215bf7feb014782d402287787eafa0e426141e77",
+    "ref": "refs/local/reflog/215bf7feb014782d402287787eafa0e426141e77",
+    "archive_tag": "archive/bullet-git/local/reflog/215bf7feb014782d402287787eafa0e426141e77"
+  },
+  {
+    "oid": "21cce9d9fd5154dfe38c0184f24a24dad70a7114",
+    "ref": "refs/local/reflog/21cce9d9fd5154dfe38c0184f24a24dad70a7114",
+    "archive_tag": "archive/bullet-git/local/reflog/21cce9d9fd5154dfe38c0184f24a24dad70a7114"
+  },
+  {
+    "oid": "21ecc6e3b633142ddcd32be996689bd47271e478",
+    "ref": "refs/local/reflog/21ecc6e3b633142ddcd32be996689bd47271e478",
+    "archive_tag": "archive/bullet-git/local/reflog/21ecc6e3b633142ddcd32be996689bd47271e478"
+  },
+  {
+    "oid": "22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+    "ref": "refs/local/reflog/22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+    "archive_tag": "archive/bullet-git/local/reflog/22e371d238c91ae833415fe9bccfa9a23ce5fdea"
+  },
+  {
+    "oid": "236f4efe2b8243b3c4dd5da13269e45119b061df",
+    "ref": "refs/local/reflog/236f4efe2b8243b3c4dd5da13269e45119b061df",
+    "archive_tag": "archive/bullet-git/local/reflog/236f4efe2b8243b3c4dd5da13269e45119b061df"
+  },
+  {
+    "oid": "23a3bcab57296acc2689c400636f711d694c4fd2",
+    "ref": "refs/local/reflog/23a3bcab57296acc2689c400636f711d694c4fd2",
+    "archive_tag": "archive/bullet-git/local/reflog/23a3bcab57296acc2689c400636f711d694c4fd2"
+  },
+  {
+    "oid": "24901b327985abc162375834c593052505453d86",
+    "ref": "refs/local/reflog/24901b327985abc162375834c593052505453d86",
+    "archive_tag": "archive/bullet-git/local/reflog/24901b327985abc162375834c593052505453d86"
+  },
+  {
+    "oid": "264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+    "ref": "refs/local/reflog/264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+    "archive_tag": "archive/bullet-git/local/reflog/264d9cbf370127fca66622c4ecfff8d2a0659b6f"
+  },
+  {
+    "oid": "274fd6d6655ce88979bcaa80eca758c44886963e",
+    "ref": "refs/local/reflog/274fd6d6655ce88979bcaa80eca758c44886963e",
+    "archive_tag": "archive/bullet-git/local/reflog/274fd6d6655ce88979bcaa80eca758c44886963e"
+  },
+  {
+    "oid": "2d22c28f9619d5f78a15084c32e96a2a356cecb1",
+    "ref": "refs/local/reflog/2d22c28f9619d5f78a15084c32e96a2a356cecb1",
+    "archive_tag": "archive/bullet-git/local/reflog/2d22c28f9619d5f78a15084c32e96a2a356cecb1"
+  },
+  {
+    "oid": "3124a521213a63305b0cbf48b3f405b68889e7aa",
+    "ref": "refs/local/reflog/3124a521213a63305b0cbf48b3f405b68889e7aa",
+    "archive_tag": "archive/bullet-git/local/reflog/3124a521213a63305b0cbf48b3f405b68889e7aa"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/local/reflog/379587ce050b0380f3565aca9bde377b3ebe0040",
+    "archive_tag": "archive/bullet-git/local/reflog/379587ce050b0380f3565aca9bde377b3ebe0040"
+  },
+  {
+    "oid": "37dcaab944260add6f01c26768ff5f29204aa750",
+    "ref": "refs/local/reflog/37dcaab944260add6f01c26768ff5f29204aa750",
+    "archive_tag": "archive/bullet-git/local/reflog/37dcaab944260add6f01c26768ff5f29204aa750"
+  },
+  {
+    "oid": "388c7ad35ecd5f84263baf910df8b81b7c7d5a6e",
+    "ref": "refs/local/reflog/388c7ad35ecd5f84263baf910df8b81b7c7d5a6e",
+    "archive_tag": "archive/bullet-git/local/reflog/388c7ad35ecd5f84263baf910df8b81b7c7d5a6e"
+  },
+  {
+    "oid": "3c90cbe863c4984f40584b3f1d3147b47300e9e2",
+    "ref": "refs/local/reflog/3c90cbe863c4984f40584b3f1d3147b47300e9e2",
+    "archive_tag": "archive/bullet-git/local/reflog/3c90cbe863c4984f40584b3f1d3147b47300e9e2"
+  },
+  {
+    "oid": "3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+    "ref": "refs/local/reflog/3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+    "archive_tag": "archive/bullet-git/local/reflog/3cba77e72b033bd13027cbc24b4b411ac12fa7eb"
+  },
+  {
+    "oid": "3e9bcf6b2fec744b955493f2df35058c93d5aab6",
+    "ref": "refs/local/reflog/3e9bcf6b2fec744b955493f2df35058c93d5aab6",
+    "archive_tag": "archive/bullet-git/local/reflog/3e9bcf6b2fec744b955493f2df35058c93d5aab6"
+  },
+  {
+    "oid": "3f90f38fb7f4a443ea25005143604ea324fe655f",
+    "ref": "refs/local/reflog/3f90f38fb7f4a443ea25005143604ea324fe655f",
+    "archive_tag": "archive/bullet-git/local/reflog/3f90f38fb7f4a443ea25005143604ea324fe655f"
+  },
+  {
+    "oid": "406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+    "ref": "refs/local/reflog/406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+    "archive_tag": "archive/bullet-git/local/reflog/406d35cd5c34b1d0d3ea593ccf21226ed7a822d4"
+  },
+  {
+    "oid": "446edd5ee2d511d1b518a3fa9e446faffca641ae",
+    "ref": "refs/local/reflog/446edd5ee2d511d1b518a3fa9e446faffca641ae",
+    "archive_tag": "archive/bullet-git/local/reflog/446edd5ee2d511d1b518a3fa9e446faffca641ae"
+  },
+  {
+    "oid": "48755d95cf8469d48e1a022f2f7223c07393d6a3",
+    "ref": "refs/local/reflog/48755d95cf8469d48e1a022f2f7223c07393d6a3",
+    "archive_tag": "archive/bullet-git/local/reflog/48755d95cf8469d48e1a022f2f7223c07393d6a3"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/local/reflog/4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "archive_tag": "archive/bullet-git/local/reflog/4896b0861f0e9d2320feee2fe3c151d10f2e92ac"
+  },
+  {
+    "oid": "493e496faf9bef92b8fd71b6f4761f7289de027a",
+    "ref": "refs/local/reflog/493e496faf9bef92b8fd71b6f4761f7289de027a",
+    "archive_tag": "archive/bullet-git/local/reflog/493e496faf9bef92b8fd71b6f4761f7289de027a"
+  },
+  {
+    "oid": "4c508e4173aaee43083921ab457ff65744754176",
+    "ref": "refs/local/reflog/4c508e4173aaee43083921ab457ff65744754176",
+    "archive_tag": "archive/bullet-git/local/reflog/4c508e4173aaee43083921ab457ff65744754176"
+  },
+  {
+    "oid": "4e33103673f535fde871ef26cffe05460674293b",
+    "ref": "refs/local/reflog/4e33103673f535fde871ef26cffe05460674293b",
+    "archive_tag": "archive/bullet-git/local/reflog/4e33103673f535fde871ef26cffe05460674293b"
+  },
+  {
+    "oid": "4ed3598f0d0d758ef56973eb8acd870b4ab52e3e",
+    "ref": "refs/local/reflog/4ed3598f0d0d758ef56973eb8acd870b4ab52e3e",
+    "archive_tag": "archive/bullet-git/local/reflog/4ed3598f0d0d758ef56973eb8acd870b4ab52e3e"
+  },
+  {
+    "oid": "5046bf440f29b7dd438629ab46f0b26747a7970d",
+    "ref": "refs/local/reflog/5046bf440f29b7dd438629ab46f0b26747a7970d",
+    "archive_tag": "archive/bullet-git/local/reflog/5046bf440f29b7dd438629ab46f0b26747a7970d"
+  },
+  {
+    "oid": "5387744574c10c65ae9b8b2ad2f7b24e0a506a75",
+    "ref": "refs/local/reflog/5387744574c10c65ae9b8b2ad2f7b24e0a506a75",
+    "archive_tag": "archive/bullet-git/local/reflog/5387744574c10c65ae9b8b2ad2f7b24e0a506a75"
+  },
+  {
+    "oid": "54d1338b89c409ff3fa6c3ee8978ec97fbe77aab",
+    "ref": "refs/local/reflog/54d1338b89c409ff3fa6c3ee8978ec97fbe77aab",
+    "archive_tag": "archive/bullet-git/local/reflog/54d1338b89c409ff3fa6c3ee8978ec97fbe77aab"
+  },
+  {
+    "oid": "571805d2b5039919fbb071e931d88303b0bffce1",
+    "ref": "refs/local/reflog/571805d2b5039919fbb071e931d88303b0bffce1",
+    "archive_tag": "archive/bullet-git/local/reflog/571805d2b5039919fbb071e931d88303b0bffce1"
+  },
+  {
+    "oid": "5dac98e12c1a8fe14a13ef82442908e2b79ee01a",
+    "ref": "refs/local/reflog/5dac98e12c1a8fe14a13ef82442908e2b79ee01a",
+    "archive_tag": "archive/bullet-git/local/reflog/5dac98e12c1a8fe14a13ef82442908e2b79ee01a"
+  },
+  {
+    "oid": "60a59ae019c4571fb02cb2f328b67bd792997e39",
+    "ref": "refs/local/reflog/60a59ae019c4571fb02cb2f328b67bd792997e39",
+    "archive_tag": "archive/bullet-git/local/reflog/60a59ae019c4571fb02cb2f328b67bd792997e39"
+  },
+  {
+    "oid": "61bf76dd06753df1ce37715582ab56fbf5d75cff",
+    "ref": "refs/local/reflog/61bf76dd06753df1ce37715582ab56fbf5d75cff",
+    "archive_tag": "archive/bullet-git/local/reflog/61bf76dd06753df1ce37715582ab56fbf5d75cff"
+  },
+  {
+    "oid": "64982975b236045e76797dc4b5638c6087b05f8d",
+    "ref": "refs/local/reflog/64982975b236045e76797dc4b5638c6087b05f8d",
+    "archive_tag": "archive/bullet-git/local/reflog/64982975b236045e76797dc4b5638c6087b05f8d"
+  },
+  {
+    "oid": "66e97efcb80a7f0f8b98ba6710bf961e01c65433",
+    "ref": "refs/local/reflog/66e97efcb80a7f0f8b98ba6710bf961e01c65433",
+    "archive_tag": "archive/bullet-git/local/reflog/66e97efcb80a7f0f8b98ba6710bf961e01c65433"
+  },
+  {
+    "oid": "690346d95461d2b079a7eb4649c471cce1e2ab56",
+    "ref": "refs/local/reflog/690346d95461d2b079a7eb4649c471cce1e2ab56",
+    "archive_tag": "archive/bullet-git/local/reflog/690346d95461d2b079a7eb4649c471cce1e2ab56"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/local/reflog/6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "archive_tag": "archive/bullet-git/local/reflog/6c81f5200787c2bfda60c7106fc10285b8975ac8"
+  },
+  {
+    "oid": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+    "ref": "refs/local/reflog/6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+    "archive_tag": "archive/bullet-git/local/reflog/6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a"
+  },
+  {
+    "oid": "72fb49a849adf441adb758e4a1c97496ab3b62a3",
+    "ref": "refs/local/reflog/72fb49a849adf441adb758e4a1c97496ab3b62a3",
+    "archive_tag": "archive/bullet-git/local/reflog/72fb49a849adf441adb758e4a1c97496ab3b62a3"
+  },
+  {
+    "oid": "75055954309a8954533a747f9cb065a4164dff79",
+    "ref": "refs/local/reflog/75055954309a8954533a747f9cb065a4164dff79",
+    "archive_tag": "archive/bullet-git/local/reflog/75055954309a8954533a747f9cb065a4164dff79"
+  },
+  {
+    "oid": "76aa56305aaf5b61974a693a13f526ea0b7bbac6",
+    "ref": "refs/local/reflog/76aa56305aaf5b61974a693a13f526ea0b7bbac6",
+    "archive_tag": "archive/bullet-git/local/reflog/76aa56305aaf5b61974a693a13f526ea0b7bbac6"
+  },
+  {
+    "oid": "782b201116c3e6d5eb7842a88900f79354f52eae",
+    "ref": "refs/local/reflog/782b201116c3e6d5eb7842a88900f79354f52eae",
+    "archive_tag": "archive/bullet-git/local/reflog/782b201116c3e6d5eb7842a88900f79354f52eae"
+  },
+  {
+    "oid": "7920511936a09a510b4ff42a615552fc92ba53fa",
+    "ref": "refs/local/reflog/7920511936a09a510b4ff42a615552fc92ba53fa",
+    "archive_tag": "archive/bullet-git/local/reflog/7920511936a09a510b4ff42a615552fc92ba53fa"
+  },
+  {
+    "oid": "79bf1e2129fbe50ed85d424fe6e4416407bb17f4",
+    "ref": "refs/local/reflog/79bf1e2129fbe50ed85d424fe6e4416407bb17f4",
+    "archive_tag": "archive/bullet-git/local/reflog/79bf1e2129fbe50ed85d424fe6e4416407bb17f4"
+  },
+  {
+    "oid": "7a90d6d45b7b813a10aaddc2076a10236761e645",
+    "ref": "refs/local/reflog/7a90d6d45b7b813a10aaddc2076a10236761e645",
+    "archive_tag": "archive/bullet-git/local/reflog/7a90d6d45b7b813a10aaddc2076a10236761e645"
+  },
+  {
+    "oid": "7b1bcc9687468769b10548150a64e59e3ed89252",
+    "ref": "refs/local/reflog/7b1bcc9687468769b10548150a64e59e3ed89252",
+    "archive_tag": "archive/bullet-git/local/reflog/7b1bcc9687468769b10548150a64e59e3ed89252"
+  },
+  {
+    "oid": "7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+    "ref": "refs/local/reflog/7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+    "archive_tag": "archive/bullet-git/local/reflog/7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0"
+  },
+  {
+    "oid": "7c999f545a419d03fc94cdce2d804172bc3f0574",
+    "ref": "refs/local/reflog/7c999f545a419d03fc94cdce2d804172bc3f0574",
+    "archive_tag": "archive/bullet-git/local/reflog/7c999f545a419d03fc94cdce2d804172bc3f0574"
+  },
+  {
+    "oid": "7df926c16be3e3c42c3fffe3fc74f57aabceeb41",
+    "ref": "refs/local/reflog/7df926c16be3e3c42c3fffe3fc74f57aabceeb41",
+    "archive_tag": "archive/bullet-git/local/reflog/7df926c16be3e3c42c3fffe3fc74f57aabceeb41"
+  },
+  {
+    "oid": "7e7f519cce502e89736aa7865f7a68d2bbd6d496",
+    "ref": "refs/local/reflog/7e7f519cce502e89736aa7865f7a68d2bbd6d496",
+    "archive_tag": "archive/bullet-git/local/reflog/7e7f519cce502e89736aa7865f7a68d2bbd6d496"
+  },
+  {
+    "oid": "808f47db71d8c72ee2afa363665e3c4e4dafa783",
+    "ref": "refs/local/reflog/808f47db71d8c72ee2afa363665e3c4e4dafa783",
+    "archive_tag": "archive/bullet-git/local/reflog/808f47db71d8c72ee2afa363665e3c4e4dafa783"
+  },
+  {
+    "oid": "80ed8bcf38813dd2d46c83f4318cacce55125243",
+    "ref": "refs/local/reflog/80ed8bcf38813dd2d46c83f4318cacce55125243",
+    "archive_tag": "archive/bullet-git/local/reflog/80ed8bcf38813dd2d46c83f4318cacce55125243"
+  },
+  {
+    "oid": "823daed39d1804013e2ed1e0f6267c9b95270f7b",
+    "ref": "refs/local/reflog/823daed39d1804013e2ed1e0f6267c9b95270f7b",
+    "archive_tag": "archive/bullet-git/local/reflog/823daed39d1804013e2ed1e0f6267c9b95270f7b"
+  },
+  {
+    "oid": "858c533b0ddb7a3ba416e82ad2201f9fef8cf0a4",
+    "ref": "refs/local/reflog/858c533b0ddb7a3ba416e82ad2201f9fef8cf0a4",
+    "archive_tag": "archive/bullet-git/local/reflog/858c533b0ddb7a3ba416e82ad2201f9fef8cf0a4"
+  },
+  {
+    "oid": "8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+    "ref": "refs/local/reflog/8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+    "archive_tag": "archive/bullet-git/local/reflog/8a568cfeb7a494ef3f24d1842171bf7ab3647856"
+  },
+  {
+    "oid": "8de14ecd51be5b38c3623fe0cd8ee26580711166",
+    "ref": "refs/local/reflog/8de14ecd51be5b38c3623fe0cd8ee26580711166",
+    "archive_tag": "archive/bullet-git/local/reflog/8de14ecd51be5b38c3623fe0cd8ee26580711166"
+  },
+  {
+    "oid": "9075b2d44ad8a3b0d898d5d292987b285b122fe9",
+    "ref": "refs/local/reflog/9075b2d44ad8a3b0d898d5d292987b285b122fe9",
+    "archive_tag": "archive/bullet-git/local/reflog/9075b2d44ad8a3b0d898d5d292987b285b122fe9"
+  },
+  {
+    "oid": "910d7c5479fa2573cae51a8434f73926ba2b0cba",
+    "ref": "refs/local/reflog/910d7c5479fa2573cae51a8434f73926ba2b0cba",
+    "archive_tag": "archive/bullet-git/local/reflog/910d7c5479fa2573cae51a8434f73926ba2b0cba"
+  },
+  {
+    "oid": "93c1099ac9a0b2c2addcc5b7fde9281a4fb38bd6",
+    "ref": "refs/local/reflog/93c1099ac9a0b2c2addcc5b7fde9281a4fb38bd6",
+    "archive_tag": "archive/bullet-git/local/reflog/93c1099ac9a0b2c2addcc5b7fde9281a4fb38bd6"
+  },
+  {
+    "oid": "94f7b361549ce68ae4e0ee6bc64c4525bd31617b",
+    "ref": "refs/local/reflog/94f7b361549ce68ae4e0ee6bc64c4525bd31617b",
+    "archive_tag": "archive/bullet-git/local/reflog/94f7b361549ce68ae4e0ee6bc64c4525bd31617b"
+  },
+  {
+    "oid": "9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+    "ref": "refs/local/reflog/9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+    "archive_tag": "archive/bullet-git/local/reflog/9510fd99d354dc9d1edaac9a908d5b29c9993a74"
+  },
+  {
+    "oid": "9600d668b61c861d86368995eb1e70d4a50e85e3",
+    "ref": "refs/local/reflog/9600d668b61c861d86368995eb1e70d4a50e85e3",
+    "archive_tag": "archive/bullet-git/local/reflog/9600d668b61c861d86368995eb1e70d4a50e85e3"
+  },
+  {
+    "oid": "972a3d63a862e77ad3cb9c1a9b3d6d8abebfd3fe",
+    "ref": "refs/local/reflog/972a3d63a862e77ad3cb9c1a9b3d6d8abebfd3fe",
+    "archive_tag": "archive/bullet-git/local/reflog/972a3d63a862e77ad3cb9c1a9b3d6d8abebfd3fe"
+  },
+  {
+    "oid": "9c2bc7d986c8219ee632b76240f540d5a2fe11d1",
+    "ref": "refs/local/reflog/9c2bc7d986c8219ee632b76240f540d5a2fe11d1",
+    "archive_tag": "archive/bullet-git/local/reflog/9c2bc7d986c8219ee632b76240f540d5a2fe11d1"
+  },
+  {
+    "oid": "9d527b9e2d8da2fe4ca76c45787851f6d6dab8c2",
+    "ref": "refs/local/reflog/9d527b9e2d8da2fe4ca76c45787851f6d6dab8c2",
+    "archive_tag": "archive/bullet-git/local/reflog/9d527b9e2d8da2fe4ca76c45787851f6d6dab8c2"
+  },
+  {
+    "oid": "9ea45bb04fa34d0b9160dff148b0ec936e76b7e5",
+    "ref": "refs/local/reflog/9ea45bb04fa34d0b9160dff148b0ec936e76b7e5",
+    "archive_tag": "archive/bullet-git/local/reflog/9ea45bb04fa34d0b9160dff148b0ec936e76b7e5"
+  },
+  {
+    "oid": "a534871f069dd7db5249b819a80c43ced98dbfb2",
+    "ref": "refs/local/reflog/a534871f069dd7db5249b819a80c43ced98dbfb2",
+    "archive_tag": "archive/bullet-git/local/reflog/a534871f069dd7db5249b819a80c43ced98dbfb2"
+  },
+  {
+    "oid": "aa3024d6fdb840279c6b87ac1364e39a34a98130",
+    "ref": "refs/local/reflog/aa3024d6fdb840279c6b87ac1364e39a34a98130",
+    "archive_tag": "archive/bullet-git/local/reflog/aa3024d6fdb840279c6b87ac1364e39a34a98130"
+  },
+  {
+    "oid": "ac44d7492b5f5211499cf16b7fc2793255ab1248",
+    "ref": "refs/local/reflog/ac44d7492b5f5211499cf16b7fc2793255ab1248",
+    "archive_tag": "archive/bullet-git/local/reflog/ac44d7492b5f5211499cf16b7fc2793255ab1248"
+  },
+  {
+    "oid": "ad62fe3b5be2807f2837262dd76a77480164371d",
+    "ref": "refs/local/reflog/ad62fe3b5be2807f2837262dd76a77480164371d",
+    "archive_tag": "archive/bullet-git/local/reflog/ad62fe3b5be2807f2837262dd76a77480164371d"
+  },
+  {
+    "oid": "afbc89b7c63d28d8b2f4f59820dc506225d03596",
+    "ref": "refs/local/reflog/afbc89b7c63d28d8b2f4f59820dc506225d03596",
+    "archive_tag": "archive/bullet-git/local/reflog/afbc89b7c63d28d8b2f4f59820dc506225d03596"
+  },
+  {
+    "oid": "b084241a81b908d583bf5c1d94343c77108f251b",
+    "ref": "refs/local/reflog/b084241a81b908d583bf5c1d94343c77108f251b",
+    "archive_tag": "archive/bullet-git/local/reflog/b084241a81b908d583bf5c1d94343c77108f251b"
+  },
+  {
+    "oid": "b0929db0ea6a94237c763a826b80a5bab51a2a83",
+    "ref": "refs/local/reflog/b0929db0ea6a94237c763a826b80a5bab51a2a83",
+    "archive_tag": "archive/bullet-git/local/reflog/b0929db0ea6a94237c763a826b80a5bab51a2a83"
+  },
+  {
+    "oid": "b5ae9c9d8793be6039dd148cacbaf334d68b39a3",
+    "ref": "refs/local/reflog/b5ae9c9d8793be6039dd148cacbaf334d68b39a3",
+    "archive_tag": "archive/bullet-git/local/reflog/b5ae9c9d8793be6039dd148cacbaf334d68b39a3"
+  },
+  {
+    "oid": "b5c351297fa7d535567dedcb2ae7b8ef48e6c551",
+    "ref": "refs/local/reflog/b5c351297fa7d535567dedcb2ae7b8ef48e6c551",
+    "archive_tag": "archive/bullet-git/local/reflog/b5c351297fa7d535567dedcb2ae7b8ef48e6c551"
+  },
+  {
+    "oid": "b637bd389ccacc8a54e46a578b220e29c90d9369",
+    "ref": "refs/local/reflog/b637bd389ccacc8a54e46a578b220e29c90d9369",
+    "archive_tag": "archive/bullet-git/local/reflog/b637bd389ccacc8a54e46a578b220e29c90d9369"
+  },
+  {
+    "oid": "b7c186c7402b8ef43432022710af1dff2a61d38c",
+    "ref": "refs/local/reflog/b7c186c7402b8ef43432022710af1dff2a61d38c",
+    "archive_tag": "archive/bullet-git/local/reflog/b7c186c7402b8ef43432022710af1dff2a61d38c"
+  },
+  {
+    "oid": "bd05411663de0b64c7b81917a7bde0916c30e74c",
+    "ref": "refs/local/reflog/bd05411663de0b64c7b81917a7bde0916c30e74c",
+    "archive_tag": "archive/bullet-git/local/reflog/bd05411663de0b64c7b81917a7bde0916c30e74c"
+  },
+  {
+    "oid": "bdf84766b17e3856fc841c22d985076dda2df505",
+    "ref": "refs/local/reflog/bdf84766b17e3856fc841c22d985076dda2df505",
+    "archive_tag": "archive/bullet-git/local/reflog/bdf84766b17e3856fc841c22d985076dda2df505"
+  },
+  {
+    "oid": "c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+    "ref": "refs/local/reflog/c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+    "archive_tag": "archive/bullet-git/local/reflog/c25a51f0e05cb87cff77a2e08931e879b5d2cfc0"
+  },
+  {
+    "oid": "c3903655782c7ff945f2a7c5203daa0b9a5334b6",
+    "ref": "refs/local/reflog/c3903655782c7ff945f2a7c5203daa0b9a5334b6",
+    "archive_tag": "archive/bullet-git/local/reflog/c3903655782c7ff945f2a7c5203daa0b9a5334b6"
+  },
+  {
+    "oid": "c5341444041306dd6524064fd1a226fbca8a7ca7",
+    "ref": "refs/local/reflog/c5341444041306dd6524064fd1a226fbca8a7ca7",
+    "archive_tag": "archive/bullet-git/local/reflog/c5341444041306dd6524064fd1a226fbca8a7ca7"
+  },
+  {
+    "oid": "c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+    "ref": "refs/local/reflog/c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+    "archive_tag": "archive/bullet-git/local/reflog/c5910640ef78d82cef8ab2a5c7f802327c14b6ed"
+  },
+  {
+    "oid": "c64b7f854018ad3244e5934d7f59d9e72da2a9ee",
+    "ref": "refs/local/reflog/c64b7f854018ad3244e5934d7f59d9e72da2a9ee",
+    "archive_tag": "archive/bullet-git/local/reflog/c64b7f854018ad3244e5934d7f59d9e72da2a9ee"
+  },
+  {
+    "oid": "c9a7b4aa8cdc6930837c3542536a1aec8e78ad51",
+    "ref": "refs/local/reflog/c9a7b4aa8cdc6930837c3542536a1aec8e78ad51",
+    "archive_tag": "archive/bullet-git/local/reflog/c9a7b4aa8cdc6930837c3542536a1aec8e78ad51"
+  },
+  {
+    "oid": "cbe030f66bf2c4dbc285adc5b85c1e00d343502e",
+    "ref": "refs/local/reflog/cbe030f66bf2c4dbc285adc5b85c1e00d343502e",
+    "archive_tag": "archive/bullet-git/local/reflog/cbe030f66bf2c4dbc285adc5b85c1e00d343502e"
+  },
+  {
+    "oid": "cc985434806720d51edf0b1609d3237b3a04beaa",
+    "ref": "refs/local/reflog/cc985434806720d51edf0b1609d3237b3a04beaa",
+    "archive_tag": "archive/bullet-git/local/reflog/cc985434806720d51edf0b1609d3237b3a04beaa"
+  },
+  {
+    "oid": "ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+    "ref": "refs/local/reflog/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+    "archive_tag": "archive/bullet-git/local/reflog/ccbae124a8ef31ad23f12e86d22d42b28fecb983"
+  },
+  {
+    "oid": "cdfbe316ea64e433a4ba1401053b0f6015e2b18b",
+    "ref": "refs/local/reflog/cdfbe316ea64e433a4ba1401053b0f6015e2b18b",
+    "archive_tag": "archive/bullet-git/local/reflog/cdfbe316ea64e433a4ba1401053b0f6015e2b18b"
+  },
+  {
+    "oid": "d3c09bc32d229ef2de7e2c69b2e12e1c235f513a",
+    "ref": "refs/local/reflog/d3c09bc32d229ef2de7e2c69b2e12e1c235f513a",
+    "archive_tag": "archive/bullet-git/local/reflog/d3c09bc32d229ef2de7e2c69b2e12e1c235f513a"
+  },
+  {
+    "oid": "d5269ad9a14e1792ebeae50bc364921d8fcea233",
+    "ref": "refs/local/reflog/d5269ad9a14e1792ebeae50bc364921d8fcea233",
+    "archive_tag": "archive/bullet-git/local/reflog/d5269ad9a14e1792ebeae50bc364921d8fcea233"
+  },
+  {
+    "oid": "d774b5f6b469d802b9712135ddf2475a1de5c133",
+    "ref": "refs/local/reflog/d774b5f6b469d802b9712135ddf2475a1de5c133",
+    "archive_tag": "archive/bullet-git/local/reflog/d774b5f6b469d802b9712135ddf2475a1de5c133"
+  },
+  {
+    "oid": "d8bb3507c28a2ef3e6db182ee7d6e7bfc8421f82",
+    "ref": "refs/local/reflog/d8bb3507c28a2ef3e6db182ee7d6e7bfc8421f82",
+    "archive_tag": "archive/bullet-git/local/reflog/d8bb3507c28a2ef3e6db182ee7d6e7bfc8421f82"
+  },
+  {
+    "oid": "da615996ead9e47e4fecf8ad75458c5495750aa1",
+    "ref": "refs/local/reflog/da615996ead9e47e4fecf8ad75458c5495750aa1",
+    "archive_tag": "archive/bullet-git/local/reflog/da615996ead9e47e4fecf8ad75458c5495750aa1"
+  },
+  {
+    "oid": "dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+    "ref": "refs/local/reflog/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+    "archive_tag": "archive/bullet-git/local/reflog/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad"
+  },
+  {
+    "oid": "df57434ff6f028ca745330817cc66d3cb40db630",
+    "ref": "refs/local/reflog/df57434ff6f028ca745330817cc66d3cb40db630",
+    "archive_tag": "archive/bullet-git/local/reflog/df57434ff6f028ca745330817cc66d3cb40db630"
+  },
+  {
+    "oid": "dff6dd143fd91d539c0c98b0fb2cd0ad6dd643ba",
+    "ref": "refs/local/reflog/dff6dd143fd91d539c0c98b0fb2cd0ad6dd643ba",
+    "archive_tag": "archive/bullet-git/local/reflog/dff6dd143fd91d539c0c98b0fb2cd0ad6dd643ba"
+  },
+  {
+    "oid": "e0cdf98e6e46ec187d5e7873f087cc191b30d643",
+    "ref": "refs/local/reflog/e0cdf98e6e46ec187d5e7873f087cc191b30d643",
+    "archive_tag": "archive/bullet-git/local/reflog/e0cdf98e6e46ec187d5e7873f087cc191b30d643"
+  },
+  {
+    "oid": "e1b47ff1050a2a9608ada46f0e6216d354a4dc47",
+    "ref": "refs/local/reflog/e1b47ff1050a2a9608ada46f0e6216d354a4dc47",
+    "archive_tag": "archive/bullet-git/local/reflog/e1b47ff1050a2a9608ada46f0e6216d354a4dc47"
+  },
+  {
+    "oid": "e234722d39743f2023c05bf90b0b0e2a666a7e81",
+    "ref": "refs/local/reflog/e234722d39743f2023c05bf90b0b0e2a666a7e81",
+    "archive_tag": "archive/bullet-git/local/reflog/e234722d39743f2023c05bf90b0b0e2a666a7e81"
+  },
+  {
+    "oid": "e48e11c9b590c31c2de7a72ab033a20b7562f940",
+    "ref": "refs/local/reflog/e48e11c9b590c31c2de7a72ab033a20b7562f940",
+    "archive_tag": "archive/bullet-git/local/reflog/e48e11c9b590c31c2de7a72ab033a20b7562f940"
+  },
+  {
+    "oid": "ea63e4b0f27698ebe0514df2a59390cd66a02698",
+    "ref": "refs/local/reflog/ea63e4b0f27698ebe0514df2a59390cd66a02698",
+    "archive_tag": "archive/bullet-git/local/reflog/ea63e4b0f27698ebe0514df2a59390cd66a02698"
+  },
+  {
+    "oid": "eb2dee1c8464b74669ef0c172ffac58014e1494e",
+    "ref": "refs/local/reflog/eb2dee1c8464b74669ef0c172ffac58014e1494e",
+    "archive_tag": "archive/bullet-git/local/reflog/eb2dee1c8464b74669ef0c172ffac58014e1494e"
+  },
+  {
+    "oid": "ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+    "ref": "refs/local/reflog/ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+    "archive_tag": "archive/bullet-git/local/reflog/ebaf50ebdf27d3542242982eb8ee2eb86591e227"
+  },
+  {
+    "oid": "f0c8605595564bf990b6a52735e8710b4e9a6440",
+    "ref": "refs/local/reflog/f0c8605595564bf990b6a52735e8710b4e9a6440",
+    "archive_tag": "archive/bullet-git/local/reflog/f0c8605595564bf990b6a52735e8710b4e9a6440"
+  },
+  {
+    "oid": "f4181f260a6a5b8d31c96c3c8e46702268ce287d",
+    "ref": "refs/local/reflog/f4181f260a6a5b8d31c96c3c8e46702268ce287d",
+    "archive_tag": "archive/bullet-git/local/reflog/f4181f260a6a5b8d31c96c3c8e46702268ce287d"
+  },
+  {
+    "oid": "f48c8be67f78edf555de63b242436412ec5c2963",
+    "ref": "refs/local/reflog/f48c8be67f78edf555de63b242436412ec5c2963",
+    "archive_tag": "archive/bullet-git/local/reflog/f48c8be67f78edf555de63b242436412ec5c2963"
+  },
+  {
+    "oid": "f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+    "ref": "refs/local/reflog/f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+    "archive_tag": "archive/bullet-git/local/reflog/f4c373082fcc24a2b995c0b6971e2c5ebb1206a4"
+  },
+  {
+    "oid": "f55173622613e7ce55d9e1366ee6434c7e32158e",
+    "ref": "refs/local/reflog/f55173622613e7ce55d9e1366ee6434c7e32158e",
+    "archive_tag": "archive/bullet-git/local/reflog/f55173622613e7ce55d9e1366ee6434c7e32158e"
+  },
+  {
+    "oid": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "ref": "refs/local/reflog/f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "archive_tag": "archive/bullet-git/local/reflog/f6033ea99769dc8cee5f60de6c017ba1d6b49d34"
+  },
+  {
+    "oid": "f65690dfea4e5ff4feb29fc363e1bee4f108921d",
+    "ref": "refs/local/reflog/f65690dfea4e5ff4feb29fc363e1bee4f108921d",
+    "archive_tag": "archive/bullet-git/local/reflog/f65690dfea4e5ff4feb29fc363e1bee4f108921d"
+  },
+  {
+    "oid": "f8121142cd337e243bdc97cdeec9dacea9554b04",
+    "ref": "refs/local/reflog/f8121142cd337e243bdc97cdeec9dacea9554b04",
+    "archive_tag": "archive/bullet-git/local/reflog/f8121142cd337e243bdc97cdeec9dacea9554b04"
+  },
+  {
+    "oid": "fb715b25c3b21d6d051e38a3f1f9e58c54ffdbfb",
+    "ref": "refs/local/reflog/fb715b25c3b21d6d051e38a3f1f9e58c54ffdbfb",
+    "archive_tag": "archive/bullet-git/local/reflog/fb715b25c3b21d6d051e38a3f1f9e58c54ffdbfb"
+  },
+  {
+    "oid": "fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+    "ref": "refs/local/reflog/fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+    "archive_tag": "archive/bullet-git/local/reflog/fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608"
+  },
+  {
+    "oid": "fc264d0ff41375a6223e29deaf29529f93fe7e00",
+    "ref": "refs/local/reflog/fc264d0ff41375a6223e29deaf29529f93fe7e00",
+    "archive_tag": "archive/bullet-git/local/reflog/fc264d0ff41375a6223e29deaf29529f93fe7e00"
+  },
+  {
+    "oid": "9600d668b61c861d86368995eb1e70d4a50e85e3",
+    "ref": "refs/local/remotes/github/archive/github-snapshot-20260909",
+    "archive_tag": "archive/bullet-git/local/remotes/github/archive/github-snapshot-20260909"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/local/remotes/github/archive/jeryu-379587c",
+    "archive_tag": "archive/bullet-git/local/remotes/github/archive/jeryu-379587c"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/local/remotes/github/claude/gitd-receipt-cleanup",
+    "archive_tag": "archive/bullet-git/local/remotes/github/claude/gitd-receipt-cleanup"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/local/remotes/github/cursor/jankurai-90-bullet-git",
+    "archive_tag": "archive/bullet-git/local/remotes/github/cursor/jankurai-90-bullet-git"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/local/remotes/github/cursor/jankurai-90-github",
+    "archive_tag": "archive/bullet-git/local/remotes/github/cursor/jankurai-90-github"
+  },
+  {
+    "oid": "808f47db71d8c72ee2afa363665e3c4e4dafa783",
+    "ref": "refs/local/remotes/github/main",
+    "archive_tag": "archive/bullet-git/local/remotes/github/main"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/local/remotes/jeryu/cursor/hosted-ci-docs-git",
+    "archive_tag": "archive/bullet-git/local/remotes/jeryu/cursor/hosted-ci-docs-git"
+  },
+  {
+    "oid": "f4181f260a6a5b8d31c96c3c8e46702268ce287d",
+    "ref": "refs/local/remotes/jeryu/cursor/jankurai-90-bullet-git",
+    "archive_tag": "archive/bullet-git/local/remotes/jeryu/cursor/jankurai-90-bullet-git"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/local/remotes/jeryu/main",
+    "archive_tag": "archive/bullet-git/local/remotes/jeryu/main"
+  },
+  {
+    "oid": "9600d668b61c861d86368995eb1e70d4a50e85e3",
+    "ref": "refs/local/remotes/origin/archive/github-snapshot-20260909",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/archive/github-snapshot-20260909"
+  },
+  {
+    "oid": "379587ce050b0380f3565aca9bde377b3ebe0040",
+    "ref": "refs/local/remotes/origin/archive/jeryu-379587c",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/archive/jeryu-379587c"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/local/remotes/origin/claude/gitd-receipt-cleanup",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/claude/gitd-receipt-cleanup"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/local/remotes/origin/cursor/jankurai-90-bullet-git",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/cursor/jankurai-90-bullet-git"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/local/remotes/origin/cursor/jankurai-90-github",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/cursor/jankurai-90-github"
+  },
+  {
+    "oid": "808f47db71d8c72ee2afa363665e3c4e4dafa783",
+    "ref": "refs/local/remotes/origin/main",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/main"
+  },
+  {
+    "oid": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "ref": "refs/local/remotes/origin/root/plan-first-cycle-20260911",
+    "archive_tag": "archive/bullet-git/local/remotes/origin/root/plan-first-cycle-20260911"
+  },
+  {
+    "oid": "8de14ecd51be5b38c3623fe0cd8ee26580711166",
+    "ref": "refs/local/stash",
+    "archive_tag": "archive/bullet-git/local/stash"
+  },
+  {
+    "oid": "7c4397634fedb6f7465f89e49877abf2c383c22a",
+    "ref": "refs/local/tags/v0.1.0-alpha.1",
+    "archive_tag": "archive/bullet-git/local/tags/v0.1.0-alpha.1"
+  },
+  {
+    "oid": "edef09dd98fb82736ecb822b758e5c8906e53c2b",
+    "ref": "refs/local/tags/v0.1.0-alpha.2",
+    "archive_tag": "archive/bullet-git/local/tags/v0.1.0-alpha.2"
+  },
+  {
+    "oid": "71008620dd9ffc61441909c55c517875a6f33e2b",
+    "ref": "refs/local/tags/v0.1.0-alpha.3",
+    "archive_tag": "archive/bullet-git/local/tags/v0.1.0-alpha.3"
+  },
+  {
+    "oid": "3e11e7e30f168873ab8e3fe052216f04b6e781ce",
+    "ref": "refs/local/tags/v0.1.0-alpha.4",
+    "archive_tag": "archive/bullet-git/local/tags/v0.1.0-alpha.4"
+  },
+  {
+    "oid": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+    "ref": "refs/pull/1/head",
+    "archive_tag": "archive/bullet-git/pull/1/head"
+  },
+  {
+    "oid": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+    "ref": "refs/pull/2/head",
+    "archive_tag": "archive/bullet-git/pull/2/head"
+  },
+  {
+    "oid": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+    "ref": "refs/pull/3/head",
+    "archive_tag": "archive/bullet-git/pull/3/head"
+  },
+  {
+    "oid": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+    "ref": "refs/pull/4/head",
+    "archive_tag": "archive/bullet-git/pull/4/head"
+  },
+  {
+    "oid": "7c4397634fedb6f7465f89e49877abf2c383c22a",
+    "ref": "refs/tags/v0.1.0-alpha.1",
+    "archive_tag": "archive/bullet-git/tags/v0.1.0-alpha.1"
+  },
+  {
+    "oid": "edef09dd98fb82736ecb822b758e5c8906e53c2b",
+    "ref": "refs/tags/v0.1.0-alpha.2",
+    "archive_tag": "archive/bullet-git/tags/v0.1.0-alpha.2"
+  },
+  {
+    "oid": "71008620dd9ffc61441909c55c517875a6f33e2b",
+    "ref": "refs/tags/v0.1.0-alpha.3",
+    "archive_tag": "archive/bullet-git/tags/v0.1.0-alpha.3"
+  },
+  {
+    "oid": "3e11e7e30f168873ab8e3fe052216f04b6e781ce",
+    "ref": "refs/tags/v0.1.0-alpha.4",
+    "archive_tag": "archive/bullet-git/tags/v0.1.0-alpha.4"
+  }
+]

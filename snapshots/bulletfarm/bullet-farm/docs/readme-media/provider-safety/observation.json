@@ -1,0 +1,80 @@
+{
+  "schema_version": "bullet.readme-demo.v1",
+  "document_type": "observation",
+  "demo_id": "provider-safety",
+  "observed_at": "2026-08-25T14:26:25Z",
+  "classification": "UNSIGNED_COMPONENT_OBSERVATION",
+  "release_authority": false,
+  "live_provider_spawned": false,
+  "network": "isolated",
+  "subjects": {
+    "bullet-farm": {
+      "commit_oid": "984f8e8293b7feb61c056000664b4e54a6d0daf0",
+      "tree_oid": "75fec12c84c82234b9bc7d0eb330fc49d5b5c1a8"
+    },
+    "bullet-kernel": {
+      "commit_oid": "08ad6739d546528b621512cf2809deec37e05ede",
+      "tree_oid": "650f411c47fce4797e7611d40d8f8b873a414008"
+    },
+    "bullet-git": {
+      "commit_oid": "e1b47ff1050a2a9608ada46f0e6216d354a4dc47",
+      "tree_oid": "b8a09a0d5c477a04400f2feb184e0ba3b6cd1a6b"
+    },
+    "bullet-portal": {
+      "commit_oid": "f4b8975efccf94954a1c5e55bab02dfa68e296c8",
+      "tree_oid": "659db3c8a32f3f2771a2fd3d8860bb00f18e002d"
+    }
+  },
+  "outcomes": [
+    {
+      "name": "claude-offline-contract",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "codex-offline-contract",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "cursor-offline-contract",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "antigravity-offline-contract",
+      "status": "PASS",
+      "exit_code": 0
+    },
+    {
+      "name": "claude-live-admission",
+      "status": "POLICY_LIVE_ADMISSION_DISABLED",
+      "exit_code": 78
+    },
+    {
+      "name": "codex-live-admission",
+      "status": "POLICY_LIVE_ADMISSION_DISABLED",
+      "exit_code": 78
+    },
+    {
+      "name": "cursor-live-admission",
+      "status": "POLICY_LIVE_ADMISSION_DISABLED",
+      "exit_code": 78
+    },
+    {
+      "name": "antigravity-live-admission",
+      "status": "POLICY_LIVE_ADMISSION_DISABLED",
+      "exit_code": 78
+    },
+    {
+      "name": "provider-spawn-count",
+      "status": "0",
+      "exit_code": 0
+    },
+    {
+      "name": "live-provider-proof",
+      "status": "ABSENT",
+      "exit_code": 0
+    }
+  ]
+}

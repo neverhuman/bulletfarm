@@ -1,0 +1,7 @@
+Bullet Farm component preview
+doctor                 BLOCKED (exit 3)
+hub component checks   PASS
+materialize replay     IDEMPOTENT
+fence                  1 -> 2
+stale authority        REFUSED
+lost response effect   UNKNOWN

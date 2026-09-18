@@ -1,0 +1,16 @@
+Bullet Farm
+
+The aggregate preserves source from bullet-farm, bullet-kernel, bullet-git,
+and bullet-portal. Each member carries an Apache-2.0 license notice. Retain
+those notices and source attribution when redistributing the aggregate.
+
+Third-party material keeps its own license. In particular, the Kernel's
+ops/qualification/tuiwright directory contains LICENSE-JANKURAI (MIT) and
+LICENSE-JETBRAINS-MONO (SIL Open Font License 1.1). These notices accompany
+the qualification harness and font material; the aggregate's Apache-2.0
+license does not replace them.
+
+Dependency licenses are recorded by their upstream packages and lockfiles.
+This notice is not a complete distribution license inventory or an SBOM.
+Versioned packages must include the licenses, SBOMs and provenance for the
+exact artifacts they distribute.
