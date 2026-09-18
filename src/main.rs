@@ -246,8 +246,8 @@ fn dispatch(cli: Cli) -> Result<()> {
             Err(Error::Other("not implemented yet (plan PR 7: stop)".into()))
         }
         Some(Command::Prs) => {
-            let prs = bf::prs::list(&[])?;
-            println!("{}", serde_json::to_string_pretty(&prs)?);
+            let repos = bf::prs::repos_from_board(&dir.join("bf.sqlite"));
+            print!("{}", bf::prs::plain_table(&bf::prs::list(&repos)?));
             Ok(())
         }
         Some(Command::Run {
