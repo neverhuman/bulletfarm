@@ -1,135 +1,43 @@
-# Bullet Farm — family root
+# BulletFarm
 
-This directory is the split-family **container** (not a Git repository). It holds four independent
-checkouts, the coordination log, and the planning corpus. Nothing here is runtime authority; the
-authoritative answers live inside the repositories and are indexed by
-[`bullet-farm/docs/README.md`](bullet-farm/docs/README.md).
+[![CI](https://github.com/neverhuman/bulletfarm/actions/workflows/ci.yml/badge.svg)](https://github.com/neverhuman/bulletfarm/actions/workflows/ci.yml)
 
-**Clone this family:** [https://github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm).
-That monorepo is where people `git clone`, build, and work. Member origins on this machine are
-`neverhuman/bullet-farm`, `neverhuman/bullet-kernel`, `neverhuman/bullet-git`, and
-`neverhuman/bullet-portal`. A clone is not a trusted installer. Unsigned local console: pin Rust 1.95.0 / Node 22.23.2 / npm 10.9.8, then `cd bullet-farm && just preview && just console -- --data-dir "$HOME/.local/state/bullet-operator-console"`. `just setup` stays blocked. HOLD remains. Procedure: [`bullet-farm/docs/runbooks/loopback-console.md`](bullet-farm/docs/runbooks/loopback-console.md).
+The sole repository is [neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm).
+The canonical development checkout is `/home/ubuntu/bulletfarm`; supporting components
+live in ordinary directories. See the [migration index](docs/migration/README.md) for
+preserved source history and the remaining command-installation cutover.
 
+One Rust hub and an embedded React workbench for taking an approved goal through bounded work,
+protected checks and an independently reviewed draft PR.
 
-## Real xbabe2 operator console (not replayable)
+The [implementation plan](docs/implementation-plan.md) governs development against the
+[canonical 3.0 specification](docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md).
+The browser is the primary interface being built; the existing TUI remains an optional client.
 
-These two recordings are real authenticated loopback farmd sessions on xbabe2.
-They are not a trusted installer, not VERIFIED, and not a Claude replace.
-Operating HOLD remains. `release_eligible` is false.
-
-![HOLD-honest operator TUI on loopback farmd: CONNECTING then HOLD, LIVE n, UNBOUND](bullet-farm/media/operator-console/operator-tui.gif)
-
-![Same operator, Shift Brief and Control Tower with Head honesty; Send omitted](bullet-farm/media/operator-console/operator-portal.gif)
-
-Captions and manifests: [`bullet-farm/media/operator-console/README.md`](bullet-farm/media/operator-console/README.md).
-Stage-one VHS tapes below stay the reproducible component set.
-
-## One contained provider turn becomes a reviewable Candidate
-
-This is a live recording, not a re-enactment. A real, billed `claude` turn ran
-inside the containment while the recorder was going, reading a 1,867-file
-snapshot of Bullet Farm's own kernel source. It proposed a patch, production
-`bullet-gitd` applied it, the gate passed, and a Candidate was prepared and
-preserved. The Candidate is then opened from the bundle that run wrote.
-
-![A real contained claude turn reading Bullet Farm's own kernel source, proposing a patch, passing the gate, and producing a preserved Candidate, then the Candidate and its receipt](bullet-farm/docs/readme-media/dogfood-candidate/dogfood-candidate-hi.gif)
-
-The recording also shows a real open defect rather than editing around it: the
-Runner releases its lease before `bullet-gitd` cleans the workspace, and gitd's
-cleanup re-reads that lease online, so a completed attempt ends on
-`AUTHORITY_REFUSED` after its Candidate is already preserved. It reproduces on
-the simulator too. [How it was made, and how to reproduce
-it.](bullet-farm/media/dogfood/README.md)
-
-This is a `DOGFOOD_RUN`: an operational observation. It clears no release gate
-and every eligibility flag in its receipt is false. The recording says so on
-screen.
-
-### Earlier recordings
-
-These are vendor CLIs describing the design, captured from already-signed-in
-sessions against a loopback Control Tower. They are not the product running,
-and they are not release Evidence.
-
-![Authenticated Claude Code TUI explaining fenced Attempts, exact Candidates, independent Evidence, and UNKNOWN](bullet-farm/docs/demo-gif/claude-tui/claude-tui.gif)
-
-![Authenticated Codex TUI naming the four member repos and why UNKNOWN refuses a green lie](bullet-farm/docs/demo-gif/codex-tui/codex-tui.gif)
-
-![Authenticated Cursor Agent plan-mode TUI on the same Bullet Farm transaction boundary](bullet-farm/docs/demo-gif/cursor-tui/cursor-tui.gif)
-
-![Portal Control Tower: one-time bootstrap token, local session authenticate, durable demo command, Shift Brief](bullet-farm/docs/demo-gif/portal-form/portal-form.gif)
-
-Rebuild the GIFs from the hub checkout:
+During migration PR A the executable is still `bf`. PR B makes `bulletfarm` the documented
+command and retains `bf` as an alias using the same `~/.bf` data and `BF_DATA_DIR` override.
 
 ```bash
-cd bullet-farm
-just demo-gif-record    # production Claude / Codex / Cursor sessions + Portal form
-just demo-gif-render    # agg + FFmpeg, high-contrast, no dither dimming
-just demo-gif-check
+git clone https://github.com/neverhuman/bulletfarm.git /home/ubuntu/bulletfarm
+cd /home/ubuntu/bulletfarm
+cargo build --locked --release --bin bf
+./target/release/bf doctor
+./target/release/bf web
 ```
 
-| Path | What it is | Authority |
-| --- | --- | --- |
-| `bullet-farm/` | Public hub: installer/setup, family lock, contracts (`bullet-wire`), policy, CI composition, release checks | product (Rust) |
-| `bullet-kernel/` | Control plane: ledger, leases/fences, admission, runner/verifier/effects boundaries, farmd | product (Rust) |
-| `bullet-git/` | BulletGit: private clones, journal/CAS, generations, Candidates, `bullet-gitd` | product (Rust) |
-| `bullet-portal/` | Operations portal (Vite/React), projection-only | product (TS) |
-| `repos.manifest.toml` | Family membership; must never depend on sibling paths | product |
-| `AGENTS.md` | Family rules (zero worktrees, Jeryu via pinned tags, coordination) | rules |
-| `AGENT_CHAT.md` | Live append-only multi-agent coordination log (cut over 2026-08-25T09:29Z); machine claims live in `.bullet-family/coord/events.jsonl` via `bullet-family coord` | log |
-| `AGENT_CHAT.archive/` | Frozen prior log (`2026-08-25T0929Z.md`, 19,707 lines). Do not rewrite | archive |
-| `NEXT_EVOLUTION_PLAN.md` | Frozen scored G1–G15 campaign. Loses to the Hub closure roadmap and `check release` | historical planning |
-| `.l7-bundle/` | Archived audit bundle and the 2026-08-24T14:04Z admitted live demo receipt | evidence archive |
+Current main discovers local Claude, Codex, Cursor and Grok sessions and provides claims,
+addressed notes, transcript tails and PR views. Bare `bf` currently opens the TUI. The delivery
+controller preserved at `9f03362` is being selectively restored; the browser's delivery routes
+are not yet functional. Unified persistence, managed live execution, independent verification
+and GitHub publication are **not yet qualified**. `bf run` is a stub.
+The Operating HOLD remains effective; fixture success does not authorize live work.
 
-## Which document answers what
-
-| Question | Read |
-| --- | --- |
-| How done is the first GA profile, exactly, with receipts? | `bullet-farm/docs/assurance/closure-roadmap.md`, then `bullet-family check release --profile self-hosted-v1 --receipts <absolute-registry> --json` (27 selected gates) |
-| What is the plan to ship, and what can only the operator do? | `bullet-farm/docs/assurance/closure-roadmap.md` (Waves 0–11) and `bullet-farm/docs/decisions/0013-operator-decision-register.md` |
-| What is the historical scoring methodology behind the closure work? | `bullet-farm/docs/assurance/path-to-100.md` — frozen scoring snapshot; use `closure-roadmap.md` for current execution order |
-| What is still blocked for a release, and why? | `bullet-farm/docs/release.md` |
-| What does "evolutionary multi-agent" mean here, normatively? | `bullet-farm/docs/architecture/evolutionary-control.md` |
-| Why those choices — method rationale, role catalogue, fitness/selection design, work items, operator decisions? | `TEAM_PLAN_CLAUDE.md` (planning artifact; §10 is the 2026-08-25 addendum and scorecard) |
-| Which controls are enforced vs planned? | `bullet-farm/docs/assurance/invariant-registry.md` + generated crosswalk |
-| How do agents coordinate? | `bullet-farm/docs/runbooks/fleet.md` (claims, heartbeats, handoffs, receipts) |
-| How do we dogfood this, across all four provider CLIs? | `DOGFOOD-MULTI-CLI-GATES.md` (multi-provider closure plan, M0–M4), `bullet-farm/docs/runbooks/dogfood.md`, and ADR `bullet-farm/docs/decisions/0015-dogfood-track.md` |
-| Is the dogfood loop operable right now? | `bullet-family check dogfood --json` — fail-closed; non-zero exit names each `loop_blockers` entry |
-| How do I set up from source, and why is a hub-only install refused today? | `bullet-farm/docs/runbooks/source-setup.md` |
-
-## Planning corpus at this root (provenance, not authority)
-
-| File | Role | Status | sha256 (first 16) |
-| --- | --- | --- | --- |
-| `TEAM.md` | Red-team of the Centerrail spec; C1–C12 hardenings; V1 boundary | historical input; contains ANSI corruption and a disproved Gas Town #742 / “687 respawns” attribution—use the corrected R3 paper for incident claims | `013f19032017ea5e` |
-| `TEAM_EVOLUTION_PLAN.md` | codex-plan: TeamRecipe genome, MAP-Elites/ASHA/islands, Gate 0 / Phase 1C | superseded by `evolutionary-control.md` + `TEAM_PLAN_CLAUDE.md` | `354311fb02850296` |
-| `TEAM_GAP_CLOSURE_PLAN.md` | codex-plan gap-closure program (2026-08-24 12:36Z) | superseded by the Hub `closure-roadmap.md` | `50ba29aa97ff06f0` |
-| `TEAM_PLAN_CLAUDE.md` | claude-orch synthesis: roles, evolutionary loop, work items, exit gates, operator decisions, 2026-08-25 addendum | planning provenance; loses to the Hub `closure-roadmap.md` | (changes with edits) |
-| `NEXT_EVOLUTION_PLAN.md` | 2026-08-25 scored closure campaign; one upstream Jeryu source plus signed runtime; GitHub/GitLab adapters | frozen planning provenance; loses to the Hub `closure-roadmap.md` | (changes with edits) |
-| `docs/CENTERRAIL_FINAL_ADAPTIVE_MULTI_FRONTIER_ENGINEERING_SPEC.md` | the original spec | historical provenance (also hashed under `bullet-farm/docs/spec/`) | `4356a1338989987f` |
-| `docs/GASTOWN_OPEN_ISSUES_RISK_AUDIT_FOR_CENTERRAIL.md` | Gas Town risk audit R1–R38 | historical provenance | `615117b7aa47359f` |
-| `docs/git_role.md` | BulletGit capability-secure repository design | historical provenance | `bc517cec12584c47` |
-| `docs/POTENTIAL_DRAFT.md` | adjudicated red-team additions A1–A7 and the doctrine layer | input adopted into `TEAM_PLAN_CLAUDE.md` §10.3; mirrored + hashed under `bullet-farm/docs/spec/` (2026-08-25) | `cdb9e8972fd0df06` |
-| `docs/nightshift.md` | release-truth UX principle ("display the exact claim that remains unproved") | input adopted into `TEAM_PLAN_CLAUDE.md` §10.3 (WI-35, shipped as `bullet-farm/docs/assurance/release-truth.generated.md`); mirrored + hashed under `bullet-farm/docs/spec/` (2026-08-25) | `c92ca3ff3fd5a79d` |
-| `docs/paper.md` | historical paper summary | byte-identical to the sanitized hub copy `bullet-farm/docs/spec/paper.md` since 2026-08-25 (the four machine-local links and the unhedged completion claim were removed); the current preprint is `bullet-farm/docs/paper/` | `1e1a8bd8300a688f` |
-
-## Proof from the hub
+The hub binds IPv4 loopback. Bootstrap material is in private `endpoint.json`. Do not expose it through a proxy.
+The planned installed client will manage private SSH forwarding and reconnect. Production web
+assets are embedded in the binary; installed use does not require Node.
 
 ```bash
-cd bullet-farm
-cargo run --locked --quiet --bin bullet-family -- doctor --json   # BLOCKED is honest today
-just fast && just contract && just check-family
-bullet-family check release --profile self-hosted-v1 \
-  --receipts /absolute/admitted-registry --json                    # exit 3, 27 gates, until receipts exist
+bash scripts/check
 ```
 
-## Open operator decisions
-
-The single register is `bullet-farm/docs/decisions/0013-operator-decision-register.md` (supersedes the
-lists formerly kept here, in `docs/assurance/product-gaps.md`, and in `TEAM_PLAN_CLAUDE.md` §10.5).
-Headline items: (1) ratify policy generation 2 with a `provider-runner` authority key — procedure in
-`bullet-farm/docs/runbooks/live-conformance.md`; (2) after Waves 4 and 5, approve one operator-named
-immutable Jeryu build and protected test repository with distinct short-lived broker, attestor,
-integrator, and observer custody as specified by ADR 0013; (3) a GitHub App test repository; and
-(4) signed schema-3 lock inputs and release-signing custody. The register, not this index, owns the
-credential procedure and current decision status.
+`scripts/check` requires Node `22.23.2` (see `web/.nvmrc`) and npm `10.9.8`.

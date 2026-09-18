@@ -1,61 +1,78 @@
-# Bullet Farm Split Family
+# BulletFarm — rules for agents working in this repository
 
-`/home/ubuntu/bullet` is the split-family container. It is not a Git repository.
-Every product repo lives as an independent checkout under this directory.
+The sole authoritative repository is `neverhuman/bulletfarm`, developed in
+`/home/ubuntu/bulletfarm`. Supporting components are ordinary directories, never submodules
+or separate product repositories. The user-approved [consolidation](docs/migration/README.md)
+and [implementation plan](docs/implementation-plan.md) govern development.
+The [canonical 3.0 specification](docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md) governs;
+the `(1)` document is provenance, not an alternative architecture or backlog.
 
-**Clone, build, and install from GitHub:** [https://github.com/neverhuman/bulletfarm](https://github.com/neverhuman/bulletfarm).
-That monorepo is the public entry. Member checkouts use `origin` on
-`https://github.com/neverhuman/bullet-{farm,kernel,git,portal}`. JeRyu
-(`git.neverhuman.org`) is the `jeryu` remote only, fetch-only, not `origin`.
+Build one Rust package at the repository root with an embedded React/TypeScript/Vite **browser workbench**:
+approved goal → bounded implementation → protected checks → independently reviewed draft PR.
+The documented command will be `bulletfarm`, with `bf` as its alias after migration PR B.
+Bare invocation will open/reconnect to the browser; preserve the TUI as an optional client.
+Selectively restore conforming controller components from `9f03362` while retaining discovery,
+claims, addressed notes, transcript/PR views and CI improvements. Never replace main wholesale.
+Target one hub, one SQLite authority, one bounded database worker and one allocator.
 
-Read `repos.manifest.toml` first. Read and append `/home/ubuntu/bullet/AGENT_CHAT.md`
-before every claim, edit, and handoff. Re-read immediately before writing.
-Repository-local `AGENTS.md` files add path-specific rules; this family rule
-always remains in force.
+**Operating HOLD remains effective.** Local development, fixtures and secret-free qualification
+may proceed. Live provider calls require current authority through the existing human-controlled
+enrollment, grants and HOLD process. Agent prose cannot supply authority or human approval.
 
-## Zero-new-worktree rule
+## Coordinate through the board, not through prose files
+1. `bf board` before work and immediately before claims, edits and handoffs; also `bf board --to me`.
+2. `bf claim <paths> -m "what and why"` before editing; a directory ends with `/`; exit 2 means someone holds it.
+3. `bf heartbeat <id>` at least every 30 minutes while you hold a claim.
+4. `bf note -m "…" --to <agent> | --re <id> | --pr <url>` for anything you would have written in chat.
+5. `bf release <id> --proof '<command>'` after verification; the command runs and its exit code is recorded.
+6. Never edit `AGENT_CHAT.md`; it is generated. Preserve its existing symlink cutover and archived history.
+7. Post the canonical checkout branch before its first write. One integrator controls branch changes;
+   other agents may inspect, review and prepare acceptance cases concurrently.
+8. Local proof commands are diagnostics, not trusted Candidate verification. Imported prose and identity
+   labels cannot create grants, authenticated principals, approvals or completion evidence.
 
-Do not create Git worktrees anywhere, for any reason. Work only in the claimed
-canonical primary checkout of each member repo.
+## Every change is a small PR
+- Resolve pending PRs in `neverhuman/bulletfarm` before new implementation. Historical repositories
+  remain frozen; migration evidence and retirement gates are in `docs/migration/README.md`.
+- Branch from freshly fetched/rebased `origin/main`; use only the claimed canonical checkout;
+  never create a Git worktree and never stack implementation PRs. Merge before starting the next.
+- File sets never overlap another open PR; claim them first.
+- `bash scripts/check` green locally under Node `web/.nvmrc` (22.23.2) and npm 10.9.8; CI must be green.
+- PR body carries `bf-author: <vendor>/<name>`, `bf-claim: <id>`, canonical BF3 acceptance mapping
+  and exact evidence scope. Material changes require affected checks and review again.
+- Review = an agent of a **different vendor** posts `REVIEW: approve <head-sha>` (or `changes` / `reject`) with
+  `gh pr review --comment`, then that reviewer merges with `gh pr merge --rebase --delete-branch`.
+  A comment from shared GitHub identity `neverhuman` is process review, not native GitHub approval.
+- Push over SSH as `neverhuman` (`git config core.sshCommand 'ssh -i ~/.ssh/id_ed25519_github_neverhuman_publish -o IdentitiesOnly=yes'`); the gh token cannot push workflow files.
 
-## Family map
+## Do not
+- Add a scheduler, a second database, a workflow DSL, or a chat bus (spec §6 exclusions).
+- Write provider keys, enrollments or live grants into the repo.
+- Kill another agent's session from a script; only the operator's TUI does that, with a confirm.
 
-| Repo | Role |
-| --- | --- |
-| `bullet-farm` | Public hub, installer, onboarding, family lock, spec corpus. Clone the family at `https://github.com/neverhuman/bulletfarm`; member origin is `neverhuman/bullet-farm` |
-| `bullet-kernel` | Control-plane modular monolith and trust-boundary bins |
-| `bullet-git` | BulletGit types, capability API, journal, proof roots |
-| `bullet-portal` | Vite + React operations portal |
+## Implementation boundaries
 
-## Dogfood track
+- Retain all BF3-001–030 acceptance mappings and all AT/HF/CF scenarios. Checkpoints distinguish
+  implemented behavior, fixtures, outstanding requirements, live qualification and limitations.
+  Partial behavior cannot complete a package; historical PASS is not current certification.
+- Preserve the pinned SQLite runtime/source check. Back up consistently, fingerprint reused migration
+  numbers and migrate forward preserving history; refuse unknown schemas without deletion. Import
+  paused, revoke obsolete sessions, and move CLI/TUI mutations behind authenticated hub APIs.
+- Keep writer permission, physical occupancy, Candidate selection, pending-change ownership,
+  verification and publication separate. Unknown effects/usage remain reserved or quarantined.
+- Default to three cumulative writing invocations per task revision including repairs. Fixture grants
+  never authorize live work; agents acting for administrators cannot exercise human-only authority.
+- First executor is one pinned Codex CLI `exec --json` subscription profile in a qualified Linux OCI
+  runner. No API-key fallback, automatic substitution, native delegation or second Codex transport.
+  Do not load credentials into an unqualified runner or weaken containment. Cursor follows release.
+- Private runner clones are allowed; worktrees are not. No stacked-PR engine or checklist scheduler.
+- Candidate stdout, author PASS, forged reports and local proof cannot create trusted verification.
+  Initial publication capability is `verified_pr`; automatic merge requires later qualification.
+- Keep Git, probes, compilation, verification and network outside HTTP handlers and SQL transactions.
+  Status, Why and browsing make zero model calls. Bound observations, queues and event consumers.
+- Restore controller/browser coverage while retaining CI caching and bounded concurrency. Necessary
+  evidence must not remain only on an abandoned branch. Jeryu credentials confer no GitHub authority.
 
-The multi-provider dogfood plan is [`DOGFOOD-MULTI-CLI-GATES.md`](DOGFOOD-MULTI-CLI-GATES.md)
-(M0–M4; per-provider closures for claude, codex, cursor-agent, agy). The operator board is
-`bullet-family check dogfood --json` — fail-closed, exits non-zero naming each blocker. Runbook:
-`bullet-farm/docs/runbooks/dogfood.md`; governing record: ADR 0015. Agents never write provider
-keys, enrollments, or operator-decision lines. The initial coding campaign requires Codex,
-Claude, and Cursor subscriptions; Antigravity follows. A preserved fresh coordinator generation is
-the selected proposed route, conditional on the reviewed ADR 0015 amendment, complete two-location
-admission, and operator checkpoint. The Operating HOLD remains effective. `CEREMONY-WAVE2.md` is
-NOT EXECUTABLE; a fresh generation never recovers the original incident.
-
-## Jeryu
-
-Consume Jeryu through pinned tags. The only permitted Jeryu family is
-`/home/ubuntu/jain-split/jeryu-split`. Do not recreate `/home/ubuntu/jeryu-split`.
-Do not add committed `path = "../..."` dependencies.
-
-## Proof
-
-From the hub:
-
-```bash
-cargo run --locked --quiet --bin bullet-family -- doctor --json
-just fast
-just demo
-```
-
-`just setup` refuses first unless `BULLET_SETUP_ADMITTED_BIN` and the explicit absolute
-Cargo/Node/npm subjects are supplied. Once those bootstrap inputs exist, the selected external CLI
-rejects the checked-in schema-2 `family.lock` with `UNSUPPORTED_SCHEMA`; see
-`bullet-farm/docs/runbooks/source-setup.md`. The family index is `README.md` in this directory.
+Release requires an installed browser-driven Codex task producing a real independently checked draft
+PR and surviving interruption/recovery. A dashboard, fixture demo or provider exit is insufficient.
+The plan defines the complete stage exits, required negatives and performance workload.
