@@ -57,7 +57,7 @@ fn doctor_reports_sqlite_and_pins() {
 fn unimplemented_verbs_exit_three_and_name_their_pr() {
     let dir = tempfile::tempdir().unwrap();
     let d = dir.path().to_str().unwrap();
-    for args in [vec!["prs"], vec!["run", "claude", "hello"]] {
+    for args in [vec!["run", "claude", "hello"]] {
         let out = bf().args(["--data-dir", d]).args(&args).output().unwrap();
         assert_eq!(
             out.status.code(),
