@@ -1,0 +1,140 @@
+[
+  [
+    {
+      "sha": "24b1061ef4a9c3b032c7ea451ca8b4cc46aef565",
+      "node_id": "C_kwDOUS7UytoAKDI0YjEwNjFlZjRhOWMzYjAzMmM3ZWE0NTFjYThiNGNjNDZhZWY1NjU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/24b1061ef4a9c3b032c7ea451ca8b4cc46aef565",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/24b1061ef4a9c3b032c7ea451ca8b4cc46aef565",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T03:38:45Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T05:24:28Z"
+      },
+      "tree": {
+        "sha": "79a407ae3ae1a586beb24ebeeb62ed848b1b99f7",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/79a407ae3ae1a586beb24ebeeb62ed848b1b99f7"
+      },
+      "message": "Restore strict formal trace parsing and truthful contract ownership",
+      "parents": [
+        {
+          "sha": "8c9b8e8a1b498224ab17da04386ee1d883417420",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/8c9b8e8a1b498224ab17da04386ee1d883417420",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/8c9b8e8a1b498224ab17da04386ee1d883417420"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "f6e67e796a2aae4376b4a97e502b5797f3c6c079",
+      "node_id": "C_kwDOUS7UytoAKGY2ZTY3ZTc5NmEyYWFlNDM3NmI0YTk3ZTUwMmI1Nzk3ZjNjNmMwNzk",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/f6e67e796a2aae4376b4a97e502b5797f3c6c079",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/f6e67e796a2aae4376b4a97e502b5797f3c6c079",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T03:59:44Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T05:24:28Z"
+      },
+      "tree": {
+        "sha": "c4ab0eeb3f3cf1207aac4ba40140d1f070ec0b52",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c4ab0eeb3f3cf1207aac4ba40140d1f070ec0b52"
+      },
+      "message": "Reconcile strict trace test inventory and fixture instructions",
+      "parents": [
+        {
+          "sha": "24b1061ef4a9c3b032c7ea451ca8b4cc46aef565",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/24b1061ef4a9c3b032c7ea451ca8b4cc46aef565",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/24b1061ef4a9c3b032c7ea451ca8b4cc46aef565"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30804186387,
+      "node_id": "ME_lADOUS7Uys8AAAABQZaPMs8AAAAHLBKVEw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30804186387",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "6070a05f5b3cdc6d6dec2ade4278111f76d272e9",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/6070a05f5b3cdc6d6dec2ade4278111f76d272e9",
+      "created_at": "2026-09-09T05:25:04Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30804186469,
+      "node_id": "CE_lADOUS7Uys8AAAABQZaPMs8AAAAHLBKVZQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30804186469",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-09T05:25:04Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

@@ -1,0 +1,135 @@
+[
+  [
+    {
+      "sha": "b1cf8f3df68931a85a2f2b3e495deebeb458edb1",
+      "node_id": "C_kwDOUS7UytoAKGIxY2Y4ZjNkZjY4OTMxYTg1YTJmMmIzZTQ5NWRlZWJlYjQ1OGVkYjE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/b1cf8f3df68931a85a2f2b3e495deebeb458edb1",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/b1cf8f3df68931a85a2f2b3e495deebeb458edb1",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T03:44:54Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T03:44:54Z"
+      },
+      "tree": {
+        "sha": "b56324068bb8094666b35b7df540235976443842",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/b56324068bb8094666b35b7df540235976443842"
+      },
+      "message": "Reject duplicate JSON fields before operator command admission",
+      "parents": [
+        {
+          "sha": "ef98cd3c420f1e8ada96acd57989a87a2e4c55f8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/ef98cd3c420f1e8ada96acd57989a87a2e4c55f8",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ef98cd3c420f1e8ada96acd57989a87a2e4c55f8"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30874801913,
+      "node_id": "RFRE_lADOUS7Uys8AAAABQk_Vd88AAAAHMEgW-Q",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30874801913",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "ready_for_review",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T03:55:59Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30874803226,
+      "node_id": "ME_lADOUS7Uys8AAAABQk_Vd88AAAAHMEgcGg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30874803226",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "ced2660812f73757e32f8991cf0840106ab5d953",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ced2660812f73757e32f8991cf0840106ab5d953",
+      "created_at": "2026-09-10T03:56:01Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30874803295,
+      "node_id": "CE_lADOUS7Uys8AAAABQk_Vd88AAAAHMEgcXw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30874803295",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T03:56:01Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

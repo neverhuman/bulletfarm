@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "1f2a35a6bc46429b0bd24bc0b74787af9c32b79c",
+      "node_id": "C_kwDOUS7VAdoAKDFmMmEzNWE2YmM0NjQyOWIwYmQyNGJjMGI3NDc4N2FmOWMzMmI3OWM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T10:51:47Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T10:52:09Z"
+        },
+        "message": "fix: persist Control Tower command envelopes before admission\n\nReload and lost-response retries now reuse the same idempotency key instead of minting a new operation after the POST is already in flight.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "922cdd62bc3c77be398e452659c278352d9ca716",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/922cdd62bc3c77be398e452659c278352d9ca716"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/1f2a35a6bc46429b0bd24bc0b74787af9c32b79c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/1f2a35a6bc46429b0bd24bc0b74787af9c32b79c",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/1f2a35a6bc46429b0bd24bc0b74787af9c32b79c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/1f2a35a6bc46429b0bd24bc0b74787af9c32b79c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "223596164d9fb8a7e53be07507a49cc5a35f9c2b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/223596164d9fb8a7e53be07507a49cc5a35f9c2b",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/223596164d9fb8a7e53be07507a49cc5a35f9c2b"
+        }
+      ]
+    }
+  ]
+]

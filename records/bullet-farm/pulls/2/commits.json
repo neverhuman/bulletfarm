@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "d1ed66284d029dfbf90e63896d21ed0db1d307b4",
+      "node_id": "C_kwDOUS7UsdoAKGQxZWQ2NjI4NGQwMjlkZmJmOTBlNjM4OTZkMjFlZDBkYjFkMzA3YjQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T05:24:53Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T05:24:53Z"
+        },
+        "message": "docs: sequence the xbabe2 dogfood close-out packets\n\nRecord the M0 versus fake-provider finish lines and wrap existing member fast lanes so daily engineering has a named smoke without inventing a second CI engine.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "0c47f429b08f9757f2dd5648c1ff0a67f9fe2947",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/0c47f429b08f9757f2dd5648c1ff0a67f9fe2947"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/d1ed66284d029dfbf90e63896d21ed0db1d307b4",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/d1ed66284d029dfbf90e63896d21ed0db1d307b4",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/d1ed66284d029dfbf90e63896d21ed0db1d307b4",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/d1ed66284d029dfbf90e63896d21ed0db1d307b4/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "5486058724bf84bfeaa4db8ebca7ef1e32138237",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/5486058724bf84bfeaa4db8ebca7ef1e32138237",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/5486058724bf84bfeaa4db8ebca7ef1e32138237"
+        }
+      ]
+    }
+  ]
+]

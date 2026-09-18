@@ -1,0 +1,1394 @@
+[
+  [
+    {
+      "sha": "b0929db0ea6a94237c763a826b80a5bab51a2a83",
+      "node_id": "C_kwDOUS7U49oAKGIwOTI5ZGIwZWE2YTk0MjM3Yzc2M2E4MjZiODBhNWJhYjUxYTJhODM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/b0929db0ea6a94237c763a826b80a5bab51a2a83",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/b0929db0ea6a94237c763a826b80a5bab51a2a83",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T13:38:29Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T13:38:29Z"
+      },
+      "tree": {
+        "sha": "b788903640e75dcd8185d75398b9bb94edb8eabc",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/b788903640e75dcd8185d75398b9bb94edb8eabc"
+      },
+      "message": "Correct public source onboarding and test requirement descriptions",
+      "parents": [
+        {
+          "sha": "4e33103673f535fde871ef26cffe05460674293b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/4e33103673f535fde871ef26cffe05460674293b",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/4e33103673f535fde871ef26cffe05460674293b"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "7b1bcc9687468769b10548150a64e59e3ed89252",
+      "node_id": "C_kwDOUS7U49oAKDdiMWJjYzk2ODc0Njg3NjliMTA1NDgxNTBhNjRlNTllM2VkODkyNTI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7b1bcc9687468769b10548150a64e59e3ed89252",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/7b1bcc9687468769b10548150a64e59e3ed89252",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:00Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:00Z"
+      },
+      "tree": {
+        "sha": "392373ad0d7c78ceb7d9946ee509b6c3e7b06a75",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/392373ad0d7c78ceb7d9946ee509b6c3e7b06a75"
+      },
+      "message": "Admit pinned auditor bytes before execution",
+      "parents": [
+        {
+          "sha": "b0929db0ea6a94237c763a826b80a5bab51a2a83",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/b0929db0ea6a94237c763a826b80a5bab51a2a83",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/b0929db0ea6a94237c763a826b80a5bab51a2a83"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+      "node_id": "C_kwDOUS7U49oAKDA4YTU4YmE1ZjZhNGVjYzU5ODVmZDgxZmMzMzZiYjA4MzhhNTU1YWY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:00Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:00Z"
+      },
+      "tree": {
+        "sha": "64053a273ad5f73a4b06b978112608232fafe754",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/64053a273ad5f73a4b06b978112608232fafe754"
+      },
+      "message": "Bind audit dispatch to retained native outcomes",
+      "parents": [
+        {
+          "sha": "7b1bcc9687468769b10548150a64e59e3ed89252",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7b1bcc9687468769b10548150a64e59e3ed89252",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/7b1bcc9687468769b10548150a64e59e3ed89252"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "afbc89b7c63d28d8b2f4f59820dc506225d03596",
+      "node_id": "C_kwDOUS7U49oAKGFmYmM4OWI3YzYzZDI4ZDhiMmY0ZjU5ODIwZGM1MDYyMjVkMDM1OTY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/afbc89b7c63d28d8b2f4f59820dc506225d03596",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/afbc89b7c63d28d8b2f4f59820dc506225d03596",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:01Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:01Z"
+      },
+      "tree": {
+        "sha": "ca0cef210336a5cdf3918c0c70789599cf86b0b0",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/ca0cef210336a5cdf3918c0c70789599cf86b0b0"
+      },
+      "message": "Validate audit observations against exact native artifacts",
+      "parents": [
+        {
+          "sha": "08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/08a58ba5f6a4ecc5985fd81fc336bb0838a555af",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/08a58ba5f6a4ecc5985fd81fc336bb0838a555af"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+      "node_id": "C_kwDOUS7U49oAKDhhNTY4Y2ZlYjdhNDk0ZWYzZjI0ZDE4NDIxNzFiZjdhYjM2NDc4NTY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:01Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:01Z"
+      },
+      "tree": {
+        "sha": "dcbbd9ec9cb061d88a7095ed5926d453df4a5af2",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/dcbbd9ec9cb061d88a7095ed5926d453df4a5af2"
+      },
+      "message": "Route audit components and score through canonical dispatch",
+      "parents": [
+        {
+          "sha": "afbc89b7c63d28d8b2f4f59820dc506225d03596",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/afbc89b7c63d28d8b2f4f59820dc506225d03596",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/afbc89b7c63d28d8b2f4f59820dc506225d03596"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+      "node_id": "C_kwDOUS7U49oAKDk1MTBmZDk5ZDM1NGRjOWQxZWRhYWM5YTkwOGQ1YjI5Yzk5OTNhNzQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:02Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T15:51:02Z"
+      },
+      "tree": {
+        "sha": "834f6b1b753bed536e90adf035c40df43f44a14b",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/834f6b1b753bed536e90adf035c40df43f44a14b"
+      },
+      "message": "Exercise audit failure preservation through actual dispatcher",
+      "parents": [
+        {
+          "sha": "8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/8a568cfeb7a494ef3f24d1842171bf7ab3647856",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/8a568cfeb7a494ef3f24d1842171bf7ab3647856"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+      "node_id": "C_kwDOUS7U49oAKGM1OTEwNjQwZWY3OGQ4MmNlZjhhYjJhNWM3ZjgwMjMyN2MxNGI2ZWQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:15Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:15Z"
+      },
+      "tree": {
+        "sha": "05093d32f5ece8b2ed8aa8fd864bab49d8101fd2",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/05093d32f5ece8b2ed8aa8fd864bab49d8101fd2"
+      },
+      "message": "build(ci): add pinned Rust auditor helper dependencies",
+      "parents": [
+        {
+          "sha": "9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/9510fd99d354dc9d1edaac9a908d5b29c9993a74",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/9510fd99d354dc9d1edaac9a908d5b29c9993a74"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "7a90d6d45b7b813a10aaddc2076a10236761e645",
+      "node_id": "C_kwDOUS7U49oAKDdhOTBkNmQ0NWI3YjgxM2ExMGFhZGRjMjA3NmExMDIzNjc2MWU2NDU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7a90d6d45b7b813a10aaddc2076a10236761e645",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/7a90d6d45b7b813a10aaddc2076a10236761e645",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:15Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:15Z"
+      },
+      "tree": {
+        "sha": "b21ab2a9cce346800c4eee547dfe42af2f6d39d7",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/b21ab2a9cce346800c4eee547dfe42af2f6d39d7"
+      },
+      "message": "feat(ci): preserve sealed auditor tool and immutable records",
+      "parents": [
+        {
+          "sha": "c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/c5910640ef78d82cef8ab2a5c7f802327c14b6ed",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/c5910640ef78d82cef8ab2a5c7f802327c14b6ed"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+      "node_id": "C_kwDOUS7U49oAKDExY2RiNTZmMTQ1YjU2ZTc2NGY0NmNlMjFhNWZlOTFiZmY4ZWQ2YWE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:15Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:15Z"
+      },
+      "tree": {
+        "sha": "1e5adb52d1cfdec770f7dd62f80ed006003c305c",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/1e5adb52d1cfdec770f7dd62f80ed006003c305c"
+      },
+      "message": "feat(ci): admit exact native auditor bytes and descriptors",
+      "parents": [
+        {
+          "sha": "7a90d6d45b7b813a10aaddc2076a10236761e645",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7a90d6d45b7b813a10aaddc2076a10236761e645",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/7a90d6d45b7b813a10aaddc2076a10236761e645"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+      "node_id": "C_kwDOUS7U49oAKGMyNWE1MWYwZTA1Y2I4N2NmZjc3YTJlMDg5MzFlODc5YjVkMmNmYzA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:16Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T16:59:16Z"
+      },
+      "tree": {
+        "sha": "23751640d8e1153ece5b4949be7ece2d5a8b1555",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/23751640d8e1153ece5b4949be7ece2d5a8b1555"
+      },
+      "message": "feat(ci): execute admitted auditor with bounded native observations",
+      "parents": [
+        {
+          "sha": "11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/11cdb56f145b56e764f46ce21a5fe91bff8ed6aa",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/11cdb56f145b56e764f46ce21a5fe91bff8ed6aa"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "7920511936a09a510b4ff42a615552fc92ba53fa",
+      "node_id": "C_kwDOUS7U49oAKDc5MjA1MTE5MzZhMDlhNTEwYjRmZjQyYTYxNTU1MmZjOTJiYTUzZmE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7920511936a09a510b4ff42a615552fc92ba53fa",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/7920511936a09a510b4ff42a615552fc92ba53fa",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "tree": {
+        "sha": "750a245f04b4e81a6ee35ffa888f104f9dcf17cc",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/750a245f04b4e81a6ee35ffa888f104f9dcf17cc"
+      },
+      "message": "build(ci): register Rust audit report and observation modules",
+      "parents": [
+        {
+          "sha": "c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/c25a51f0e05cb87cff77a2e08931e879b5d2cfc0",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/c25a51f0e05cb87cff77a2e08931e879b5d2cfc0"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+      "node_id": "C_kwDOUS7U49oAKGY0YzM3MzA4MmZjYzI0YTJiOTk1YzBiNjk3MWUyYzVlYmIxMjA2YTQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "tree": {
+        "sha": "0afd273134d5ad5ebc29435d02db354a130e7928",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/0afd273134d5ad5ebc29435d02db354a130e7928"
+      },
+      "message": "feat(ci): retain bounded native audit artifacts",
+      "parents": [
+        {
+          "sha": "7920511936a09a510b4ff42a615552fc92ba53fa",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7920511936a09a510b4ff42a615552fc92ba53fa",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/7920511936a09a510b4ff42a615552fc92ba53fa"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+      "node_id": "C_kwDOUS7U49oAKDFiMmIxNDgwOTZmYjlmNTFmNzRkMGQ5YjlhYmU2NzdjN2I1YjhlODk",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "tree": {
+        "sha": "3ac5052cf66197b477edb5ccdc2f4f6df84c694c",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/3ac5052cf66197b477edb5ccdc2f4f6df84c694c"
+      },
+      "message": "feat(ci): validate native reports against committed audit policy",
+      "parents": [
+        {
+          "sha": "f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/f4c373082fcc24a2b995c0b6971e2c5ebb1206a4",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/f4c373082fcc24a2b995c0b6971e2c5ebb1206a4"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+      "node_id": "C_kwDOUS7U49oAKGViYWY1MGViZGYyN2QzNTQyMjQyOTgyZWI4ZWUyZWI4NjU5MWUyMjc",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "tree": {
+        "sha": "eddcb262464a3b845620375cddc40288b38e8714",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/eddcb262464a3b845620375cddc40288b38e8714"
+      },
+      "message": "feat(ci): capture source-bound audit observations in Rust",
+      "parents": [
+        {
+          "sha": "1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/1b2b148096fb9f51f74d0d9b9abe677c7b5b8e89"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+      "node_id": "C_kwDOUS7U49oAKDNjYmE3N2U3MmIwMzNiZDEzMDI3Y2JjMjRiNGI0MTFhYzEyZmE3ZWI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "tree": {
+        "sha": "05fe73e6124839e8c1af23ec24b101ce87944b0e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/05fe73e6124839e8c1af23ec24b101ce87944b0e"
+      },
+      "message": "fix(ci): require complete original streams before audit acceptance",
+      "parents": [
+        {
+          "sha": "ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ebaf50ebdf27d3542242982eb8ee2eb86591e227",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/ebaf50ebdf27d3542242982eb8ee2eb86591e227"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+      "node_id": "C_kwDOUS7U49oAKDI2NGQ5Y2JmMzcwMTI3ZmNhNjY2MjJjNGVjZmZmOGQyYTA2NTliNmY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T18:04:33Z"
+      },
+      "tree": {
+        "sha": "163d458cff46e2f6eeef8aacf7b5002db4b620c4",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/163d458cff46e2f6eeef8aacf7b5002db4b620c4"
+      },
+      "message": "test(ci): exercise native observation custody and failure boundaries",
+      "parents": [
+        {
+          "sha": "3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/3cba77e72b033bd13027cbc24b4b411ac12fa7eb",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/3cba77e72b033bd13027cbc24b4b411ac12fa7eb"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+      "node_id": "C_kwDOUS7U49oAKDQwNmQzNWNkNWMzNGIxZDBkM2VhNTkzY2NmMjEyMjZlZDdhODIyZDQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:11Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:11Z"
+      },
+      "tree": {
+        "sha": "b8bd436e4afba2de6544b79f198df7a4247bb6b7",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/b8bd436e4afba2de6544b79f198df7a4247bb6b7"
+      },
+      "message": "feat(ci): validate retained native bootstrap authority",
+      "parents": [
+        {
+          "sha": "264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/264d9cbf370127fca66622c4ecfff8d2a0659b6f",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/264d9cbf370127fca66622c4ecfff8d2a0659b6f"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+      "node_id": "C_kwDOUS7U49oAKDFjMmZkMWQyOGIyZDJjNjZiYTA5MGI5YzA3NDM5NGMyOWExMTQ5YTc",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "tree": {
+        "sha": "d41050fe75867349519717e587a9ae88bfe1d8c8",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/d41050fe75867349519717e587a9ae88bfe1d8c8"
+      },
+      "message": "test(ci): bind native bootstrap fixtures and refusal cases",
+      "parents": [
+        {
+          "sha": "406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/406d35cd5c34b1d0d3ea593ccf21226ed7a822d4",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/406d35cd5c34b1d0d3ea593ccf21226ed7a822d4"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "72fb49a849adf441adb758e4a1c97496ab3b62a3",
+      "node_id": "C_kwDOUS7U49oAKDcyZmI0OWE4NDlhZGY0NDFhZGI3NThlNGExYzk3NDk2YWIzYjYyYTM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/72fb49a849adf441adb758e4a1c97496ab3b62a3",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/72fb49a849adf441adb758e4a1c97496ab3b62a3",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "tree": {
+        "sha": "3fc09519cf2ad4e751d9ad97e75e28ace69acd18",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/3fc09519cf2ad4e751d9ad97e75e28ace69acd18"
+      },
+      "message": "feat(ci): build admitted Rust audit helpers in private targets",
+      "parents": [
+        {
+          "sha": "1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1c2fd1d28b2d2c66ba090b9c074394c29a1149a7",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/1c2fd1d28b2d2c66ba090b9c074394c29a1149a7"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "75055954309a8954533a747f9cb065a4164dff79",
+      "node_id": "C_kwDOUS7U49oAKDc1MDU1OTU0MzA5YTg5NTQ1MzNhNzQ3ZjljYjA2NWE0MTY0ZGZmNzk",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/75055954309a8954533a747f9cb065a4164dff79",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/75055954309a8954533a747f9cb065a4164dff79",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "tree": {
+        "sha": "149dff7a231132f38e679698fccbe1500e8316dc",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/149dff7a231132f38e679698fccbe1500e8316dc"
+      },
+      "message": "refactor(ci): route audit capture through the native Rust helper",
+      "parents": [
+        {
+          "sha": "72fb49a849adf441adb758e4a1c97496ab3b62a3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/72fb49a849adf441adb758e4a1c97496ab3b62a3",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/72fb49a849adf441adb758e4a1c97496ab3b62a3"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+      "node_id": "C_kwDOUS7U49oAKGZiYTNmZTVkNTdmYzFhMWNjNTBiMzlmYjFiOTAwMTllYjNlNjk2MDg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T19:56:12Z"
+      },
+      "tree": {
+        "sha": "e497ca17ce4125ecc931abe22cc59c1fecc3904e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/e497ca17ce4125ecc931abe22cc59c1fecc3904e"
+      },
+      "message": "test(ci): verify artifacts and custody through fresh native checkers",
+      "parents": [
+        {
+          "sha": "75055954309a8954533a747f9cb065a4164dff79",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/75055954309a8954533a747f9cb065a4164dff79",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/75055954309a8954533a747f9cb065a4164dff79"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "0dbb23638c93cd182651346f71cf0901fcdc19cd",
+      "node_id": "C_kwDOUS7U49oAKDBkYmIyMzYzOGM5M2NkMTgyNjUxMzQ2ZjcxY2YwOTAxZmNkYzE5Y2Q",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/0dbb23638c93cd182651346f71cf0901fcdc19cd",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/0dbb23638c93cd182651346f71cf0901fcdc19cd",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T21:22:35Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T21:22:35Z"
+      },
+      "tree": {
+        "sha": "ef1e18d466a6f293b51ff52990bc419419bf3f51",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/ef1e18d466a6f293b51ff52990bc419419bf3f51"
+      },
+      "message": "ci: reject incompatible just before audit component builds",
+      "parents": [
+        {
+          "sha": "fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/fba3fe5d57fc1a1cc50b39fb1b90019eb3e69608"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "bd05411663de0b64c7b81917a7bde0916c30e74c",
+      "node_id": "C_kwDOUS7U49oAKGJkMDU0MTE2NjNkZTBiNjRjN2I4MTkxN2E3YmRlMDkxNmMzMGU3NGM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/bd05411663de0b64c7b81917a7bde0916c30e74c",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/bd05411663de0b64c7b81917a7bde0916c30e74c",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T21:32:14Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T21:32:14Z"
+      },
+      "tree": {
+        "sha": "c0abeb6e84d1c88b6db2f2e92b65932751a72d46",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/c0abeb6e84d1c88b6db2f2e92b65932751a72d46"
+      },
+      "message": "ci: retain audit component JUnit in its private run",
+      "parents": [
+        {
+          "sha": "0dbb23638c93cd182651346f71cf0901fcdc19cd",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/0dbb23638c93cd182651346f71cf0901fcdc19cd",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/0dbb23638c93cd182651346f71cf0901fcdc19cd"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "15e484d5050fb2cd889931358f2661fe1bdfa14f",
+      "node_id": "C_kwDOUS7U49oAKDE1ZTQ4NGQ1MDUwZmIyY2Q4ODk5MzEzNThmMjY2MWZlMWJkZmExNGY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/15e484d5050fb2cd889931358f2661fe1bdfa14f",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/15e484d5050fb2cd889931358f2661fe1bdfa14f",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T21:59:49Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T21:59:49Z"
+      },
+      "tree": {
+        "sha": "60cf2233155fdf269d56e637f4bbaede74fb7abe",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/60cf2233155fdf269d56e637f4bbaede74fb7abe"
+      },
+      "message": "ci: retire unused Python audit observer after Rust caller qualification",
+      "parents": [
+        {
+          "sha": "bd05411663de0b64c7b81917a7bde0916c30e74c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/bd05411663de0b64c7b81917a7bde0916c30e74c",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/bd05411663de0b64c7b81917a7bde0916c30e74c"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "d774b5f6b469d802b9712135ddf2475a1de5c133",
+      "node_id": "C_kwDOUS7U49oAKGQ3NzRiNWY2YjQ2OWQ4MDJiOTcxMjEzNWRkZjI0NzVhMWRlNWMxMzM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/d774b5f6b469d802b9712135ddf2475a1de5c133",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/d774b5f6b469d802b9712135ddf2475a1de5c133",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T22:52:52Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T22:52:52Z"
+      },
+      "tree": {
+        "sha": "c2db2a8b38d43a0504841af78f2c5106c0714885",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/c2db2a8b38d43a0504841af78f2c5106c0714885"
+      },
+      "message": "fix(ci): make bootstrap entrypoints executable",
+      "parents": [
+        {
+          "sha": "15e484d5050fb2cd889931358f2661fe1bdfa14f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/15e484d5050fb2cd889931358f2661fe1bdfa14f",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/15e484d5050fb2cd889931358f2661fe1bdfa14f"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "446edd5ee2d511d1b518a3fa9e446faffca641ae",
+      "node_id": "C_kwDOUS7U49oAKDQ0NmVkZDVlZTJkNTExZDFiNTE4YTNmYTllNDQ2ZmFmZmNhNjQxYWU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/446edd5ee2d511d1b518a3fa9e446faffca641ae",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/446edd5ee2d511d1b518a3fa9e446faffca641ae",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T22:57:11Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T22:57:11Z"
+      },
+      "tree": {
+        "sha": "d6e332e9eb254345ab68a5ef5def50cdde706a1a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/d6e332e9eb254345ab68a5ef5def50cdde706a1a"
+      },
+      "message": "docs(ci): align descriptions with configured test partitions",
+      "parents": [
+        {
+          "sha": "d774b5f6b469d802b9712135ddf2475a1de5c133",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/d774b5f6b469d802b9712135ddf2475a1de5c133",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/d774b5f6b469d802b9712135ddf2475a1de5c133"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "ad62fe3b5be2807f2837262dd76a77480164371d",
+      "node_id": "C_kwDOUS7U49oAKGFkNjJmZTNiNWJlMjgwN2YyODM3MjYyZGQ3NmE3NzQ4MDE2NDM3MWQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ad62fe3b5be2807f2837262dd76a77480164371d",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/ad62fe3b5be2807f2837262dd76a77480164371d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:09:49Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:09:49Z"
+      },
+      "tree": {
+        "sha": "3c77cbabc4935437cc31d8ba5c5b61d4873b26e2",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/3c77cbabc4935437cc31d8ba5c5b61d4873b26e2"
+      },
+      "message": "fix(ci): include admitted Rust audit tests in required inventory",
+      "parents": [
+        {
+          "sha": "446edd5ee2d511d1b518a3fa9e446faffca641ae",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/446edd5ee2d511d1b518a3fa9e446faffca641ae",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/446edd5ee2d511d1b518a3fa9e446faffca641ae"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "215bf7feb014782d402287787eafa0e426141e77",
+      "node_id": "C_kwDOUS7U49oAKDIxNWJmN2ZlYjAxNDc4MmQ0MDIyODc3ODdlYWZhMGU0MjYxNDFlNzc",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/215bf7feb014782d402287787eafa0e426141e77",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/215bf7feb014782d402287787eafa0e426141e77",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:33:42Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:33:42Z"
+      },
+      "tree": {
+        "sha": "0a4b6989b505479a1737ea6befa97366e794cad7",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/0a4b6989b505479a1737ea6befa97366e794cad7"
+      },
+      "message": "style(ci): format observation packet 1",
+      "parents": [
+        {
+          "sha": "ad62fe3b5be2807f2837262dd76a77480164371d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ad62fe3b5be2807f2837262dd76a77480164371d",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/ad62fe3b5be2807f2837262dd76a77480164371d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "1e31659760e9eb35daff645a5800bb11f06416d5",
+      "node_id": "C_kwDOUS7U49oAKDFlMzE2NTk3NjBlOWViMzVkYWZmNjQ1YTU4MDBiYjExZjA2NDE2ZDU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1e31659760e9eb35daff645a5800bb11f06416d5",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/1e31659760e9eb35daff645a5800bb11f06416d5",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:33:42Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:33:42Z"
+      },
+      "tree": {
+        "sha": "17b006540956e533913d1bdc7db7f42a1fc87b74",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/17b006540956e533913d1bdc7db7f42a1fc87b74"
+      },
+      "message": "style(ci): format observation packet 2",
+      "parents": [
+        {
+          "sha": "215bf7feb014782d402287787eafa0e426141e77",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/215bf7feb014782d402287787eafa0e426141e77",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/215bf7feb014782d402287787eafa0e426141e77"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+      "node_id": "C_kwDOUS7U49oAKDIyZTM3MWQyMzhjOTFhZTgzMzQxNWZlOWJjY2ZhOWEyM2NlNWZkZWE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:33:42Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:33:42Z"
+      },
+      "tree": {
+        "sha": "3c5c10118e938bf5780f5a84088f357b1d5d2e9a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/3c5c10118e938bf5780f5a84088f357b1d5d2e9a"
+      },
+      "message": "style(ci): format observation packet 3",
+      "parents": [
+        {
+          "sha": "1e31659760e9eb35daff645a5800bb11f06416d5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1e31659760e9eb35daff645a5800bb11f06416d5",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/1e31659760e9eb35daff645a5800bb11f06416d5"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "025fcb804bc790e3dab188c8e2b82127418604f8",
+      "node_id": "C_kwDOUS7U49oAKDAyNWZjYjgwNGJjNzkwZTNkYWIxODhjOGUyYjgyMTI3NDE4NjA0Zjg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/025fcb804bc790e3dab188c8e2b82127418604f8",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/025fcb804bc790e3dab188c8e2b82127418604f8",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T00:00:33Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T00:00:33Z"
+      },
+      "tree": {
+        "sha": "473699de264b97c6c313a424a6239574aa2a248a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/473699de264b97c6c313a424a6239574aa2a248a"
+      },
+      "message": "Fix native auditor Clippy failures while preserving capture behavior",
+      "parents": [
+        {
+          "sha": "22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/22e371d238c91ae833415fe9bccfa9a23ce5fdea",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/22e371d238c91ae833415fe9bccfa9a23ce5fdea"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "fc264d0ff41375a6223e29deaf29529f93fe7e00",
+      "node_id": "C_kwDOUS7U49oAKGZjMjY0ZDBmZjQxMzc1YTYyMjNlMjlkZWFmMjk1MjlmOTNmZTdlMDA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/fc264d0ff41375a6223e29deaf29529f93fe7e00",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/fc264d0ff41375a6223e29deaf29529f93fe7e00",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:05:51Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:05:51Z"
+      },
+      "tree": {
+        "sha": "fe7c5654f68ae5f0dd999309f5e471f8b7426315",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/fe7c5654f68ae5f0dd999309f5e471f8b7426315"
+      },
+      "message": "test: retain inherited descriptor metadata after auditor refusals",
+      "parents": [
+        {
+          "sha": "025fcb804bc790e3dab188c8e2b82127418604f8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/025fcb804bc790e3dab188c8e2b82127418604f8",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/025fcb804bc790e3dab188c8e2b82127418604f8"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+      "node_id": "C_kwDOUS7U49oAKDdjN2ZkOTFmYjNiZWRmMmY3YTI2MDJjMmE5MGM1MmZlZDZjNmUwYzA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:11:43Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:11:43Z"
+      },
+      "tree": {
+        "sha": "0d011f0233409c5e34609f526aa0d94309bef422",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/0d011f0233409c5e34609f526aa0d94309bef422"
+      },
+      "message": "test: parse diagnostic descriptor flags without private module access",
+      "parents": [
+        {
+          "sha": "fc264d0ff41375a6223e29deaf29529f93fe7e00",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/fc264d0ff41375a6223e29deaf29529f93fe7e00",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/fc264d0ff41375a6223e29deaf29529f93fe7e00"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "64982975b236045e76797dc4b5638c6087b05f8d",
+      "node_id": "C_kwDOUS7U49oAKDY0OTgyOTc1YjIzNjA0NWU3Njc5N2RjNGI1NjM4YzYwODdiMDVmOGQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/64982975b236045e76797dc4b5638c6087b05f8d",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/64982975b236045e76797dc4b5638c6087b05f8d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:18:47Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:18:47Z"
+      },
+      "tree": {
+        "sha": "a256e3454454ed516f5dc1517715ae2e155a7631",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/a256e3454454ed516f5dc1517715ae2e155a7631"
+      },
+      "message": "test(ci): identify inherited runner channel diagnostics",
+      "parents": [
+        {
+          "sha": "7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/7c7fd91fb3bedf2f7a2602c2a90c52fed6c6e0c0"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+      "node_id": "C_kwDOUS7U49oAKGY2MDMzZWE5OTc2OWRjOGNlZTVmNjBkZTZjMDE3YmExZDZiNDlkMzQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/f6033ea99769dc8cee5f60de6c017ba1d6b49d34",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:26:10Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-12T02:26:10Z"
+      },
+      "tree": {
+        "sha": "d41ad7ed469c6dc809bc3392d25caddb0e6cc25c",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/d41ad7ed469c6dc809bc3392d25caddb0e6cc25c"
+      },
+      "message": "fix(ci): isolate inherited GitHub runner transport before tests",
+      "parents": [
+        {
+          "sha": "64982975b236045e76797dc4b5638c6087b05f8d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/64982975b236045e76797dc4b5638c6087b05f8d",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/64982975b236045e76797dc4b5638c6087b05f8d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 31008730827,
+      "node_id": "RTE_lADOUS7U488AAAABQ6U8Js8AAAAHOEOuyw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/issues/events/31008730827",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "renamed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-12T02:35:49Z",
+      "rename": {
+        "from": "Land the plan-first-cycle work (30 commits)",
+        "to": "Bind native auditor evidence and isolate hosted runner transport"
+      },
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31395228708,
+      "node_id": "ME_lADOUS7U488AAAABQ6U8Js8AAAAHT00sJA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/issues/events/31395228708",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "808f47db71d8c72ee2afa363665e3c4e4dafa783",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/808f47db71d8c72ee2afa363665e3c4e4dafa783",
+      "created_at": "2026-09-18T14:14:59Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31395228863,
+      "node_id": "CE_lADOUS7U488AAAABQ6U8Js8AAAAHT00svw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/issues/events/31395228863",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-18T14:14:59Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31395231310,
+      "node_id": "HRDE_lADOUS7U488AAAABQ6U8Js8AAAAHT002Tg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/issues/events/31395231310",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_deleted",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-18T14:15:01Z",
+      "performed_via_github_app": null
+    }
+  ]
+]

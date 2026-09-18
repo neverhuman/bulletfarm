@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "2143d4bf5a803375245f00c9b0d4b644311b744d",
+      "node_id": "C_kwDOUS7UsdoAKDIxNDNkNGJmNWE4MDMzNzUyNDVmMDBjOWIwZDRiNjQ0MzExYjc0NGQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:54:31Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:54:31Z"
+        },
+        "message": "Add fail-closed just xbabe2-head for local Head proof.\n\nThe recipe exits 78 off-node or in CI, documents conversation and Slack codes, and keeps schema-27 Head distinct from Wave 9 / G15.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "76cade857864b4b059a751abb33e9abf90d1b89b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/76cade857864b4b059a751abb33e9abf90d1b89b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/2143d4bf5a803375245f00c9b0d4b644311b744d",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2143d4bf5a803375245f00c9b0d4b644311b744d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/2143d4bf5a803375245f00c9b0d4b644311b744d",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2143d4bf5a803375245f00c9b0d4b644311b744d/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/038d2cd654e8549078d0e6a0480f92fa1c9a88e0"
+        }
+      ]
+    }
+  ]
+]

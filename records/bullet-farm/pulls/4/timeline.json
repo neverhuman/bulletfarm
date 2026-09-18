@@ -1,0 +1,243 @@
+[
+  [
+    {
+      "sha": "6074923a38aeacac72dc85d310fab68877eb65d7",
+      "node_id": "C_kwDOUS7UsdoAKDYwNzQ5MjNhMzhhZWFjYWM3MmRjODVkMzEwZmFiNjg4NzdlYjY1ZDc",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/6074923a38aeacac72dc85d310fab68877eb65d7",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/6074923a38aeacac72dc85d310fab68877eb65d7",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T18:09:49Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T18:09:49Z"
+      },
+      "tree": {
+        "sha": "998a30bddebe898f30d077f8c1aa7f21b5acf517",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/998a30bddebe898f30d077f8c1aa7f21b5acf517"
+      },
+      "message": "Publish the dev-node lane at canonical paths and pin its harness\n\noperator_review reported four times that it could not find devnode/tui or\nops/ci/devnode.sh anywhere in the repository. It was right: the lane existed\nonly in a scratch tree on the development host, so nobody could review the\nthing I was citing as proof. This puts every byte of it at a canonical path.\n\nThe lane drives `bullet tui` through a real pseudo-terminal and the Portal\nthrough a real browser, both against an authenticated daemon. That session and\nthe provider credentials behind it exist on one machine, so the lane refuses to\nrun anywhere else, twice over: ops/ci/devnode.sh refuses under GITHUB_ACTIONS,\nand ops/ci/workflow-policy.sh refuses any hosted workflow that so much as names\nit. The second guard is the one a maintainer trips over first, so it is the one\nwith hostile fixtures: a job that runs the lane, a commented-out mention, a\nmatrix entry, and a symlinked workflow entry.\n\nManifest classification, per the review. My first attempt pruned ./devnode from\nthe build-subject search. Both reviewers rejected that and they were right:\npruning would have made every future manifest under that directory invisible to\nthe guard, which is the opposite of what the guard is for. Instead there are now\ntwo pinned classes. Product manifests are what ships. Proof manifests belong to\nharnesses that are never a product dependency and are built by no lane other\nthan the one they prove; crates/bullet-wire/fuzz/Cargo.toml set that precedent\nand devnode/tui/Cargo.toml joins it. Both the manifest and its lock are\ndigest-pinned exactly as a product manifest is, and four new canary cases cover\nwhat pruning would have let through: a second harness beside the pinned one, a\nmissing harness, a changed harness dependency, and a changed lock.\n\nThe four product manifest pins and the seven existing subject pins are\nbyte-identical to main.\n\nProved on the development host before pushing: the lint lane passes end to end,\nthe build-subject canary passes and fails on a falsified pin, and the workflow\npolicy passes and fails when the devnode guard is neutered.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/038d2cd654e8549078d0e6a0480f92fa1c9a88e0"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "d057a193f36abd2725d49d3de41dae79f8cd6280",
+      "node_id": "C_kwDOUS7UsdoAKGQwNTdhMTkzZjM2YWJkMjcyNWQ0OWQzZGU0MWRhZTc5ZjhjZDYyODA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/d057a193f36abd2725d49d3de41dae79f8cd6280",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/d057a193f36abd2725d49d3de41dae79f8cd6280",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T18:32:13Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T18:32:13Z"
+      },
+      "tree": {
+        "sha": "f825d0d78cf4d6974ffda40be9b145d1a7302d1c",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f825d0d78cf4d6974ffda40be9b145d1a7302d1c"
+      },
+      "message": "Register the devnode lane in the proof-lane registry\n\nThe hosted fast lane caught what my local lint lane could not: assurance_controls\ncontrol_manifests_route_to_real_local_proof parses every non-empty line between\n`case \"$lane\" in` and `*)` in scripts/ci-local.sh as a dispatcher row, so the two\ncomment lines I put beside the new case arm were read as malformed rows. The note\nnow sits above the case statement, where it is still next to the thing it\nexplains and is not mistaken for a row.\n\nWith that fixed the same test reported the real omission: a new lane must be\ndeclared in agent/proof-lanes.toml and in the expected registry, or the\ndispatcher and the registry disagree. Both now carry devnode, with\nrequires_network true, because the lane fetches the pinned Tuiwright revision and\ntalks to a daemon.\n\nThat test is the control that stops a lane from existing in the dispatcher while\nbeing invisible to the register, which is a near relative of the finding this\nwhole branch closes.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "6074923a38aeacac72dc85d310fab68877eb65d7",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/6074923a38aeacac72dc85d310fab68877eb65d7",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/6074923a38aeacac72dc85d310fab68877eb65d7"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "b74d89e08dac9089b72dd5107037036e318f8253",
+      "node_id": "C_kwDOUS7UsdoAKGI3NGQ4OWUwOGRhYzkwODliNzJkZDUxMDcwMzcwMzZlMzE4ZjgyNTM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b74d89e08dac9089b72dd5107037036e318f8253",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/b74d89e08dac9089b72dd5107037036e318f8253",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:09:31Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:09:31Z"
+      },
+      "tree": {
+        "sha": "2de4a81b4a6f69ed424f654fd4ee99d13ad9cc96",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/2de4a81b4a6f69ed424f654fd4ee99d13ad9cc96"
+      },
+      "message": "Give the harness its own workspace root, or it cannot build at all\n\nFound by running the lane against the live authenticated daemon rather than by\nreading it. devnode/tui/Cargo.toml said it was \"excluded from the Hub workspace\"\nand nothing excluded it, so cargo read ../../Cargo.toml and refused:\n\n    error: current package believes it is in a workspace when it is not\n    current:   devnode/tui/Cargo.toml\n    workspace: Cargo.toml\n\nAn empty [workspace] table in the harness manifest makes it its own root. Doing\nit there rather than through an `exclude` in the Hub manifest keeps every product\nmanifest byte-identical, which is the promise the proof-only class rests on. The\nproof-only pin is regenerated for the new bytes.\n\nThis is exactly the failure the hosted graph cannot catch, because the lane\nrefuses to run hosted by design. It was caught the only way it could be: by\nrunning the lane. All eight console flows then pass against a real authenticated\nsession on this host, serially, in 7.31 seconds.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "d057a193f36abd2725d49d3de41dae79f8cd6280",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/d057a193f36abd2725d49d3de41dae79f8cd6280",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/d057a193f36abd2725d49d3de41dae79f8cd6280"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "a26e28b3e7eee3545de6a2d53e741d58fd353dc9",
+      "node_id": "C_kwDOUS7UsdoAKGEyNmUyOGIzZTdlZWUzNTQ1ZGU2YTJkNTNlNzQxZDU4ZmQzNTNkYzk",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/a26e28b3e7eee3545de6a2d53e741d58fd353dc9",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/a26e28b3e7eee3545de6a2d53e741d58fd353dc9",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:24:12Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:24:12Z"
+      },
+      "tree": {
+        "sha": "59667a7632fd616ab3baf0efd23fda0231128c0e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/59667a7632fd616ab3baf0efd23fda0231128c0e"
+      },
+      "message": "Record the console at 1920x1080, with its own frame masters\n\nEvery media artifact in this repository misses the geometry it declares. The two\nterminal GIFs are 2049x1323 and 1903x1228, the second of those despite being\nnamed \"1080\", and the Portal capture is 1920x1200. The bullet.real-media.v1\nmanifest declares 1920x1080 and nothing has ever produced it.\n\nThe arithmetic was never hard, it was simply never done. Tuiwright renders a\nscreen as cols*cell_width by rows*cell_height and draws real JetBrains Mono\nscaled to the cell height, so a larger cell means larger glyphs rather than gaps.\n120 columns by 36 rows at a 16x30 cell with no padding is exactly 1920x1080, and\n120x36 is a terminal size a person would actually use.\n\nRun against the live console on this host, just now:\n\n    DEVNODE_RECORD_COMPLETE: tui-1080p.gif at 1920x1080, 9 frames, 9 masters\n\nFrames come from the pseudo-terminal own parsed screen model, so they are native\nframes rather than a re-render of an asciicast. Every frame is also written as a\nlossless 1920x1080 PNG, because the M1 gate asks for original masters and\nmedia/dogfood/README.md states plainly that the current packet has none. The\nrecorder reads the geometry back out of the encoded file own header and refuses\nDEVNODE_RECORD_GIF_GEOMETRY_DRIFT rather than trusting the encoder, which is the\ncheck every existing artifact would have failed.\n\nTwo properties worth naming because they are the reason to trust the output. It\nrecords nothing it has not first asserted, so the artifact cannot contain a frame\nthe harness did not verify. And run.json names the beats it did NOT record and\nwhy: today that is every beat needing durable work, because the ledger holds\nnone, and inventing rows would make the recording a mock.\n\nThe lane builds it and does not run it. A recording is a deliberate act against a\nreal session with a private output directory; a lane that published media as a\nside effect would be publishing without anyone asking.\n\nThe proof-only manifest class now holds two entries, which is what it was built\nfor. Product manifest pins and the seven subject pins remain byte-identical to\nmain, and the canary covers the second harness exactly as it covers the first.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "b74d89e08dac9089b72dd5107037036e318f8253",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b74d89e08dac9089b72dd5107037036e318f8253",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b74d89e08dac9089b72dd5107037036e318f8253"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 31004398847,
+      "node_id": "ME_lADOUS7Usc8AAAABQs2Nr88AAAAHOAGU_w",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/31004398847",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "94ee6c036e33a94eff12285ac29ec72f6ffa1ae6",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/94ee6c036e33a94eff12285ac29ec72f6ffa1ae6",
+      "created_at": "2026-09-11T23:27:53Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31004398897,
+      "node_id": "CE_lADOUS7Usc8AAAABQs2Nr88AAAAHOAGVMQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/31004398897",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T23:27:53Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31004399698,
+      "node_id": "HRDE_lADOUS7Usc8AAAABQs2Nr88AAAAHOAGYUg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/31004399698",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_deleted",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T23:27:54Z",
+      "performed_via_github_app": null
+    }
+  ]
+]

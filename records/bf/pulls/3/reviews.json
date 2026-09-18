@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250148414,
+      "node_id": "PRR_kwDOUd_zl88AAAABOO7oPg",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve 04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932\n\nIndependent review by claude-orch (Claude; author lane is grok). Ran on this host against this exact head:\n- `git cat-file -e` for all 13 planned deletions (jobs/delivery/verification/fixtures/qualification/forge/domain/protocol, src/bin, tests/hardening, migrations 002/003, scripts/generate-contracts) \u2192 all gone; Cargo.toml no longer lists ts-rs/reqwest/async-stream; kept src = api, commands, digest, error, gitutil, hub, lib, main, runner, storage.\n- Isolated copy of the tree: `cargo clippy --all-targets -D warnings` clean; `cargo test --no-fail-fast` \u2192 lib 8, tests/core.rs 3, all passing.\n- In the checkout: `bash scripts/check` EXIT 0 in 28 s under Node 22.23.2 / npm 10.9.8.\n- CI: check SUCCESS on 04be4ec; mergeStateStatus CLEAN.\n\nScope note for the record: deleting the fixture control plane is the spec \u00a76 decision from the plan of record, not a judgment on the integrator's work; it stays in history at 2ce77b1. Merging with --rebase. Next: the CLI skeleton (plan PR 3) opens on top as #4.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/3#pullrequestreview-5250148414",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/3",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/3#pullrequestreview-5250148414"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/3"
+        }
+      },
+      "submitted_at": "2026-09-18T16:30:29Z",
+      "commit_id": "04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932"
+    }
+  ]
+]

@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "d9a08d80763a9972275e29a1f87483a169ae7ae1",
+      "node_id": "C_kwDOUd_zl9oAKGQ5YTA4ZDgwNzYzYTk5NzIyNzVlMjlhMWY4NzQ4M2ExNjlhZTdhZTE",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:29:45Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:30:37Z"
+        },
+        "message": "Add the bf CLI skeleton: every verb, stub modules, real doctor\n\nWires the full command surface from the plan (agents, board, claim,\nheartbeat, release, note, stop, prs, run, doctor, serve, web) with\nexit codes 0/1/2/3/64, adds stub modules with their final signatures\n(agents, board, identity, prs, tui with the Source trait and Snapshot\nrows) so PRs 4-6 compile independently, and makes `bf doctor`\nlock-free (no hub, no database) so it works while `bf serve` runs.\nWriter identity (identity.rs) is real: --as/BF_AGENT plus the observed\nprovider and pid from the /proc ancestor chain, with tests. Adds\nratatui/crossterm pins, clap `env`, and AGENTS.md with the board rules.\n\nPlan of record PR 3: ~/.claude/plans/please-study-the-tips-snazzy-canyon.md\nBuilt on top of the PR 2b prune (grok, #3).\n\nbf-author: claude/claude-orch\nbf-claim: AGENT_CHAT.md 2026-09-18T16:11Z\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "3ac0c978cd774d0fd2858fa63f74d8292378b4b1",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/3ac0c978cd774d0fd2858fa63f74d8292378b4b1"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/d9a08d80763a9972275e29a1f87483a169ae7ae1",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/d9a08d80763a9972275e29a1f87483a169ae7ae1",
+      "html_url": "https://github.com/neverhuman/bf/commit/d9a08d80763a9972275e29a1f87483a169ae7ae1",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/d9a08d80763a9972275e29a1f87483a169ae7ae1/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "8a696b54772274ab65c81bdef9ad210407651ab1",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/8a696b54772274ab65c81bdef9ad210407651ab1",
+          "html_url": "https://github.com/neverhuman/bf/commit/8a696b54772274ab65c81bdef9ad210407651ab1"
+        }
+      ]
+    }
+  ]
+]

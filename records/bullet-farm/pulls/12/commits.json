@@ -1,0 +1,172 @@
+[
+  [
+    {
+      "sha": "ab7ba1928b5642e337a886129180f11ec1789d65",
+      "node_id": "C_kwDOUS7UsdoAKGFiN2JhMTkyOGI1NjQyZTMzN2E4ODYxMjkxODBmMTFlYzE3ODlkNjU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:33:02Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:33:02Z"
+        },
+        "message": "Issue harness work-package IDs from the admitted command, not dry-run seeds.\n\nWhen the operator supplies the command id, request digest, and idempotency key, prepare-harness matches the worker and forwards credential grants without reading their bytes.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "f601f6eee5343d0d1946e82a1bd8df7267452e79",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f601f6eee5343d0d1946e82a1bd8df7267452e79"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/ab7ba1928b5642e337a886129180f11ec1789d65",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/ab7ba1928b5642e337a886129180f11ec1789d65",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/ab7ba1928b5642e337a886129180f11ec1789d65",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/ab7ba1928b5642e337a886129180f11ec1789d65/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d"
+        }
+      ]
+    },
+    {
+      "sha": "c93f057f18838681db02ce847585ece66fa96860",
+      "node_id": "C_kwDOUS7UsdoAKGM5M2YwNTdmMTg4Mzg2ODFkYjAyY2U4NDc1ODVlY2U2NmZhOTY4NjA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:40:48Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:40:48Z"
+        },
+        "message": "Name v0.2.0-operator-cli and keep scheduled Jankurai out of the merge gate.\n\nHosted required stays the four-main bar; this version does not lift HOLD or claim schema-3.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "f9cd4c88dcc12d473488840176e889b0b4d24ae4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f9cd4c88dcc12d473488840176e889b0b4d24ae4"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c93f057f18838681db02ce847585ece66fa96860",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c93f057f18838681db02ce847585ece66fa96860",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/c93f057f18838681db02ce847585ece66fa96860",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c93f057f18838681db02ce847585ece66fa96860/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "ab7ba1928b5642e337a886129180f11ec1789d65",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/ab7ba1928b5642e337a886129180f11ec1789d65",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/ab7ba1928b5642e337a886129180f11ec1789d65"
+        }
+      ]
+    },
+    {
+      "sha": "066f531f9a3ea1bb23afd181a3490e05002bf730",
+      "node_id": "C_kwDOUS7UsdoAKDA2NmY1MzFmOWEzZWExYmIyM2FmZDE4MWEzNDkwZTA1MDAyYmY3MzA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:41:03Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:41:03Z"
+        },
+        "message": "Say scheduled Jankurai is machine-local; hosted required is the merge gate.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "c8758b1bf882cf141387400b1b7831dc36c7274a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/c8758b1bf882cf141387400b1b7831dc36c7274a"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/066f531f9a3ea1bb23afd181a3490e05002bf730",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/066f531f9a3ea1bb23afd181a3490e05002bf730",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/066f531f9a3ea1bb23afd181a3490e05002bf730",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/066f531f9a3ea1bb23afd181a3490e05002bf730/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "c93f057f18838681db02ce847585ece66fa96860",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c93f057f18838681db02ce847585ece66fa96860",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/c93f057f18838681db02ce847585ece66fa96860"
+        }
+      ]
+    },
+    {
+      "sha": "0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+      "node_id": "C_kwDOUS7UsdoAKDBmZTU1ZjA5NWUyZjQxZTg0YjAwMWZmMjZjZGUzYzNmM2E2OGVhYzk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:08:30Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:08:30Z"
+        },
+        "message": "Keep the v0.2 changelog honest about unmerged kernel work.\n\nHub bullets stay Hub-only. Kernel D1, binding, Cursor Fork B, and hex-safe\nTUI stay proposed on kernel PR17. The public GIF caption names the empty fleet.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "1b5a7a6bb754b7348e0e9c9260916caa8cbeb3d1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/1b5a7a6bb754b7348e0e9c9260916caa8cbeb3d1"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0fe55f095e2f41e84b001ff26cde3c3f3a68eac9/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "066f531f9a3ea1bb23afd181a3490e05002bf730",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/066f531f9a3ea1bb23afd181a3490e05002bf730",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/066f531f9a3ea1bb23afd181a3490e05002bf730"
+        }
+      ]
+    }
+  ]
+]

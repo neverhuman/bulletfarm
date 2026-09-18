@@ -1,0 +1,140 @@
+[
+  [
+    {
+      "sha": "9dc1f9afbf870e3b84fcff1f0768de98168f5b2d",
+      "node_id": "C_kwDOUS7UsdoAKDlkYzFmOWFmYmY4NzBlM2I4NGZjZmYxZjA3NjhkZTk4MTY4ZjViMmQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/9dc1f9afbf870e3b84fcff1f0768de98168f5b2d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/9dc1f9afbf870e3b84fcff1f0768de98168f5b2d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:51:16Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:51:16Z"
+      },
+      "tree": {
+        "sha": "8cfe1ec9c87430b611e7b86a82db97630276d5ac",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/8cfe1ec9c87430b611e7b86a82db97630276d5ac"
+      },
+      "message": "Point contributors at the unsigned console and four-file packets.\n\njust setup stays blocked. Do not paste bootstrap tokens into issues.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "c53fd23b7d6ba46291573f56860a601848d4b53a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c53fd23b7d6ba46291573f56860a601848d4b53a",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/c53fd23b7d6ba46291573f56860a601848d4b53a"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "7b36cc104e7d9a30b423c334c849ae87a5b0db85",
+      "node_id": "C_kwDOUS7UsdoAKDdiMzZjYzEwNGU3ZDlhMzBiNDIzYzMzNGM4NDlhZTg3YTViMGRiODU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/7b36cc104e7d9a30b423c334c849ae87a5b0db85",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/7b36cc104e7d9a30b423c334c849ae87a5b0db85",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:51:16Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:51:16Z"
+      },
+      "tree": {
+        "sha": "bca74b47834a4c58b18e9796445256d196d2b3e9",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/bca74b47834a4c58b18e9796445256d196d2b3e9"
+      },
+      "message": "Add GitHub advisory SECURITY.md and a local-console issue form.\n\nCI security-policy.toml is not a disclosure inbox. G8 stays open.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "9dc1f9afbf870e3b84fcff1f0768de98168f5b2d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/9dc1f9afbf870e3b84fcff1f0768de98168f5b2d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/9dc1f9afbf870e3b84fcff1f0768de98168f5b2d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30936554761,
+      "node_id": "ME_lADOUS7Usc8AAAABQvHe488AAAAHM_ZdCQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30936554761",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+      "created_at": "2026-09-10T23:00:59Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30936554807,
+      "node_id": "CE_lADOUS7Usc8AAAABQvHe488AAAAHM_ZdNw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30936554807",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T23:00:59Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

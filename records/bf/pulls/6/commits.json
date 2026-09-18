@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "f2403f76c414a8036c15ef789a9452beefef04b6",
+      "node_id": "C_kwDOUd_zl9oAKGYyNDAzZjc2YzQxNGE4MDM2YzE1ZWY3ODlhOTQ1MmJlZWZlZjA0YjY",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:48:21Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:48:21Z"
+        },
+        "message": "Board: claims, heartbeats, releases with proof, addressed notes, generated AGENT_CHAT.md\n\nReplaces hand-edited AGENT_CHAT.md with an append-only SQLite board\n(~/.bf/bf.sqlite): component-wise path overlap, idempotent re-claim,\n30-minute leases extended by heartbeat, STALE on expired claims, release\nwith `--proof '<cmd>'` that runs the command and records exit code,\noutput digest, changed paths and HEAD, notes addressed to an agent/claim/PR\nwith an inbox (`bf board --to me`) and a trailer on every write, writer\nidentity from the observed process tree, and an atomically regenerated\ndigest with straggler import after the end marker.\n\nPlan of record PR 5: ~/.claude/plans/please-study-the-tips-snazzy-canyon.md\n\nbf-author: claude/claude-orch\nbf-claim: AGENT_CHAT.md 2026-09-18T16:34Z\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "9afc856e4dd933b59a70b2ea8d286174d7c06e36",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/9afc856e4dd933b59a70b2ea8d286174d7c06e36"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/f2403f76c414a8036c15ef789a9452beefef04b6",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/f2403f76c414a8036c15ef789a9452beefef04b6",
+      "html_url": "https://github.com/neverhuman/bf/commit/f2403f76c414a8036c15ef789a9452beefef04b6",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/f2403f76c414a8036c15ef789a9452beefef04b6/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "bcc06b8ec7958a2efc40a23a444f0ead66b73e48",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/bcc06b8ec7958a2efc40a23a444f0ead66b73e48",
+          "html_url": "https://github.com/neverhuman/bf/commit/bcc06b8ec7958a2efc40a23a444f0ead66b73e48"
+        }
+      ]
+    }
+  ]
+]

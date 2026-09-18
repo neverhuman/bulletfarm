@@ -1,0 +1,133 @@
+[
+  [
+    {
+      "sha": "700da8c839d5d77410103e8ea8323719dcceb187",
+      "node_id": "C_kwDOUS7UytoAKDcwMGRhOGM4MzlkNWQ3NzQxMDEwM2U4ZWE4MzIzNzE5ZGNjZWIxODc",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:46:23Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:46:23Z"
+        },
+        "message": "Paint colours the terminal can actually render, and keep the hints visible.\n\nThe console chose colour on `NO_COLOR` alone and then emitted 24-bit RGB\nunconditionally. On a terminal that does not advertise truecolor - a plain\n`screen.xterm-256color` with no COLORTERM, which is the common case under\nscreen and tmux - the navy ground quantises to black and the amber chrome\nlands on a muddy dark red. The result is unreadable, and it is what an\noperator saw on a first run.\n\nPick a representation the terminal can render instead: truecolor when\nCOLORTERM advertises it, otherwise indexed ANSI with the ground left to the\nterminal so the console sits in the operator's own theme. NO_COLOR still\nwins and still paints every cell Reset.\n\nSeparately, the bottom bar replaced the key hints with the error text, so\nthe one line telling you which keys exist disappeared exactly when you most\nneeded it. Show the error above the hints rather than instead of them.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>",
+        "tree": {
+          "sha": "dba090b79da6b9c770b87dcd67b9da2f1c3c27ed",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/dba090b79da6b9c770b87dcd67b9da2f1c3c27ed"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/700da8c839d5d77410103e8ea8323719dcceb187",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/700da8c839d5d77410103e8ea8323719dcceb187",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/700da8c839d5d77410103e8ea8323719dcceb187",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/700da8c839d5d77410103e8ea8323719dcceb187/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "2ff048fd558807c55aea83b6ad0ef2c6ed04b123",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/2ff048fd558807c55aea83b6ad0ef2c6ed04b123",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/2ff048fd558807c55aea83b6ad0ef2c6ed04b123"
+        }
+      ]
+    },
+    {
+      "sha": "23e5f2d792b05fcb4c45b0b71e7143343e8f0b97",
+      "node_id": "C_kwDOUS7UytoAKDIzZTVmMmQ3OTJiMDVmY2I0YzQ1YjBiNzFlNzE0MzM0M2U4ZjBiOTc",
+      "commit": {
+        "author": {
+          "name": "NeverHuman",
+          "email": "jepson@veox.ai",
+          "date": "2026-09-11T23:52:20Z"
+        },
+        "committer": {
+          "name": "GitHub",
+          "email": "noreply@github.com",
+          "date": "2026-09-11T23:52:20Z"
+        },
+        "message": "Merge branch 'main' into claude/tui-color-and-guidance",
+        "tree": {
+          "sha": "980b62fe6612aaa39c54617648a8c0871f728e03",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/980b62fe6612aaa39c54617648a8c0871f728e03"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/23e5f2d792b05fcb4c45b0b71e7143343e8f0b97",
+        "comment_count": 0,
+        "verification": {
+          "verified": true,
+          "reason": "valid",
+          "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqpJQ0CRC1aQ7uu5UhlAAAtUwQAGWL4yL2WblvRnIKjhaB8vYH\n7nkSPYVwaW03K/jeHJmVGcFRUXByVIkkqdm1OuTdXlwn1dktyfshyEELGyC9QTzD\nEtoOSpHGac6yIkxrhE7EHijbRIogZ2p+m/bmt3Tjcul/qnsEMpoiRO5S7eG8rdny\nk+/JEsEiXB0V/ikCexZsDTvvpFhDv0Ntsv8b4WOG6IshXkQPKJuKI+kyCJj/NVye\nu8CoZWfe1F/F9i411WkOZ/BHSZn3n5WxiU3XoTxniHEPtB01sKnsNMu2q9dY/09h\nIIvuiBQZuzvgyZZUBOFr1W7PZpOQ2uUWCaPmIlfFxbv8Rqp5qhFmmPeQpUQniKgu\n7b88sFLFVh9GixM0Uwz1twIp1eBrOj7EQAhnNSUazUeAwkW1yBPCuvs44mXxT40q\nJttAVDXu/sX95WtSynsCsKbWiY+CxRk31jo/69tuwQNdKx7BmMfNOoAa8ysmJPJZ\nOx3JlgmHB3s8BzOAjGpvgCfDgcUKoSf0gVdEUlLz74lDztNgm+z7JirhhqIWc/nQ\n8L9aVvdyNFIpetLl+CX9t6BO8L0HOi3OMcsHI1eGqDMZEkWAifBQw8mPtQrnQqPy\n4wzAGkE9UbxrXKVRrxm6YGOFYC/TnhRjR7jM/rQJalVRMwx/uuKs9eHx6DEZI9EB\nIWkVxKs+f0az8p17uPMs\n=bSwb\n-----END PGP SIGNATURE-----\n",
+          "payload": "tree 980b62fe6612aaa39c54617648a8c0871f728e03\nparent 700da8c839d5d77410103e8ea8323719dcceb187\nparent 12b0511bffa813058c835d9c22fc78fc7103eaf8\nauthor NeverHuman <jepson@veox.ai> 1789170740 -0600\ncommitter GitHub <noreply@github.com> 1789170740 -0600\n\nMerge branch 'main' into claude/tui-color-and-guidance",
+          "verified_at": "2026-09-11T23:52:20Z"
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/23e5f2d792b05fcb4c45b0b71e7143343e8f0b97",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/23e5f2d792b05fcb4c45b0b71e7143343e8f0b97",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/23e5f2d792b05fcb4c45b0b71e7143343e8f0b97/comments",
+      "author": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "committer": {
+        "login": "web-flow",
+        "id": 19864447,
+        "node_id": "MDQ6VXNlcjE5ODY0NDQ3",
+        "avatar_url": "https://avatars.githubusercontent.com/u/19864447?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/web-flow",
+        "html_url": "https://github.com/web-flow",
+        "followers_url": "https://api.github.com/users/web-flow/followers",
+        "following_url": "https://api.github.com/users/web-flow/following{/other_user}",
+        "gists_url": "https://api.github.com/users/web-flow/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/web-flow/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/web-flow/subscriptions",
+        "organizations_url": "https://api.github.com/users/web-flow/orgs",
+        "repos_url": "https://api.github.com/users/web-flow/repos",
+        "events_url": "https://api.github.com/users/web-flow/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/web-flow/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "parents": [
+        {
+          "sha": "700da8c839d5d77410103e8ea8323719dcceb187",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/700da8c839d5d77410103e8ea8323719dcceb187",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/700da8c839d5d77410103e8ea8323719dcceb187"
+        },
+        {
+          "sha": "12b0511bffa813058c835d9c22fc78fc7103eaf8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/12b0511bffa813058c835d9c22fc78fc7103eaf8",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/12b0511bffa813058c835d9c22fc78fc7103eaf8"
+        }
+      ]
+    }
+  ]
+]

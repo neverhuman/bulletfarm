@@ -1,0 +1,107 @@
+[
+  {
+    "total_count": 1,
+    "jobs": [
+      {
+        "id": 105668909552,
+        "run_id": 35366124315,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bf/actions/runs/35366124315",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUd_zl88AAAAYmluZ8A",
+        "head_sha": "2ce77b18e979ce8c84eeff25e39102a2afec18f4",
+        "url": "https://api.github.com/repos/neverhuman/bf/actions/jobs/105668909552",
+        "html_url": "https://github.com/neverhuman/bf/actions/runs/35366124315/job/105668909552",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-18T16:03:05Z",
+        "started_at": "2026-09-18T16:03:27Z",
+        "completed_at": "2026-09-18T16:05:06Z",
+        "name": "check",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-18T16:03:27Z",
+            "completed_at": "2026-09-18T16:03:28Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-18T16:03:28Z",
+            "completed_at": "2026-09-18T16:03:29Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-18T16:03:29Z",
+            "completed_at": "2026-09-18T16:03:37Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-18T16:03:37Z",
+            "completed_at": "2026-09-18T16:03:38Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-18T16:03:38Z",
+            "completed_at": "2026-09-18T16:03:42Z"
+          },
+          {
+            "name": "Check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-18T16:03:42Z",
+            "completed_at": "2026-09-18T16:05:05Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-09-18T16:05:05Z",
+            "completed_at": "2026-09-18T16:05:05Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-09-18T16:05:05Z",
+            "completed_at": "2026-09-18T16:05:05Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-09-18T16:05:05Z",
+            "completed_at": "2026-09-18T16:05:05Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bf/check-runs/105668909552",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000026738,
+        "runner_name": "GitHub Actions 1000026738",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  }
+]

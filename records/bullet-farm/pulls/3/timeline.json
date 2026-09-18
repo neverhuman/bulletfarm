@@ -1,0 +1,536 @@
+[
+  [
+    {
+      "sha": "04838ca394eab8bdc38902292d4c7caf11a575c6",
+      "node_id": "C_kwDOUS7UsdoAKDA0ODM4Y2EzOTRlYWI4YmRjMzg5MDIyOTJkNGM3Y2FmMTFhNTc1YzY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/04838ca394eab8bdc38902292d4c7caf11a575c6",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/04838ca394eab8bdc38902292d4c7caf11a575c6",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T02:19:50Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T02:19:50Z"
+      },
+      "tree": {
+        "sha": "e04041e307ab3b56ff51d233c3a6e0d58632fc70",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/e04041e307ab3b56ff51d233c3a6e0d58632fc70"
+      },
+      "message": "Install checksum-pinned actionlint and move the real dogfood recordings out of the synthetic media inventory\n\nHub main is red in the lint and docs lanes: taiki-e/install-action no longer carries\nactionlint@1.7.8 (fallback disabled), and scripts/readme-check.sh's stage-one inventory\nfor docs/readme-media is exactly 17 synthetic-render files, while five real-recording\nfiles had been committed beside them.\n\n- Add ops/ci/install-actionlint.sh (byte-identical to the installers already committed in\n  bullet-git, bullet-kernel and bullet-portal) and call it in the lint job before the\n  taiki-e step, which now installs only shellcheck and cargo-nextest.\n- Repin the hosted workflow digest in ops/ci/workflow-policy.sh and its hostile test.\n- Move the real Claude 2.1.266 dogfood recording (candidate GIFs, cast, transcript) and the\n  real Portal capture, byte-identical, from docs/readme-media/ to media/dogfood/, with the\n  rewritten media/dogfood/README.md that states what those recordings do and do not prove.\n\nBytes authored and released by the Codex root lane (release hashes e6dc256a\u2026, d7302b4d\u2026,\n934a2386\u2026, f241d8a5\u2026); integrated path-exactly by claude-orch from a temporary index.\nProof on the exact tree: ops/ci/workflow-policy.sh exit 0; ops/ci/check-links.sh 91 files\npassed; docs/readme-media inventory is the expected 17 entries.\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "6aa1d901d5c5649b37841e191291e5931d1f0acc",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/6aa1d901d5c5649b37841e191291e5931d1f0acc",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/6aa1d901d5c5649b37841e191291e5931d1f0acc"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "7d69a3368996cb5164678fea7deb2c31ff1261ce",
+      "node_id": "C_kwDOUS7UsdoAKDdkNjlhMzM2ODk5NmNiNTE2NDY3OGZlYTdkZWIyYzMxZmYxMjYxY2U",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/7d69a3368996cb5164678fea7deb2c31ff1261ce",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/7d69a3368996cb5164678fea7deb2c31ff1261ce",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:46:15Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:46:15Z"
+      },
+      "tree": {
+        "sha": "9d4d70b9bde28240bc4736855e120f42d651d51f",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/9d4d70b9bde28240bc4736855e120f42d651d51f"
+      },
+      "message": "Install b3sum for the lint doctor, refuse absent test subjects by name, and keep the parse-site inventory exact\n\nThree hosted lanes still refused on this branch. Each cause is an environment\nsubject a single-repository runner cannot provide, not a product defect, so\neach one now refuses by name instead of dying on a tool's own error text.\n\n- lint: scripts/ci-doctor.sh requires b3sum 1.8.2 and the job never installed\n  it, so the lane stopped with `missing b3sum for lint` before any check ran.\n  Install the locked 1.8.2 build exactly as bullet-kernel's lint job does, and\n  repin the workflow digest in ops/ci/workflow-policy.sh and its hostile test.\n- contract: crates/bullet-wire/tests/canonical_hostile/metadata.rs asserts that\n  the repository's only `.parse()` call is the canonical decoder's. A test\n  helper in src/coord/generation/recovery/verify/lease.rs had added a second\n  one; it now folds the child's decimal UID without `.parse()`, so the reviewed\n  single-site inventory holds without an allowlist exception.\n- fast: three family-container tests (wave0, dog0, typed orphan inventory) and\n  nine media tests needed the four-repository container, the portal's\n  playwright tree, or a local ffmpeg/agg. Each now probes its exact subject and\n  returns with FAMILY_ROOT_UNAVAILABLE or MEDIA_CAPTURE_SUBJECTS_UNAVAILABLE\n  naming the missing path. No test is ignored and no assertion is weakened:\n  where the subject exists, every original assertion still runs.\n- release_truth asserted the rendered `hub HEAD committed \u2026+00:00` line, but\n  Git 2.55 on the hosted runner prints `%cI` for a UTC commit as `\u2026Z`. The\n  renderer now normalises that suffix so both Git versions render one string.\n- scripts/ci-observation.sh prints each dirty path as CI_SUBJECT_DIRTY when it\n  records clean=false, so a refused subject names the file instead of a bare\n  flag.\n- publication/root/README.md points the candidate recording at its new\n  media/dogfood path (bytes verified, sha256 58009b04\u2026); released for this\n  change by the Codex root lane.\n\nProof on the exact tree: the lane's three clippy invocations exit 0;\n`cargo test -p bullet-wire --test canonical_hostile` and each touched\nbullet-family test binary exit 0; ops/ci/test-partitions.sh reports the\nunchanged hub=600 wire=219 total=819 identities; ops/ci/workflow-policy.sh and\nops/ci/check-links.sh exit 0.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "04838ca394eab8bdc38902292d4c7caf11a575c6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/04838ca394eab8bdc38902292d4c7caf11a575c6",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/04838ca394eab8bdc38902292d4c7caf11a575c6"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "db5dc73b4b3c8f65e05c3ac4921edfc61a03f078",
+      "node_id": "C_kwDOUS7UsdoAKGRiNWRjNzNiNGIzYzhmNjVlMDVjM2FjNDkyMWVkZmM2MWEwM2YwNzg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/db5dc73b4b3c8f65e05c3ac4921edfc61a03f078",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/db5dc73b4b3c8f65e05c3ac4921edfc61a03f078",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:49:52Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:49:52Z"
+      },
+      "tree": {
+        "sha": "1869c6f71a01e2bf12bc00ae9d8e8f418c5e06a4",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/1869c6f71a01e2bf12bc00ae9d8e8f418c5e06a4"
+      },
+      "message": "Cross-walk the historical spec's completion checklist to code, lanes and owners\n\nThe operator asked that every remaining key feature in the planning corpus be\naddressed. The corpus's own checklist is \u00a738 of the Centerrail spec, whose 73\nboxes are all still unchecked, and nothing mapped them to code.\n\ndocs/assurance/spec-crosswalk.md carries one row per box in the spec's own\ngrouping: where the capability lives today (crate, file, route or surface, or\n`none`), which CI lane proves it, a status that distinguishes LIBRARY-ONLY (the\ncode exists but no binary links it, which is true of crates/router, fusion,\nbehavior, budgets and projections) from PARTIAL, DESIGNED and ABSENT, and a\ndisposition naming the lane, the operator decision, or the ADR that refuses it.\nIt also records the corpus instrument's meaning: `IMPLEMENTED` in\npolicy/corpus-coverage-v1.json means one passing test symbol exists, never\nproduction or release evidence.\n\nThe page is a tracked crosswalk, not evidence: it closes no G-row, no operator\ndecision and no release gate, and `check release` stays the only status\nauthority.\n\nProof: ops/ci/check-links.sh passes over 92 files, including the \u00a738 fragment.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "7d69a3368996cb5164678fea7deb2c31ff1261ce",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/7d69a3368996cb5164678fea7deb2c31ff1261ce",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/7d69a3368996cb5164678fea7deb2c31ff1261ce"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "44731649e2b984e2e6b0b83100c3ed41ec0a77c8",
+      "node_id": "C_kwDOUS7UsdoAKDQ0NzMxNjQ5ZTJiOTg0ZTJlNmIwYjgzMTAwYzNlZDQxZWMwYTc3Yzg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/44731649e2b984e2e6b0b83100c3ed41ec0a77c8",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/44731649e2b984e2e6b0b83100c3ed41ec0a77c8",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:54:09Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:54:09Z"
+      },
+      "tree": {
+        "sha": "7436c7610a3f0c2411cd40ae822e4467b0ff26af",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/7436c7610a3f0c2411cd40ae822e4467b0ff26af"
+      },
+      "message": "Give the lint job full history and the contract job its locked registry\n\nPast the b3sum repair the hub lint lane reached its real body and refused\n`SHALLOW_HISTORY: full-history scanning requires fetch-depth 0`:\nops/ci/rust-toolchain-boundary-test.sh exercises the history lane, and\nops/ci/history.sh deliberately refuses a shallow clone, while the job checked\nout at the action's default depth of one. The lint job now checks out full\nhistory, with a comment naming the consumer.\n\nThe contract lane failed for an unrelated environment reason: the canonical\nhostile support helper resolves the whole dependency graph with\n`cargo metadata --locked --offline`, and the runner's registry held only the\ncrates the lane had built, so resolving reached `arbitrary v1.4.2` and refused\nto make an HTTP request. The job now runs `cargo fetch --locked` before the\nlane, which populates the exact locked graph without weakening the test's\noffline assertion.\n\nBoth are hosted-environment gaps, not product defects: no assertion changes and\nno test is skipped. The workflow digest is repinned in ops/ci/workflow-policy.sh\nand its hostile test.\n\nProof: ops/ci/workflow-policy.sh exit 0 and actionlint exit 0 on the exact tree.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "db5dc73b4b3c8f65e05c3ac4921edfc61a03f078",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/db5dc73b4b3c8f65e05c3ac4921edfc61a03f078",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/db5dc73b4b3c8f65e05c3ac4921edfc61a03f078"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "2fafda0da501334ccea0a205ddd91d43073aea12",
+      "node_id": "C_kwDOUS7UsdoAKDJmYWZkYTBkYTUwMTMzNGNjZWEwYTIwNWRkZDkxZDQzMDczYWVhMTI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/2fafda0da501334ccea0a205ddd91d43073aea12",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/2fafda0da501334ccea0a205ddd91d43073aea12",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:55:25Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T11:55:25Z"
+      },
+      "tree": {
+        "sha": "b75d79c3c4ba26b5100ad155dcff9bde1d41d625",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/b75d79c3c4ba26b5100ad155dcff9bde1d41d625"
+      },
+      "message": "Install gitleaks in the fast job so the publication scanner tests run\n\nTwo of the fast lane's failures are a missing tool, not a defect:\nops/ci/lib.sh exports BULLET_PUBLICATION_GITLEAKS only when gitleaks is already\non PATH, and the fast job never installed it, so both publication::scan\nconformance tests refused with PUBLICATION_SCANNER_REQUIRED. The job now runs\nthe same checksum-pinned ops/ci/install-gitleaks.sh the source-scan and\nsecurity jobs already use, and the workflow digest is repinned.\n\nProof: ops/ci/workflow-policy.sh exit 0 and actionlint exit 0 on the exact tree.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "44731649e2b984e2e6b0b83100c3ed41ec0a77c8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/44731649e2b984e2e6b0b83100c3ed41ec0a77c8",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/44731649e2b984e2e6b0b83100c3ed41ec0a77c8"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "5b931c5b4c7999b230e01deded83c08f38541b17",
+      "node_id": "C_kwDOUS7UsdoAKDViOTMxYzViNGM3OTk5YjIzMGUwMWRlZGVkODNjMDhmMzg1NDFiMTc",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/5b931c5b4c7999b230e01deded83c08f38541b17",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/5b931c5b4c7999b230e01deded83c08f38541b17",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:08:49Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:08:49Z"
+      },
+      "tree": {
+        "sha": "2a2c021a1a7363b57f50d059af6343e4e8889a65",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/2a2c021a1a7363b57f50d059af6343e4e8889a65"
+      },
+      "message": "Keep the compiler-boundary canary hermetic and stop the board test writing bytecode\n\nThe fast lane now passes 600/600, and the lint lane reaches its last two\nchecks. Both remaining refusals are the hosted environment leaking into a\nfixture, and the dirty-path diagnostic added earlier named the second one\nimmediately.\n\n- ops/ci/disallowed-methods-test.sh asserts that a `paths` key in the Cargo\n  config at the default home is refused as CARGO_CONFIG_CONTROL_FORBIDDEN, and\n  discovers that config through HOME. A hosted runner exports CARGO_HOME, so\n  validate_resolved_cargo_configs compared the ambient Cargo home against the\n  fixture's default, refused CARGO_HOME_FORBIDDEN first, and the canary\n  correctly reported that the case had failed for an unrelated reason. The case\n  now runs with CARGO_HOME unset, so HOME discovery is what it exercises.\n- tests/dogfood_board.rs spawned python3 three times without the bytecode\n  suppression the rest of this repository already uses, leaving\n  tests/__pycache__/dogfood-board.cpython-312.pyc behind. The lane then refused\n  CI_SUBJECT_INVALID because the checkout was no longer clean. All three call\n  sites now set PYTHONDONTWRITEBYTECODE=1.\n\nProof: with an ambient CARGO_HOME set, ops/ci/disallowed-methods-test.sh exits 0\non the exact tree; `cargo test -p bullet-family --test dogfood_board` exits 0\nand leaves no tests/__pycache__; `cargo fmt -p bullet-family --check` exits 0.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "2fafda0da501334ccea0a205ddd91d43073aea12",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/2fafda0da501334ccea0a205ddd91d43073aea12",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/2fafda0da501334ccea0a205ddd91d43073aea12"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "1917f443f97ea104a509164bc4b87647c6fe7f0f",
+      "node_id": "C_kwDOUS7UsdoAKDE5MTdmNDQzZjk3ZWExMDRhNTA5MTY0YmM0Yjg3NjQ3YzZmZTdmMGY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/1917f443f97ea104a509164bc4b87647c6fe7f0f",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/1917f443f97ea104a509164bc4b87647c6fe7f0f",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:12:12Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:12:12Z"
+      },
+      "tree": {
+        "sha": "d40650fe0a8dbbb687f79e856564c588fff4dff0",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/d40650fe0a8dbbb687f79e856564c588fff4dff0"
+      },
+      "message": "Add the operator scripts that bring a dogfood control plane up, bind a harness, and drive the worker\n\nStarting a dogfood session meant re-deriving a peer registry, a lease transport\nkey, a bootstrap exchange, a binary manifest and twenty-five BULLET_HARNESS_*\nvalues by hand from a CI proof script. These five scripts do that, refuse by\nname when an input is absent, and never print a token, cookie or CSRF value.\n\n- scripts/dogfood/serve.sh admits the data directory, provisions the lease\n  transport key create-once, writes the peer registry, launches farmd, waits for\n  /health, exchanges the one-time bootstrap and writes a 0600 session file. It\n  detects `--bootstrap-token-file` and falls back to scraping the startup line,\n  because the current daemon offers neither flag yet.\n- scripts/dogfood/prepare-harness.sh derives the harness environment for\n  --provider claude, writes a 0600 env file and gates on `bullet coding\n  harness-check` reporting BOUND. Three names have no producer anywhere in the\n  kernel today, so they are emitted as PLACEHOLDER_DRY_RUN_ONLY, named in the\n  script's own output, and refused unless --allow-placeholders is given.\n- scripts/dogfood/worker-loop.sh builds the command-worker binary manifest and\n  supervises the one-shot worker, logging each COMMAND_UNKNOWN / NO_COMMAND\n  result and never restarting a child mid-flight.\n- scripts/stage-rust-toolchain.sh prepares, but never installs, an immutable\n  root-owned Rust toolchain for a future real gate, and prints the exact\n  privileged commands for the operator.\n- scripts/dogfood/README.md carries the flow, every refusal code, and what these\n  scripts do not prove.\n\nProof, no provider spawned and nothing spent: shellcheck -x and --help exit 0\nfor all four scripts; a smoke lane brought farmd up, admitted one run_demo\ncommand (HTTP 202), ran the worker against it, and stopped cleanly; a second\nlane proved the idle path exits on NO_COMMAND; prepare-harness reported BOUND\nwith all eight dogfood names present, and refused\nDOGFOOD_OPS_HARNESS_PLACEHOLDERS_PRESENT without the explicit flag.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "5b931c5b4c7999b230e01deded83c08f38541b17",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/5b931c5b4c7999b230e01deded83c08f38541b17",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/5b931c5b4c7999b230e01deded83c08f38541b17"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "0a0a4331517d55fb605ef095765c96bf5f43302e",
+      "node_id": "C_kwDOUS7UsdoAKDBhMGE0MzMxNTE3ZDU1ZmI2MDVlZjA5NTc2NWM5NmJmNWY0MzMwMmU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0a0a4331517d55fb605ef095765c96bf5f43302e",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0a0a4331517d55fb605ef095765c96bf5f43302e",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:17:23Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:17:23Z"
+      },
+      "tree": {
+        "sha": "4fd0303138be9372c5fc846d1a920020022a4bbc",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/4fd0303138be9372c5fc846d1a920020022a4bbc"
+      },
+      "message": "Gate real recordings on their own evidence, and record why 1920x1080 needs lossless padding\n\nscripts/readme-check.sh validates the two synthetic drawtext GIFs the hub README\nembeds: exactly 1200x675, 12 fps, under 3 MiB, and byte-identical on re-render.\nA real capture cannot satisfy any of that, so a recording of an actual run had\nno gate at all. These two scripts give it one.\n\nscripts/readme-real-check.sh accepts a recording only against its own manifest:\n1920x1080, under 50,000,000 bytes, monotonic frame delays, the recorder and\nrender-tool digests, the exact binaries and all four member commits, the run and\nreceipt identity, the provider and its enrolled runtime version, a redacted\naccount label, and a retained pre-quantisation master. Claims come from a fixed\nallowlist that cannot contain TRANSACTION_PROOF, independent, LIVE_PROOF,\nrelease or self-hosted-v1, and the cast is scanned for bootstrap tokens, CSRF\ntokens, undeclared 64-hex values, emails and home paths. Its --self-test proves\ntwo acceptances and 38 typed refusals.\n\nscripts/media/record-tui.sh replaces the ad-hoc media/dogfood wrappers: explicit\nrun and proof directories rather than \"the latest one\", the narration's exit\nstatus propagated, the capture retained on failure, and the gate run at the end.\n\nThe geometry is worth recording. The tracked renderer calls agg without a font\nsize, and agg's layout is width = round((cols+2) * font_size * 0.602051),\nheight = round((rows+1) * font_size * line_height). At line height 1.4 no\ninteger pair reaches height 1080, and width 1920 would need (cols+2)*font_size\nto equal 3 x 1063, which no grid under 240 columns provides. Exactly 1920x1080\nis therefore unreachable from a native agg render, which is why the retained\nrecording is 2049x1323. The recorder renders the largest fitting grid\n(225x54 -> 1913x1078) and centres it by rewriting only the logical screen size,\nthe background index, the global table's entry 0 and each frame offset; the gate\nre-derives the canvas from the GIF's own image descriptors and refuses unless\nevery frame carries a local colour table. Losslessness is proven by cropping the\npadded GIF back and comparing framemd5 and the pts sequence.\n\nProof: `readme-real-check.sh --self-test` exit 0 (2 accepted, 38 refusals);\n`record-tui.sh --self-test` exit 0, ending in a PASS at 1920x1080; shellcheck -x\nexit 0 for both; the existing real recording is correctly refused\nREAL_MEDIA_GEOMETRY: 2049x1323; a narration exiting 7 propagates 7 and retains\nits capture.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "1917f443f97ea104a509164bc4b87647c6fe7f0f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/1917f443f97ea104a509164bc4b87647c6fe7f0f",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/1917f443f97ea104a509164bc4b87647c6fe7f0f"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "0e3bc86b1e113e19b37d49e38ed7a1e2c5037d6d",
+      "node_id": "C_kwDOUS7UsdoAKDBlM2JjODZiMWUxMTNlMTliMzdkNDllMzhlZDdhMWUyYzUwMzdkNmQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0e3bc86b1e113e19b37d49e38ed7a1e2c5037d6d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0e3bc86b1e113e19b37d49e38ed7a1e2c5037d6d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:32:06Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:32:06Z"
+      },
+      "tree": {
+        "sha": "da047023e192b739effd59d70bbcfbb9ffcd8ae9",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/da047023e192b739effd59d70bbcfbb9ffcd8ae9"
+      },
+      "message": "Let the lint lane's shellcheck reach a verdict on every tracked script\n\nWith the tool and history gaps closed the lint lane finally ran its shell\ninventory, and exited 2 before reporting anything useful. ops/ci/lib.sh exports\nLC_ALL=C, and media/dogfood/session.sh carries four U+00B7 separators, so\nshellcheck could not write its own report: `commitBuffer: invalid argument\n(invalid character)`. Those separators are now ASCII, and the file carries one\nheader comment explaining why a narration script keeps colour constants inside\nits format strings and echoes a command line before evaluating it.\n\nTwo further findings were waiting behind that failure, both deliberate patterns\nrather than defects, and both now carry a scoped suppression that says why:\nops/ci/rust-toolchain-boundary.sh reads captured Cargo stderr in a loop whose\nearly-return path removes that same file, which is cleanup and never a\nconcurrent write; and scripts/publish-monorepo-snapshot.sh emits a Markdown code\nspan, so the backticks in its single-quoted format string are literal.\n\nProof: shellcheck -x -P ops/ci under LC_ALL=C over the lane's own inventory of\n118 files exits 0, and `bash -n` is clean on each changed script.\n\nmedia/dogfood/session.sh is superseded by scripts/media/record-tui.sh, which is\ntracked, takes explicit run and proof directories, propagates its narration's\nexit status and ends in the media gate. Retiring the old wrapper is a separate\ndecision for whoever owns that packet; this change only lets the lane finish.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "0a0a4331517d55fb605ef095765c96bf5f43302e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0a0a4331517d55fb605ef095765c96bf5f43302e",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/0a0a4331517d55fb605ef095765c96bf5f43302e"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "8c5c424ceb5d7006a35423193c597dc3a801c3b3",
+      "node_id": "C_kwDOUS7UsdoAKDhjNWM0MjRjZWI1ZDcwMDZhMzU0MjMxOTNjNTk3ZGMzYTgwMWMzYjM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8c5c424ceb5d7006a35423193c597dc3a801c3b3",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8c5c424ceb5d7006a35423193c597dc3a801c3b3",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:44:18Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:44:18Z"
+      },
+      "tree": {
+        "sha": "6f704a8d00d465876cbcc682d8d3fa2846e0e4e5",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/6f704a8d00d465876cbcc682d8d3fa2846e0e4e5"
+      },
+      "message": "Install gitleaks in the lint job for the history lane it exercises\n\nThe lint lane runs ops/ci/rust-toolchain-boundary-test.sh, which exercises the\nhistory lane, and ops/ci/artifact-check.sh requires a history observation to\nrecord a gitleaks version exactly as source-scan and security do. The lint job\nnever installed gitleaks, so the lane ran its checks and then refused\nCI_TOOL_VERSION_MISSING: tool_versions[gitleaks] at the end.\n\nThe job now runs the same checksum-pinned ops/ci/install-gitleaks.sh the other\nthree jobs use, and the workflow digest is repinned in ops/ci/workflow-policy.sh\nand its hostile test.\n\nProof: ops/ci/workflow-policy.sh exit 0 and actionlint exit 0 on the exact tree.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "0e3bc86b1e113e19b37d49e38ed7a1e2c5037d6d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0e3bc86b1e113e19b37d49e38ed7a1e2c5037d6d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/0e3bc86b1e113e19b37d49e38ed7a1e2c5037d6d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "dde0f2b854b73b07886c14e1e12348ed381c63a4",
+      "node_id": "C_kwDOUS7UsdoAKGRkZTBmMmI4NTRiNzNiMDc4ODZjMTRlMWUxMjM0OGVkMzgxYzYzYTQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/dde0f2b854b73b07886c14e1e12348ed381c63a4",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/dde0f2b854b73b07886c14e1e12348ed381c63a4",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:55:47Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T12:55:47Z"
+      },
+      "tree": {
+        "sha": "b827904c8951194b28eeddd9efb2155265a2bc37",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/b827904c8951194b28eeddd9efb2155265a2bc37"
+      },
+      "message": "Carry every lane's tool in the lint job, because its meta-test replays every lane\n\nThe lint lane runs ops/ci/observation-test.sh, which takes one real observation\nfrom the runner it is on and replays it as each lane's shape, then validates it\nwith ops/ci/artifact-check.sh. That check requires a lane's own tool versions,\nand scripts/ci-observation.sh records a tool only when it is present, so the\nreplayed security, required and contract shapes were missing cargo_deny, zizmor\nand java on a job that installs none of them. The lane therefore ran its whole\nbody and refused CI_TOOL_VERSION_MISSING at the end, first for gitleaks and then\nfor cargo_deny.\n\nThe lint job now carries the union: cargo-deny 0.19.8 and zizmor 1.25.2 through\nthe same pinned install-action the security job uses, and Temurin 21 through the\nsame action the contract job uses. The workflow digest is repinned in\nops/ci/workflow-policy.sh and its hostile test.\n\nProof: ops/ci/workflow-policy.sh exit 0 and actionlint exit 0 on the exact tree.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "8c5c424ceb5d7006a35423193c597dc3a801c3b3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8c5c424ceb5d7006a35423193c597dc3a801c3b3",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/8c5c424ceb5d7006a35423193c597dc3a801c3b3"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "73e44d1bc781350f510794f922a0ab75d3ebb09f",
+      "node_id": "C_kwDOUS7UsdoAKDczZTQ0ZDFiYzc4MTM1MGY1MTA3OTRmOTIyYTBhYjc1ZDNlYmIwOWY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/73e44d1bc781350f510794f922a0ab75d3ebb09f",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/73e44d1bc781350f510794f922a0ab75d3ebb09f",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T13:23:34Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T13:23:34Z"
+      },
+      "tree": {
+        "sha": "0e9e8100c9c1999f373ed45a34016866e70d3667",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/0e9e8100c9c1999f373ed45a34016866e70d3667"
+      },
+      "message": "Install the pinned kernel toolchain in lint, and make dev supervision hermetic\n\nTwo hosted-only refusals, both from a lane body that has never run on a hosted\nrunner.\n\nops/ci/family-observation-test.sh takes a real family-contract observation on\nthe runner it is on, and that lane records rustc_pinned and cargo_pinned from\n`rustup run 1.97.1`. No Hub job installed 1.97.1, so the observation had no such\nkey and artifact-check refused CI_TOOL_VERSION_MISSING. The lint job now\ninstalls 1.97.1 before 1.95.0, so the Hub still builds with its own toolchain\nand the family shape can be observed. The workflow digest is repinned.\n\nops/ci/dev-supervision-test.sh ran scripts/dev.sh, scripts/farmd.sh and\nscripts/portal.sh from the repository root. All three enter a sibling checkout,\nwhich exists on a developer's family root and never on a single-repository\nrunner, so dev.sh refused a missing Portal before reaching the supervision path\nit exists to prove. The test now stages a Hub inside a fixture family whose\nPortal and kernel directories hold only what those scripts read. Supervision is\na property of dev.sh, not of the family layout.\n\nProof on the exact tree: ops/ci/dev-supervision-test.sh exit 0, ShellCheck exit\n0 on it, ops/ci/workflow-policy.sh exit 0, actionlint exit 0. The whole lint\nlane was run locally against this tree with the runner's tool set; every step\nbefore dev-supervision passed there before this change and dev-supervision\npasses after it.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "dde0f2b854b73b07886c14e1e12348ed381c63a4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/dde0f2b854b73b07886c14e1e12348ed381c63a4",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/dde0f2b854b73b07886c14e1e12348ed381c63a4"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "12b43866e3d7f1be21af3f17fc52d04db226fe43",
+      "node_id": "C_kwDOUS7UsdoAKDEyYjQzODY2ZTNkN2YxYmUyMWFmM2YxN2ZjNTJkMDRkYjIyNmZlNDM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/12b43866e3d7f1be21af3f17fc52d04db226fe43",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/12b43866e3d7f1be21af3f17fc52d04db226fe43",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T13:36:09Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T13:36:09Z"
+      },
+      "tree": {
+        "sha": "967ee78e84644343e6a86e340c1b2aeacec3121a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/967ee78e84644343e6a86e340c1b2aeacec3121a"
+      },
+      "message": "Let the doctor inventory guard run where its specialist tools do not exist\n\nops/ci/doctor-test.sh builds a PATH fixture and asserts that scripts/ci-doctor.sh\nnames exactly the tool removed from it. It built that fixture by symlinking real\nbinaries, so the guard could only run on a host that already had every tool of\nevery lane, including jankurai, which no hosted runner can have. On the runner it\nrefused DOCTOR_TEST_FIXTURE_MISSING_TOOL at cargo-llvm-cov and would have refused\nagain at jankurai.\n\nci-doctor decides a lane tool with `command -v` and never executes one, so\npresence is the entire subject and an executable stub states it exactly. Absent\nspecialist tools are now stubbed and every stub is printed as\nDOCTOR_TEST_STUBBED_ABSENT_TOOLS, so a reader is never left thinking the probe\nran against installed binaries. The coreutils ci-doctor actually runs are in the\nbootstrap list and are still symlinked to the real binary, never stubbed.\n\nProof on the exact tree: ShellCheck exit 0; the test exit 0 with the full host\nPATH and no stub line; the test exit 0 again under a PATH shaped like a hosted\nrunner, printing exactly `cargo-llvm-cov jankurai lychee`.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "73e44d1bc781350f510794f922a0ab75d3ebb09f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/73e44d1bc781350f510794f922a0ab75d3ebb09f",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/73e44d1bc781350f510794f922a0ab75d3ebb09f"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30920252048,
+      "node_id": "ME_lADOUS7Usc8AAAABQkd0D88AAAAHMv2akA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30920252048",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+      "created_at": "2026-09-10T17:32:43Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30920252166,
+      "node_id": "CE_lADOUS7Usc8AAAABQkd0D88AAAAHMv2bBg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30920252166",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T17:32:43Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

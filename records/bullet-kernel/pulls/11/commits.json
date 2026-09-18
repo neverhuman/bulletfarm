@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "d3f1a99565d364da718c2e0d727ab3a911a217b7",
+      "node_id": "C_kwDOUS7UytoAKGQzZjFhOTk1NjVkMzY0ZGE3MThjMmUwZDcyN2FiM2E5MTFhMjE3Yjc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T15:37:50Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T15:37:50Z"
+        },
+        "message": "Share credential reads without holding custody across status requests",
+        "tree": {
+          "sha": "c7a89fd0a13be7cbc8ef628e45f01e577a277d92",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c7a89fd0a13be7cbc8ef628e45f01e577a277d92"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/d3f1a99565d364da718c2e0d727ab3a911a217b7",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d3f1a99565d364da718c2e0d727ab3a911a217b7",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/d3f1a99565d364da718c2e0d727ab3a911a217b7",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d3f1a99565d364da718c2e0d727ab3a911a217b7/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "1aca8855cae5940ffabda0b899f80544aa4c52de",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/1aca8855cae5940ffabda0b899f80544aa4c52de",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/1aca8855cae5940ffabda0b899f80544aa4c52de"
+        }
+      ]
+    }
+  ]
+]

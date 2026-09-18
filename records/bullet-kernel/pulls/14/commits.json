@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "1d4771197434b29fb116c808eed9c69e310a0c42",
+      "node_id": "C_kwDOUS7UytoAKDFkNDc3MTE5NzQzNGIyOWZiMTE2YzgwOGVlZDljNjllMzEwYTBjNDI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T20:07:42Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T20:07:42Z"
+        },
+        "message": "Print TUI reconnect state-dir as $HOME instead of a home path.\n\nStage-two real-media redaction refuses /home/ in the cast; the default\noperator store lives there, so detach must not echo the absolute path.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "dc3c459adafe3b5e41cce8dfda2783c4bab48d11",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/dc3c459adafe3b5e41cce8dfda2783c4bab48d11"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/1d4771197434b29fb116c808eed9c69e310a0c42",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/1d4771197434b29fb116c808eed9c69e310a0c42",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/1d4771197434b29fb116c808eed9c69e310a0c42",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/1d4771197434b29fb116c808eed9c69e310a0c42/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "35e3d192f3acc85245748eb70142ef7bed20ad4d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/35e3d192f3acc85245748eb70142ef7bed20ad4d",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/35e3d192f3acc85245748eb70142ef7bed20ad4d"
+        }
+      ]
+    }
+  ]
+]

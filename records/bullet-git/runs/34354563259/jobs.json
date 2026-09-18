@@ -1,0 +1,731 @@
+[
+  {
+    "total_count": 7,
+    "jobs": [
+      {
+        "id": 102475841501,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3Ak_3Q",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102475841501",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102475841501",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-09T13:02:12Z",
+        "started_at": "2026-09-09T13:02:16Z",
+        "completed_at": "2026-09-09T13:02:32Z",
+        "name": "source scan",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:02:17Z",
+            "completed_at": "2026-09-09T13:02:17Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:02:17Z",
+            "completed_at": "2026-09-09T13:02:18Z"
+          },
+          {
+            "name": "Install pinned gitleaks",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:02:18Z",
+            "completed_at": "2026-09-09T13:02:18Z"
+          },
+          {
+            "name": "Scan source and lockfiles before dependency installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-09T13:02:18Z",
+            "completed_at": "2026-09-09T13:02:28Z"
+          },
+          {
+            "name": "Validate sanitized observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-09T13:02:28Z",
+            "completed_at": "2026-09-09T13:02:28Z"
+          },
+          {
+            "name": "Stage exact source-scan diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-09T13:02:28Z",
+            "completed_at": "2026-09-09T13:02:28Z"
+          },
+          {
+            "name": "Upload source-scan observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-09T13:02:28Z",
+            "completed_at": "2026-09-09T13:02:29Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-09-09T13:02:29Z",
+            "completed_at": "2026-09-09T13:02:29Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-09-09T13:02:29Z",
+            "completed_at": "2026-09-09T13:02:29Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102475841501",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021050,
+        "runner_name": "GitHub Actions 1000021050",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102475959018,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3AsK6g",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102475959018",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102475959018",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-09T13:02:32Z",
+        "started_at": "2026-09-09T13:02:35Z",
+        "completed_at": "2026-09-09T13:03:15Z",
+        "name": "docs",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:02:36Z",
+            "completed_at": "2026-09-09T13:02:37Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:02:37Z",
+            "completed_at": "2026-09-09T13:02:38Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:02:38Z",
+            "completed_at": "2026-09-09T13:02:46Z"
+          },
+          {
+            "name": "Run docs lane",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-09T13:02:46Z",
+            "completed_at": "2026-09-09T13:03:11Z"
+          },
+          {
+            "name": "Validate sanitized observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-09T13:03:11Z",
+            "completed_at": "2026-09-09T13:03:11Z"
+          },
+          {
+            "name": "Stage exact docs diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-09T13:03:11Z",
+            "completed_at": "2026-09-09T13:03:12Z"
+          },
+          {
+            "name": "Upload docs observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-09T13:03:12Z",
+            "completed_at": "2026-09-09T13:03:13Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-09-09T13:03:13Z",
+            "completed_at": "2026-09-09T13:03:13Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-09-09T13:03:13Z",
+            "completed_at": "2026-09-09T13:03:13Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102475959018",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021055,
+        "runner_name": "GitHub Actions 1000021055",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102475959085,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3AsLLQ",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102475959085",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102475959085",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-09T13:02:32Z",
+        "started_at": "2026-09-09T13:02:34Z",
+        "completed_at": "2026-09-09T13:02:49Z",
+        "name": "lint",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:02:35Z",
+            "completed_at": "2026-09-09T13:02:37Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:02:37Z",
+            "completed_at": "2026-09-09T13:02:37Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:02:37Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Install pinned actionlint",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Run taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 5,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Run lint lane",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 6,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Validate sanitized observation",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Stage exact lint diagnostics",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 8,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Upload lint observation",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 9,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102475959085",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021057,
+        "runner_name": "GitHub Actions 1000021057",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102475959087,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3AsLLw",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102475959087",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102475959087",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-09T13:02:32Z",
+        "started_at": "2026-09-09T13:02:34Z",
+        "completed_at": "2026-09-09T13:02:45Z",
+        "name": "fast",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:02:35Z",
+            "completed_at": "2026-09-09T13:02:36Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:02:36Z",
+            "completed_at": "2026-09-09T13:02:37Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:02:37Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Run taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 4,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Run fast lane",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 5,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Validate sanitized JUnit and observation",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 6,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Stage exact fast diagnostics",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Upload fast diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-09-09T13:02:44Z",
+            "completed_at": "2026-09-09T13:02:44Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102475959087",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021058,
+        "runner_name": "GitHub Actions 1000021058",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102475959146,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3AsLag",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102475959146",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102475959146",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-09T13:02:32Z",
+        "started_at": "2026-09-09T13:02:34Z",
+        "completed_at": "2026-09-09T13:02:49Z",
+        "name": "security",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:02:35Z",
+            "completed_at": "2026-09-09T13:02:37Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:02:37Z",
+            "completed_at": "2026-09-09T13:02:38Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:02:38Z",
+            "completed_at": "2026-09-09T13:02:46Z"
+          },
+          {
+            "name": "Install pinned gitleaks",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-09T13:02:46Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Run taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 5,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Run security lane",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 6,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Validate sanitized observation",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Stage exact security diagnostics",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 8,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Upload security observation",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 9,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 18,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-09-09T13:02:47Z",
+            "completed_at": "2026-09-09T13:02:47Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102475959146",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021054,
+        "runner_name": "GitHub Actions 1000021054",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102475959177,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3AsLiQ",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102475959177",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102475959177",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-09T13:02:32Z",
+        "started_at": "2026-09-09T13:02:35Z",
+        "completed_at": "2026-09-09T13:02:49Z",
+        "name": "contract",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:02:36Z",
+            "completed_at": "2026-09-09T13:02:37Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:02:37Z",
+            "completed_at": "2026-09-09T13:02:38Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:02:38Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Run taiki-e/install-action@81ee1d48d9194cdcab880cbdc7d36e87d39874cb",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 4,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Run contract lane",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 5,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Validate sanitized JUnit and observation",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 6,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Stage exact contract diagnostics",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Upload contract diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 8,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 16,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 17,
+            "started_at": "2026-09-09T13:02:45Z",
+            "completed_at": "2026-09-09T13:02:45Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102475959177",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021056,
+        "runner_name": "GitHub Actions 1000021056",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102476215640,
+        "run_id": 34354563259,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-git/actions/runs/34354563259",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7U488AAAAX3A71WA",
+        "head_sha": "6cf10e70f1f03ab504f084ffa0b25cf97c7ab42a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/actions/jobs/102476215640",
+        "html_url": "https://github.com/neverhuman/bullet-git/actions/runs/34354563259/job/102476215640",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-09T13:03:16Z",
+        "started_at": "2026-09-09T13:03:18Z",
+        "completed_at": "2026-09-09T13:03:23Z",
+        "name": "required",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-09T13:03:19Z",
+            "completed_at": "2026-09-09T13:03:19Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-09T13:03:19Z",
+            "completed_at": "2026-09-09T13:03:20Z"
+          },
+          {
+            "name": "Download this run's atomic observations and sanitized reports",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-09T13:03:20Z",
+            "completed_at": "2026-09-09T13:03:21Z"
+          },
+          {
+            "name": "Converge exact CI / required context",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 4,
+            "started_at": "2026-09-09T13:03:21Z",
+            "completed_at": "2026-09-09T13:03:21Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-09T13:03:21Z",
+            "completed_at": "2026-09-09T13:03:21Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-09T13:03:21Z",
+            "completed_at": "2026-09-09T13:03:21Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-git/check-runs/102476215640",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000021061,
+        "runner_name": "GitHub Actions 1000021061",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  }
+]

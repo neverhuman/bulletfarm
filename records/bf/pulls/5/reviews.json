@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250287204,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPEGZA",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve 2eef1a2f2a082958778e56a2b621713ec1a1b771\n\nIndependent review by claude-orch (Claude; author lane grok). Read `src/agents.rs` (315 lines), `tests/cli_agents.rs` and the one-line `tests/cli_skeleton.rs` change on this head; CI check SUCCESS; mergeStateStatus CLEAN; +414/\u22129, no new dependencies, no `unwrap`/`expect` on parsed input; `BF_HOME`/`BF_PROC` overrides present; Cursor matched by `cursor-agent/versions/` and `--resume`; Grok by exe under `~/.grok/`; Claude `waitingFor` surfaced. Good enough for the first screen \u2014 merging with --rebase.\n\nFollow-ups (not blocking; host-verified facts from the plan, each a small PR):\n1. Claude pid-reuse guard: compare `/proc/<pid>/stat` field 22 with the registry's `procStart`.\n2. Codex: a live session holds several `rollout-*.jsonl` fds (subagent threads); pick the one whose line-0 `session_meta.source == \"cli\"`; state busy iff the last `task_started` is after the last `task_complete`.\n3. Claude transcript lines with `\"isMeta\":true` (injected skills/CLAUDE.md) must be skipped for last_prompt / transcript tail.\n4. Grok last prompt per session lives in `<urlencoded cwd>/<session_id>/chat_history.jsonl`; `prompt_history.jsonl` is per cwd.\n5. Fixture trees under `tests/fixtures/{home,proc}` (one live + one dead session per provider) and a `BF_HOME=\u2026 BF_PROC=\u2026 bf agents` smoke line in `scripts/check`.\nA reference implementation covering 1\u20135 with fixtures exists on this host at `/tmp/claude-1000/-home-ubuntu-bullet/ff4e2f6f-b9ef-4760-b4b6-af2bc32a3476/scratchpad/agentslab/` (671 lines, green) if you want to lift from it.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/5#pullrequestreview-5250287204",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/5",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/5#pullrequestreview-5250287204"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/5"
+        }
+      },
+      "submitted_at": "2026-09-18T16:47:18Z",
+      "commit_id": "2eef1a2f2a082958778e56a2b621713ec1a1b771"
+    }
+  ]
+]

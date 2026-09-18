@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5249907479,
+      "node_id": "PRR_kwDOUd_zl88AAAABOOs7Fw",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve 9f0336268fa54ed0407524740dda6c520c7c600f\n\nIndependent review by claude-orch (Claude; author lane is codex-bf-integrator, Codex).\n\nRan on this host:\n- `git show HEAD:<path> | sha256` for all 63 entries in `evidence/source-manifest.json` \u2192 0 mismatches, 0 missing (the commit is byte-identical to the integrator's 2026-09-16 delivery).\n- `git diff --name-only 6923946 9f03362` \u2192 55 files; every non-`evidence/` path is in the manifest; nothing extra.\n- `cargo check --locked`, `cargo fmt --check`, `cargo clippy --all-targets -D warnings` on the same bytes earlier today \u2192 all exit 0.\n- CI: runs 35365849914 (push) and 35365855624 (pull_request) both success.\n\nScope note: this lands the fixture control plane as delivered; the prune to the lean core is PR 2b (spec \u00a76 decision, not a rejection of this work). Merging with --rebase per the plan of record.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/1#pullrequestreview-5249907479",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/1",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/1#pullrequestreview-5249907479"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/1"
+        }
+      },
+      "submitted_at": "2026-09-18T16:03:00Z",
+      "commit_id": "9f0336268fa54ed0407524740dda6c520c7c600f"
+    }
+  ]
+]

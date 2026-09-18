@@ -1,0 +1,130 @@
+[
+  [
+    {
+      "sha": "45a6eb379144ad411bcb65c999dc5a5710edfb13",
+      "node_id": "C_kwDOUS7UytoAKDQ1YTZlYjM3OTE0NGFkNDExYmNiNjVjOTk5ZGM1YTU3MTBlZGZiMTM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:22:47Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:22:47Z"
+        },
+        "message": "Show outbox, ready, and fleet in the operator TUI.\n\nEsc pops a view stack; human rows abbreviate 64-hex while raw JSON keeps exact ids.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "84196ca14b238d711b4f100d0c3d7cb7d4be46f1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/84196ca14b238d711b4f100d0c3d7cb7d4be46f1"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/45a6eb379144ad411bcb65c999dc5a5710edfb13",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/45a6eb379144ad411bcb65c999dc5a5710edfb13",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/45a6eb379144ad411bcb65c999dc5a5710edfb13",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/45a6eb379144ad411bcb65c999dc5a5710edfb13/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "088e53ad81cdb9bf67fba92e4251fbc2b1e9dab6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/088e53ad81cdb9bf67fba92e4251fbc2b1e9dab6",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/088e53ad81cdb9bf67fba92e4251fbc2b1e9dab6"
+        }
+      ]
+    },
+    {
+      "sha": "57745a2d1266e54941313d91e7bc0c53870f96f4",
+      "node_id": "C_kwDOUS7UytoAKDU3NzQ1YTJkMTI2NmU1NDk0MTMxM2Q5MWU3YmMwYzUzODcwZjk2ZjQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:25:02Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:25:02Z"
+        },
+        "message": "Fail closed on coding watch and write harness-bind env files.\n\nThe TUI section now names harness UNBOUND and says the console does not submit or stop.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "48fc8267b781c2d346ff7de683c662c14252bcbb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/48fc8267b781c2d346ff7de683c662c14252bcbb"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/57745a2d1266e54941313d91e7bc0c53870f96f4",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/57745a2d1266e54941313d91e7bc0c53870f96f4",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/57745a2d1266e54941313d91e7bc0c53870f96f4",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/57745a2d1266e54941313d91e7bc0c53870f96f4/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "45a6eb379144ad411bcb65c999dc5a5710edfb13",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/45a6eb379144ad411bcb65c999dc5a5710edfb13",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/45a6eb379144ad411bcb65c999dc5a5710edfb13"
+        }
+      ]
+    },
+    {
+      "sha": "99883225cc5a85742a3aa9703e3a0d595c18fa33",
+      "node_id": "C_kwDOUS7UytoAKDk5ODgzMjI1Y2M1YTg1NzQyYTNhYTk3MDNlM2EwZDU5NWMxOGZhMzM",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:36:04Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:36:04Z"
+        },
+        "message": "Admit the paginated command read and follow the widened palette.\n\nThe operator TUI reads `/api/v1/commands?after=&limit=`, but the fixture\nallow-list pinned the bare path, so a legitimate paginated read tripped a\nguard that exists to refuse mutations. Admit the query form and keep the\ntwo-endpoint restriction.\n\nThe same change set grows View::ALL from six to ten, so stepping eight\ntimes into the jump list no longer lands on an unknown surface. This case\nasserts that an unknown surface is inert, so the count now tracks the list.\n\nAlso applies rustfmt to apps/bullet/src/client.rs.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>",
+        "tree": {
+          "sha": "220ada5a7dcb7ed6fd7bb9148b13b793935f168a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/220ada5a7dcb7ed6fd7bb9148b13b793935f168a"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/99883225cc5a85742a3aa9703e3a0d595c18fa33",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/99883225cc5a85742a3aa9703e3a0d595c18fa33",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/99883225cc5a85742a3aa9703e3a0d595c18fa33",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/99883225cc5a85742a3aa9703e3a0d595c18fa33/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "57745a2d1266e54941313d91e7bc0c53870f96f4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/57745a2d1266e54941313d91e7bc0c53870f96f4",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/57745a2d1266e54941313d91e7bc0c53870f96f4"
+        }
+      ]
+    }
+  ]
+]

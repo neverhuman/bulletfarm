@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "ebbb589243283c7b9f2bda3e906bbcfd712a8ec3",
+      "node_id": "C_kwDOUd_zl9oAKGViYmI1ODkyNDMyODNjN2I5ZjJiZGEzZTkwNmJiY2ZkNzEyYThlYzM",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:25:25Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:25:25Z"
+        },
+        "message": "Feed the PRs screen from prs.rs and show transcript tails in the Agents detail\n\nLiveSource now fetches open PRs through gh on a background thread every\n60 s (the first snapshot waits at most 1.5 s so one-shot frames carry\nreal counts), maps them to the PRs screen with the exact missing merge\npreconditions, and marks rows stale with the time of the last good\nfetch when gh fails. Each agent's detail pane gets the last 40 messages\nof its transcript (Claude, Codex, Cursor and Grok line shapes; role:\ntext, sanitized, 200 chars), read from the file tail and cached by\nmtime and length under a 60 ms per-snapshot budget.\n\nPlan of record PR 7/8 wiring completion (MVP definition \u00a73).\n\nbf-author: claude/claude-orch\nbf-claim: c-4 (src/live.rs)\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "8c6a871ed82a780187b935137c09a35b76991419",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/8c6a871ed82a780187b935137c09a35b76991419"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/ebbb589243283c7b9f2bda3e906bbcfd712a8ec3",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/ebbb589243283c7b9f2bda3e906bbcfd712a8ec3",
+      "html_url": "https://github.com/neverhuman/bf/commit/ebbb589243283c7b9f2bda3e906bbcfd712a8ec3",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/ebbb589243283c7b9f2bda3e906bbcfd712a8ec3/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "6e8d0bf33bfd04e4b4e7c4dc80af349798e00a31",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/6e8d0bf33bfd04e4b4e7c4dc80af349798e00a31",
+          "html_url": "https://github.com/neverhuman/bf/commit/6e8d0bf33bfd04e4b4e7c4dc80af349798e00a31"
+        }
+      ]
+    }
+  ]
+]

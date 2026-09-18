@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "70295782dc56e038979bc395cfb4e8b5d5059d97",
+      "node_id": "C_kwDOUS7UsdoAKDcwMjk1NzgyZGM1NmUwMzg5NzliYzM5NWNmYjRlOGI1ZDUwNTlkOTc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T15:07:24Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T15:07:24Z"
+        },
+        "message": "docs: add lean MVP and TUI delivery plan",
+        "tree": {
+          "sha": "93f2ea6a6e7bd56af512e2fe7e61682353b7749f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/93f2ea6a6e7bd56af512e2fe7e61682353b7749f"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/70295782dc56e038979bc395cfb4e8b5d5059d97",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/70295782dc56e038979bc395cfb4e8b5d5059d97",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/70295782dc56e038979bc395cfb4e8b5d5059d97",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/70295782dc56e038979bc395cfb4e8b5d5059d97/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "1383bfe2faac00fb5c6b421677f248182937ff6f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/1383bfe2faac00fb5c6b421677f248182937ff6f",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/1383bfe2faac00fb5c6b421677f248182937ff6f"
+        }
+      ]
+    }
+  ]
+]

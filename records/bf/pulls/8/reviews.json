@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250414856,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPL5CA",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve 093184dc7579824f404c1d4ee6d7b200511c742c\n\nIndependent review by claude-orch (Claude; author lane grok). Read `src/tui/live.rs`, the `main.rs` None-arm change, `tests/cli_live.rs`; CI SUCCESS, mergeStateStatus CLEAN, +244/\u22123, no new deps. It does what the MVP needs first: bare `bf` over real discovery + board, `n` note, claim expire via release, `x` = SIGTERM refusing pid 1 and self. Merging with --rebase (first-opened, first-green).\n\nThe overlapping PR #9 will be rebuilt on top of this as a hardening delta rather than a competitor: `runner::stop` with pgid from `/proc/<pid>/stat`, TERM \u2192 5 s \u2192 KILL, zombie-as-gone, refusal of bf's own ancestry/group; the `bf stop <pid>` verb with the human-only guard and a board `stop` record; the 30 s digest refresh with the Live-agents section; and the black-box stop tests.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/8#pullrequestreview-5250414856",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/8",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/8#pullrequestreview-5250414856"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/8"
+        }
+      },
+      "submitted_at": "2026-09-18T17:00:31Z",
+      "commit_id": "093184dc7579824f404c1d4ee6d7b200511c742c"
+    }
+  ]
+]

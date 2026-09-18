@@ -1,0 +1,1264 @@
+[
+  [
+    {
+      "sha": "75dc29036a428e46094c5b93d5df013c02c4bc74",
+      "node_id": "C_kwDOUS7UytoAKDc1ZGMyOTAzNmE0MjhlNDYwOTRjNWI5M2Q1ZGYwMTNjMDJjNGJjNzQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T06:44:17Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:18:52Z"
+        },
+        "message": "Reconcile authenticated CLI and fail-closed execution evidence",
+        "tree": {
+          "sha": "4df5654c9b1745756a1b95830a25f9d69f402efc",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/4df5654c9b1745756a1b95830a25f9d69f402efc"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/75dc29036a428e46094c5b93d5df013c02c4bc74",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/75dc29036a428e46094c5b93d5df013c02c4bc74",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/75dc29036a428e46094c5b93d5df013c02c4bc74",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/75dc29036a428e46094c5b93d5df013c02c4bc74/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/056ce5cba436dfd95ef63f719c3b1a249da48c89",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/056ce5cba436dfd95ef63f719c3b1a249da48c89"
+        }
+      ]
+    },
+    {
+      "sha": "97179777febbf4fa717a39ba18bacc45317a4439",
+      "node_id": "C_kwDOUS7UytoAKDk3MTc5Nzc3ZmViYmY0ZmE3MTdhMzliYTE4YmFjYzQ1MzE3YTQ0Mzk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T06:46:34Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:00Z"
+        },
+        "message": "Bind CLI documentation to reviewed reconciled source",
+        "tree": {
+          "sha": "e8094503f644ef31803fc261d641bda563899809",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/e8094503f644ef31803fc261d641bda563899809"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/97179777febbf4fa717a39ba18bacc45317a4439",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/97179777febbf4fa717a39ba18bacc45317a4439",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/97179777febbf4fa717a39ba18bacc45317a4439",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/97179777febbf4fa717a39ba18bacc45317a4439/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "75dc29036a428e46094c5b93d5df013c02c4bc74",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/75dc29036a428e46094c5b93d5df013c02c4bc74",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/75dc29036a428e46094c5b93d5df013c02c4bc74"
+        }
+      ]
+    },
+    {
+      "sha": "032df7edafdf2a5d849b6c82fd8620543ed0b548",
+      "node_id": "C_kwDOUS7UytoAKDAzMmRmN2VkYWZkZjJhNWQ4NDliNmM4MmZkODYyMDU0M2VkMGI1NDg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T06:59:37Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:00Z"
+        },
+        "message": "Avoid readonly filter collision in retained lint subgroup",
+        "tree": {
+          "sha": "72ba6dfd8baaee46a44c17b09ab3d3ac82eacdb5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/72ba6dfd8baaee46a44c17b09ab3d3ac82eacdb5"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/032df7edafdf2a5d849b6c82fd8620543ed0b548",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/032df7edafdf2a5d849b6c82fd8620543ed0b548",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/032df7edafdf2a5d849b6c82fd8620543ed0b548",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/032df7edafdf2a5d849b6c82fd8620543ed0b548/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "97179777febbf4fa717a39ba18bacc45317a4439",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/97179777febbf4fa717a39ba18bacc45317a4439",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/97179777febbf4fa717a39ba18bacc45317a4439"
+        }
+      ]
+    },
+    {
+      "sha": "46c2310d0d76e4171d89ddc7e53bc164a3b82129",
+      "node_id": "C_kwDOUS7UytoAKDQ2YzIzMTBkMGQ3NmU0MTcxZDg5ZGRjN2U1M2JjMTY0YTNiODIxMjk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T07:15:22Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:00Z"
+        },
+        "message": "Bind inventory guard to exact shared test execution",
+        "tree": {
+          "sha": "4ab5b4be9ee855d8bb91062b3928abaa4119bbbc",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/4ab5b4be9ee855d8bb91062b3928abaa4119bbbc"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/46c2310d0d76e4171d89ddc7e53bc164a3b82129",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/46c2310d0d76e4171d89ddc7e53bc164a3b82129",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/46c2310d0d76e4171d89ddc7e53bc164a3b82129",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/46c2310d0d76e4171d89ddc7e53bc164a3b82129/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "032df7edafdf2a5d849b6c82fd8620543ed0b548",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/032df7edafdf2a5d849b6c82fd8620543ed0b548",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/032df7edafdf2a5d849b6c82fd8620543ed0b548"
+        }
+      ]
+    },
+    {
+      "sha": "7f5edf113077cd6443c04f7915680063c6685249",
+      "node_id": "C_kwDOUS7UytoAKDdmNWVkZjExMzA3N2NkNjQ0M2MwNGY3OTE1NjgwMDYzYzY2ODUyNDk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T12:30:14Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:04Z"
+        },
+        "message": "Review architecture and containment against reconciled source",
+        "tree": {
+          "sha": "f286cad77edbdfca6a46f50139e9257a527155b8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/f286cad77edbdfca6a46f50139e9257a527155b8"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/7f5edf113077cd6443c04f7915680063c6685249",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/7f5edf113077cd6443c04f7915680063c6685249",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/7f5edf113077cd6443c04f7915680063c6685249",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/7f5edf113077cd6443c04f7915680063c6685249/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "46c2310d0d76e4171d89ddc7e53bc164a3b82129",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/46c2310d0d76e4171d89ddc7e53bc164a3b82129",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/46c2310d0d76e4171d89ddc7e53bc164a3b82129"
+        }
+      ]
+    },
+    {
+      "sha": "c6160fd38f526ce2d38f580e5842c04f5e498510",
+      "node_id": "C_kwDOUS7UytoAKGM2MTYwZmQzOGY1MjZjZTJkMzhmNTgwZTU4NDJjMDRmNWU0OTg1MTA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:55:08Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:04Z"
+        },
+        "message": "Separate coding submission and lease acquisition identities",
+        "tree": {
+          "sha": "550ea10c4a84ecfe1def83c251bf0cf13295c313",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/550ea10c4a84ecfe1def83c251bf0cf13295c313"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/c6160fd38f526ce2d38f580e5842c04f5e498510",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/c6160fd38f526ce2d38f580e5842c04f5e498510",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c6160fd38f526ce2d38f580e5842c04f5e498510",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/c6160fd38f526ce2d38f580e5842c04f5e498510/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "7f5edf113077cd6443c04f7915680063c6685249",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/7f5edf113077cd6443c04f7915680063c6685249",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/7f5edf113077cd6443c04f7915680063c6685249"
+        }
+      ]
+    },
+    {
+      "sha": "66ff16ca89bc7e756221377d4edc92fd17b1b513",
+      "node_id": "C_kwDOUS7UytoAKDY2ZmYxNmNhODliYzdlNzU2MjIxMzc3ZDRlZGM5MmZkMTdiMWI1MTM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:55:09Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:04Z"
+        },
+        "message": "Open the operator TUI from both default CLI aliases",
+        "tree": {
+          "sha": "12ebd36404645cacffac30ef0541ac82487dc157",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/12ebd36404645cacffac30ef0541ac82487dc157"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/66ff16ca89bc7e756221377d4edc92fd17b1b513",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/66ff16ca89bc7e756221377d4edc92fd17b1b513",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/66ff16ca89bc7e756221377d4edc92fd17b1b513",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/66ff16ca89bc7e756221377d4edc92fd17b1b513/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "c6160fd38f526ce2d38f580e5842c04f5e498510",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/c6160fd38f526ce2d38f580e5842c04f5e498510",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c6160fd38f526ce2d38f580e5842c04f5e498510"
+        }
+      ]
+    },
+    {
+      "sha": "141803a1b43043c804a872ca9fb44c833eff64f3",
+      "node_id": "C_kwDOUS7UytoAKDE0MTgwM2ExYjQzMDQzYzgwNGE4NzJjYTlmYjQ0YzgzM2VmZjY0ZjM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:55:37Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "Bind inventory to executed lease and default-entry regressions",
+        "tree": {
+          "sha": "b737b536c1c7c3fb4ce4d07b8c234ebd903c3124",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/b737b536c1c7c3fb4ce4d07b8c234ebd903c3124"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/141803a1b43043c804a872ca9fb44c833eff64f3",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/141803a1b43043c804a872ca9fb44c833eff64f3",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/141803a1b43043c804a872ca9fb44c833eff64f3",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/141803a1b43043c804a872ca9fb44c833eff64f3/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "66ff16ca89bc7e756221377d4edc92fd17b1b513",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/66ff16ca89bc7e756221377d4edc92fd17b1b513",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/66ff16ca89bc7e756221377d4edc92fd17b1b513"
+        }
+      ]
+    },
+    {
+      "sha": "9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef",
+      "node_id": "C_kwDOUS7UytoAKDlhZjlhZWI0OWZkMGY2ZjFhODc2MDM4NWYwOTczYWJmNWVkZmIwZWY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:15:56Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "fix(cli): bind authenticated reads to the acknowledged session",
+        "tree": {
+          "sha": "e9ba5f9c47c265e0c4b78a12784cfb3ac1ad87a8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/e9ba5f9c47c265e0c4b78a12784cfb3ac1ad87a8"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "141803a1b43043c804a872ca9fb44c833eff64f3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/141803a1b43043c804a872ca9fb44c833eff64f3",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/141803a1b43043c804a872ca9fb44c833eff64f3"
+        }
+      ]
+    },
+    {
+      "sha": "d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f",
+      "node_id": "C_kwDOUS7UytoAKGQ3ZDhhMTRmYTAyZjU2OWNiNDZkN2U4ZDZmNzFjNjRhZWUzOWFiNWY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:15:56Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "fix(cli): validate the observed authentication session",
+        "tree": {
+          "sha": "b1cfa84d4fcb0aff837983ef2322fa1d827ab793",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/b1cfa84d4fcb0aff837983ef2322fa1d827ab793"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/9af9aeb49fd0f6f1a8760385f0973abf5edfb0ef"
+        }
+      ]
+    },
+    {
+      "sha": "0516cd6864f97c28380e96580e9cc76aaf3dcaa8",
+      "node_id": "C_kwDOUS7UytoAKDA1MTZjZDY4NjRmOTdjMjgzODBlOTY1ODBlOWNjNzZhYWYzZGNhYTg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:15:56Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "fix(cli): require session ownership for projection reads",
+        "tree": {
+          "sha": "c86d5a8d20c14c4afa93b29ae68d577fbeacbba5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c86d5a8d20c14c4afa93b29ae68d577fbeacbba5"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/0516cd6864f97c28380e96580e9cc76aaf3dcaa8",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/0516cd6864f97c28380e96580e9cc76aaf3dcaa8",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/0516cd6864f97c28380e96580e9cc76aaf3dcaa8",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/0516cd6864f97c28380e96580e9cc76aaf3dcaa8/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/d7d8a14fa02f569cb46d7e8d6f71c64aee39ab5f"
+        }
+      ]
+    },
+    {
+      "sha": "afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf",
+      "node_id": "C_kwDOUS7UytoAKGFmZWUyZDYwNTdhMGRjOGJkNmU1ZWEyYWFmZTZkODE4ZmMwZmRkY2Y",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:15:57Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "fix(cli): bind coding discovery and reconciliation reads",
+        "tree": {
+          "sha": "c58feb3ab6ebfdba98f700b897c5da0338b408c5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c58feb3ab6ebfdba98f700b897c5da0338b408c5"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "0516cd6864f97c28380e96580e9cc76aaf3dcaa8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/0516cd6864f97c28380e96580e9cc76aaf3dcaa8",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/0516cd6864f97c28380e96580e9cc76aaf3dcaa8"
+        }
+      ]
+    },
+    {
+      "sha": "bdb3a8cb3b3fa3b1665b070cf34319b86a40916e",
+      "node_id": "C_kwDOUS7UytoAKGJkYjNhOGNiM2IzZmEzYjE2NjViMDcwY2YzNDMxOWI4NmE0MDkxNmU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:15:57Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "test(tui): serve the authenticated session contract in UI fixtures",
+        "tree": {
+          "sha": "5355a63a8e6bcc9aa4b77e4cc9670f3116be925f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/5355a63a8e6bcc9aa4b77e4cc9670f3116be925f"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/bdb3a8cb3b3fa3b1665b070cf34319b86a40916e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bdb3a8cb3b3fa3b1665b070cf34319b86a40916e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/bdb3a8cb3b3fa3b1665b070cf34319b86a40916e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bdb3a8cb3b3fa3b1665b070cf34319b86a40916e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/afee2d6057a0dc8bd6e5ea2aafe6d818fc0fddcf"
+        }
+      ]
+    },
+    {
+      "sha": "3824c3dca27617f26e97d06e861b3e83fba771ff",
+      "node_id": "C_kwDOUS7UytoAKDM4MjRjM2RjYTI3NjE3ZjI2ZTk3ZDA2ZTg2MWIzZTgzZmJhNzcxZmY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:25:42Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:05Z"
+        },
+        "message": "test(ci): pin the executed CLI session regression inventory",
+        "tree": {
+          "sha": "1ad123172062373c3e7c9be902d017786beebed1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/1ad123172062373c3e7c9be902d017786beebed1"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/3824c3dca27617f26e97d06e861b3e83fba771ff",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3824c3dca27617f26e97d06e861b3e83fba771ff",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/3824c3dca27617f26e97d06e861b3e83fba771ff",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3824c3dca27617f26e97d06e861b3e83fba771ff/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "bdb3a8cb3b3fa3b1665b070cf34319b86a40916e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bdb3a8cb3b3fa3b1665b070cf34319b86a40916e",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/bdb3a8cb3b3fa3b1665b070cf34319b86a40916e"
+        }
+      ]
+    },
+    {
+      "sha": "194dcca5f658182b20a7cf6480112d10093cbd86",
+      "node_id": "C_kwDOUS7UytoAKDE5NGRjY2E1ZjY1ODE4MmIyMGE3Y2Y2NDgwMTEyZDEwMDkzY2JkODY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T16:56:58Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "test(cli): verify authenticated mission discovery and snapshot requests",
+        "tree": {
+          "sha": "c278f54490c67af3703d31a9f628c6830320e2fb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c278f54490c67af3703d31a9f628c6830320e2fb"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/194dcca5f658182b20a7cf6480112d10093cbd86",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/194dcca5f658182b20a7cf6480112d10093cbd86",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/194dcca5f658182b20a7cf6480112d10093cbd86",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/194dcca5f658182b20a7cf6480112d10093cbd86/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "3824c3dca27617f26e97d06e861b3e83fba771ff",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3824c3dca27617f26e97d06e861b3e83fba771ff",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/3824c3dca27617f26e97d06e861b3e83fba771ff"
+        }
+      ]
+    },
+    {
+      "sha": "6618309ac49a01953caf8948523c9eb7f033ec54",
+      "node_id": "C_kwDOUS7UytoAKDY2MTgzMDlhYzQ5YTAxOTUzY2FmODk0ODUyM2M5ZWI3ZjAzM2VjNTQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T17:17:01Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "test(cli): reach acknowledged command discovery and reconciliation",
+        "tree": {
+          "sha": "42ba2fe2146f24ca96fbe981d3f8786c49742254",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/42ba2fe2146f24ca96fbe981d3f8786c49742254"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/6618309ac49a01953caf8948523c9eb7f033ec54",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/6618309ac49a01953caf8948523c9eb7f033ec54",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/6618309ac49a01953caf8948523c9eb7f033ec54",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/6618309ac49a01953caf8948523c9eb7f033ec54/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "194dcca5f658182b20a7cf6480112d10093cbd86",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/194dcca5f658182b20a7cf6480112d10093cbd86",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/194dcca5f658182b20a7cf6480112d10093cbd86"
+        }
+      ]
+    },
+    {
+      "sha": "559229f74da1fcaee1ba11520974c00c04167467",
+      "node_id": "C_kwDOUS7UytoAKDU1OTIyOWY3NGRhMWZjYWVlMWJhMTE1MjA5NzRjMDBjMDQxNjc0Njc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T17:33:37Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "test(cli): simplify session fixture types and failure expectations",
+        "tree": {
+          "sha": "18eb966404754acd6a397497a3706ea381801ea1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/18eb966404754acd6a397497a3706ea381801ea1"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/559229f74da1fcaee1ba11520974c00c04167467",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/559229f74da1fcaee1ba11520974c00c04167467",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/559229f74da1fcaee1ba11520974c00c04167467",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/559229f74da1fcaee1ba11520974c00c04167467/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "6618309ac49a01953caf8948523c9eb7f033ec54",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/6618309ac49a01953caf8948523c9eb7f033ec54",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/6618309ac49a01953caf8948523c9eb7f033ec54"
+        }
+      ]
+    },
+    {
+      "sha": "70100a6a656ac3c5bc9d8986ebe85c417ffb42ec",
+      "node_id": "C_kwDOUS7UytoAKDcwMTAwYTZhNjU2YWMzYzViYzlkODk4NmViZTg1YzQxN2ZmYjQyZWM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T18:46:07Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "fix(auth): bind command and revoke mutations to expected sessions",
+        "tree": {
+          "sha": "0d6ddeb3cc476927b746e090d712f512dca466f8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/0d6ddeb3cc476927b746e090d712f512dca466f8"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/70100a6a656ac3c5bc9d8986ebe85c417ffb42ec",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/70100a6a656ac3c5bc9d8986ebe85c417ffb42ec",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/70100a6a656ac3c5bc9d8986ebe85c417ffb42ec",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/70100a6a656ac3c5bc9d8986ebe85c417ffb42ec/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "559229f74da1fcaee1ba11520974c00c04167467",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/559229f74da1fcaee1ba11520974c00c04167467",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/559229f74da1fcaee1ba11520974c00c04167467"
+        }
+      ]
+    },
+    {
+      "sha": "c4dc0281e893c821e4846ce1fe3ae30710b47b66",
+      "node_id": "C_kwDOUS7UytoAKGM0ZGMwMjgxZTg5M2M4MjFlNDg0NmNlMWZlM2FlMzA3MTBiNDdiNjY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T19:18:30Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "fix(cli): require session acknowledgement for command and revoke mutations",
+        "tree": {
+          "sha": "6f9cbdc9d3dbb7f1fbf94d9825390ffaf9c98bce",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/6f9cbdc9d3dbb7f1fbf94d9825390ffaf9c98bce"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/c4dc0281e893c821e4846ce1fe3ae30710b47b66",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/c4dc0281e893c821e4846ce1fe3ae30710b47b66",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c4dc0281e893c821e4846ce1fe3ae30710b47b66",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/c4dc0281e893c821e4846ce1fe3ae30710b47b66/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "70100a6a656ac3c5bc9d8986ebe85c417ffb42ec",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/70100a6a656ac3c5bc9d8986ebe85c417ffb42ec",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/70100a6a656ac3c5bc9d8986ebe85c417ffb42ec"
+        }
+      ]
+    },
+    {
+      "sha": "49d605f415d9fe9b6f2701310644daf29e115791",
+      "node_id": "C_kwDOUS7UytoAKDQ5ZDYwNWY0MTVkOWZlOWI2ZjI3MDEzMTA2NDRkYWYyOWUxMTU3OTE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T19:40:41Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "test(ci): bind inventory to actual mutation acknowledgement tests",
+        "tree": {
+          "sha": "18c5a301305bcf0658a704a6e05fe57899907091",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/18c5a301305bcf0658a704a6e05fe57899907091"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/49d605f415d9fe9b6f2701310644daf29e115791",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/49d605f415d9fe9b6f2701310644daf29e115791",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/49d605f415d9fe9b6f2701310644daf29e115791",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/49d605f415d9fe9b6f2701310644daf29e115791/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "c4dc0281e893c821e4846ce1fe3ae30710b47b66",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/c4dc0281e893c821e4846ce1fe3ae30710b47b66",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c4dc0281e893c821e4846ce1fe3ae30710b47b66"
+        }
+      ]
+    },
+    {
+      "sha": "ec83462412b275f07784e35ae35af139c97fdc8c",
+      "node_id": "C_kwDOUS7UytoAKGVjODM0NjI0MTJiMjc1ZjA3Nzg0ZTM1YWUzNWFmMTM5Yzk3ZmRjOGM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T21:52:22Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:06Z"
+        },
+        "message": "test: preserve bounded diagnostics for CLI startup failures",
+        "tree": {
+          "sha": "8887a1c07e1baa516580c0f825086cf02dfb0a2b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/8887a1c07e1baa516580c0f825086cf02dfb0a2b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/ec83462412b275f07784e35ae35af139c97fdc8c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ec83462412b275f07784e35ae35af139c97fdc8c",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ec83462412b275f07784e35ae35af139c97fdc8c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ec83462412b275f07784e35ae35af139c97fdc8c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "49d605f415d9fe9b6f2701310644daf29e115791",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/49d605f415d9fe9b6f2701310644daf29e115791",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/49d605f415d9fe9b6f2701310644daf29e115791"
+        }
+      ]
+    },
+    {
+      "sha": "cccf8b689fc0259f73684496a0dd5e4b156eac1e",
+      "node_id": "C_kwDOUS7UytoAKGNjY2Y4YjY4OWZjMDI1OWY3MzY4NDQ5NmEwZGQ1ZTRiMTU2ZWFjMWU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T00:39:22Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:45Z"
+        },
+        "message": "fix(cli): keep navigation visible and show validated work sooner",
+        "tree": {
+          "sha": "07dbb998f0be210ce6a6d3f33e88d0c06b8e975e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/07dbb998f0be210ce6a6d3f33e88d0c06b8e975e"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/cccf8b689fc0259f73684496a0dd5e4b156eac1e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/cccf8b689fc0259f73684496a0dd5e4b156eac1e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/cccf8b689fc0259f73684496a0dd5e4b156eac1e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/cccf8b689fc0259f73684496a0dd5e4b156eac1e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "ec83462412b275f07784e35ae35af139c97fdc8c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ec83462412b275f07784e35ae35af139c97fdc8c",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ec83462412b275f07784e35ae35af139c97fdc8c"
+        }
+      ]
+    },
+    {
+      "sha": "bec758e4de90237d9ad59ed3da4783c98abbbcad",
+      "node_id": "C_kwDOUS7UytoAKGJlYzc1OGU0ZGU5MDIzN2Q5YWQ1OWVkM2RhNDc4M2M5OGFiYmJjYWQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T00:47:58Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:19:45Z"
+        },
+        "message": "test(tui): keep fixture alive when clients detach during responses",
+        "tree": {
+          "sha": "396f92df599863cc384a632fc8e68f52929fef85",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/396f92df599863cc384a632fc8e68f52929fef85"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/bec758e4de90237d9ad59ed3da4783c98abbbcad",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bec758e4de90237d9ad59ed3da4783c98abbbcad",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/bec758e4de90237d9ad59ed3da4783c98abbbcad",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bec758e4de90237d9ad59ed3da4783c98abbbcad/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "cccf8b689fc0259f73684496a0dd5e4b156eac1e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/cccf8b689fc0259f73684496a0dd5e4b156eac1e",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/cccf8b689fc0259f73684496a0dd5e4b156eac1e"
+        }
+      ]
+    },
+    {
+      "sha": "750c19910d1a51aa52bb642326e0767824728a82",
+      "node_id": "C_kwDOUS7UytoAKDc1MGMxOTkxMGQxYTUxYWE1MmJiNjQyMzI2ZTA3Njc4MjQ3MjhhODI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:19:20Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:20:11Z"
+        },
+        "message": "feat(tui): expose fleet, ready queue and outbox views",
+        "tree": {
+          "sha": "f4906f7aecb95fe2194ef51717868df45980ca80",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/f4906f7aecb95fe2194ef51717868df45980ca80"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/750c19910d1a51aa52bb642326e0767824728a82",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/750c19910d1a51aa52bb642326e0767824728a82",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/750c19910d1a51aa52bb642326e0767824728a82",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/750c19910d1a51aa52bb642326e0767824728a82/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "bec758e4de90237d9ad59ed3da4783c98abbbcad",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bec758e4de90237d9ad59ed3da4783c98abbbcad",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/bec758e4de90237d9ad59ed3da4783c98abbbcad"
+        }
+      ]
+    },
+    {
+      "sha": "79ae16c7dfce4c0fdf02afefe8776372d970cfae",
+      "node_id": "C_kwDOUS7UytoAKDc5YWUxNmM3ZGZjZTRjMGZkZjAyYWZlZmU4Nzc2MzcyZDk3MGNmYWU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:28:26Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:20:11Z"
+        },
+        "message": "test(tui): align native qualification with operational panes",
+        "tree": {
+          "sha": "b51f50cda6a8ba2fd687cdff25bbb97273db492b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/b51f50cda6a8ba2fd687cdff25bbb97273db492b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/79ae16c7dfce4c0fdf02afefe8776372d970cfae",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/79ae16c7dfce4c0fdf02afefe8776372d970cfae",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/79ae16c7dfce4c0fdf02afefe8776372d970cfae",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/79ae16c7dfce4c0fdf02afefe8776372d970cfae/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "750c19910d1a51aa52bb642326e0767824728a82",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/750c19910d1a51aa52bb642326e0767824728a82",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/750c19910d1a51aa52bb642326e0767824728a82"
+        }
+      ]
+    },
+    {
+      "sha": "722845a211a5dc26a191f52ecf5d6d51a70b7c81",
+      "node_id": "C_kwDOUS7UytoAKDcyMjg0NWEyMTFhNWRjMjZhMTkxZjUyZWNmNWQ2ZDUxYTcwYjdjODE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:37:58Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:20:11Z"
+        },
+        "message": "test: make native lifecycle fixtures deterministic",
+        "tree": {
+          "sha": "28e6aa463f1dfc5cb2ec9db2aa9236816c5d6121",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/28e6aa463f1dfc5cb2ec9db2aa9236816c5d6121"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/722845a211a5dc26a191f52ecf5d6d51a70b7c81",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/722845a211a5dc26a191f52ecf5d6d51a70b7c81",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/722845a211a5dc26a191f52ecf5d6d51a70b7c81",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/722845a211a5dc26a191f52ecf5d6d51a70b7c81/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "79ae16c7dfce4c0fdf02afefe8776372d970cfae",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/79ae16c7dfce4c0fdf02afefe8776372d970cfae",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/79ae16c7dfce4c0fdf02afefe8776372d970cfae"
+        }
+      ]
+    },
+    {
+      "sha": "abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e",
+      "node_id": "C_kwDOUS7UytoAKGFiZWJlOTY1ZGNiM2M5ZDM3ZmQwM2RmZDZjZDM5NTExZjVmZjRmM2U",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T02:32:12Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:20:11Z"
+        },
+        "message": "test(tui): reserve CI capacity for concurrent terminal scenarios",
+        "tree": {
+          "sha": "a142ea9b50fe1ceaf0ea0a9ccc0a73ac91c017f3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/a142ea9b50fe1ceaf0ea0a9ccc0a73ac91c017f3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "722845a211a5dc26a191f52ecf5d6d51a70b7c81",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/722845a211a5dc26a191f52ecf5d6d51a70b7c81",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/722845a211a5dc26a191f52ecf5d6d51a70b7c81"
+        }
+      ]
+    },
+    {
+      "sha": "cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e",
+      "node_id": "C_kwDOUS7UytoAKGNmZTBhOWM3YmUzZTVlMWVkZGMwMzNkOWYxNjk4MGQ0ZjZjMDg1MmU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T02:45:23Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:20:11Z"
+        },
+        "message": "Align terminal CI policy and review current operator documentation",
+        "tree": {
+          "sha": "ce700b4a1c761a5046af93fdeccdbaef16c954c0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/ce700b4a1c761a5046af93fdeccdbaef16c954c0"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/abebe965dcb3c9d37fd03dfd6cd39511f5ff4f3e"
+        }
+      ]
+    },
+    {
+      "sha": "03e325d07f149ee89853bd8811bb993dbea9beda",
+      "node_id": "C_kwDOUS7UytoAKDAzZTMyNWQwN2YxNDllZTg5ODUzYmQ4ODExYmI5OTNkYmVhOWJlZGE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:36:20Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:36:20Z"
+        },
+        "message": "ci: refresh reviewed test inventory counts",
+        "tree": {
+          "sha": "3455659e32ba026714ed705b9b0995377f290661",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/3455659e32ba026714ed705b9b0995377f290661"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/03e325d07f149ee89853bd8811bb993dbea9beda",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/03e325d07f149ee89853bd8811bb993dbea9beda",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/03e325d07f149ee89853bd8811bb993dbea9beda",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/03e325d07f149ee89853bd8811bb993dbea9beda/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/cfe0a9c7be3e5e1eddc033d9f16980d4f6c0852e"
+        }
+      ]
+    },
+    {
+      "sha": "ae09271d8a8495089d7f11cc1fb49d2faf8c04c5",
+      "node_id": "C_kwDOUS7UytoAKGFlMDkyNzFkOGE4NDk1MDg5ZDdmMTFjYzFmYjQ5ZDJmYWY4YzA0YzU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:41:30Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:41:30Z"
+        },
+        "message": "docs: rebind review markers after PR rebase",
+        "tree": {
+          "sha": "67c63f17cf421b19fa8e2da6b692f61654f2ee6b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/67c63f17cf421b19fa8e2da6b692f61654f2ee6b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/ae09271d8a8495089d7f11cc1fb49d2faf8c04c5",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ae09271d8a8495089d7f11cc1fb49d2faf8c04c5",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ae09271d8a8495089d7f11cc1fb49d2faf8c04c5",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ae09271d8a8495089d7f11cc1fb49d2faf8c04c5/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "03e325d07f149ee89853bd8811bb993dbea9beda",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/03e325d07f149ee89853bd8811bb993dbea9beda",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/03e325d07f149ee89853bd8811bb993dbea9beda"
+        }
+      ]
+    }
+  ]
+]

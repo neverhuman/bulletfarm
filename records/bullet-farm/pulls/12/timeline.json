@@ -1,0 +1,212 @@
+[
+  [
+    {
+      "sha": "ab7ba1928b5642e337a886129180f11ec1789d65",
+      "node_id": "C_kwDOUS7UsdoAKGFiN2JhMTkyOGI1NjQyZTMzN2E4ODYxMjkxODBmMTFlYzE3ODlkNjU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/ab7ba1928b5642e337a886129180f11ec1789d65",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/ab7ba1928b5642e337a886129180f11ec1789d65",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:33:02Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:33:02Z"
+      },
+      "tree": {
+        "sha": "f601f6eee5343d0d1946e82a1bd8df7267452e79",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f601f6eee5343d0d1946e82a1bd8df7267452e79"
+      },
+      "message": "Issue harness work-package IDs from the admitted command, not dry-run seeds.\n\nWhen the operator supplies the command id, request digest, and idempotency key, prepare-harness matches the worker and forwards credential grants without reading their bytes.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "c93f057f18838681db02ce847585ece66fa96860",
+      "node_id": "C_kwDOUS7UsdoAKGM5M2YwNTdmMTg4Mzg2ODFkYjAyY2U4NDc1ODVlY2U2NmZhOTY4NjA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c93f057f18838681db02ce847585ece66fa96860",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/c93f057f18838681db02ce847585ece66fa96860",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:40:48Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:40:48Z"
+      },
+      "tree": {
+        "sha": "f9cd4c88dcc12d473488840176e889b0b4d24ae4",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f9cd4c88dcc12d473488840176e889b0b4d24ae4"
+      },
+      "message": "Name v0.2.0-operator-cli and keep scheduled Jankurai out of the merge gate.\n\nHosted required stays the four-main bar; this version does not lift HOLD or claim schema-3.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "ab7ba1928b5642e337a886129180f11ec1789d65",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/ab7ba1928b5642e337a886129180f11ec1789d65",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/ab7ba1928b5642e337a886129180f11ec1789d65"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "066f531f9a3ea1bb23afd181a3490e05002bf730",
+      "node_id": "C_kwDOUS7UsdoAKDA2NmY1MzFmOWEzZWExYmIyM2FmZDE4MWEzNDkwZTA1MDAyYmY3MzA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/066f531f9a3ea1bb23afd181a3490e05002bf730",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/066f531f9a3ea1bb23afd181a3490e05002bf730",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:41:03Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:41:03Z"
+      },
+      "tree": {
+        "sha": "c8758b1bf882cf141387400b1b7831dc36c7274a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/c8758b1bf882cf141387400b1b7831dc36c7274a"
+      },
+      "message": "Say scheduled Jankurai is machine-local; hosted required is the merge gate.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "c93f057f18838681db02ce847585ece66fa96860",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c93f057f18838681db02ce847585ece66fa96860",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/c93f057f18838681db02ce847585ece66fa96860"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+      "node_id": "C_kwDOUS7UsdoAKDBmZTU1ZjA5NWUyZjQxZTg0YjAwMWZmMjZjZGUzYzNmM2E2OGVhYzk",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0fe55f095e2f41e84b001ff26cde3c3f3a68eac9",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T04:08:30Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T04:08:30Z"
+      },
+      "tree": {
+        "sha": "1b5a7a6bb754b7348e0e9c9260916caa8cbeb3d1",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/1b5a7a6bb754b7348e0e9c9260916caa8cbeb3d1"
+      },
+      "message": "Keep the v0.2 changelog honest about unmerged kernel work.\n\nHub bullets stay Hub-only. Kernel D1, binding, Cursor Fork B, and hex-safe\nTUI stay proposed on kernel PR17. The public GIF caption names the empty fleet.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "066f531f9a3ea1bb23afd181a3490e05002bf730",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/066f531f9a3ea1bb23afd181a3490e05002bf730",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/066f531f9a3ea1bb23afd181a3490e05002bf730"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30949093989,
+      "node_id": "ME_lADOUS7Usc8AAAABQwMePc8AAAAHNLWyZQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30949093989",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+      "created_at": "2026-09-11T04:32:55Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30949094036,
+      "node_id": "CE_lADOUS7Usc8AAAABQwMePc8AAAAHNLWylA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30949094036",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T04:32:55Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

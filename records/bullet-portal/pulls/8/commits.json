@@ -1,0 +1,130 @@
+[
+  [
+    {
+      "sha": "32f9357b459ed1732f43468758b88001b557b915",
+      "node_id": "C_kwDOUS7VAdoAKDMyZjkzNTdiNDU5ZWQxNzMyZjQzNDY4NzU4Yjg4MDAxYjU1N2I5MTU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:43:29Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:43:29Z"
+        },
+        "message": "Mount a schema-27 Head overlay that journals conversation_message.\n\nThe drawer stays a chip until opened, binds refresh to the APPLIED receipt, and reuses existing Portal color tokens. HOLD and HEAD_RUNTIME_BINDING_REQUIRED stay visible; no sixteenth surface.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "3708382caf370a79107d596917cd50fb82827eb2",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/3708382caf370a79107d596917cd50fb82827eb2"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/32f9357b459ed1732f43468758b88001b557b915",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/32f9357b459ed1732f43468758b88001b557b915",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/32f9357b459ed1732f43468758b88001b557b915",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/32f9357b459ed1732f43468758b88001b557b915/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "3214871285ce61bf89652428a68b7e784794bbd5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/3214871285ce61bf89652428a68b7e784794bbd5",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/3214871285ce61bf89652428a68b7e784794bbd5"
+        }
+      ]
+    },
+    {
+      "sha": "4511ae72a0f38e001a515571b8915a55446842bb",
+      "node_id": "C_kwDOUS7VAdoAKDQ1MTFhZTcyYTBmMzhlMDAxYTUxNTU3MWI4OTE1YTU1NDQ2ODQyYmI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:49:02Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:49:02Z"
+        },
+        "message": "Document the Head overlay as schema-27, not a sixteenth surface.\n\nName conversation GET validators, keep mocked Playwright distinct from xbabe2-only Head proof, and leave Tuiwright out of hosted workflows.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "41cf93dbc85e87c37dc70e21a3073294571e0d7c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/41cf93dbc85e87c37dc70e21a3073294571e0d7c"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/4511ae72a0f38e001a515571b8915a55446842bb",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4511ae72a0f38e001a515571b8915a55446842bb",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/4511ae72a0f38e001a515571b8915a55446842bb",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4511ae72a0f38e001a515571b8915a55446842bb/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "32f9357b459ed1732f43468758b88001b557b915",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/32f9357b459ed1732f43468758b88001b557b915",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/32f9357b459ed1732f43468758b88001b557b915"
+        }
+      ]
+    },
+    {
+      "sha": "2c5564addcf3a39b37a3bfe909270391083a24d9",
+      "node_id": "C_kwDOUS7VAdoAKDJjNTU2NGFkZGNmM2EzOWIzN2EzYmZlOTA5MjcwMzkxMDgzYTI0ZDk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:49:09Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:49:09Z"
+        },
+        "message": "Sharpen Shift Brief next actions on durable rows only.\n\nKeep RELEASE DECISION unknown and the existing as_of_sequence substring so Head is not treated as a sixteenth surface.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "4dec1b721cd1abc24c5bca7c4228437930a935c6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/4dec1b721cd1abc24c5bca7c4228437930a935c6"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/2c5564addcf3a39b37a3bfe909270391083a24d9",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/2c5564addcf3a39b37a3bfe909270391083a24d9",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/2c5564addcf3a39b37a3bfe909270391083a24d9",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/2c5564addcf3a39b37a3bfe909270391083a24d9/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4511ae72a0f38e001a515571b8915a55446842bb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4511ae72a0f38e001a515571b8915a55446842bb",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/4511ae72a0f38e001a515571b8915a55446842bb"
+        }
+      ]
+    }
+  ]
+]

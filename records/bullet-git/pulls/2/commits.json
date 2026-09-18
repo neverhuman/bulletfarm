@@ -1,0 +1,88 @@
+[
+  [
+    {
+      "sha": "ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+      "node_id": "C_kwDOUS7U49oAKGNjYmFlMTI0YThlZjMxYWQyM2YxMmU4NmQyMmQ0MmIyOGZlY2I5ODM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T21:53:54Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T21:53:54Z"
+        },
+        "message": "Validate a patch proposal before consuming the mutation permit.\n\nApply still refuses a permit that does not match the admitted proposal.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "9f68cd56e596c9ac194de365fbc3303257675487",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/9f68cd56e596c9ac194de365fbc3303257675487"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/ccbae124a8ef31ad23f12e86d22d42b28fecb983/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "cc985434806720d51edf0b1609d3237b3a04beaa",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/cc985434806720d51edf0b1609d3237b3a04beaa",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/cc985434806720d51edf0b1609d3237b3a04beaa"
+        }
+      ]
+    },
+    {
+      "sha": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+      "node_id": "C_kwDOUS7U49oAKDZjODFmNTIwMDc4N2MyYmZkYTYwYzcxMDZmYzEwMjg1Yjg5NzVhYzg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:08:20Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:08:20Z"
+        },
+        "message": "Name the proposal admission tuple so hosted clippy can pass.\n\nThe lint lane refused the three-vector return as type_complexity and\nblocked the already-reviewed validate-before-consume change.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "3cc8c9fcf2ca124a171edad0b06c5edf68417197",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/3cc8c9fcf2ca124a171edad0b06c5edf68417197"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/6c81f5200787c2bfda60c7106fc10285b8975ac8",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/6c81f5200787c2bfda60c7106fc10285b8975ac8",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/6c81f5200787c2bfda60c7106fc10285b8975ac8",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/6c81f5200787c2bfda60c7106fc10285b8975ac8/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/ccbae124a8ef31ad23f12e86d22d42b28fecb983"
+        }
+      ]
+    }
+  ]
+]

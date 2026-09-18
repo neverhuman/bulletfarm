@@ -1,0 +1,783 @@
+[
+  {
+    "total_count": 6,
+    "jobs": [
+      {
+        "id": 102986804178,
+        "run_id": 34511594652,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34511594652",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-n3r0g",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102986804178",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34511594652/job/102986804178",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T17:59:49Z",
+        "started_at": "2026-09-10T17:59:51Z",
+        "completed_at": "2026-09-10T18:00:06Z",
+        "name": "CI / security",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T17:59:52Z",
+            "completed_at": "2026-09-10T17:59:53Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T17:59:53Z",
+            "completed_at": "2026-09-10T17:59:54Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Install gitleaks 8.21.2 from checksum-pinned archive",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T18:00:00Z"
+          },
+          {
+            "name": "Run taiki-e/install-action@c3ec0de9ae7f1019cea21aa96aa0a895b9552063",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:00:00Z",
+            "completed_at": "2026-09-10T18:00:01Z"
+          },
+          {
+            "name": "Security lane",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:00:01Z",
+            "completed_at": "2026-09-10T18:00:03Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:00:03Z",
+            "completed_at": "2026-09-10T18:00:03Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:00:03Z",
+            "completed_at": "2026-09-10T18:00:03Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-09-10T18:00:03Z",
+            "completed_at": "2026-09-10T18:00:04Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:00:04Z",
+            "completed_at": "2026-09-10T18:00:04Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-09-10T18:00:04Z",
+            "completed_at": "2026-09-10T18:00:04Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23,
+            "started_at": "2026-09-10T18:00:04Z",
+            "completed_at": "2026-09-10T18:00:04Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102986804178",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022468,
+        "runner_name": "GitHub Actions 1000022468",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102986804320,
+        "run_id": 34511594652,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34511594652",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-n3sYA",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102986804320",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34511594652/job/102986804320",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T17:59:49Z",
+        "started_at": "2026-09-10T17:59:51Z",
+        "completed_at": "2026-09-10T18:00:33Z",
+        "name": "CI / fast",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T17:59:52Z",
+            "completed_at": "2026-09-10T17:59:53Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T17:59:53Z",
+            "completed_at": "2026-09-10T17:59:54Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T17:59:59Z"
+          },
+          {
+            "name": "Install locked dependencies without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T17:59:59Z",
+            "completed_at": "2026-09-10T18:00:01Z"
+          },
+          {
+            "name": "Fast lane",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:00:01Z",
+            "completed_at": "2026-09-10T18:00:29Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:00:29Z",
+            "completed_at": "2026-09-10T18:00:29Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:00:29Z",
+            "completed_at": "2026-09-10T18:00:29Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:00:29Z",
+            "completed_at": "2026-09-10T18:00:30Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-09-10T18:00:30Z",
+            "completed_at": "2026-09-10T18:00:31Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-09-10T18:00:31Z",
+            "completed_at": "2026-09-10T18:00:31Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:00:31Z",
+            "completed_at": "2026-09-10T18:00:31Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102986804320",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022469,
+        "runner_name": "GitHub Actions 1000022469",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102986804363,
+        "run_id": 34511594652,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34511594652",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-n3siw",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102986804363",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34511594652/job/102986804363",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T17:59:49Z",
+        "started_at": "2026-09-10T17:59:52Z",
+        "completed_at": "2026-09-10T18:00:27Z",
+        "name": "CI / docs",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T17:59:53Z",
+            "completed_at": "2026-09-10T17:59:53Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T17:59:53Z",
+            "completed_at": "2026-09-10T17:59:54Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T18:00:00Z"
+          },
+          {
+            "name": "Install locked dependencies without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T18:00:00Z",
+            "completed_at": "2026-09-10T18:00:03Z"
+          },
+          {
+            "name": "Docs lane",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:00:03Z",
+            "completed_at": "2026-09-10T18:00:23Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:00:23Z",
+            "completed_at": "2026-09-10T18:00:23Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:00:23Z",
+            "completed_at": "2026-09-10T18:00:24Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:00:24Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-09-10T18:00:25Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-09-10T18:00:25Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:00:25Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102986804363",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022470,
+        "runner_name": "GitHub Actions 1000022470",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102986804400,
+        "run_id": 34511594652,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34511594652",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-n3ssA",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102986804400",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34511594652/job/102986804400",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T17:59:49Z",
+        "started_at": "2026-09-10T17:59:51Z",
+        "completed_at": "2026-09-10T18:01:05Z",
+        "name": "CI / contract",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T17:59:52Z",
+            "completed_at": "2026-09-10T17:59:53Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T17:59:53Z",
+            "completed_at": "2026-09-10T17:59:54Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:54Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:54Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:59Z"
+          },
+          {
+            "name": "Install locked dependencies without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T17:59:59Z",
+            "completed_at": "2026-09-10T18:00:02Z"
+          },
+          {
+            "name": "Install reviewed Playwright browser lifecycle",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:00:02Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          },
+          {
+            "name": "Contract lane",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:00:25Z",
+            "completed_at": "2026-09-10T18:01:03Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:01:03Z",
+            "completed_at": "2026-09-10T18:01:03Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:01:03Z",
+            "completed_at": "2026-09-10T18:01:03Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-09-10T18:01:03Z",
+            "completed_at": "2026-09-10T18:01:04Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:01:04Z",
+            "completed_at": "2026-09-10T18:01:04Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-09-10T18:01:04Z",
+            "completed_at": "2026-09-10T18:01:04Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23,
+            "started_at": "2026-09-10T18:01:04Z",
+            "completed_at": "2026-09-10T18:01:04Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102986804400",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022471,
+        "runner_name": "GitHub Actions 1000022471",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102986804459,
+        "run_id": 34511594652,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34511594652",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-n3s6w",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102986804459",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34511594652/job/102986804459",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T17:59:50Z",
+        "started_at": "2026-09-10T17:59:53Z",
+        "completed_at": "2026-09-10T18:00:28Z",
+        "name": "CI / lint",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T17:59:54Z",
+            "completed_at": "2026-09-10T17:59:55Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T17:59:55Z",
+            "completed_at": "2026-09-10T17:59:56Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T17:59:56Z",
+            "completed_at": "2026-09-10T17:59:57Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T17:59:57Z",
+            "completed_at": "2026-09-10T17:59:57Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T17:59:57Z",
+            "completed_at": "2026-09-10T18:00:03Z"
+          },
+          {
+            "name": "Install checksum-pinned actionlint 1.7.8",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T18:00:03Z",
+            "completed_at": "2026-09-10T18:00:03Z"
+          },
+          {
+            "name": "Run taiki-e/install-action@c3ec0de9ae7f1019cea21aa96aa0a895b9552063",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:00:03Z",
+            "completed_at": "2026-09-10T18:00:13Z"
+          },
+          {
+            "name": "Lint lane",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:00:13Z",
+            "completed_at": "2026-09-10T18:00:23Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:00:23Z",
+            "completed_at": "2026-09-10T18:00:23Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:00:23Z",
+            "completed_at": "2026-09-10T18:00:23Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-09-10T18:00:23Z",
+            "completed_at": "2026-09-10T18:00:24Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:00:24Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 22,
+            "started_at": "2026-09-10T18:00:25Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 23,
+            "started_at": "2026-09-10T18:00:25Z",
+            "completed_at": "2026-09-10T18:00:25Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102986804459",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022472,
+        "runner_name": "GitHub Actions 1000022472",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102987249273,
+        "run_id": 34511594652,
+        "workflow_name": "CI",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34511594652",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-oS2eQ",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102987249273",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34511594652/job/102987249273",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T18:01:06Z",
+        "started_at": "2026-09-10T18:01:07Z",
+        "completed_at": "2026-09-10T18:01:13Z",
+        "name": "required",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T18:01:08Z",
+            "completed_at": "2026-09-10T18:01:09Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T18:01:09Z",
+            "completed_at": "2026-09-10T18:01:10Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T18:01:10Z",
+            "completed_at": "2026-09-10T18:01:11Z"
+          },
+          {
+            "name": "Download exact-run observations and sanitized artifacts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T18:01:11Z",
+            "completed_at": "2026-09-10T18:01:11Z"
+          },
+          {
+            "name": "Converge required jobs",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T18:01:11Z",
+            "completed_at": "2026-09-10T18:01:11Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:01:11Z",
+            "completed_at": "2026-09-10T18:01:11Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:01:11Z",
+            "completed_at": "2026-09-10T18:01:12Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 11,
+            "started_at": "2026-09-10T18:01:12Z",
+            "completed_at": "2026-09-10T18:01:12Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102987249273",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022473,
+        "runner_name": "GitHub Actions 1000022473",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  }
+]

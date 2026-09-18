@@ -1,0 +1,140 @@
+[
+  [
+    {
+      "sha": "ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+      "node_id": "C_kwDOUS7U49oAKGNjYmFlMTI0YThlZjMxYWQyM2YxMmU4NmQyMmQ0MmIyOGZlY2I5ODM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T21:53:54Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T21:53:54Z"
+      },
+      "tree": {
+        "sha": "9f68cd56e596c9ac194de365fbc3303257675487",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/9f68cd56e596c9ac194de365fbc3303257675487"
+      },
+      "message": "Validate a patch proposal before consuming the mutation permit.\n\nApply still refuses a permit that does not match the admitted proposal.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "cc985434806720d51edf0b1609d3237b3a04beaa",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/cc985434806720d51edf0b1609d3237b3a04beaa",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/cc985434806720d51edf0b1609d3237b3a04beaa"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "6c81f5200787c2bfda60c7106fc10285b8975ac8",
+      "node_id": "C_kwDOUS7U49oAKDZjODFmNTIwMDc4N2MyYmZkYTYwYzcxMDZmYzEwMjg1Yjg5NzVhYzg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/6c81f5200787c2bfda60c7106fc10285b8975ac8",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/6c81f5200787c2bfda60c7106fc10285b8975ac8",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T00:08:20Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T00:08:20Z"
+      },
+      "tree": {
+        "sha": "3cc8c9fcf2ca124a171edad0b06c5edf68417197",
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/3cc8c9fcf2ca124a171edad0b06c5edf68417197"
+      },
+      "message": "Name the proposal admission tuple so hosted clippy can pass.\n\nThe lint lane refused the three-vector return as type_complexity and\nblocked the already-reviewed validate-before-consume change.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/ccbae124a8ef31ad23f12e86d22d42b28fecb983",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/ccbae124a8ef31ad23f12e86d22d42b28fecb983"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30867778212,
+      "node_id": "ME_lADOUS7U488AAAABQivjfc8AAAAHL9zqpA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/issues/events/30867778212",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "11a29e94a21e71199f6b384f7d0e69bc6ae72f16",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/11a29e94a21e71199f6b384f7d0e69bc6ae72f16",
+      "created_at": "2026-09-10T00:40:01Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30867778248,
+      "node_id": "CE_lADOUS7U488AAAABQivjfc8AAAAHL9zqyA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/issues/events/30867778248",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T00:40:01Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

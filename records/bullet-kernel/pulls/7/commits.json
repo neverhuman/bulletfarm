@@ -1,0 +1,130 @@
+[
+  [
+    {
+      "sha": "8d7258a03b1e83d4c5300b22caa569679953abbb",
+      "node_id": "C_kwDOUS7UytoAKDhkNzI1OGEwM2IxZTgzZDRjNTMwMGIyMmNhYTU2OTY3OTk1M2FiYmI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:17:30Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:17:30Z"
+        },
+        "message": "Persist operator-owned coding task intent and exact retry",
+        "tree": {
+          "sha": "e29f5c157272e676eceb17b7adc5485b92791dd5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/e29f5c157272e676eceb17b7adc5485b92791dd5"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/8d7258a03b1e83d4c5300b22caa569679953abbb",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/8d7258a03b1e83d4c5300b22caa569679953abbb",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/8d7258a03b1e83d4c5300b22caa569679953abbb",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/8d7258a03b1e83d4c5300b22caa569679953abbb/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "05a6bb692d2c2695a0e6016889883a65d06f3d07",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/05a6bb692d2c2695a0e6016889883a65d06f3d07",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/05a6bb692d2c2695a0e6016889883a65d06f3d07"
+        }
+      ]
+    },
+    {
+      "sha": "3a5f98edd389d3cd4c43a85783230673c6910d06",
+      "node_id": "C_kwDOUS7UytoAKDNhNWY5OGVkZDM4OWQzY2Q0YzQzYTg1NzgzMjMwNjczYzY5MTBkMDY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:18:31Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:18:31Z"
+        },
+        "message": "Bind operator task documentation to reviewed source",
+        "tree": {
+          "sha": "923f0e9e51680866df811f38115ff4702aca588a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/923f0e9e51680866df811f38115ff4702aca588a"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/3a5f98edd389d3cd4c43a85783230673c6910d06",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3a5f98edd389d3cd4c43a85783230673c6910d06",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/3a5f98edd389d3cd4c43a85783230673c6910d06",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3a5f98edd389d3cd4c43a85783230673c6910d06/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "8d7258a03b1e83d4c5300b22caa569679953abbb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/8d7258a03b1e83d4c5300b22caa569679953abbb",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/8d7258a03b1e83d4c5300b22caa569679953abbb"
+        }
+      ]
+    },
+    {
+      "sha": "03aa7d9008dcc418c756e38a5f7ff954b372040f",
+      "node_id": "C_kwDOUS7UytoAKDAzYWE3ZDkwMDhkY2M0MThjNzU2ZTM4YTVmN2ZmOTU0YjM3MjA0MGY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:23:31Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:23:31Z"
+        },
+        "message": "Update authority backup regression for schema 26",
+        "tree": {
+          "sha": "9db336666760ba6723beff74bc365efa7008fdc8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/9db336666760ba6723beff74bc365efa7008fdc8"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/03aa7d9008dcc418c756e38a5f7ff954b372040f",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/03aa7d9008dcc418c756e38a5f7ff954b372040f",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/03aa7d9008dcc418c756e38a5f7ff954b372040f",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/03aa7d9008dcc418c756e38a5f7ff954b372040f/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "3a5f98edd389d3cd4c43a85783230673c6910d06",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3a5f98edd389d3cd4c43a85783230673c6910d06",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/3a5f98edd389d3cd4c43a85783230673c6910d06"
+        }
+      ]
+    }
+  ]
+]

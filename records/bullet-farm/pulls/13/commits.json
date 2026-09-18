@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+      "node_id": "C_kwDOUS7UsdoAKDhjMGVjYWRlMjVlNTk0ODhlODQyM2NhNTVhODhmNzU4ZTljZWJjOGE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:38:46Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:38:46Z"
+        },
+        "message": "Date the v0.2 closeout against the merged Hub and Kernel oids.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "8a58c6f929403f22228548fda85bb87704529a1f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/8a58c6f929403f22228548fda85bb87704529a1f"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/8c0ecade25e59488e8423ca55a88f758e9cebc8a/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/76076e9ced368cdce7d3e39823d2bdc4c7d67804"
+        }
+      ]
+    }
+  ]
+]

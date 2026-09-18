@@ -1,0 +1,123 @@
+[
+  {
+    "total_count": 1,
+    "jobs": [
+      {
+        "id": 105669852593,
+        "run_id": 35366414533,
+        "workflow_name": "CI",
+        "head_branch": "claude/pr2a-debloat-ci",
+        "run_url": "https://api.github.com/repos/neverhuman/bf/actions/runs/35366414533",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUd_zl88AAAAYmmn9sQ",
+        "head_sha": "e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba",
+        "url": "https://api.github.com/repos/neverhuman/bf/actions/jobs/105669852593",
+        "html_url": "https://github.com/neverhuman/bf/actions/runs/35366414533/job/105669852593",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-18T16:05:54Z",
+        "started_at": "2026-09-18T16:05:57Z",
+        "completed_at": "2026-09-18T16:07:21Z",
+        "name": "check",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-18T16:05:58Z",
+            "completed_at": "2026-09-18T16:05:59Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-18T16:05:59Z",
+            "completed_at": "2026-09-18T16:05:59Z"
+          },
+          {
+            "name": "Run dtolnay/rust-toolchain@b3b07ba8b418998c39fb20f53e8b695cdcc8de1b",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-18T16:05:59Z",
+            "completed_at": "2026-09-18T16:06:08Z"
+          },
+          {
+            "name": "Run actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-18T16:06:08Z",
+            "completed_at": "2026-09-18T16:06:08Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-18T16:06:08Z",
+            "completed_at": "2026-09-18T16:06:10Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-18T16:06:10Z",
+            "completed_at": "2026-09-18T16:06:14Z"
+          },
+          {
+            "name": "Check",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-18T16:06:14Z",
+            "completed_at": "2026-09-18T16:07:14Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-09-18T16:07:14Z",
+            "completed_at": "2026-09-18T16:07:15Z"
+          },
+          {
+            "name": "Post Run actions/cache@0057852bfaa89a56745cba8c7296529d2fc39830",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-09-18T16:07:15Z",
+            "completed_at": "2026-09-18T16:07:19Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 14,
+            "started_at": "2026-09-18T16:07:19Z",
+            "completed_at": "2026-09-18T16:07:19Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 15,
+            "started_at": "2026-09-18T16:07:19Z",
+            "completed_at": "2026-09-18T16:07:19Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bf/check-runs/105669852593",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000026739,
+        "runner_name": "GitHub Actions 1000026739",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  }
+]

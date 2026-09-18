@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "13233f777e57d1917cf74c6568a807fb786518bc",
+      "node_id": "C_kwDOUS7VAdoAKDEzMjMzZjc3N2U1N2QxOTE3Y2Y3NGM2NTY4YTgwN2ZiNzg2NTE4YmM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T11:22:48Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T11:22:49Z"
+        },
+        "message": "fix: keep Control Tower custody across persist and remount failures\n\nFailed admitted-id writes stay UNKNOWN without dropping the pre-POST key, stale unmounted GETs cannot clear a newer slot, and a restored subject must match the persisted kind and digest.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "af3bf12be556cbb1b72926742ac8e582fb1837bb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/af3bf12be556cbb1b72926742ac8e582fb1837bb"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/13233f777e57d1917cf74c6568a807fb786518bc",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/13233f777e57d1917cf74c6568a807fb786518bc",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/13233f777e57d1917cf74c6568a807fb786518bc",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/13233f777e57d1917cf74c6568a807fb786518bc/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "e815d8392a280363c02e97f856c1d69a67e19f61",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/e815d8392a280363c02e97f856c1d69a67e19f61",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/e815d8392a280363c02e97f856c1d69a67e19f61"
+        }
+      ]
+    }
+  ]
+]

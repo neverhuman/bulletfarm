@@ -1,0 +1,88 @@
+[
+  [
+    {
+      "sha": "ab288c035338f27a26677beb8218ab82a94060c1",
+      "node_id": "C_kwDOUS7UytoAKGFiMjg4YzAzNTMzOGYyN2EyNjY3N2JlYjgyMThhYjgyYTk0MDYwYzE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:54:50Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T17:54:50Z"
+        },
+        "message": "Render the operator TUI before its first network read",
+        "tree": {
+          "sha": "1532a7ae7fec3c331a64155b2eccf0cb3a7d2153",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/1532a7ae7fec3c331a64155b2eccf0cb3a7d2153"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/ab288c035338f27a26677beb8218ab82a94060c1",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ab288c035338f27a26677beb8218ab82a94060c1",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ab288c035338f27a26677beb8218ab82a94060c1",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ab288c035338f27a26677beb8218ab82a94060c1/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "625e7434f00c082f875dda62b43d019a1f1eb2b4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/625e7434f00c082f875dda62b43d019a1f1eb2b4",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/625e7434f00c082f875dda62b43d019a1f1eb2b4"
+        }
+      ]
+    },
+    {
+      "sha": "511ed39f6eb4599a22f204c3e2c898526a6cfe23",
+      "node_id": "C_kwDOUS7UytoAKDUxMWVkMzlmNmViNDU5OWEyMmYyMDRjM2UyYzg5ODUyNmE2Y2ZlMjM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T18:03:59Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T18:03:59Z"
+        },
+        "message": "Reuse TTY+NO_COLOR paint for auth status and tell the truth in cli.md.\n\nAuth labels stay readable without color. talk/ask/head stay off the command table; Portal overlay exists and Slack/Telegram stay typed absent.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "d8906028141c32fa61864269126f4467534a1cab",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/d8906028141c32fa61864269126f4467534a1cab"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/511ed39f6eb4599a22f204c3e2c898526a6cfe23",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/511ed39f6eb4599a22f204c3e2c898526a6cfe23",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/511ed39f6eb4599a22f204c3e2c898526a6cfe23",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/511ed39f6eb4599a22f204c3e2c898526a6cfe23/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "ab288c035338f27a26677beb8218ab82a94060c1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ab288c035338f27a26677beb8218ab82a94060c1",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ab288c035338f27a26677beb8218ab82a94060c1"
+        }
+      ]
+    }
+  ]
+]

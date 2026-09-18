@@ -1,0 +1,248 @@
+[
+  [
+    {
+      "sha": "6cde6376aca767258b67c29fe3f0434ebcc47c4b",
+      "node_id": "C_kwDOUS7UytoAKDZjZGU2Mzc2YWNhNzY3MjU4YjY3YzI5ZmUzZjA0MzRlYmNjNDdjNGI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/6cde6376aca767258b67c29fe3f0434ebcc47c4b",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/6cde6376aca767258b67c29fe3f0434ebcc47c4b",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:18:18Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:18:18Z"
+      },
+      "tree": {
+        "sha": "db6da5e7d600ba79a58adedabc41cb30c3d1f997",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/db6da5e7d600ba79a58adedabc41cb30c3d1f997"
+      },
+      "message": "Persist authenticated conversation messages and recovery snapshots",
+      "parents": [
+        {
+          "sha": "c40cfae1425a5066f23353d374281fae9350ee24",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/c40cfae1425a5066f23353d374281fae9350ee24",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c40cfae1425a5066f23353d374281fae9350ee24"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "ebdb0c5ed3c2b340487e8bc636770b1855e9e9f2",
+      "node_id": "C_kwDOUS7UytoAKGViZGIwYzVlZDNjMmIzNDA0ODdlOGJjNjM2NzcwYjE4NTVlOWU5ZjI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/ebdb0c5ed3c2b340487e8bc636770b1855e9e9f2",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ebdb0c5ed3c2b340487e8bc636770b1855e9e9f2",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:29:46Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:29:46Z"
+      },
+      "tree": {
+        "sha": "3fd9faefe27e0c7d4183ed0dc563c5393fd41767",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/3fd9faefe27e0c7d4183ed0dc563c5393fd41767"
+      },
+      "message": "Verify conversation backup custody and refresh schema references",
+      "parents": [
+        {
+          "sha": "6cde6376aca767258b67c29fe3f0434ebcc47c4b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/6cde6376aca767258b67c29fe3f0434ebcc47c4b",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/6cde6376aca767258b67c29fe3f0434ebcc47c4b"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "a282542425eb15fefd509c9d317527a2744ae45e",
+      "node_id": "C_kwDOUS7UytoAKGEyODI1NDI0MjVlYjE1ZmVmZDUwOWM5ZDMxNzUyN2EyNzQ0YWU0NWU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/a282542425eb15fefd509c9d317527a2744ae45e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/a282542425eb15fefd509c9d317527a2744ae45e",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:35:44Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:35:44Z"
+      },
+      "tree": {
+        "sha": "ee76f0a3110ca3be1c5b3f7126c320c1aa97fbb6",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/ee76f0a3110ca3be1c5b3f7126c320c1aa97fbb6"
+      },
+      "message": "test: bind authority backup to conversation schema",
+      "parents": [
+        {
+          "sha": "ebdb0c5ed3c2b340487e8bc636770b1855e9e9f2",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/ebdb0c5ed3c2b340487e8bc636770b1855e9e9f2",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ebdb0c5ed3c2b340487e8bc636770b1855e9e9f2"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "60f8737f9aaa51030286682fc1675e80effa0bc3",
+      "node_id": "C_kwDOUS7UytoAKDYwZjg3MzdmOWFhYTUxMDMwMjg2NjgyZmMxNjc1ZTgwZWZmYTBiYzM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/60f8737f9aaa51030286682fc1675e80effa0bc3",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/60f8737f9aaa51030286682fc1675e80effa0bc3",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:47:53Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:47:53Z"
+      },
+      "tree": {
+        "sha": "1455f8ea70e0cb122b567bf8bceb1913029d2554",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/1455f8ea70e0cb122b567bf8bceb1913029d2554"
+      },
+      "message": "fix(cli): reject ambiguous JSON responses and journals",
+      "parents": [
+        {
+          "sha": "a282542425eb15fefd509c9d317527a2744ae45e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/a282542425eb15fefd509c9d317527a2744ae45e",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/a282542425eb15fefd509c9d317527a2744ae45e"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "e0e386f6d1e09ed5bce7b2f3aac5c6893423da57",
+      "node_id": "C_kwDOUS7UytoAKGUwZTM4NmY2ZDFlMDllZDViY2U3YjJmM2FhYzVjNjg5MzQyM2RhNTc",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/e0e386f6d1e09ed5bce7b2f3aac5c6893423da57",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/e0e386f6d1e09ed5bce7b2f3aac5c6893423da57",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:52:25Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T14:52:25Z"
+      },
+      "tree": {
+        "sha": "42d36180b7d07a9645b0f9253e5d8d62852c8ff3",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/42d36180b7d07a9645b0f9253e5d8d62852c8ff3"
+      },
+      "message": "docs: review durable conversation and operator boundaries",
+      "parents": [
+        {
+          "sha": "60f8737f9aaa51030286682fc1675e80effa0bc3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/60f8737f9aaa51030286682fc1675e80effa0bc3",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/60f8737f9aaa51030286682fc1675e80effa0bc3"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30912055734,
+      "node_id": "ME_lADOUS7Uys8AAAABQrEk0s8AAAAHMoCJtg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30912055734",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "1aca8855cae5940ffabda0b899f80544aa4c52de",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/1aca8855cae5940ffabda0b899f80544aa4c52de",
+      "created_at": "2026-09-10T15:13:18Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30912055830,
+      "node_id": "CE_lADOUS7Uys8AAAABQrEk0s8AAAAHMoCKFg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30912055830",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T15:13:18Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

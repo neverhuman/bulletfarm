@@ -1,0 +1,207 @@
+[
+  [
+    {
+      "sha": "c1613a3c696f559447825e6c5a3e2bc3f13630a4",
+      "node_id": "C_kwDOUS7UytoAKGMxNjEzYTNjNjk2ZjU1OTQ0NzgyNWU2YzVhM2UyYmMzZjEzNjMwYTQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/c1613a3c696f559447825e6c5a3e2bc3f13630a4",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c1613a3c696f559447825e6c5a3e2bc3f13630a4",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:35:43Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:35:43Z"
+      },
+      "tree": {
+        "sha": "d65043df993ea62ce5282f7fb9ecf8d4f30759c5",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/d65043df993ea62ce5282f7fb9ecf8d4f30759c5"
+      },
+      "message": "Show HOLD-honest TUI status chrome and human snapshot tables.\n\nThe operator console now paints LIVE/UNBOUND/STOP chips, readable\nrow details with a raw-JSON toggle, and a Portal-titled jump list\nwithout inventing Head, talk, or cancel keys.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "7e8422dc01edd5490836a97494a8ce909d5b92ab",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/7e8422dc01edd5490836a97494a8ce909d5b92ab",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/7e8422dc01edd5490836a97494a8ce909d5b92ab"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "6ca37c7ba6d0b56d8afafdc56f7663f087a26cbb",
+      "node_id": "C_kwDOUS7UytoAKDZjYTM3YzdiYTZkMGI1NmQ4YWZhZmRjNTZmNzY2M2YwODdhMjZjYmI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/6ca37c7ba6d0b56d8afafdc56f7663f087a26cbb",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/6ca37c7ba6d0b56d8afafdc56f7663f087a26cbb",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:35:49Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:35:49Z"
+      },
+      "tree": {
+        "sha": "cb142b767d768540c8c4f2a3a91c84c0875b0f6a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/cb142b767d768540c8c4f2a3a91c84c0875b0f6a"
+      },
+      "message": "Prove TUI status chrome and unknown-surface palette in PTY tests.\n\nThe new case checks HOLD/LIVE/UNBOUND on CONNECTING, refresh pending\nafter the first GET, and that unknown Portal surfaces do not invent a view.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "c1613a3c696f559447825e6c5a3e2bc3f13630a4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/c1613a3c696f559447825e6c5a3e2bc3f13630a4",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/c1613a3c696f559447825e6c5a3e2bc3f13630a4"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "651871efcf3658494e65517bcf6630962c296fd8",
+      "node_id": "C_kwDOUS7UytoAKDY1MTg3MWVmY2YzNjU4NDk0ZTY1NTE3YmNmNjYzMDk2MmMyOTZmZDg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/651871efcf3658494e65517bcf6630962c296fd8",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/651871efcf3658494e65517bcf6630962c296fd8",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:43:57Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:43:57Z"
+      },
+      "tree": {
+        "sha": "4af6f4561862f70a7a1f384812f340cec43b7a73",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/4af6f4561862f70a7a1f384812f340cec43b7a73"
+      },
+      "message": "Pin standalone inventory to the measured 1251-test TUI wow set.\n\nHosted fast refused the previous 1248 count; the new totals and\nidentity digests come from a real nextest JSON on this branch.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "6ca37c7ba6d0b56d8afafdc56f7663f087a26cbb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/6ca37c7ba6d0b56d8afafdc56f7663f087a26cbb",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/6ca37c7ba6d0b56d8afafdc56f7663f087a26cbb"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30928262719,
+      "node_id": "ME_lADOUS7Uys8AAAABQtmoQ88AAAAHM3fWPw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30928262719",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "35e3d192f3acc85245748eb70142ef7bed20ad4d",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/35e3d192f3acc85245748eb70142ef7bed20ad4d",
+      "created_at": "2026-09-10T20:01:05Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30928262804,
+      "node_id": "CE_lADOUS7Uys8AAAABQtmoQ88AAAAHM3fWlA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30928262804",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T20:01:05Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30928265388,
+      "node_id": "HRDE_lADOUS7Uys8AAAABQtmoQ88AAAAHM3fgrA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/30928265388",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_deleted",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T20:01:08Z",
+      "performed_via_github_app": null
+    }
+  ]
+]

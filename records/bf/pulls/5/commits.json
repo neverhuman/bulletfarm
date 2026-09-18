@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "2eef1a2f2a082958778e56a2b621713ec1a1b771",
+      "node_id": "C_kwDOUd_zl9oAKDJlZWYxYTJmMmEwODI5NTg3NzhlNTZhMmI2MjE3MTNlYzFhMWI3NzE",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:36:51Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:36:51Z"
+        },
+        "message": "Discover live Claude, Codex, Cursor, and Grok sessions.\n\nScan /proc plus each provider registry. Drop dead pids. Ignore shells\nthat only mention cursor-agent. `bf agents` is the first real command.",
+        "tree": {
+          "sha": "eeeda9a90ebb5ae914c52b9281cad5a02176c923",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/eeeda9a90ebb5ae914c52b9281cad5a02176c923"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/2eef1a2f2a082958778e56a2b621713ec1a1b771",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/2eef1a2f2a082958778e56a2b621713ec1a1b771",
+      "html_url": "https://github.com/neverhuman/bf/commit/2eef1a2f2a082958778e56a2b621713ec1a1b771",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/2eef1a2f2a082958778e56a2b621713ec1a1b771/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "8dedb64fb470600bfe34e879ce24c45a3536ddd3",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/8dedb64fb470600bfe34e879ce24c45a3536ddd3",
+          "html_url": "https://github.com/neverhuman/bf/commit/8dedb64fb470600bfe34e879ce24c45a3536ddd3"
+        }
+      ]
+    }
+  ]
+]

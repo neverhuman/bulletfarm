@@ -1,0 +1,535 @@
+[
+  {
+    "total_count": 4,
+    "jobs": [
+      {
+        "id": 102990721314,
+        "run_id": 34512768413,
+        "workflow_name": "Scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34512768413",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-rmxIg",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102990721314",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34512768413/job/102990721314",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-10T18:11:17Z",
+        "started_at": "2026-09-10T18:11:19Z",
+        "completed_at": "2026-09-10T18:11:59Z",
+        "name": "Scheduled / coverage",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T18:11:20Z",
+            "completed_at": "2026-09-10T18:11:21Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T18:11:21Z",
+            "completed_at": "2026-09-10T18:11:22Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T18:11:22Z",
+            "completed_at": "2026-09-10T18:11:23Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T18:11:23Z",
+            "completed_at": "2026-09-10T18:11:23Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T18:11:23Z",
+            "completed_at": "2026-09-10T18:11:27Z"
+          },
+          {
+            "name": "Install locked dependencies without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T18:11:27Z",
+            "completed_at": "2026-09-10T18:11:30Z"
+          },
+          {
+            "name": "Coverage lane",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-09-10T18:11:30Z",
+            "completed_at": "2026-09-10T18:11:55Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:11:55Z",
+            "completed_at": "2026-09-10T18:11:55Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:11:55Z",
+            "completed_at": "2026-09-10T18:11:55Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:11:55Z",
+            "completed_at": "2026-09-10T18:11:57Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 19,
+            "started_at": "2026-09-10T18:11:57Z",
+            "completed_at": "2026-09-10T18:11:57Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-09-10T18:11:57Z",
+            "completed_at": "2026-09-10T18:11:57Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:11:57Z",
+            "completed_at": "2026-09-10T18:11:57Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102990721314",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022488,
+        "runner_name": "GitHub Actions 1000022488",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102990721648,
+        "run_id": 34512768413,
+        "workflow_name": "Scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34512768413",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-rmycA",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102990721648",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34512768413/job/102990721648",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T18:11:17Z",
+        "started_at": "2026-09-10T18:11:19Z",
+        "completed_at": "2026-09-10T18:11:34Z",
+        "name": "Scheduled / history-links-audit",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T18:11:19Z",
+            "completed_at": "2026-09-10T18:11:20Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T18:11:20Z",
+            "completed_at": "2026-09-10T18:11:21Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T18:11:21Z",
+            "completed_at": "2026-09-10T18:11:22Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T18:11:22Z",
+            "completed_at": "2026-09-10T18:11:22Z"
+          },
+          {
+            "name": "Install gitleaks 8.21.2 from checksum-pinned archive",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T18:11:22Z",
+            "completed_at": "2026-09-10T18:11:22Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T18:11:22Z",
+            "completed_at": "2026-09-10T18:11:26Z"
+          },
+          {
+            "name": "Full-history, link, and dependency hygiene",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:11:26Z",
+            "completed_at": "2026-09-10T18:11:31Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:11:31Z",
+            "completed_at": "2026-09-10T18:11:31Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:11:31Z",
+            "completed_at": "2026-09-10T18:11:32Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:11:32Z",
+            "completed_at": "2026-09-10T18:11:32Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-09-10T18:11:32Z",
+            "completed_at": "2026-09-10T18:11:32Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-09-10T18:11:32Z",
+            "completed_at": "2026-09-10T18:11:33Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:11:33Z",
+            "completed_at": "2026-09-10T18:11:33Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102990721648",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000022489,
+        "runner_name": "GitHub Actions 1000022489",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102990721790,
+        "run_id": 34512768413,
+        "workflow_name": "Scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34512768413",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-rmy_g",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102990721790",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34512768413/job/102990721790",
+        "status": "completed",
+        "conclusion": "success",
+        "created_at": "2026-09-10T18:11:17Z",
+        "started_at": "2026-09-10T18:11:23Z",
+        "completed_at": "2026-09-10T18:12:15Z",
+        "name": "Scheduled / portable-macos-15",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T18:11:23Z",
+            "completed_at": "2026-09-10T18:11:24Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T18:11:24Z",
+            "completed_at": "2026-09-10T18:11:26Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T18:11:26Z",
+            "completed_at": "2026-09-10T18:11:27Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T18:11:27Z",
+            "completed_at": "2026-09-10T18:11:27Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T18:11:27Z",
+            "completed_at": "2026-09-10T18:11:31Z"
+          },
+          {
+            "name": "Install locked dependencies without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T18:11:31Z",
+            "completed_at": "2026-09-10T18:11:36Z"
+          },
+          {
+            "name": "Compile, test, and prove typed mutation refusal",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 7,
+            "started_at": "2026-09-10T18:11:36Z",
+            "completed_at": "2026-09-10T18:12:10Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 8,
+            "started_at": "2026-09-10T18:12:10Z",
+            "completed_at": "2026-09-10T18:12:10Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 9,
+            "started_at": "2026-09-10T18:12:10Z",
+            "completed_at": "2026-09-10T18:12:10Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 10,
+            "started_at": "2026-09-10T18:12:10Z",
+            "completed_at": "2026-09-10T18:12:12Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 19,
+            "started_at": "2026-09-10T18:12:12Z",
+            "completed_at": "2026-09-10T18:12:12Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-09-10T18:12:12Z",
+            "completed_at": "2026-09-10T18:12:12Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:12:12Z",
+            "completed_at": "2026-09-10T18:12:13Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102990721790",
+        "labels": [
+          "macos-15"
+        ],
+        "runner_id": 1000022490,
+        "runner_name": "GitHub Actions 1000022490",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 102990721852,
+        "run_id": 34512768413,
+        "workflow_name": "Scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/runs/34512768413",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7VAc8AAAAX-rmzPA",
+        "head_sha": "00b13bfa299a80f1b390505663eff7b4c6c35a8e",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/actions/jobs/102990721852",
+        "html_url": "https://github.com/neverhuman/bullet-portal/actions/runs/34512768413/job/102990721852",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-10T18:11:17Z",
+        "started_at": "2026-09-10T18:11:22Z",
+        "completed_at": "2026-09-10T18:12:08Z",
+        "name": "Scheduled / portable-windows-2025",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-10T18:11:23Z",
+            "completed_at": "2026-09-10T18:11:24Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-10T18:11:24Z",
+            "completed_at": "2026-09-10T18:11:29Z"
+          },
+          {
+            "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-10T18:11:29Z",
+            "completed_at": "2026-09-10T18:11:36Z"
+          },
+          {
+            "name": "Scan source and lockfiles before installation",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 4,
+            "started_at": "2026-09-10T18:11:36Z",
+            "completed_at": "2026-09-10T18:11:36Z"
+          },
+          {
+            "name": "Pin npm",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-10T18:11:36Z",
+            "completed_at": "2026-09-10T18:11:56Z"
+          },
+          {
+            "name": "Install locked dependencies without lifecycle scripts",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-10T18:11:56Z",
+            "completed_at": "2026-09-10T18:12:04Z"
+          },
+          {
+            "name": "Compile, test, and prove typed mutation refusal",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 7,
+            "started_at": "2026-09-10T18:12:04Z",
+            "completed_at": "2026-09-10T18:12:04Z"
+          },
+          {
+            "name": "Emit unsigned observation",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 8,
+            "started_at": "2026-09-10T18:12:04Z",
+            "completed_at": "2026-09-10T18:12:05Z"
+          },
+          {
+            "name": "Sanitize diagnostics",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 9,
+            "started_at": "2026-09-10T18:12:05Z",
+            "completed_at": "2026-09-10T18:12:05Z"
+          },
+          {
+            "name": "Upload sanitized diagnostics",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 10,
+            "started_at": "2026-09-10T18:12:05Z",
+            "completed_at": "2026-09-10T18:12:05Z"
+          },
+          {
+            "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+            "status": "completed",
+            "conclusion": "skipped",
+            "number": 19,
+            "started_at": "2026-09-10T18:12:05Z",
+            "completed_at": "2026-09-10T18:12:05Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 20,
+            "started_at": "2026-09-10T18:12:05Z",
+            "completed_at": "2026-09-10T18:12:06Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 21,
+            "started_at": "2026-09-10T18:12:06Z",
+            "completed_at": "2026-09-10T18:12:06Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-portal/check-runs/102990721852",
+        "labels": [
+          "windows-2025"
+        ],
+        "runner_id": 1000022491,
+        "runner_name": "GitHub Actions 1000022491",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      }
+    ]
+  }
+]

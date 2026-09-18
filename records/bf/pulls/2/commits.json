@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba",
+      "node_id": "C_kwDOUd_zl9oAKGU4MWRkNGYzODMxMTYxMmM4ZjhhMDVlMmQ4MGI3NGIzYjFjZTVlYmE",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:05:48Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:05:48Z"
+        },
+        "message": "De-bloat non-code artifacts and make CI cached and browser-free\n\nRemoves the point-in-time evidence bundle, benchmark scripts, Playwright\njourneys, BUILD_CHECKPOINT.json and docs/qualification.md (nothing in\nsrc/, tests/ or build.rs references them). scripts/check now refuses a\nNode/npm other than the CI pins (web/.nvmrc = 22.23.2, npm 10.9.8), runs\nno Chromium download and no fixture demos; scripts/build-web no longer\nappends CLAIM/RELEASE lines to ../AGENT_CHAT.md. The workflow gains\npinned cargo and npm caches and only runs pushes on main plus pull\nrequests, so a PR no longer triggers two identical runs.\n\nPlan of record PR 2a: ~/.claude/plans/please-study-the-tips-snazzy-canyon.md\n\nbf-author: claude/claude-orch\nbf-claim: AGENT_CHAT.md 2026-09-18T16:03Z\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "fe0e6400b4ad6aa819b5d1dc0b6dd4b34b8e4496",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/fe0e6400b4ad6aa819b5d1dc0b6dd4b34b8e4496"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba",
+      "html_url": "https://github.com/neverhuman/bf/commit/e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/e81dd4f38311612c8f8a05e2d80b74b3b1ce5eba/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "2ce77b18e979ce8c84eeff25e39102a2afec18f4",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/2ce77b18e979ce8c84eeff25e39102a2afec18f4",
+          "html_url": "https://github.com/neverhuman/bf/commit/2ce77b18e979ce8c84eeff25e39102a2afec18f4"
+        }
+      ]
+    }
+  ]
+]

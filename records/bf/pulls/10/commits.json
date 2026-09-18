@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "a42ce8df62f6cf9db749654e8a49540b3b307e6e",
+      "node_id": "C_kwDOUd_zl9oAKGE0MmNlOGRmNjJmNmNmOWRiNzQ5NjU0ZThhNDk1NDBiM2IzMDdlNmU",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:01:41Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T17:04:35Z"
+        },
+        "message": "PR queue: open pull requests across board repositories via gh, with missing preconditions\n\n`bf prs` lists open PRs for every GitHub repository the board knows about\n(active claims and recent entries, plus the current repository), through\n`gh pr list --json` with a 10 s timeout and no prompts, and states the\nexact unmet merge preconditions per PR: failing or pending checks, the\nmissing `REVIEW: approve <head-sha>` comment, a non-CLEAN\nmergeStateStatus, or draft. Tests use a fake `gh` shim on PATH and\nfixture JSON, so CI needs no GitHub credentials.\n\nPlan of record PR 8: ~/.claude/plans/please-study-the-tips-snazzy-canyon.md\n\nbf-author: claude/claude-orch\nbf-claim: AGENT_CHAT.md 2026-09-18T16:53Z\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+        "tree": {
+          "sha": "b1e3c8df48d56f537a8b65eb271787337460f7fa",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/b1e3c8df48d56f537a8b65eb271787337460f7fa"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/a42ce8df62f6cf9db749654e8a49540b3b307e6e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/a42ce8df62f6cf9db749654e8a49540b3b307e6e",
+      "html_url": "https://github.com/neverhuman/bf/commit/a42ce8df62f6cf9db749654e8a49540b3b307e6e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/a42ce8df62f6cf9db749654e8a49540b3b307e6e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "b77d7ddcaecf8b0ae57d12aee4fe3885788e52cd",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/b77d7ddcaecf8b0ae57d12aee4fe3885788e52cd",
+          "html_url": "https://github.com/neverhuman/bf/commit/b77d7ddcaecf8b0ae57d12aee4fe3885788e52cd"
+        }
+      ]
+    }
+  ]
+]

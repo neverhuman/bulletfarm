@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "093184dc7579824f404c1d4ee6d7b200511c742c",
+      "node_id": "C_kwDOUd_zl9oAKDA5MzE4NGRjNzU3OTgyNGY0MDRjMWQ0ZWU2ZDdiMjAwNTExYzc0MmM",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:55:20Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:55:20Z"
+        },
+        "message": "Wire the TUI to live agents and the board.\n\nBare `bf` (and TERM=dumb) now lists real Claude/Codex/Cursor/Grok\nsessions and active claims. StubSource stays for unit tests.",
+        "tree": {
+          "sha": "f2f951a42de282467aa8b1bf71edb2b2e5c4056b",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/f2f951a42de282467aa8b1bf71edb2b2e5c4056b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/093184dc7579824f404c1d4ee6d7b200511c742c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/093184dc7579824f404c1d4ee6d7b200511c742c",
+      "html_url": "https://github.com/neverhuman/bf/commit/093184dc7579824f404c1d4ee6d7b200511c742c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/093184dc7579824f404c1d4ee6d7b200511c742c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "94c8b0300fbce1607b2a9e345607a6ae6a0ad5ce",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/94c8b0300fbce1607b2a9e345607a6ae6a0ad5ce",
+          "html_url": "https://github.com/neverhuman/bf/commit/94c8b0300fbce1607b2a9e345607a6ae6a0ad5ce"
+        }
+      ]
+    }
+  ]
+]

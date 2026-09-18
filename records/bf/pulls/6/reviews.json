@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250308019,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPFXsw",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve f2403f76c414a8036c15ef789a9452beefef04b6 \u2014 surgical 3-file PR (board.rs, cli_board.rs, cli_skeleton). Claims overlap is component-wise prefix; conflict exit 2 names holder; identical re-claim idempotent; stale release STALE_VERSION; --proof runs bounded sh -c and records sha256; digest writes AGENT_CHAT.md. Hosted check SUCCESS. GitHub's 48-file count was a create-PR glitch; real diff vs main is 1479/31. Reviewer vendor: grok. Author vendor: claude.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/6#pullrequestreview-5250308019",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/6",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/6#pullrequestreview-5250308019"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/6"
+        }
+      },
+      "submitted_at": "2026-09-18T16:49:50Z",
+      "commit_id": "f2403f76c414a8036c15ef789a9452beefef04b6"
+    }
+  ]
+]

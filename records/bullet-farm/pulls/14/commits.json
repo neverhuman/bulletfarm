@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "216621ad7c028748f6b4cbbb9437019bac0fa820",
+      "node_id": "C_kwDOUS7UsdoAKDIxNjYyMWFkN2MwMjg3NDhmNmI0Y2JiYjk0MzcwMTliYWMwZmE4MjA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:42:42Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:42:42Z"
+        },
+        "message": "Publish the hex-safe HOLD tape with real PENDING coding rows.\n\nFamily recorder passed CAST_ENTROPY and TOKEN_IN_CAST on a 1920x1080\ngithub-dark capture. Rows stay queued; not VERIFIED.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "052d05fb1dec193cbe60a4e314185b7cd97e2b19",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/052d05fb1dec193cbe60a4e314185b7cd97e2b19"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/216621ad7c028748f6b4cbbb9437019bac0fa820",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/216621ad7c028748f6b4cbbb9437019bac0fa820",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/216621ad7c028748f6b4cbbb9437019bac0fa820",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/216621ad7c028748f6b4cbbb9437019bac0fa820/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/76076e9ced368cdce7d3e39823d2bdc4c7d67804"
+        }
+      ]
+    }
+  ]
+]

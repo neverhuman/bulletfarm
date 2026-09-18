@@ -1,0 +1,135 @@
+[
+  [
+    {
+      "sha": "d5530ae5fc93a9cebe0b1f26a1ae5f3ca0294df8",
+      "node_id": "C_kwDOUS7UsdoAKGQ1NTMwYWU1ZmM5M2E5Y2ViZTBiMWYyNmExYWU1ZjNjYTAyOTRkZjg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/d5530ae5fc93a9cebe0b1f26a1ae5f3ca0294df8",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/d5530ae5fc93a9cebe0b1f26a1ae5f3ca0294df8",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:04:34Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T19:04:34Z"
+      },
+      "tree": {
+        "sha": "a17cba9159bafe20e477d48b2e56e6c01a974d66",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/a17cba9159bafe20e477d48b2e56e6c01a974d66"
+      },
+      "message": "Make the scheduled lanes able to run at all\n\nAll four scheduled workflows had never executed once. Their crons fire on\nMondays and the repositories were created on a Wednesday, and workflow_dispatch\nwas enabled the whole time, so twenty-six of fifty-three job definitions had\nsimply never been observed. I dispatched three of them. Eleven jobs failed. Four\nof the five hub failures are fixed here, each with its cause named.\n\nWindows could not check the repository out. Not the lane: the checkout.\n\n    error: invalid path 'fixtures/hostile/cases/nul.json'\n    ##[error]The process 'git.exe' failed with exit code 128\n\n`nul` is a reserved device name on Windows, so git cannot create that file and\nevery Windows claim this repository has ever made is about a checkout that never\nhappened. The fixture is renamed to nul-character.json, which is what it was\nalways about: a NUL character inside JSON, not a filename. Same bytes, same\nCONTROL_CHARACTER_FORBIDDEN reason code, generator and consumer both updated.\n\nmacOS could not install Python. setup-python refused with \"The version '3.12.12'\nwith architecture 'arm64' was not found for macOS 15.7.9\". The exact patch was\nnever load-bearing: ops/ci/rust-toolchain-boundary.sh accepts any\n^Python 3\\.12\\.[0-9]+$ and then verifies the resolved binary by digest. The pin\nis now the 3.12 series, in the workflow and in the guard that asserts it, which\nstill stops a silent jump to 3.13 \u2014 the thing that guard is actually for.\n\nCoverage never had a scanner. The coverage filter is the whole workspace, wider\nthan the fast lane's partition, so it reaches\npublication::scan::tests::actual_pinned_scanner_detects_binary_and_chunk_boundary_canaries,\nwhich admits the pinned scanner rather than skipping and therefore panicked at\nsrc/publication/scan_tests.rs:130. The fast job already installs gitleaks for\nexactly this reason; now the coverage job does too.\n\nThe links lane had never installed its own tool. taiki-e/install-action does not\ncarry lychee at the pinned revision and refused with \"install-action does not\nsupport lychee@0.24.0\". ops/ci/install-lychee.sh replaces it in the same shape as\nops/ci/install-gitleaks.sh: one named asset over TLS, checked against the digest\nupstream publishes beside it, refuse rather than continue. Verified locally\nagainst the real documentation tree: 890 links, 889 OK, 0 errors.\n\nThe audit job is deliberately left failing. Exit 78 is not neutral in GitHub\nActions; it never was, and every \"typed neutral refusal\" written on that pattern\nis a red job wearing a polite message. It cannot be repaired in the workflow\nbecause ops/ci/artifact-check.sh requires an observation whose tool_versions\nnames jankurai, and there is no version to record when the tool is absent. That\nis a contract four repositories share, so it is not mine to decide alone.\n~/.bullet-orch-durable/CI-PORTABILITY-FINDINGS-20260910.md sets out three\noptions and my preference.\n\nSix of the eight publication workflow digest pins are re-admitted from the\npublished mains, which clears PUBLICATION_CI_WORKFLOW_DIGEST_DRIFT. The topology\nis unchanged; only bytes moved.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+      "parents": [
+        {
+          "sha": "b41c77bf4c13431d168f4057661e659092e1a213",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b41c77bf4c13431d168f4057661e659092e1a213",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b41c77bf4c13431d168f4057661e659092e1a213"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 31004402228,
+      "node_id": "ME_lADOUS7Usc8AAAABQtVFc88AAAAHOAGiNA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/31004402228",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "a4e6a5260538e215369367f16a74861503e6acb5",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/a4e6a5260538e215369367f16a74861503e6acb5",
+      "created_at": "2026-09-11T23:28:00Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31004402291,
+      "node_id": "CE_lADOUS7Usc8AAAABQtVFc88AAAAHOAGicw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/31004402291",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T23:28:00Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31004403061,
+      "node_id": "HRDE_lADOUS7Usc8AAAABQtVFc88AAAAHOAGldQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/31004403061",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_deleted",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T23:28:01Z",
+      "performed_via_github_app": null
+    }
+  ]
+]

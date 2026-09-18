@@ -1,0 +1,104 @@
+[
+  [
+    {
+      "sha": "2143d4bf5a803375245f00c9b0d4b644311b744d",
+      "node_id": "C_kwDOUS7UsdoAKDIxNDNkNGJmNWE4MDMzNzUyNDVmMDBjOWIwZDRiNjQ0MzExYjc0NGQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/2143d4bf5a803375245f00c9b0d4b644311b744d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/2143d4bf5a803375245f00c9b0d4b644311b744d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T17:54:31Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T17:54:31Z"
+      },
+      "tree": {
+        "sha": "76cade857864b4b059a751abb33e9abf90d1b89b",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/76cade857864b4b059a751abb33e9abf90d1b89b"
+      },
+      "message": "Add fail-closed just xbabe2-head for local Head proof.\n\nThe recipe exits 78 off-node or in CI, documents conversation and Slack codes, and keeps schema-27 Head distinct from Wave 9 / G15.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/038d2cd654e8549078d0e6a0480f92fa1c9a88e0",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/038d2cd654e8549078d0e6a0480f92fa1c9a88e0"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30923313886,
+      "node_id": "ME_lADOUS7Usc8AAAABQs7ll88AAAAHMyxS3g",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30923313886",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "b41c77bf4c13431d168f4057661e659092e1a213",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b41c77bf4c13431d168f4057661e659092e1a213",
+      "created_at": "2026-09-10T18:29:00Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30923313961,
+      "node_id": "CE_lADOUS7Usc8AAAABQs7ll88AAAAHMyxTKQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30923313961",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T18:29:00Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

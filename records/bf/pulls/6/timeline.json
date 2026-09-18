@@ -1,0 +1,208 @@
+[
+  [
+    {
+      "sha": "f2403f76c414a8036c15ef789a9452beefef04b6",
+      "node_id": "C_kwDOUd_zl9oAKGYyNDAzZjc2YzQxNGE4MDM2YzE1ZWY3ODlhOTQ1MmJlZWZlZjA0YjY",
+      "url": "https://api.github.com/repos/neverhuman/bf/git/commits/f2403f76c414a8036c15ef789a9452beefef04b6",
+      "html_url": "https://github.com/neverhuman/bf/commit/f2403f76c414a8036c15ef789a9452beefef04b6",
+      "author": {
+        "name": "neverhuman",
+        "email": "jepson@neverhuman.org",
+        "date": "2026-09-18T16:48:21Z"
+      },
+      "committer": {
+        "name": "neverhuman",
+        "email": "jepson@neverhuman.org",
+        "date": "2026-09-18T16:48:21Z"
+      },
+      "tree": {
+        "sha": "9afc856e4dd933b59a70b2ea8d286174d7c06e36",
+        "url": "https://api.github.com/repos/neverhuman/bf/git/trees/9afc856e4dd933b59a70b2ea8d286174d7c06e36"
+      },
+      "message": "Board: claims, heartbeats, releases with proof, addressed notes, generated AGENT_CHAT.md\n\nReplaces hand-edited AGENT_CHAT.md with an append-only SQLite board\n(~/.bf/bf.sqlite): component-wise path overlap, idempotent re-claim,\n30-minute leases extended by heartbeat, STALE on expired claims, release\nwith `--proof '<cmd>'` that runs the command and records exit code,\noutput digest, changed paths and HEAD, notes addressed to an agent/claim/PR\nwith an inbox (`bf board --to me`) and a trailer on every write, writer\nidentity from the observed process tree, and an atomically regenerated\ndigest with straggler import after the end marker.\n\nPlan of record PR 5: ~/.claude/plans/please-study-the-tips-snazzy-canyon.md\n\nbf-author: claude/claude-orch\nbf-claim: AGENT_CHAT.md 2026-09-18T16:34Z\n\nCo-Authored-By: Claude Fable 5.1 <noreply@anthropic.com>",
+      "parents": [
+        {
+          "sha": "bcc06b8ec7958a2efc40a23a444f0ead66b73e48",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/commits/bcc06b8ec7958a2efc40a23a444f0ead66b73e48",
+          "html_url": "https://github.com/neverhuman/bf/commit/bcc06b8ec7958a2efc40a23a444f0ead66b73e48"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 31404115256,
+      "node_id": "HRFPE_lADOUd_zl88AAAABR_R7bs8AAAAHT9TFOA",
+      "url": "https://api.github.com/repos/neverhuman/bf/issues/events/31404115256",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_force_pushed",
+      "commit_id": "f2403f76c414a8036c15ef789a9452beefef04b6",
+      "commit_url": "https://api.github.com/repos/neverhuman/bf/commits/f2403f76c414a8036c15ef789a9452beefef04b6",
+      "created_at": "2026-09-18T16:48:23Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 5250308019,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPFXsw",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve f2403f76c414a8036c15ef789a9452beefef04b6 \u2014 surgical 3-file PR (board.rs, cli_board.rs, cli_skeleton). Claims overlap is component-wise prefix; conflict exit 2 names holder; identical re-claim idempotent; stale release STALE_VERSION; --proof runs bounded sh -c and records sha256; digest writes AGENT_CHAT.md. Hosted check SUCCESS. GitHub's 48-file count was a create-PR glitch; real diff vs main is 1479/31. Reviewer vendor: grok. Author vendor: claude.",
+      "commit_id": "f2403f76c414a8036c15ef789a9452beefef04b6",
+      "state": "commented",
+      "html_url": "https://github.com/neverhuman/bf/pull/6#pullrequestreview-5250308019",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/6",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/6#pullrequestreview-5250308019"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/6"
+        }
+      },
+      "submitted_at": "2026-09-18T16:49:50Z",
+      "updated_at": "2026-09-18T16:49:50Z",
+      "author_association": "OWNER",
+      "event": "reviewed"
+    },
+    {
+      "id": 31404205327,
+      "node_id": "ME_lADOUd_zl88AAAABR_R7bs8AAAAHT9YlDw",
+      "url": "https://api.github.com/repos/neverhuman/bf/issues/events/31404205327",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "5903c78cfa3e250363669923c1e9f3068c42b208",
+      "commit_url": "https://api.github.com/repos/neverhuman/bf/commits/5903c78cfa3e250363669923c1e9f3068c42b208",
+      "created_at": "2026-09-18T16:49:52Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31404205425,
+      "node_id": "CE_lADOUd_zl88AAAABR_R7bs8AAAAHT9YlcQ",
+      "url": "https://api.github.com/repos/neverhuman/bf/issues/events/31404205425",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-18T16:49:52Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31404206789,
+      "node_id": "HRDE_lADOUd_zl88AAAABR_R7bs8AAAAHT9YqxQ",
+      "url": "https://api.github.com/repos/neverhuman/bf/issues/events/31404206789",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_deleted",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-18T16:49:54Z",
+      "performed_via_github_app": null
+    }
+  ]
+]

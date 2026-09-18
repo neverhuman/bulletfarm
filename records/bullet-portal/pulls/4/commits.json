@@ -1,0 +1,88 @@
+[
+  [
+    {
+      "sha": "d48512741702f403ebcc1c788c62dd2562340a1e",
+      "node_id": "C_kwDOUS7VAdoAKGQ0ODUxMjc0MTcwMmY0MDNlYmNjMWM3ODhjNjJkZDI1NjIzNDBhMWU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T21:53:54Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T21:53:54Z"
+        },
+        "message": "Submit durable run_coding from Control Tower, including antigravity.\n\nKeep the 184-test ratchet. Do not paint the six UNKNOWN surfaces.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "e254136f0e311223f993571d08e0de75e941b09a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/e254136f0e311223f993571d08e0de75e941b09a"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/d48512741702f403ebcc1c788c62dd2562340a1e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/d48512741702f403ebcc1c788c62dd2562340a1e",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/d48512741702f403ebcc1c788c62dd2562340a1e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/d48512741702f403ebcc1c788c62dd2562340a1e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "7f6d97eaaf5c37f2309d20829f0b59f0ccde240f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/7f6d97eaaf5c37f2309d20829f0b59f0ccde240f",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/7f6d97eaaf5c37f2309d20829f0b59f0ccde240f"
+        }
+      ]
+    },
+    {
+      "sha": "ca1c22def568556289b62ae49034a2cc968c0c4e",
+      "node_id": "C_kwDOUS7VAdoAKGNhMWMyMmRlZjU2ODU1NjI4OWI2MmFlNDkwMzRhMmNjOTY4YzBjNGU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:08:19Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:08:19Z"
+        },
+        "message": "Project the live farmd board on Control Tower with labeled chips.\n\nThe portal should show HOLD, empty-fleet zeros, and stop-unimplemented\nin high-contrast text, not a painted-green multi-agent process.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "e958c8c5ec4ecfd42598c85f28bf53c2068734e2",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/e958c8c5ec4ecfd42598c85f28bf53c2068734e2"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/ca1c22def568556289b62ae49034a2cc968c0c4e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/ca1c22def568556289b62ae49034a2cc968c0c4e",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/ca1c22def568556289b62ae49034a2cc968c0c4e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/ca1c22def568556289b62ae49034a2cc968c0c4e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "d48512741702f403ebcc1c788c62dd2562340a1e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/d48512741702f403ebcc1c788c62dd2562340a1e",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/d48512741702f403ebcc1c788c62dd2562340a1e"
+        }
+      ]
+    }
+  ]
+]

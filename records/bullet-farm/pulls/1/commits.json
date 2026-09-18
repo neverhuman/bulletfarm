@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+      "node_id": "C_kwDOUS7UsdoAKDNhYTJiMDYwNWY4ZDgxOWU0YzgyODY1YmIyYjYyZjkyN2RkYWI4MjY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T03:43:45Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T03:43:45Z"
+        },
+        "message": "Raise Jankurai above 90 without lowering floors.\n\nClose applied caps and lift raw dimensions on the Hub tree so the pinned 1.6.11 auditor reports score > 90 with an empty cap list.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "93c9ee1b8cb46e0ac37638c5780e07aa0bdca31c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/93c9ee1b8cb46e0ac37638c5780e07aa0bdca31c"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/3aa2b0605f8d819e4c82865bb2b62f927ddab826/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "109ec83dc7ab7b8d47f4965272acc6b71bc91fdb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/109ec83dc7ab7b8d47f4965272acc6b71bc91fdb",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/109ec83dc7ab7b8d47f4965272acc6b71bc91fdb"
+        }
+      ]
+    }
+  ]
+]

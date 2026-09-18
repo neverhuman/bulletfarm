@@ -1,0 +1,466 @@
+[
+  [
+    {
+      "sha": "9c589fa1acca4ff40123325cc834b5fec1addfe4",
+      "node_id": "C_kwDOUS7UytoAKDljNTg5ZmExYWNjYTRmZjQwMTIzMzI1Y2M4MzRiNWZlYzFhZGRmZTQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:26:47Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:26:47Z"
+        },
+        "message": "Admit v2 coding tasks with nonce and quota so dispatch can claim them.\n\nCODING_BINDING_ADMISSION_UNAVAILABLE now means the binding is missing, not that every queued task is unbound.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "dde60f322688b6a6284509e6fe59c8bc760bf6e0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/dde60f322688b6a6284509e6fe59c8bc760bf6e0"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/9c589fa1acca4ff40123325cc834b5fec1addfe4",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/9c589fa1acca4ff40123325cc834b5fec1addfe4",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/9c589fa1acca4ff40123325cc834b5fec1addfe4",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/9c589fa1acca4ff40123325cc834b5fec1addfe4/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "bd2d7b70e76eaecbfd1e783b36d73a212969fc44",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/bd2d7b70e76eaecbfd1e783b36d73a212969fc44",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/bd2d7b70e76eaecbfd1e783b36d73a212969fc44"
+        }
+      ]
+    },
+    {
+      "sha": "95784a60d10170b8b31b2426160b67492b69a311",
+      "node_id": "C_kwDOUS7UytoAKDk1Nzg0YTYwZDEwMTcwYjhiMzFiMjQyNjE2MGI2NzQ5MmI2OWEzMTE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:29:37Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:29:37Z"
+        },
+        "message": "Derive v2 harness IDs from the admitted claim and forward Claude grants.\n\nThe worker no longer needs placeholder work-package, digest, or idempotency env for task intent, and credential argv never appears in typed errors.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "9d70cbc1d3962aebb4f3d15077048299802216b3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/9d70cbc1d3962aebb4f3d15077048299802216b3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/95784a60d10170b8b31b2426160b67492b69a311",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/95784a60d10170b8b31b2426160b67492b69a311",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/95784a60d10170b8b31b2426160b67492b69a311",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/95784a60d10170b8b31b2426160b67492b69a311/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "9c589fa1acca4ff40123325cc834b5fec1addfe4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/9c589fa1acca4ff40123325cc834b5fec1addfe4",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/9c589fa1acca4ff40123325cc834b5fec1addfe4"
+        }
+      ]
+    },
+    {
+      "sha": "3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe",
+      "node_id": "C_kwDOUS7UytoAKDNmZDRjNDZkM2Q5MDQ2N2UzZTZkZjJlYTBmNDgzNTg2ZDYzYmNiZmU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:37:51Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:37:51Z"
+        },
+        "message": "Keep a v2 coding failure on the real dispatch path and refuse a second spawn.\n\nCodex signed-in turns now carry an extracted proposal when one exists; Cursor live dispatch fails closed on empty events instead of a text ping.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "a01b6edee5bfc2570b5035de6b73248ce54e2d99",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/a01b6edee5bfc2570b5035de6b73248ce54e2d99"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "95784a60d10170b8b31b2426160b67492b69a311",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/95784a60d10170b8b31b2426160b67492b69a311",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/95784a60d10170b8b31b2426160b67492b69a311"
+        }
+      ]
+    },
+    {
+      "sha": "e4ecdba06a6d7466398ab399c8137cb5069d2bf4",
+      "node_id": "C_kwDOUS7UytoAKGU0ZWNkYmEwNmE2ZDc0NjYzOThhYjM5OWM4MTM3Y2I1MDY5ZDJiZjQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:37:52Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:37:52Z"
+        },
+        "message": "Show admitted coding commands in the TUI when mission tables are empty.\n\nRows stay HOLD-honest: queued or unknown, never a green fleet or inferred provider completion.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "639042f49529e62d563b149f757b627dd64e0e3b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/639042f49529e62d563b149f757b627dd64e0e3b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/e4ecdba06a6d7466398ab399c8137cb5069d2bf4",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/e4ecdba06a6d7466398ab399c8137cb5069d2bf4",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/e4ecdba06a6d7466398ab399c8137cb5069d2bf4",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/e4ecdba06a6d7466398ab399c8137cb5069d2bf4/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/3fd4c46d3d90467e3e6df2ea0f483586d63bcbfe"
+        }
+      ]
+    },
+    {
+      "sha": "04f2a076bb9dca2802e8d1db2cfdd7097823f868",
+      "node_id": "C_kwDOUS7UytoAKDA0ZjJhMDc2YmI5ZGNhMjgwMmU4ZDFkYjJjZmRkNzA5NzgyM2Y4Njg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T02:11:38Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T02:11:38Z"
+        },
+        "message": "Redact 64-hex ledger ids from TUI paint and detach.\n\nPublic casts cannot carry command subjects; keep selection ids internal and\ntreat the coding-command GET as a read-only sibling of the snapshot.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "fb1cfdd83b7667e8b4141ad18d6b309cd581e62f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/fb1cfdd83b7667e8b4141ad18d6b309cd581e62f"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/04f2a076bb9dca2802e8d1db2cfdd7097823f868",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/04f2a076bb9dca2802e8d1db2cfdd7097823f868",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/04f2a076bb9dca2802e8d1db2cfdd7097823f868",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/04f2a076bb9dca2802e8d1db2cfdd7097823f868/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "e4ecdba06a6d7466398ab399c8137cb5069d2bf4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/e4ecdba06a6d7466398ab399c8137cb5069d2bf4",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/e4ecdba06a6d7466398ab399c8137cb5069d2bf4"
+        }
+      ]
+    },
+    {
+      "sha": "605750dff73bd49f675154f76fda11e75dce38c2",
+      "node_id": "C_kwDOUS7UytoAKDYwNTc1MGRmZjczYmQ0OWY2NzUxNTRmNzZmZGExMWU3NWRjZTM4YzI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T02:15:54Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T02:15:54Z"
+        },
+        "message": "Prove a v2 HTTP claim through the real runner plus a stub.\n\nLedger-only settle is not D1. Spawn bullet-runner with a signed-in stub after\nfarmd admit, retain the failure, and refuse a second spawn. No simulator.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "ff18d4299e84888c8a81b033edc0804f453ced3c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/ff18d4299e84888c8a81b033edc0804f453ced3c"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/605750dff73bd49f675154f76fda11e75dce38c2",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/605750dff73bd49f675154f76fda11e75dce38c2",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/605750dff73bd49f675154f76fda11e75dce38c2",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/605750dff73bd49f675154f76fda11e75dce38c2/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "04f2a076bb9dca2802e8d1db2cfdd7097823f868",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/04f2a076bb9dca2802e8d1db2cfdd7097823f868",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/04f2a076bb9dca2802e8d1db2cfdd7097823f868"
+        }
+      ]
+    },
+    {
+      "sha": "da32f18ca47f08190f54a4f0f76e8e08ec9f7d57",
+      "node_id": "C_kwDOUS7UytoAKGRhMzJmMThjYTQ3ZjA4MTkwZjU0YTRmMGY3NmU4ZTA4ZWM5ZjdkNTc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T02:15:54Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T02:15:54Z"
+        },
+        "message": "Let Codex exec emit a proposal and fail Cursor without one.\n\nRead-only sandbox and --mode plan cannot produce a structured turn. Keep\nSignedInCliAdapter, parse PatchProposal from stdout, and treat empty Cursor\nstream-json as CURSOR_ACP_EVENTS_EMPTY. ACP _meta stays unproved.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "22921582dab3d7042be2d4651a3aa6b96700dabe",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/22921582dab3d7042be2d4651a3aa6b96700dabe"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/da32f18ca47f08190f54a4f0f76e8e08ec9f7d57",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/da32f18ca47f08190f54a4f0f76e8e08ec9f7d57",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/da32f18ca47f08190f54a4f0f76e8e08ec9f7d57",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/da32f18ca47f08190f54a4f0f76e8e08ec9f7d57/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "605750dff73bd49f675154f76fda11e75dce38c2",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/605750dff73bd49f675154f76fda11e75dce38c2",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/605750dff73bd49f675154f76fda11e75dce38c2"
+        }
+      ]
+    },
+    {
+      "sha": "820221ce7b3959afdbc164cc3ac878d6c189931e",
+      "node_id": "C_kwDOUS7UytoAKDgyMDIyMWNlN2IzOTU5YWZkYmMxNjRjYzNhYzg3OGQ2YzE4OTkzMWU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:02:50Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:02:50Z"
+        },
+        "message": "Format the four v0.2 files hosted rustfmt already rejected.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "06207cd0391a930fbe91587b3e5935cc18b02e3f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/06207cd0391a930fbe91587b3e5935cc18b02e3f"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/820221ce7b3959afdbc164cc3ac878d6c189931e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/820221ce7b3959afdbc164cc3ac878d6c189931e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/820221ce7b3959afdbc164cc3ac878d6c189931e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/820221ce7b3959afdbc164cc3ac878d6c189931e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "da32f18ca47f08190f54a4f0f76e8e08ec9f7d57",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/da32f18ca47f08190f54a4f0f76e8e08ec9f7d57",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/da32f18ca47f08190f54a4f0f76e8e08ec9f7d57"
+        }
+      ]
+    },
+    {
+      "sha": "dacd3629bab45ec919766ea357d655177a64d9a0",
+      "node_id": "C_kwDOUS7UytoAKGRhY2QzNjI5YmFiNDVlYzkxOTc2NmVhMzU3ZDY1NTE3N2E2NGQ5YTA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:05:24Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:05:24Z"
+        },
+        "message": "Pin the v0.2 standalone inventory from a real nextest list.\n\nHosted fast refused TEST_PARTITION_DRIFT at 1257 versus 1251. Counts and\nC-locale identity digests come from cargo nextest list; README no longer\nclaims Codex/Cursor refuse at start.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "39f043418ad22752e32951499dce0bcc6cea0733",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/39f043418ad22752e32951499dce0bcc6cea0733"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/dacd3629bab45ec919766ea357d655177a64d9a0",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/dacd3629bab45ec919766ea357d655177a64d9a0",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/dacd3629bab45ec919766ea357d655177a64d9a0",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/dacd3629bab45ec919766ea357d655177a64d9a0/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "820221ce7b3959afdbc164cc3ac878d6c189931e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/820221ce7b3959afdbc164cc3ac878d6c189931e",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/820221ce7b3959afdbc164cc3ac878d6c189931e"
+        }
+      ]
+    },
+    {
+      "sha": "d7a0a185562c67be077837b286d9fbfa5089ba90",
+      "node_id": "C_kwDOUS7UytoAKGQ3YTBhMTg1NTYyYzY3YmUwNzc4MzdiMjg2ZDlmYmZhNTA4OWJhOTA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:07:23Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:07:23Z"
+        },
+        "message": "Define truncate when the signed-in stub tests create files.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "c944be9251063b92f6f04a18f9833fb362997c84",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c944be9251063b92f6f04a18f9833fb362997c84"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/d7a0a185562c67be077837b286d9fbfa5089ba90",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d7a0a185562c67be077837b286d9fbfa5089ba90",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/d7a0a185562c67be077837b286d9fbfa5089ba90",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d7a0a185562c67be077837b286d9fbfa5089ba90/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "dacd3629bab45ec919766ea357d655177a64d9a0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/dacd3629bab45ec919766ea357d655177a64d9a0",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/dacd3629bab45ec919766ea357d655177a64d9a0"
+        }
+      ]
+    },
+    {
+      "sha": "089db15890ee92d8b0141ede1cbd9acbac3da48e",
+      "node_id": "C_kwDOUS7UytoAKDA4OWRiMTU4OTBlZTkyZDhiMDE0MWVkZTFjYmQ5YWNiYWMzZGE0OGU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:14:16Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:14:16Z"
+        },
+        "message": "Find or build bullet-runner for the hosted D1 farmd test.\n\nNextest does not place that bin next to CARGO_BIN_EXE_bullet-farmd, and\nthe stub OpenOptions must set truncate.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "a5ecbe0f2cbf513ce305529dc1c09f441a056c8a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/a5ecbe0f2cbf513ce305529dc1c09f441a056c8a"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/089db15890ee92d8b0141ede1cbd9acbac3da48e",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/089db15890ee92d8b0141ede1cbd9acbac3da48e",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/089db15890ee92d8b0141ede1cbd9acbac3da48e",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/089db15890ee92d8b0141ede1cbd9acbac3da48e/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "d7a0a185562c67be077837b286d9fbfa5089ba90",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/d7a0a185562c67be077837b286d9fbfa5089ba90",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/d7a0a185562c67be077837b286d9fbfa5089ba90"
+        }
+      ]
+    }
+  ]
+]

@@ -1,0 +1,104 @@
+[
+  [
+    {
+      "sha": "8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+      "node_id": "C_kwDOUS7UsdoAKDhjMGVjYWRlMjVlNTk0ODhlODQyM2NhNTVhODhmNzU4ZTljZWJjOGE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8c0ecade25e59488e8423ca55a88f758e9cebc8a",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T04:38:46Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T04:38:46Z"
+      },
+      "tree": {
+        "sha": "8a58c6f929403f22228548fda85bb87704529a1f",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/8a58c6f929403f22228548fda85bb87704529a1f"
+      },
+      "message": "Date the v0.2 closeout against the merged Hub and Kernel oids.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/76076e9ced368cdce7d3e39823d2bdc4c7d67804",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/76076e9ced368cdce7d3e39823d2bdc4c7d67804"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30949714308,
+      "node_id": "ME_lADOUS7Usc8AAAABQxUt2M8AAAAHNL8phA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30949714308",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "9617bc217b91f19b1b196a44707aea2a74914790",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/9617bc217b91f19b1b196a44707aea2a74914790",
+      "created_at": "2026-09-11T04:50:41Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30949714335,
+      "node_id": "CE_lADOUS7Usc8AAAABQxUt2M8AAAAHNL8pnw",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30949714335",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T04:50:41Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

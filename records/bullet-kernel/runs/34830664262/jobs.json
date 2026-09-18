@@ -1,0 +1,259 @@
+[
+  {
+    "total_count": 7,
+    "jobs": [
+      {
+        "id": 103932979280,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuNoUA",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103932979280",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103932979280",
+        "status": "completed",
+        "conclusion": "failure",
+        "created_at": "2026-09-14T09:57:22Z",
+        "started_at": "2026-09-14T09:57:25Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "source-admission",
+        "steps": [
+          {
+            "name": "Set up job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 1,
+            "started_at": "2026-09-14T09:57:26Z",
+            "completed_at": "2026-09-14T09:57:27Z"
+          },
+          {
+            "name": "Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 2,
+            "started_at": "2026-09-14T09:57:27Z",
+            "completed_at": "2026-09-14T09:57:28Z"
+          },
+          {
+            "name": "Install gitleaks 8.21.2",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 3,
+            "started_at": "2026-09-14T09:57:28Z",
+            "completed_at": "2026-09-14T09:57:28Z"
+          },
+          {
+            "name": "Run set +e",
+            "status": "completed",
+            "conclusion": "failure",
+            "number": 4,
+            "started_at": "2026-09-14T09:57:28Z",
+            "completed_at": "2026-09-14T09:57:32Z"
+          },
+          {
+            "name": "Run bash scripts/ci-observation.sh scheduled-preflight \"$EXIT_CODE\" 'bash scripts/ci-local.sh preflight'",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 5,
+            "started_at": "2026-09-14T09:57:32Z",
+            "completed_at": "2026-09-14T09:57:32Z"
+          },
+          {
+            "name": "Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 6,
+            "started_at": "2026-09-14T09:57:32Z",
+            "completed_at": "2026-09-14T09:57:34Z"
+          },
+          {
+            "name": "Post Run actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 12,
+            "started_at": "2026-09-14T09:57:34Z",
+            "completed_at": "2026-09-14T09:57:34Z"
+          },
+          {
+            "name": "Complete job",
+            "status": "completed",
+            "conclusion": "success",
+            "number": 13,
+            "started_at": "2026-09-14T09:57:34Z",
+            "completed_at": "2026-09-14T09:57:34Z"
+          }
+        ],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103932979280",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": 1000025221,
+        "runner_name": "GitHub Actions 1000025221",
+        "runner_group_id": 0,
+        "runner_group_name": "GitHub Actions"
+      },
+      {
+        "id": 103933043598,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuRjjg",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103933043598",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103933043598",
+        "status": "completed",
+        "conclusion": "skipped",
+        "created_at": "2026-09-14T09:57:36Z",
+        "started_at": "2026-09-14T09:57:36Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "advisories-and-supply-chain",
+        "steps": [],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103933043598",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": null,
+        "runner_name": null,
+        "runner_group_id": null,
+        "runner_group_name": null
+      },
+      {
+        "id": 103933043800,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuRkWA",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103933043800",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103933043800",
+        "status": "completed",
+        "conclusion": "skipped",
+        "created_at": "2026-09-14T09:57:37Z",
+        "started_at": "2026-09-14T09:57:37Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "jankurai-audit",
+        "steps": [],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103933043800",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": null,
+        "runner_name": null,
+        "runner_group_id": null,
+        "runner_group_name": null
+      },
+      {
+        "id": 103933043854,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuRkjg",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103933043854",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103933043854",
+        "status": "completed",
+        "conclusion": "skipped",
+        "created_at": "2026-09-14T09:57:37Z",
+        "started_at": "2026-09-14T09:57:37Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "portable-refusal-${{ matrix.os }}",
+        "steps": [],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103933043854",
+        "labels": [],
+        "runner_id": null,
+        "runner_name": null,
+        "runner_group_id": null,
+        "runner_group_name": null
+      },
+      {
+        "id": 103933044034,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuRlQg",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103933044034",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103933044034",
+        "status": "completed",
+        "conclusion": "skipped",
+        "created_at": "2026-09-14T09:57:37Z",
+        "started_at": "2026-09-14T09:57:37Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "external-links",
+        "steps": [],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103933044034",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": null,
+        "runner_name": null,
+        "runner_group_id": null,
+        "runner_group_name": null
+      },
+      {
+        "id": 103933044224,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuRmAA",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103933044224",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103933044224",
+        "status": "completed",
+        "conclusion": "skipped",
+        "created_at": "2026-09-14T09:57:37Z",
+        "started_at": "2026-09-14T09:57:37Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "standalone-coverage",
+        "steps": [],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103933044224",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": null,
+        "runner_name": null,
+        "runner_group_id": null,
+        "runner_group_name": null
+      },
+      {
+        "id": 103933044580,
+        "run_id": 34830664262,
+        "workflow_name": "scheduled diagnostics",
+        "head_branch": "main",
+        "run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/runs/34830664262",
+        "run_attempt": 1,
+        "node_id": "CR_kwDOUS7Uys8AAAAYMuRnZA",
+        "head_sha": "056ce5cba436dfd95ef63f719c3b1a249da48c89",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/actions/jobs/103933044580",
+        "html_url": "https://github.com/neverhuman/bullet-kernel/actions/runs/34830664262/job/103933044580",
+        "status": "completed",
+        "conclusion": "skipped",
+        "created_at": "2026-09-14T09:57:37Z",
+        "started_at": "2026-09-14T09:57:37Z",
+        "completed_at": "2026-09-14T09:57:36Z",
+        "name": "full-history-secrets",
+        "steps": [],
+        "check_run_url": "https://api.github.com/repos/neverhuman/bullet-kernel/check-runs/103933044580",
+        "labels": [
+          "ubuntu-24.04"
+        ],
+        "runner_id": null,
+        "runner_name": null,
+        "runner_group_id": null,
+        "runner_group_name": null
+      }
+    ]
+  }
+]

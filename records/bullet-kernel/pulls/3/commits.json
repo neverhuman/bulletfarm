@@ -1,0 +1,172 @@
+[
+  [
+    {
+      "sha": "52cbcf1971d2bb9c618a141f08129c13bd39b521",
+      "node_id": "C_kwDOUS7UytoAKDUyY2JjZjE5NzFkMmJiOWM2MThhMTQxZjA4MTI5YzEzYmQzOWI1MjE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T21:53:45Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T21:53:45Z"
+        },
+        "message": "Admit farmd run_coding through the CLI, worker, and signed-in runners.\n\nKeep run_demo on the fixture child. Codex, Cursor, and agy never fall back\nto SimAdapter. Inventory follows the current nextest list.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "8bea4b9fdc8c31bf623597ec305346af6609d4a1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/8bea4b9fdc8c31bf623597ec305346af6609d4a1"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/52cbcf1971d2bb9c618a141f08129c13bd39b521",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/52cbcf1971d2bb9c618a141f08129c13bd39b521",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/52cbcf1971d2bb9c618a141f08129c13bd39b521",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/52cbcf1971d2bb9c618a141f08129c13bd39b521/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "b43d4303734da3b5c0dccaaf98832a3511ebf818",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/b43d4303734da3b5c0dccaaf98832a3511ebf818",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/b43d4303734da3b5c0dccaaf98832a3511ebf818"
+        }
+      ]
+    },
+    {
+      "sha": "f7ac054e520d597ccc42e015da4c950fd22a1bd5",
+      "node_id": "C_kwDOUS7UytoAKGY3YWMwNTRlNTIwZDU5N2NjYzQyZTAxNWRhNGM5NTBmZDIyYTFiZDU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:08:19Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:08:19Z"
+        },
+        "message": "Show a labeled farmd board and refuse unsigned terminate acks.\n\nOperators need honest TTY insight into GET projections without printing\nsession cookies or pretending signed-in CLIs can acknowledge stop.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "bb00fa8735fa55ad4e7097b2d4750df2045132f8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/bb00fa8735fa55ad4e7097b2d4750df2045132f8"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/f7ac054e520d597ccc42e015da4c950fd22a1bd5",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/f7ac054e520d597ccc42e015da4c950fd22a1bd5",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/f7ac054e520d597ccc42e015da4c950fd22a1bd5",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/f7ac054e520d597ccc42e015da4c950fd22a1bd5/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "52cbcf1971d2bb9c618a141f08129c13bd39b521",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/52cbcf1971d2bb9c618a141f08129c13bd39b521",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/52cbcf1971d2bb9c618a141f08129c13bd39b521"
+        }
+      ]
+    },
+    {
+      "sha": "0fdb89a073e8476e25637cc97354daa974185d9c",
+      "node_id": "C_kwDOUS7UytoAKDBmZGI4OWEwNzNlODQ3NmUyNTYzN2NjOTczNTRkYWE5NzQxODVkOWM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:40:21Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T00:40:21Z"
+        },
+        "message": "Keep hosted docs and filesystem plan tests off missing host tools.\n\nThe PR docs lane refused a link to an uncommitted operator-reads page, and\nfast unwrapped /usr/bin/bwrap on runners that do not ship it.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "d06f61a2d2066180d09156839d9353ea62df2c01",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/d06f61a2d2066180d09156839d9353ea62df2c01"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/0fdb89a073e8476e25637cc97354daa974185d9c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/0fdb89a073e8476e25637cc97354daa974185d9c",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/0fdb89a073e8476e25637cc97354daa974185d9c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/0fdb89a073e8476e25637cc97354daa974185d9c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "f7ac054e520d597ccc42e015da4c950fd22a1bd5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/f7ac054e520d597ccc42e015da4c950fd22a1bd5",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/f7ac054e520d597ccc42e015da4c950fd22a1bd5"
+        }
+      ]
+    },
+    {
+      "sha": "7295e7136ce93a04d5e17ee035e94517ba8d8ca8",
+      "node_id": "C_kwDOUS7UytoAKDcyOTVlNzEzNmNlOTNhMDRkNWUxN2VlMDM1ZTk0NTE3YmE4ZDhjYTg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T02:08:08Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T02:08:08Z"
+        },
+        "message": "Install the pinned workflow scanner in the lint job",
+        "tree": {
+          "sha": "df2dd72ad7f75983f918aa492fe5a223a99a7248",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/df2dd72ad7f75983f918aa492fe5a223a99a7248"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/7295e7136ce93a04d5e17ee035e94517ba8d8ca8",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/7295e7136ce93a04d5e17ee035e94517ba8d8ca8",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/7295e7136ce93a04d5e17ee035e94517ba8d8ca8",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/7295e7136ce93a04d5e17ee035e94517ba8d8ca8/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "0fdb89a073e8476e25637cc97354daa974185d9c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/0fdb89a073e8476e25637cc97354daa974185d9c",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/0fdb89a073e8476e25637cc97354daa974185d9c"
+        }
+      ]
+    }
+  ]
+]

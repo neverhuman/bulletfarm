@@ -1,0 +1,135 @@
+[
+  [
+    {
+      "sha": "4320c3107fa9eb4f19f563a662663fb7a3325286",
+      "node_id": "C_kwDOUS7VAdoAKDQzMjBjMzEwN2ZhOWViNGYxOWY1NjNhNjYyNjYzZmI3YTMzMjUyODY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T03:00:12Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T03:00:12Z"
+        },
+        "message": "Discover operator command history and reject stale recovery reads",
+        "tree": {
+          "sha": "af2473f54233f07e925b61037b71c0c3d7413eb7",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/af2473f54233f07e925b61037b71c0c3d7413eb7"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/4320c3107fa9eb4f19f563a662663fb7a3325286",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4320c3107fa9eb4f19f563a662663fb7a3325286",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/4320c3107fa9eb4f19f563a662663fb7a3325286",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4320c3107fa9eb4f19f563a662663fb7a3325286/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "f946cdc648c4ca5225a7b60eb9cbe12b31425343",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/f946cdc648c4ca5225a7b60eb9cbe12b31425343",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/f946cdc648c4ca5225a7b60eb9cbe12b31425343"
+        }
+      ]
+    },
+    {
+      "sha": "59d512d090406d5fd0c6554d10aa06259648f3e9",
+      "node_id": "C_kwDOUS7VAdoAKDU5ZDUxMmQwOTA0MDZkNWZkMGM2NTU0ZDEwYWEwNjI1OTY0OGYzZTk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T03:33:55Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T03:33:55Z"
+        },
+        "message": "Bind browser recovery to the original command and validated journal",
+        "tree": {
+          "sha": "a083bb1a201d37da31173e32cd3a0c45a9bfded6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/a083bb1a201d37da31173e32cd3a0c45a9bfded6"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/59d512d090406d5fd0c6554d10aa06259648f3e9",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/59d512d090406d5fd0c6554d10aa06259648f3e9",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/59d512d090406d5fd0c6554d10aa06259648f3e9",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/59d512d090406d5fd0c6554d10aa06259648f3e9/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4320c3107fa9eb4f19f563a662663fb7a3325286",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4320c3107fa9eb4f19f563a662663fb7a3325286",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/4320c3107fa9eb4f19f563a662663fb7a3325286"
+        }
+      ]
+    },
+    {
+      "sha": "4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c",
+      "node_id": "C_kwDOUS7VAdoAKDRjZDBmYzg5ZmE0NGU2ZjhiMWY0YzQ3NWY2MzUxOWQ5YThmZjQ1NGM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T03:34:18Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T03:34:18Z"
+        },
+        "message": "Merge remote-tracking branch 'origin/main' into codex/xbabe2-operator-recovery",
+        "tree": {
+          "sha": "a083bb1a201d37da31173e32cd3a0c45a9bfded6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/a083bb1a201d37da31173e32cd3a0c45a9bfded6"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/4cd0fc89fa44e6f8b1f4c475f63519d9a8ff454c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "59d512d090406d5fd0c6554d10aa06259648f3e9",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/59d512d090406d5fd0c6554d10aa06259648f3e9",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/59d512d090406d5fd0c6554d10aa06259648f3e9"
+        },
+        {
+          "sha": "3052f0e12a0dd451711469360beb55bd3dfcc911",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/3052f0e12a0dd451711469360beb55bd3dfcc911",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/3052f0e12a0dd451711469360beb55bd3dfcc911"
+        }
+      ]
+    }
+  ]
+]

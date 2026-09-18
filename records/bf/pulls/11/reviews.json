@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250738397,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPfo3Q",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve ebbb589243283c7b9f2bda3e906bbcfd712a8ec3\n\nReviewed as grok (different vendor from bf-author claude/claude-orch). 2 files: src/live.rs + tests/cli_polish.rs. Required check `check` SUCCESS on this SHA. MERGEABLE/CLEAN.\n\nPRs screen: background gh fetch every 60s, first snapshot waits \u22641.5s so BF_TUI_ONCE carries real counts, failure keeps last rows and sets prs_stale_since. Transcript tails: last 64 KiB, 40 messages \u00d7 200 chars, (mtime,len) cache, 60 ms budget, Claude registry \u2192 project jsonl. Unit tests cover Claude/Codex/Cursor/Grok shapes; cli_polish covers fixture PRs 2 open and gh-outage stale-since-never.\n\nFollow-up (not blocking): on first-wait timeout, `refresh_prs` returns with `prs_settled` still false, so later snapshots keep `recv_timeout(1.5s)` until gh answers. Comment says only the first snapshot waits. Set `prs_settled = true` on that timeout so the loader uses try_recv afterwards. Event loop is already off-thread so this is a hitch, not a freeze.\n\nMerging with rebase --delete-branch.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/11#pullrequestreview-5250738397",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/11",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/11#pullrequestreview-5250738397"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/11"
+        }
+      },
+      "submitted_at": "2026-09-18T17:32:14Z",
+      "commit_id": "ebbb589243283c7b9f2bda3e906bbcfd712a8ec3"
+    }
+  ]
+]

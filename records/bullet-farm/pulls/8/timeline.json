@@ -1,0 +1,392 @@
+[
+  [
+    {
+      "sha": "ace452e9aabd2ea12fdaff60c01a735a5d411878",
+      "node_id": "C_kwDOUS7UsdoAKGFjZTQ1MmU5YWFiZDJlYTEyZmRhZmY2MGMwMWE3MzVhNWQ0MTE4Nzg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/ace452e9aabd2ea12fdaff60c01a735a5d411878",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/ace452e9aabd2ea12fdaff60c01a735a5d411878",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:11:50Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:11:50Z"
+      },
+      "tree": {
+        "sha": "9b5e6c359fc4472cf9be0183f349badcd2694a29",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/9b5e6c359fc4472cf9be0183f349badcd2694a29"
+      },
+      "message": "Add HOLD-honest operator-console recorders for TUI and Portal.\n\nThe TUI narration drives an already-authenticated bullet tui; the Portal\nwalk injects the existing session cookie in-process and never prints it.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "b41c77bf4c13431d168f4057661e659092e1a213",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b41c77bf4c13431d168f4057661e659092e1a213",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b41c77bf4c13431d168f4057661e659092e1a213"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "8e81fe22ed1205ddb1f4622c1aafe947b207f78d",
+      "node_id": "C_kwDOUS7UsdoAKDhlODFmZTIyZWQxMjA1ZGRiMWY0NjIyYzFhYWZlOTQ3YjIwN2Y3OGQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8e81fe22ed1205ddb1f4622c1aafe947b207f78d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8e81fe22ed1205ddb1f4622c1aafe947b207f78d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:13:16Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:13:16Z"
+      },
+      "tree": {
+        "sha": "cc0901cd06656bb6d41592838045f7380eff7f69",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/cc0901cd06656bb6d41592838045f7380eff7f69"
+      },
+      "message": "Resolve Playwright from the Portal checkout, not the Hub script path.\n\nESM imports follow the recorder file, so the walk now loads the sibling\nPortal package through createRequire.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "ace452e9aabd2ea12fdaff60c01a735a5d411878",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/ace452e9aabd2ea12fdaff60c01a735a5d411878",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/ace452e9aabd2ea12fdaff60c01a735a5d411878"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "0da58b9fcb24adb3022ea4647c7b46fd725d333f",
+      "node_id": "C_kwDOUS7UsdoAKDBkYTU4YjlmY2IyNGFkYjMwMjJlYTQ2NDdjN2I0NmZkNzI1ZDMzM2Y",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0da58b9fcb24adb3022ea4647c7b46fd725d333f",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0da58b9fcb24adb3022ea4647c7b46fd725d333f",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:16:16Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:16:16Z"
+      },
+      "tree": {
+        "sha": "6530f77273b41d739055f36a8492f2bf4b2ae2a6",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/6530f77273b41d739055f36a8492f2bf4b2ae2a6"
+      },
+      "message": "Use relative ffconcat names so ffmpeg can read Portal frames.\n\nThe concat demuxer refused absolute home paths as unsafe.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "8e81fe22ed1205ddb1f4622c1aafe947b207f78d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8e81fe22ed1205ddb1f4622c1aafe947b207f78d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/8e81fe22ed1205ddb1f4622c1aafe947b207f78d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "8d8337154614ba2bf58c60dce6b9c168a6c07a25",
+      "node_id": "C_kwDOUS7UsdoAKDhkODMzNzE1NDYxNGJhMmJmNThjNjBkY2U2YjljMTY4YTZjMDdhMjU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8d8337154614ba2bf58c60dce6b9c168a6c07a25",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8d8337154614ba2bf58c60dce6b9c168a6c07a25",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:16:31Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:16:31Z"
+      },
+      "tree": {
+        "sha": "b5c26d75dda8a7714d7534b7354b19b1389ac1c2",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/b5c26d75dda8a7714d7534b7354b19b1389ac1c2"
+      },
+      "message": "Keep one GIF frame per Portal still so the stage-two count matches.\n\nfps=5 was expanding three screenshots into 31 native frames.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "0da58b9fcb24adb3022ea4647c7b46fd725d333f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0da58b9fcb24adb3022ea4647c7b46fd725d333f",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/0da58b9fcb24adb3022ea4647c7b46fd725d333f"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "a36306fe0428eaa57fd5d0d527e3e3488f062622",
+      "node_id": "C_kwDOUS7UsdoAKGEzNjMwNmZlMDQyOGVhYTU3ZmQ1ZDBkNTI3ZTNlMzQ4OGYwNjI2MjI",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/a36306fe0428eaa57fd5d0d527e3e3488f062622",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/a36306fe0428eaa57fd5d0d527e3e3488f062622",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:16:54Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:16:54Z"
+      },
+      "tree": {
+        "sha": "1a8d3458c9698b77508b5918d3fc8de74aa2f80a",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/1a8d3458c9698b77508b5918d3fc8de74aa2f80a"
+      },
+      "message": "Declare Portal GIF frame count from ffprobe, not screenshot count.\n\nConcat stills can emit one extra native frame; the stage-two gate\ncompares portal.frames to the GIF itself.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "8d8337154614ba2bf58c60dce6b9c168a6c07a25",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8d8337154614ba2bf58c60dce6b9c168a6c07a25",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/8d8337154614ba2bf58c60dce6b9c168a6c07a25"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "741ddf3891c6d02e7eadbea3129a56b01fd9d02a",
+      "node_id": "C_kwDOUS7UsdoAKDc0MWRkZjM4OTFjNmQwMmU3ZWFkYmVhMzEyOWE1NmIwMWZkOWQwMmE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/741ddf3891c6d02e7eadbea3129a56b01fd9d02a",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/741ddf3891c6d02e7eadbea3129a56b01fd9d02a",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:03Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:03Z"
+      },
+      "tree": {
+        "sha": "dc14afd3a6138bf0e5778ca22b72bd05bfce9b8d",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/dc14afd3a6138bf0e5778ca22b72bd05bfce9b8d"
+      },
+      "message": "Publish the HOLD-honest real TUI GIF as stage-two operator-console media.\n\nThe tape is a local xbabe2 observation of authenticated loopback farmd,\nnot a trusted installer and not VERIFIED.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "a36306fe0428eaa57fd5d0d527e3e3488f062622",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/a36306fe0428eaa57fd5d0d527e3e3488f062622",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/a36306fe0428eaa57fd5d0d527e3e3488f062622"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "8f019e5e7a99a7c6e1420f3021ca9c36038d7901",
+      "node_id": "C_kwDOUS7UsdoAKDhmMDE5ZTVlN2E5OWE3YzZlMTQyMGYzMDIxY2E5YzM2MDM4ZDc5MDE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8f019e5e7a99a7c6e1420f3021ca9c36038d7901",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8f019e5e7a99a7c6e1420f3021ca9c36038d7901",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:03Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:03Z"
+      },
+      "tree": {
+        "sha": "400de897dacb0f2157c4a5c9241f014f6e992b45",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/400de897dacb0f2157c4a5c9241f014f6e992b45"
+      },
+      "message": "Publish the real Portal GIF and HOLD-honest README captions.\n\nSend is omitted; Shift Brief still reads RELEASE DECISION unknown.\nStage-one VHS tapes are unchanged.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "741ddf3891c6d02e7eadbea3129a56b01fd9d02a",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/741ddf3891c6d02e7eadbea3129a56b01fd9d02a",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/741ddf3891c6d02e7eadbea3129a56b01fd9d02a"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "153dad209ae98b94cb4cf58d85ccf64ca2b1cefe",
+      "node_id": "C_kwDOUS7UsdoAKDE1M2RhZDIwOWFlOThiOTRjYjRjZjU4ZDg1Y2NmNjRjYTJiMWNlZmU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/153dad209ae98b94cb4cf58d85ccf64ca2b1cefe",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/153dad209ae98b94cb4cf58d85ccf64ca2b1cefe",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:03Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:03Z"
+      },
+      "tree": {
+        "sha": "b55c8eb81f75d774efe9ea319ac36f545ee55f63",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/b55c8eb81f75d774efe9ea319ac36f545ee55f63"
+      },
+      "message": "Point the aggregate README at the real operator-console tapes.\n\nHistorical dogfood and vendor-CLI GIFs stay labeled historical.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "8f019e5e7a99a7c6e1420f3021ca9c36038d7901",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8f019e5e7a99a7c6e1420f3021ca9c36038d7901",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/8f019e5e7a99a7c6e1420f3021ca9c36038d7901"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "062b754a530fbf75e6dff60b0d662576b6206fdf",
+      "node_id": "C_kwDOUS7UsdoAKDA2MmI3NTRhNTMwZmJmNzVlNmRmZjYwYjBkNjYyNTc2YjYyMDZmZGY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/062b754a530fbf75e6dff60b0d662576b6206fdf",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/062b754a530fbf75e6dff60b0d662576b6206fdf",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:38Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T20:20:38Z"
+      },
+      "tree": {
+        "sha": "f896d7038fc87288c689d8a042712b25d2c6d651",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f896d7038fc87288c689d8a042712b25d2c6d651"
+      },
+      "message": "Separate current operator-console tapes from historical dogfood assets.\n\nHub docs index now points at the real xbabe2 pair; stage-one VHS stays.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "153dad209ae98b94cb4cf58d85ccf64ca2b1cefe",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/153dad209ae98b94cb4cf58d85ccf64ca2b1cefe",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/153dad209ae98b94cb4cf58d85ccf64ca2b1cefe"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30929950152,
+      "node_id": "ME_lADOUS7Usc8AAAABQt6T188AAAAHM5GVyA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30929950152",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "b40ac9fb06bd19f3a67134296a93cd70f33a6d39",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b40ac9fb06bd19f3a67134296a93cd70f33a6d39",
+      "created_at": "2026-09-10T20:33:24Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30929950361,
+      "node_id": "CE_lADOUS7Usc8AAAABQt6T188AAAAHM5GWmQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30929950361",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T20:33:24Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

@@ -1,0 +1,130 @@
+[
+  [
+    {
+      "sha": "5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+      "node_id": "C_kwDOUS7UsdoAKDVlZjhkZWRjMjZlMDM4YjI5ZTc5YmIzZGQzMWQxY2ZlYmE2YjYxYmE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:13:40Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:13:40Z"
+        },
+        "message": "Refuse empty TUI tapes and render them on github-dark.\n\nThe inner pty.fork() never received winsize, so ratatui never painted and\nagg collapsed three off-white frames. Run bullet tui on the outer PTY and\nfail casts that lack paint, CUP, or truecolor SGR.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "de40117107d0e707114666c22ab381f2b38ee3c0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/de40117107d0e707114666c22ab381f2b38ee3c0"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d"
+        }
+      ]
+    },
+    {
+      "sha": "b72b19e46ad223afe9b47da56eff7c48f39429b6",
+      "node_id": "C_kwDOUS7UsdoAKGI3MmIxOWU0NmFkMjIzYWZlOWI0N2RhNTZlZmY3YzQ4ZjM5NDI5YjY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:19:37Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:19:37Z"
+        },
+        "message": "Keep recorder children off inherited NO_COLOR and give ffmpeg VAS.\n\nAgent shells export NO_COLOR=1, which made a painted TUI emit no 38;2 SGR.\nffmpeg also needed more than 2 GiB VAS to hash a real 1080p tape.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "4a501cd7754a3a1a52ef0197c1d6f0b5e9e69ba5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/4a501cd7754a3a1a52ef0197c1d6f0b5e9e69ba5"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b72b19e46ad223afe9b47da56eff7c48f39429b6/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba"
+        }
+      ]
+    },
+    {
+      "sha": "c58fc5b943e161120a667b8339e4943f8b86a1c5",
+      "node_id": "C_kwDOUS7UsdoAKGM1OGZjNWI5NDNlMTYxMTIwYTY2N2I4MzM5ZTQ5NDNmOGI4NmExYzU",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:19:37Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T01:19:37Z"
+        },
+        "message": "Replace the white operator-tui.gif with a dark HOLD-honest tape.\n\nThe published 3-frame off-white GIF never contained ratatui paint. This\nrecording is 28 frames of amber-on-navy CONNECTING/HOLD/LIVE 0/UNBOUND.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "bffff090c6b776307c3aa8ffa5a9dc31ac332ad3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/bffff090c6b776307c3aa8ffa5a9dc31ac332ad3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c58fc5b943e161120a667b8339e4943f8b86a1c5",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c58fc5b943e161120a667b8339e4943f8b86a1c5",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/c58fc5b943e161120a667b8339e4943f8b86a1c5",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c58fc5b943e161120a667b8339e4943f8b86a1c5/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "b72b19e46ad223afe9b47da56eff7c48f39429b6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b72b19e46ad223afe9b47da56eff7c48f39429b6"
+        }
+      ]
+    }
+  ]
+]

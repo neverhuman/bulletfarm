@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932",
+      "node_id": "C_kwDOUd_zl9oAKDA0YmU0ZWMwZTFkOTBjNjRlNGM0YThlNTBjZGRiNjZiZjBmNTM5MzI",
+      "commit": {
+        "author": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:19:47Z"
+        },
+        "committer": {
+          "name": "neverhuman",
+          "email": "jepson@neverhuman.org",
+          "date": "2026-09-18T16:19:47Z"
+        },
+        "message": "Prune the fixture job plane down to a thin hub.\n\nKeep sessions, idempotent commands, SQLite, doctor, and loopback serve.\nDrop jobs/delivery/verification/fixtures and the extra schema. This is\nnot a live executor or TUI.",
+        "tree": {
+          "sha": "8b3830bc14a6e4e1e7092d33a0d4d58d04cd1d6d",
+          "url": "https://api.github.com/repos/neverhuman/bf/git/trees/8b3830bc14a6e4e1e7092d33a0d4d58d04cd1d6d"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bf/git/commits/04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bf/commits/04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932",
+      "html_url": "https://github.com/neverhuman/bf/commit/04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932",
+      "comments_url": "https://api.github.com/repos/neverhuman/bf/commits/04be4ec0e1d90c64e4c4a8e50cddb66bf0f53932/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "cbc691c241ccec275244a164fbdffee4b2fefc2e",
+          "url": "https://api.github.com/repos/neverhuman/bf/commits/cbc691c241ccec275244a164fbdffee4b2fefc2e",
+          "html_url": "https://github.com/neverhuman/bf/commit/cbc691c241ccec275244a164fbdffee4b2fefc2e"
+        }
+      ]
+    }
+  ]
+]

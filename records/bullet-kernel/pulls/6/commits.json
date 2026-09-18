@@ -1,0 +1,88 @@
+[
+  [
+    {
+      "sha": "b7642078ea9ff3a823483a4386ac1a217c35b5d4",
+      "node_id": "C_kwDOUS7UytoAKGI3NjQyMDc4ZWE5ZmYzYTgyMzQ4M2E0Mzg2YWMxYTIxN2MzNWI1ZDQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T04:31:54Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T04:31:54Z"
+        },
+        "message": "Read missions through authenticated operator snapshots",
+        "tree": {
+          "sha": "74272dc2bb953c3799cc557fbfac9f85fb485364",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/74272dc2bb953c3799cc557fbfac9f85fb485364"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/b7642078ea9ff3a823483a4386ac1a217c35b5d4",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/b7642078ea9ff3a823483a4386ac1a217c35b5d4",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/b7642078ea9ff3a823483a4386ac1a217c35b5d4",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/b7642078ea9ff3a823483a4386ac1a217c35b5d4/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "ced2660812f73757e32f8991cf0840106ab5d953",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/ced2660812f73757e32f8991cf0840106ab5d953",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/ced2660812f73757e32f8991cf0840106ab5d953"
+        }
+      ]
+    },
+    {
+      "sha": "e72325e64f112fd7b5be19b33bb0624bc922989a",
+      "node_id": "C_kwDOUS7UytoAKGU3MjMyNWU2NGYxMTJmZDdiNWJlMTliMzNiYjA2MjRiYzkyMjk4OWE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T04:37:10Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T04:37:10Z"
+        },
+        "message": "Bind mission CLI documentation review to implemented source",
+        "tree": {
+          "sha": "c56e438a973b350dcf5384238a3399c3143d0089",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/c56e438a973b350dcf5384238a3399c3143d0089"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/e72325e64f112fd7b5be19b33bb0624bc922989a",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/e72325e64f112fd7b5be19b33bb0624bc922989a",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/e72325e64f112fd7b5be19b33bb0624bc922989a",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/e72325e64f112fd7b5be19b33bb0624bc922989a/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "b7642078ea9ff3a823483a4386ac1a217c35b5d4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/b7642078ea9ff3a823483a4386ac1a217c35b5d4",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/b7642078ea9ff3a823483a4386ac1a217c35b5d4"
+        }
+      ]
+    }
+  ]
+]

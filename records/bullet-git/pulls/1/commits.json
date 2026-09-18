@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+      "node_id": "C_kwDOUS7U49oAKDFlOWQxYWZiZmE2NGQwMzgxZjQ4YzRhMjk1ZWZlYjRmMzY3MTVjZTE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T02:42:25Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-09T02:42:25Z"
+        },
+        "message": "Replace the GitHub snapshot with the local Jankurai >90 tree.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "d24aba873e74b72780d77aa75f86699631b0e423",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/d24aba873e74b72780d77aa75f86699631b0e423"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/1e9d1afbfa64d0381f48c4a295efeb4f36715ce1",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/1e9d1afbfa64d0381f48c4a295efeb4f36715ce1/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "80ed8bcf38813dd2d46c83f4318cacce55125243",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/80ed8bcf38813dd2d46c83f4318cacce55125243",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/80ed8bcf38813dd2d46c83f4318cacce55125243"
+        }
+      ]
+    }
+  ]
+]

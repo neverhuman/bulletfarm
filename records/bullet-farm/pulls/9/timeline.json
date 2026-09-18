@@ -1,0 +1,248 @@
+[
+  [
+    {
+      "sha": "b2c8dd8fa7d12af4f8afdeca395407a7984b9f7d",
+      "node_id": "C_kwDOUS7UsdoAKGIyYzhkZDhmYTdkMTJhZjRmOGFmZGVjYTM5NTQwN2E3OTg0YjlmN2Q",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b2c8dd8fa7d12af4f8afdeca395407a7984b9f7d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/b2c8dd8fa7d12af4f8afdeca395407a7984b9f7d",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:30:19Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:30:19Z"
+      },
+      "tree": {
+        "sha": "7ff53b1002416b9fe474f01612327ddfc4ec9681",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/7ff53b1002416b9fe474f01612327ddfc4ec9681"
+      },
+      "message": "Add just console for an unsigned loopback operator session.\n\nserve.sh can leave the one-time bootstrap on disk for bullet auth login\ninstead of exchanging it. just dev still cannot create a session.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "b40ac9fb06bd19f3a67134296a93cd70f33a6d39",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b40ac9fb06bd19f3a67134296a93cd70f33a6d39",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b40ac9fb06bd19f3a67134296a93cd70f33a6d39"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "60ba88fb74607c24bc310de5489b272a440877ad",
+      "node_id": "C_kwDOUS7UsdoAKDYwYmE4OGZiNzQ2MDdjMjRiYzMxMGRlNTQ4OWIyNzJhNDQwODc3YWQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/60ba88fb74607c24bc310de5489b272a440877ad",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/60ba88fb74607c24bc310de5489b272a440877ad",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:30:42Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:30:42Z"
+      },
+      "tree": {
+        "sha": "c05a42c6e8df1d02b6617317e1dedc0ab101c6af",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/c05a42c6e8df1d02b6617317e1dedc0ab101c6af"
+      },
+      "message": "Document the unsigned loopback console as a contributor runbook.\n\njust setup stays the blocked installer. HOLD remains; this is not VERIFIED.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "b2c8dd8fa7d12af4f8afdeca395407a7984b9f7d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b2c8dd8fa7d12af4f8afdeca395407a7984b9f7d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b2c8dd8fa7d12af4f8afdeca395407a7984b9f7d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "c10f51651ec7a2b1fbb88b67d1c6e72133fcb6b1",
+      "node_id": "C_kwDOUS7UsdoAKGMxMGY1MTY1MWVjN2EyYjFmYmI4OGI2N2QxYzZlNzIxMzNmY2I2YjE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c10f51651ec7a2b1fbb88b67d1c6e72133fcb6b1",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/c10f51651ec7a2b1fbb88b67d1c6e72133fcb6b1",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:31:07Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:31:07Z"
+      },
+      "tree": {
+        "sha": "5f05c174d582ee493deab0ced1e12edb454780b6",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/5f05c174d582ee493deab0ced1e12edb454780b6"
+      },
+      "message": "Lead the Hub README with clone, pins, preview, and just console.\n\njust setup stays the blocked installer. HOLD remains; this is not VERIFIED.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "60ba88fb74607c24bc310de5489b272a440877ad",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/60ba88fb74607c24bc310de5489b272a440877ad",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/60ba88fb74607c24bc310de5489b272a440877ad"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "85e07516374b6d02d048bf1f6423808bce887a7e",
+      "node_id": "C_kwDOUS7UsdoAKDg1ZTA3NTE2Mzc0YjZkMDJkMDQ4YmYxZjY0MjM4MDhiY2U4ODdhN2U",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/85e07516374b6d02d048bf1f6423808bce887a7e",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/85e07516374b6d02d048bf1f6423808bce887a7e",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:33:05Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:33:05Z"
+      },
+      "tree": {
+        "sha": "419f3f2133bc8e694ed3b48a65036ebe42bd8a31",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/419f3f2133bc8e694ed3b48a65036ebe42bd8a31"
+      },
+      "message": "Build bullet-farmd by name so just console can start farmd.\n\ncargo --bin bullet was applied to every selected package and skipped the daemon.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "c10f51651ec7a2b1fbb88b67d1c6e72133fcb6b1",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c10f51651ec7a2b1fbb88b67d1c6e72133fcb6b1",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/c10f51651ec7a2b1fbb88b67d1c6e72133fcb6b1"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "414f999cd4d87c580b3d60353de24ecd687d4ea3",
+      "node_id": "C_kwDOUS7UsdoAKDQxNGY5OTljZDRkODdjNTgwYjNkNjAzNTNkZTI0ZWNkNjg3ZDRlYTM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/414f999cd4d87c580b3d60353de24ecd687d4ea3",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/414f999cd4d87c580b3d60353de24ecd687d4ea3",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:39:26Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-10T22:39:26Z"
+      },
+      "tree": {
+        "sha": "52820c06a6a69aa6343e01f6eacfbf401021f2f7",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/52820c06a6a69aa6343e01f6eacfbf401021f2f7"
+      },
+      "message": "Restore the required public-install and family.lock README claims.\n\nHosted readme-check and doctor refuse a Hub README that omits them.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "85e07516374b6d02d048bf1f6423808bce887a7e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/85e07516374b6d02d048bf1f6423808bce887a7e",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/85e07516374b6d02d048bf1f6423808bce887a7e"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30936137704,
+      "node_id": "ME_lADOUS7Usc8AAAABQu-4cs8AAAAHM-__6A",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30936137704",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "c53fd23b7d6ba46291573f56860a601848d4b53a",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c53fd23b7d6ba46291573f56860a601848d4b53a",
+      "created_at": "2026-09-10T22:49:54Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30936137796,
+      "node_id": "CE_lADOUS7Usc8AAAABQu-4cs8AAAAHM_AARA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30936137796",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-10T22:49:54Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

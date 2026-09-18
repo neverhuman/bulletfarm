@@ -1,0 +1,176 @@
+[
+  [
+    {
+      "sha": "5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+      "node_id": "C_kwDOUS7UsdoAKDVlZjhkZWRjMjZlMDM4YjI5ZTc5YmIzZGQzMWQxY2ZlYmE2YjYxYmE",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:13:40Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:13:40Z"
+      },
+      "tree": {
+        "sha": "de40117107d0e707114666c22ab381f2b38ee3c0",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/de40117107d0e707114666c22ab381f2b38ee3c0"
+      },
+      "message": "Refuse empty TUI tapes and render them on github-dark.\n\nThe inner pty.fork() never received winsize, so ratatui never painted and\nagg collapsed three off-white frames. Run bullet tui on the outer PTY and\nfail casts that lack paint, CUP, or truecolor SGR.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4bfaefb2fcd1cc133c929a8a3f9a1ea392daa98d"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "b72b19e46ad223afe9b47da56eff7c48f39429b6",
+      "node_id": "C_kwDOUS7UsdoAKGI3MmIxOWU0NmFkMjIzYWZlOWI0N2RhNTZlZmY3YzQ4ZjM5NDI5YjY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:19:37Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:19:37Z"
+      },
+      "tree": {
+        "sha": "4a501cd7754a3a1a52ef0197c1d6f0b5e9e69ba5",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/4a501cd7754a3a1a52ef0197c1d6f0b5e9e69ba5"
+      },
+      "message": "Keep recorder children off inherited NO_COLOR and give ffmpeg VAS.\n\nAgent shells export NO_COLOR=1, which made a painted TUI emit no 38;2 SGR.\nffmpeg also needed more than 2 GiB VAS to hash a real 1080p tape.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/5ef8dedc26e038b29e79bb3dd31d1cfeba6b61ba"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "c58fc5b943e161120a667b8339e4943f8b86a1c5",
+      "node_id": "C_kwDOUS7UsdoAKGM1OGZjNWI5NDNlMTYxMTIwYTY2N2I4MzM5ZTQ5NDNmOGI4NmExYzU",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c58fc5b943e161120a667b8339e4943f8b86a1c5",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/c58fc5b943e161120a667b8339e4943f8b86a1c5",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:19:37Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T01:19:37Z"
+      },
+      "tree": {
+        "sha": "bffff090c6b776307c3aa8ffa5a9dc31ac332ad3",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/bffff090c6b776307c3aa8ffa5a9dc31ac332ad3"
+      },
+      "message": "Replace the white operator-tui.gif with a dark HOLD-honest tape.\n\nThe published 3-frame off-white GIF never contained ratatui paint. This\nrecording is 28 frames of amber-on-navy CONNECTING/HOLD/LIVE 0/UNBOUND.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "b72b19e46ad223afe9b47da56eff7c48f39429b6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b72b19e46ad223afe9b47da56eff7c48f39429b6",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b72b19e46ad223afe9b47da56eff7c48f39429b6"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30948742200,
+      "node_id": "ME_lADOUS7Usc8AAAABQwEcsM8AAAAHNLBUOA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30948742200",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "0841da094567fc5fa6c4067037825f8c0630356f",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0841da094567fc5fa6c4067037825f8c0630356f",
+      "created_at": "2026-09-11T04:22:21Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30948742256,
+      "node_id": "CE_lADOUS7Usc8AAAABQwEcsM8AAAAHNLBUcA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30948742256",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T04:22:21Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

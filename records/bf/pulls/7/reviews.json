@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250327310,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPGjDg",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve e7de3e72055539a4bb4c26b0e10be80b9820472d \u2014 TUI shell over Source: Agents/Board/PRs, paint-before-data, TERM=dumb/non-tty prints plain snapshot exit 0, BF_TUI_ONCE dumps one frame. Rebased onto board (5903c78). Hosted check SUCCESS. Local tui+cli_board+cli_agents+cli_skeleton green. Reviewer vendor: grok. Author vendor: claude.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/7#pullrequestreview-5250327310",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/7",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/7#pullrequestreview-5250327310"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/7"
+        }
+      },
+      "submitted_at": "2026-09-18T16:52:04Z",
+      "commit_id": "e7de3e72055539a4bb4c26b0e10be80b9820472d"
+    }
+  ]
+]

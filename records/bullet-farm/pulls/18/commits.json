@@ -1,0 +1,172 @@
+[
+  [
+    {
+      "sha": "628435bd7e55172c39d6531ed24c67d232a16b78",
+      "node_id": "C_kwDOUS7UsdoAKDYyODQzNWJkN2U1NTE3MmMzOWQ2NTMxZWQyNGM2N2QyMzJhMTZiNzg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:02:43Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:17:06Z"
+        },
+        "message": "Reconcile ASAP docs with the merged worker claim.\n\nv0.2 no longer says the worker never claimed; product-gaps and runbook index name the typed harness refuse.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "597f5b3d65948f5919df80eaab3f092e62b93db3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/597f5b3d65948f5919df80eaab3f092e62b93db3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/628435bd7e55172c39d6531ed24c67d232a16b78",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/628435bd7e55172c39d6531ed24c67d232a16b78",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/628435bd7e55172c39d6531ed24c67d232a16b78",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/628435bd7e55172c39d6531ed24c67d232a16b78/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "a4e6a5260538e215369367f16a74861503e6acb5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/a4e6a5260538e215369367f16a74861503e6acb5",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/a4e6a5260538e215369367f16a74861503e6acb5"
+        }
+      ]
+    },
+    {
+      "sha": "83547452402facfc0d86e6e5da01f9278a199e3c",
+      "node_id": "C_kwDOUS7UsdoAKDgzNTQ3NDUyNDAyZmFjZmMwZDg2ZTZlNWRhMDFmOTI3OGExOTllM2M",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:19:36Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:17:06Z"
+        },
+        "message": "Name the loopback claim path in the remaining runbooks.\n\nDogfood and effect-reconciliation now point at worker-loop; closeout no longer says the worker never claimed.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "dea1bf957566e8f607a0c133df7bb5bd97a399ce",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/dea1bf957566e8f607a0c133df7bb5bd97a399ce"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/83547452402facfc0d86e6e5da01f9278a199e3c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/83547452402facfc0d86e6e5da01f9278a199e3c",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/83547452402facfc0d86e6e5da01f9278a199e3c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/83547452402facfc0d86e6e5da01f9278a199e3c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "628435bd7e55172c39d6531ed24c67d232a16b78",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/628435bd7e55172c39d6531ed24c67d232a16b78",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/628435bd7e55172c39d6531ed24c67d232a16b78"
+        }
+      ]
+    },
+    {
+      "sha": "2d314f5a87d518dc391ee9772951c96bef41d7fa",
+      "node_id": "C_kwDOUS7UsdoAKDJkMzE0ZjVhODdkNTE4ZGMzOTFlZTk3NzI5NTFjOTZiZWY0MWQ3ZmE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:19:36Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:17:06Z"
+        },
+        "message": "Say Tape A is HOLD-honest and Tape B is not captured yet.\n\nVendor VHS stays secondary. The operator-console pair is not an enrolled turn.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "a8b526534245825ddad22be7f185fc7be914e829",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/a8b526534245825ddad22be7f185fc7be914e829"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/2d314f5a87d518dc391ee9772951c96bef41d7fa",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2d314f5a87d518dc391ee9772951c96bef41d7fa",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/2d314f5a87d518dc391ee9772951c96bef41d7fa",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2d314f5a87d518dc391ee9772951c96bef41d7fa/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "83547452402facfc0d86e6e5da01f9278a199e3c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/83547452402facfc0d86e6e5da01f9278a199e3c",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/83547452402facfc0d86e6e5da01f9278a199e3c"
+        }
+      ]
+    },
+    {
+      "sha": "56dcc27337f17522b07e4ec16dd290c819faa297",
+      "node_id": "C_kwDOUS7UsdoAKDU2ZGNjMjczMzdmMTc1MjJiMDdlNGVjMTZkZDI5MGM4MTlmYWEyOTc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:26:15Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:17:06Z"
+        },
+        "message": "Keep the worker loop alive after a typed harness refuse.\n\nConsole now loads harness.env when present so the next restart can bind ledger ids.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "9818e32f7b769b86c37d1693a21a9b25660097d0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/9818e32f7b769b86c37d1693a21a9b25660097d0"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/56dcc27337f17522b07e4ec16dd290c819faa297",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/56dcc27337f17522b07e4ec16dd290c819faa297",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/56dcc27337f17522b07e4ec16dd290c819faa297",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/56dcc27337f17522b07e4ec16dd290c819faa297/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "2d314f5a87d518dc391ee9772951c96bef41d7fa",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2d314f5a87d518dc391ee9772951c96bef41d7fa",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/2d314f5a87d518dc391ee9772951c96bef41d7fa"
+        }
+      ]
+    }
+  ]
+]

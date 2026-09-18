@@ -1,0 +1,50 @@
+[
+  {
+    "repository": "bulletfarm",
+    "prs": 0,
+    "workflow_runs": 0,
+    "available_artifacts": 0,
+    "expired_artifacts": 0,
+    "unavailable_logs": []
+  },
+  {
+    "repository": "bf",
+    "prs": 12,
+    "workflow_runs": 31,
+    "available_artifacts": 0,
+    "expired_artifacts": 0,
+    "unavailable_logs": []
+  },
+  {
+    "repository": "bullet-farm",
+    "prs": 20,
+    "workflow_runs": 150,
+    "available_artifacts": 767,
+    "expired_artifacts": 0,
+    "unavailable_logs": []
+  },
+  {
+    "repository": "bullet-kernel",
+    "prs": 23,
+    "workflow_runs": 118,
+    "available_artifacts": 673,
+    "expired_artifacts": 0,
+    "unavailable_logs": []
+  },
+  {
+    "repository": "bullet-git",
+    "prs": 4,
+    "workflow_runs": 30,
+    "available_artifacts": 147,
+    "expired_artifacts": 0,
+    "unavailable_logs": []
+  },
+  {
+    "repository": "bullet-portal",
+    "prs": 9,
+    "workflow_runs": 39,
+    "available_artifacts": 179,
+    "expired_artifacts": 0,
+    "unavailable_logs": []
+  }
+]

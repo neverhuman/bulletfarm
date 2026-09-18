@@ -1,0 +1,46 @@
+[
+  [
+    {
+      "sha": "4fc068767b42785d46e72d84e7e7e0fd1b350590",
+      "node_id": "C_kwDOUS7UsdoAKDRmYzA2ODc2N2I0Mjc4NWQ0NmU3MmQ4NGU3ZTdlMGZkMWIzNTA1OTA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:54:45Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T04:54:45Z"
+        },
+        "message": "Date v0.2 docs to merged oids and the PENDING-rows tape.\n\nKernel #17 is on main; the public GIF is HOLD plus PENDING rows, not the empty-fleet claim.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+        "tree": {
+          "sha": "c43887a2567f8275d7c219a315c462e970fc4de3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/c43887a2567f8275d7c219a315c462e970fc4de3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/4fc068767b42785d46e72d84e7e7e0fd1b350590",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4fc068767b42785d46e72d84e7e7e0fd1b350590",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/4fc068767b42785d46e72d84e7e7e0fd1b350590",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4fc068767b42785d46e72d84e7e7e0fd1b350590/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4609eb96fc33ca32c6695e02d6ca9d2a4151257c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4609eb96fc33ca32c6695e02d6ca9d2a4151257c",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4609eb96fc33ca32c6695e02d6ca9d2a4151257c"
+        }
+      ]
+    }
+  ]
+]

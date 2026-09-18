@@ -1,0 +1,104 @@
+[
+  [
+    {
+      "sha": "13233f777e57d1917cf74c6568a807fb786518bc",
+      "node_id": "C_kwDOUS7VAdoAKDEzMjMzZjc3N2U1N2QxOTE3Y2Y3NGM2NTY4YTgwN2ZiNzg2NTE4YmM",
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/13233f777e57d1917cf74c6568a807fb786518bc",
+      "html_url": "https://github.com/neverhuman/bullet-portal/commit/13233f777e57d1917cf74c6568a807fb786518bc",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T11:22:48Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T11:22:49Z"
+      },
+      "tree": {
+        "sha": "af3bf12be556cbb1b72926742ac8e582fb1837bb",
+        "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/trees/af3bf12be556cbb1b72926742ac8e582fb1837bb"
+      },
+      "message": "fix: keep Control Tower custody across persist and remount failures\n\nFailed admitted-id writes stay UNKNOWN without dropping the pre-POST key, stale unmounted GETs cannot clear a newer slot, and a restored subject must match the persisted kind and digest.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "e815d8392a280363c02e97f856c1d69a67e19f61",
+          "url": "https://api.github.com/repos/neverhuman/bullet-portal/git/commits/e815d8392a280363c02e97f856c1d69a67e19f61",
+          "html_url": "https://github.com/neverhuman/bullet-portal/commit/e815d8392a280363c02e97f856c1d69a67e19f61"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30824191469,
+      "node_id": "ME_lADOUS7VAc8AAAABQcpiws8AAAAHLUPV7Q",
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/issues/events/30824191469",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "29870ac6162e63f8e1a352766b8e917cc3c07e59",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-portal/commits/29870ac6162e63f8e1a352766b8e917cc3c07e59",
+      "created_at": "2026-09-09T11:22:55Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30824191558,
+      "node_id": "CE_lADOUS7VAc8AAAABQcpiws8AAAAHLUPWRg",
+      "url": "https://api.github.com/repos/neverhuman/bullet-portal/issues/events/30824191558",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-09T11:22:55Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

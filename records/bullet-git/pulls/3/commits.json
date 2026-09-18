@@ -1,0 +1,130 @@
+[
+  [
+    {
+      "sha": "dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+      "node_id": "C_kwDOUS7U49oAKGRkMmNkYjVmM2UwZDRhMDE2MzFiZWU3Yzc3NGRmNWQwYTdlYzc4YWQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:24:31Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:24:31Z"
+        },
+        "message": "Authorise workspace cleanup by its preservation receipt, not by a lease the protocol has already ended\n\nEvery completed attempt preserved its Candidate and then died. The Runner\nreleases its lease as Succeeded before asking gitd to delete the workspace, and\nthat order is deliberate: it is pinned by a simulation test so that a crash\nbetween the two leaves a recorded Candidate rather than a workspace nobody can\naccount for. But cleanup then took a Kernel mutation permit like any other\nwrite, and minting one performs an online lease and fence read-back, which the\nrelease has just made impossible. The Runner's own source called this a known\ncontradiction and said the resolution belonged here, because cleanup is\ndocumented as receipt-gated.\n\nCleanup now proves itself with the sealed preservation receipt it is already\ngiven. handle_cleanup verifies the session token, refuses a frozen daemon, and\ncalls the new PreservationAuthority::authorize_receipt before any reservation,\nso the seal, the state digest, the cleanup target, the destination identity, the\nartifact shape, the salvaged objects, the bundle and the artifact digest are all\nchecked first. It then reserves through authorize_by_preservation_receipt, which\ncomputes the same transport fingerprint as the Kernel path and builds a complete\nMutationSubject from the receipt digest, the operation and the session's exact\nwriter incarnation, but consults no online checker. Settlement is recorded in\nthe durable mutation ledger without a Kernel round trip, and an indeterminate\noutcome still freezes the daemon. Every other operation keeps the Kernel permit\npath unchanged, with its signatures untouched.\n\nExactly-once survives: a reservation replay returns the durable result rather\nthan a second permit, a replay whose recorded digest does not reproduce refuses\nAUTHORITY_REPLAY_CONFLICT, and a second cleanup deletes nothing again.\n\nProof: 171 tests pass across bullet-gitd and bullet-git-workspace, 72 with all\nfeatures; clippy with -D warnings and rustfmt are clean. Eleven new tests cover\ncleanup succeeding against a checker that can issue no permit while another\noperation on the same daemon still refuses AUTHORITY_CONTRACT_UNAVAILABLE;\ngarbage, empty, byte-tampered and foreign-session receipts each refusing\nPRESERVATION_RECEIPT_REFUSED while leaving the session usable and the real\nreceipt still working; replay behaviour; and a post-permit repository failure\nstill yielding MUTATION_OUTCOME_UNKNOWN and freezing.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+        "tree": {
+          "sha": "7570bc90b2ef8108c51cf39dda474951250d5d2c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/7570bc90b2ef8108c51cf39dda474951250d5d2c"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "11a29e94a21e71199f6b384f7d0e69bc6ae72f16",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/11a29e94a21e71199f6b384f7d0e69bc6ae72f16",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/11a29e94a21e71199f6b384f7d0e69bc6ae72f16"
+        }
+      ]
+    },
+    {
+      "sha": "3f90f38fb7f4a443ea25005143604ea324fe655f",
+      "node_id": "C_kwDOUS7U49oAKDNmOTBmMzhmYjdmNGE0NDNlYTI1MDA1MTQzNjA0ZWEzMjRmZTY1NWY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:36:08Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:36:08Z"
+        },
+        "message": "Repin the contract and total test counts for the receipt-gated cleanup tests\n\nops/ci/lib.sh pins each partition's exact case count, and the eleven new\nreceipt-gated cleanup tests moved the contract partition from 160 to 171 and the\ntotal from 222 to 233. The fast partition is unchanged at 62.\n\nThe counts are enumerated, not incremented: `cargo nextest list --locked\n--workspace` under each lane's own filter reports 62, 171 and 233, and\nops/ci/test-partitions.sh then exits 0 reporting the same three numbers.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+        "tree": {
+          "sha": "611b3b983a82dcd9bca080cba95936d2e1fc01b3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/611b3b983a82dcd9bca080cba95936d2e1fc01b3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/3f90f38fb7f4a443ea25005143604ea324fe655f",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/3f90f38fb7f4a443ea25005143604ea324fe655f",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/3f90f38fb7f4a443ea25005143604ea324fe655f",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/3f90f38fb7f4a443ea25005143604ea324fe655f/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/dd2cdb5f3e0d4a01631bee7c774df5d0a7ec78ad"
+        }
+      ]
+    },
+    {
+      "sha": "4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+      "node_id": "C_kwDOUS7U49oAKDQ4OTZiMDg2MWYwZTlkMjMyMGZlZWUyZmUzYzE1MWQxMGYyZTkyYWM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:42:24Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-10T12:42:24Z"
+        },
+        "message": "Restore the executable bit on ops/ci/lib.sh\n\nThe previous commit rewrote the pinned test counts through a temporary index and\nrecorded the file as 0644. ops/ci/lint.sh refuses any CI shell entrypoint that\nis not executable, so the lane stopped with \"CI shell entrypoint is not\nexecutable: ops/ci/lib.sh\" before running a single check. The mode is 0755\nagain, matching main; the file's contents are unchanged from that commit.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>\nClaude-Session: https://claude.ai/code/session_015qHQABNS382h2gi5jb5oUY",
+        "tree": {
+          "sha": "4f64a7e9a01684ebc726319497de4472dd11f5a3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/git/trees/4f64a7e9a01684ebc726319497de4472dd11f5a3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-git/git/commits/4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+      "html_url": "https://github.com/neverhuman/bullet-git/commit/4896b0861f0e9d2320feee2fe3c151d10f2e92ac",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-git/commits/4896b0861f0e9d2320feee2fe3c151d10f2e92ac/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "3f90f38fb7f4a443ea25005143604ea324fe655f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-git/commits/3f90f38fb7f4a443ea25005143604ea324fe655f",
+          "html_url": "https://github.com/neverhuman/bullet-git/commit/3f90f38fb7f4a443ea25005143604ea324fe655f"
+        }
+      ]
+    }
+  ]
+]

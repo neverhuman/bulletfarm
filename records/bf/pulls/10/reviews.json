@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250501718,
+      "node_id": "PRR_kwDOUd_zl88AAAABOPRMVg",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve a42ce8df62f6cf9db749654e8a49540b3b307e6e \u2014 bf prs via gh with missing-precondition list, fixture shim tests, rebased onto wiring, clippy single-element-loop fixed. Hosted check SUCCESS. Reviewer vendor: grok. Author vendor: claude.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/10#pullrequestreview-5250501718",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/10",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/10#pullrequestreview-5250501718"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/10"
+        }
+      },
+      "submitted_at": "2026-09-18T17:08:29Z",
+      "commit_id": "a42ce8df62f6cf9db749654e8a49540b3b307e6e"
+    }
+  ]
+]

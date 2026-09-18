@@ -1,0 +1,104 @@
+[
+  [
+    {
+      "sha": "3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+      "node_id": "C_kwDOUS7UsdoAKDNhYTJiMDYwNWY4ZDgxOWU0YzgyODY1YmIyYjYyZjkyN2RkYWI4MjY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/3aa2b0605f8d819e4c82865bb2b62f927ddab826",
+      "author": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T03:43:45Z"
+      },
+      "committer": {
+        "name": "jekko",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-09T03:43:45Z"
+      },
+      "tree": {
+        "sha": "93c9ee1b8cb46e0ac37638c5780e07aa0bdca31c",
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/93c9ee1b8cb46e0ac37638c5780e07aa0bdca31c"
+      },
+      "message": "Raise Jankurai above 90 without lowering floors.\n\nClose applied caps and lift raw dimensions on the Hub tree so the pinned 1.6.11 auditor reports score > 90 with an empty cap list.\n\nCo-authored-by: Cursor <cursoragent@cursor.com>",
+      "parents": [
+        {
+          "sha": "109ec83dc7ab7b8d47f4965272acc6b71bc91fdb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/109ec83dc7ab7b8d47f4965272acc6b71bc91fdb",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/109ec83dc7ab7b8d47f4965272acc6b71bc91fdb"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "id": 30800943264,
+      "node_id": "ME_lADOUS7Usc8AAAABQY1GJc8AAAAHK-EYoA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30800943264",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "5486058724bf84bfeaa4db8ebca7ef1e32138237",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/5486058724bf84bfeaa4db8ebca7ef1e32138237",
+      "created_at": "2026-09-09T03:57:41Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 30800943350,
+      "node_id": "CE_lADOUS7Usc8AAAABQY1GJc8AAAAHK-EY9g",
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/issues/events/30800943350",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-09T03:57:41Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    }
+  ]
+]

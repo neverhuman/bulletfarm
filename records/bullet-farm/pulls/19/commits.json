@@ -1,0 +1,1054 @@
+[
+  [
+    {
+      "sha": "b458de0c703d718079c98a7efc39daa2f130d5f8",
+      "node_id": "C_kwDOUS7UsdoAKGI0NThkZTBjNzAzZDcxODA3OWM5OGE3ZWZjMzlkYWEyZjEzMGQ1Zjg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T12:27:49Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Reconcile CI execution, contributor console and public source guidance",
+        "tree": {
+          "sha": "f4cfebec63df0e664f96673fa0046748286f8783",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f4cfebec63df0e664f96673fa0046748286f8783"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b458de0c703d718079c98a7efc39daa2f130d5f8",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b458de0c703d718079c98a7efc39daa2f130d5f8",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/b458de0c703d718079c98a7efc39daa2f130d5f8",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b458de0c703d718079c98a7efc39daa2f130d5f8/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4ff498260228d19b63bd0228f47bbb7b956092b4",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4ff498260228d19b63bd0228f47bbb7b956092b4",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4ff498260228d19b63bd0228f47bbb7b956092b4"
+        }
+      ]
+    },
+    {
+      "sha": "2d02bb0388db594c648559848e0d820781490486",
+      "node_id": "C_kwDOUS7UsdoAKDJkMDJiYjAzODhkYjU5NGM2NDg1NTk4NDhlMGQ4MjA3ODE0OTA0ODY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T13:26:08Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Record current engineering evidence and unresolved source custody",
+        "tree": {
+          "sha": "c422df30a3dfb96ffff474540102bccf2b43202f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/c422df30a3dfb96ffff474540102bccf2b43202f"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/2d02bb0388db594c648559848e0d820781490486",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2d02bb0388db594c648559848e0d820781490486",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/2d02bb0388db594c648559848e0d820781490486",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2d02bb0388db594c648559848e0d820781490486/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "b458de0c703d718079c98a7efc39daa2f130d5f8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b458de0c703d718079c98a7efc39daa2f130d5f8",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b458de0c703d718079c98a7efc39daa2f130d5f8"
+        }
+      ]
+    },
+    {
+      "sha": "0a114e9b20c73cbd542955fa308ece5efb68b127",
+      "node_id": "C_kwDOUS7UsdoAKDBhMTE0ZTliMjBjNzNjYmQ1NDI5NTVmYTMwOGVjZTVlZmI2OGIxMjc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:27:46Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Keep verification publication migration after the accepted schema prefix",
+        "tree": {
+          "sha": "09560dd6755ca2ffc567d9fcb7eb8242d4fa1a55",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/09560dd6755ca2ffc567d9fcb7eb8242d4fa1a55"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0a114e9b20c73cbd542955fa308ece5efb68b127",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0a114e9b20c73cbd542955fa308ece5efb68b127",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0a114e9b20c73cbd542955fa308ece5efb68b127",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0a114e9b20c73cbd542955fa308ece5efb68b127/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "2d02bb0388db594c648559848e0d820781490486",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/2d02bb0388db594c648559848e0d820781490486",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/2d02bb0388db594c648559848e0d820781490486"
+        }
+      ]
+    },
+    {
+      "sha": "945161b41cb3948e73aaf3a42df03e4d3c01ae80",
+      "node_id": "C_kwDOUS7UsdoAKDk0NTE2MWI0MWNiMzk0OGU3M2FhZjNhNDJkZjAzZTRkM2MwMWFlODA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:57:25Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Add public support, attribution and contribution review entry points",
+        "tree": {
+          "sha": "f73bb6b0dd67cadbe3d6dd4279d79b18995e1270",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f73bb6b0dd67cadbe3d6dd4279d79b18995e1270"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/945161b41cb3948e73aaf3a42df03e4d3c01ae80",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/945161b41cb3948e73aaf3a42df03e4d3c01ae80",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/945161b41cb3948e73aaf3a42df03e4d3c01ae80",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/945161b41cb3948e73aaf3a42df03e4d3c01ae80/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "0a114e9b20c73cbd542955fa308ece5efb68b127",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0a114e9b20c73cbd542955fa308ece5efb68b127",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/0a114e9b20c73cbd542955fa308ece5efb68b127"
+        }
+      ]
+    },
+    {
+      "sha": "633213147ddca805b54529fc5f5b8e67f85498b2",
+      "node_id": "C_kwDOUS7UsdoAKDYzMzIxMzE0N2RkY2E4MDViNTQ1MjlmYzVmNWI4ZTY3Zjg1NDk4YjI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:57:25Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Add reproducible bug and feature issue forms",
+        "tree": {
+          "sha": "8830694da583bda7f80523eb0b6a3cbb2f894ea5",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/8830694da583bda7f80523eb0b6a3cbb2f894ea5"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/633213147ddca805b54529fc5f5b8e67f85498b2",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/633213147ddca805b54529fc5f5b8e67f85498b2",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/633213147ddca805b54529fc5f5b8e67f85498b2",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/633213147ddca805b54529fc5f5b8e67f85498b2/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "945161b41cb3948e73aaf3a42df03e4d3c01ae80",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/945161b41cb3948e73aaf3a42df03e4d3c01ae80",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/945161b41cb3948e73aaf3a42df03e4d3c01ae80"
+        }
+      ]
+    },
+    {
+      "sha": "60e0d6bde9c2be41a8e947ce6dce5e56038c9618",
+      "node_id": "C_kwDOUS7UsdoAKDYwZTBkNmJkZTljMmJlNDFhOGU5NDdjZTZkY2U1ZTU2MDM4Yzk2MTg",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T14:57:26Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Map community templates and include the complete Apache license",
+        "tree": {
+          "sha": "4bb62d2ad7125d62c6f46aa47cab9701aed880db",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/4bb62d2ad7125d62c6f46aa47cab9701aed880db"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/60e0d6bde9c2be41a8e947ce6dce5e56038c9618",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/60e0d6bde9c2be41a8e947ce6dce5e56038c9618",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/60e0d6bde9c2be41a8e947ce6dce5e56038c9618",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/60e0d6bde9c2be41a8e947ce6dce5e56038c9618/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "633213147ddca805b54529fc5f5b8e67f85498b2",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/633213147ddca805b54529fc5f5b8e67f85498b2",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/633213147ddca805b54529fc5f5b8e67f85498b2"
+        }
+      ]
+    },
+    {
+      "sha": "61fc017f08f22465dd35d4dd2176cd3f2efb21e7",
+      "node_id": "C_kwDOUS7UsdoAKDYxZmMwMTdmMDhmMjI0NjVkZDM1ZDRkZDIxNzZjZDNmMmVmYjIxZTc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T15:00:03Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:53Z"
+        },
+        "message": "Record accepted Portal proof and bounded first-cycle repairs",
+        "tree": {
+          "sha": "d7e6f5616750e0ac1b1faf86d6deadef716d7e97",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/d7e6f5616750e0ac1b1faf86d6deadef716d7e97"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/61fc017f08f22465dd35d4dd2176cd3f2efb21e7",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/61fc017f08f22465dd35d4dd2176cd3f2efb21e7",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/61fc017f08f22465dd35d4dd2176cd3f2efb21e7",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/61fc017f08f22465dd35d4dd2176cd3f2efb21e7/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "60e0d6bde9c2be41a8e947ce6dce5e56038c9618",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/60e0d6bde9c2be41a8e947ce6dce5e56038c9618",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/60e0d6bde9c2be41a8e947ce6dce5e56038c9618"
+        }
+      ]
+    },
+    {
+      "sha": "e465f15d2f4fd02e61d644ed761d188c9889eca6",
+      "node_id": "C_kwDOUS7UsdoAKGU0NjVmMTVkMmY0ZmQwMmU2MWQ2NDRlZDc2MWQxODhjOTg4OWVjYTY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T17:00:01Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:54Z"
+        },
+        "message": "docs(assurance): bind tested repairs and preserve current CI failures",
+        "tree": {
+          "sha": "d6cc94563e88bf5d5b66764517751e9348049fd7",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/d6cc94563e88bf5d5b66764517751e9348049fd7"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/e465f15d2f4fd02e61d644ed761d188c9889eca6",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/e465f15d2f4fd02e61d644ed761d188c9889eca6",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/e465f15d2f4fd02e61d644ed761d188c9889eca6",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/e465f15d2f4fd02e61d644ed761d188c9889eca6/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "61fc017f08f22465dd35d4dd2176cd3f2efb21e7",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/61fc017f08f22465dd35d4dd2176cd3f2efb21e7",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/61fc017f08f22465dd35d4dd2176cd3f2efb21e7"
+        }
+      ]
+    },
+    {
+      "sha": "16ed3fad5caa19c8ab00b1f01caf224bfb47dce7",
+      "node_id": "C_kwDOUS7UsdoAKDE2ZWQzZmFkNWNhYTE5YzhhYjAwYjFmMDFjYWYyMjRiZmI0N2RjZTc",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T18:34:26Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:54Z"
+        },
+        "message": "docs(assurance): bind accepted local checks and retained browser failure",
+        "tree": {
+          "sha": "8a70e703c1da7a30bfe3affbba3e1b0648e1421d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/8a70e703c1da7a30bfe3affbba3e1b0648e1421d"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/16ed3fad5caa19c8ab00b1f01caf224bfb47dce7",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/16ed3fad5caa19c8ab00b1f01caf224bfb47dce7",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/16ed3fad5caa19c8ab00b1f01caf224bfb47dce7",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/16ed3fad5caa19c8ab00b1f01caf224bfb47dce7/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "e465f15d2f4fd02e61d644ed761d188c9889eca6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/e465f15d2f4fd02e61d644ed761d188c9889eca6",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/e465f15d2f4fd02e61d644ed761d188c9889eca6"
+        }
+      ]
+    },
+    {
+      "sha": "eac02fec569d2108575197915bf565047464a8ca",
+      "node_id": "C_kwDOUS7UsdoAKGVhYzAyZmVjNTY5ZDIxMDg1NzUxOTc5MTViZjU2NTA0NzQ2NGE4Y2E",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T20:32:08Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:54Z"
+        },
+        "message": "docs: refresh daily-use plan and current qualification evidence",
+        "tree": {
+          "sha": "283d53a6c430fc558f4af9f9e98106f464b66007",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/283d53a6c430fc558f4af9f9e98106f464b66007"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/eac02fec569d2108575197915bf565047464a8ca",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/eac02fec569d2108575197915bf565047464a8ca",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/eac02fec569d2108575197915bf565047464a8ca",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/eac02fec569d2108575197915bf565047464a8ca/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "16ed3fad5caa19c8ab00b1f01caf224bfb47dce7",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/16ed3fad5caa19c8ab00b1f01caf224bfb47dce7",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/16ed3fad5caa19c8ab00b1f01caf224bfb47dce7"
+        }
+      ]
+    },
+    {
+      "sha": "b68c393adabc9ee4dc134ce0fcd92f4e866b2376",
+      "node_id": "C_kwDOUS7UsdoAKGI2OGMzOTNhZGFiYzllZTRkYzEzNGNlMGZjZDkyZjRlODY2YjIzNzY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T21:14:55Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:33:54Z"
+        },
+        "message": "docs: record unavailable late proof and durable recovery requirement",
+        "tree": {
+          "sha": "78b00ea4e76d01e1312955c893ab3d521d91fb88",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/78b00ea4e76d01e1312955c893ab3d521d91fb88"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/b68c393adabc9ee4dc134ce0fcd92f4e866b2376",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b68c393adabc9ee4dc134ce0fcd92f4e866b2376",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/b68c393adabc9ee4dc134ce0fcd92f4e866b2376",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b68c393adabc9ee4dc134ce0fcd92f4e866b2376/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "eac02fec569d2108575197915bf565047464a8ca",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/eac02fec569d2108575197915bf565047464a8ca",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/eac02fec569d2108575197915bf565047464a8ca"
+        }
+      ]
+    },
+    {
+      "sha": "725dd0285fda4531f556457c67481a5d6c2081d3",
+      "node_id": "C_kwDOUS7UsdoAKDcyNWRkMDI4NWZkYTQ1MzFmNTU2NDU3YzY3NDgxYTVkNmMyMDgxZDM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T21:30:38Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "docs: correct console startup and diagnostic media claims",
+        "tree": {
+          "sha": "703c89d24af0b486afd9f77fcf33bfbc36959bfb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/703c89d24af0b486afd9f77fcf33bfbc36959bfb"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/725dd0285fda4531f556457c67481a5d6c2081d3",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/725dd0285fda4531f556457c67481a5d6c2081d3",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/725dd0285fda4531f556457c67481a5d6c2081d3",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/725dd0285fda4531f556457c67481a5d6c2081d3/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "b68c393adabc9ee4dc134ce0fcd92f4e866b2376",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/b68c393adabc9ee4dc134ce0fcd92f4e866b2376",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/b68c393adabc9ee4dc134ce0fcd92f4e866b2376"
+        }
+      ]
+    },
+    {
+      "sha": "101c0d1e6618614e9a77bd7987d54e8d82520371",
+      "node_id": "C_kwDOUS7UsdoAKDEwMWMwZDFlNjYxODYxNGU5YTc3YmQ3OTg3ZDU0ZThkODI1MjAzNzE",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T21:32:14Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "docs: align contributor and public template lifecycle",
+        "tree": {
+          "sha": "f0d5f7b908f855919ae7f3af7623017ef084eceb",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/f0d5f7b908f855919ae7f3af7623017ef084eceb"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/101c0d1e6618614e9a77bd7987d54e8d82520371",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/101c0d1e6618614e9a77bd7987d54e8d82520371",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/101c0d1e6618614e9a77bd7987d54e8d82520371",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/101c0d1e6618614e9a77bd7987d54e8d82520371/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "725dd0285fda4531f556457c67481a5d6c2081d3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/725dd0285fda4531f556457c67481a5d6c2081d3",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/725dd0285fda4531f556457c67481a5d6c2081d3"
+        }
+      ]
+    },
+    {
+      "sha": "e81d74291b2fc4579c52ecfb234ebb6fba124e0b",
+      "node_id": "C_kwDOUS7UsdoAKGU4MWQ3NDI5MWIyZmM0NTc5YzUyZWNmYjIzNGViYjZmYmExMjRlMGI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T22:03:00Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "fix: require real GIF exports below the exact byte limit",
+        "tree": {
+          "sha": "60bb4aaef94e27b8a02b871a2d4174d80770d546",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/60bb4aaef94e27b8a02b871a2d4174d80770d546"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/e81d74291b2fc4579c52ecfb234ebb6fba124e0b",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/e81d74291b2fc4579c52ecfb234ebb6fba124e0b",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/e81d74291b2fc4579c52ecfb234ebb6fba124e0b",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/e81d74291b2fc4579c52ecfb234ebb6fba124e0b/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "101c0d1e6618614e9a77bd7987d54e8d82520371",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/101c0d1e6618614e9a77bd7987d54e8d82520371",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/101c0d1e6618614e9a77bd7987d54e8d82520371"
+        }
+      ]
+    },
+    {
+      "sha": "0c45741857447c8f232ed7cb2968338b0b21862c",
+      "node_id": "C_kwDOUS7UsdoAKDBjNDU3NDE4NTc0NDdjOGYyMzJlZDdjYjI5NjgzMzhiMGIyMTg2MmM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:25:44Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "fix(ci): preserve primary failures and bound scratch fixture",
+        "tree": {
+          "sha": "ae140777a7e89e74489de6b32c9b2c41b4319e55",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/ae140777a7e89e74489de6b32c9b2c41b4319e55"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/0c45741857447c8f232ed7cb2968338b0b21862c",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0c45741857447c8f232ed7cb2968338b0b21862c",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/0c45741857447c8f232ed7cb2968338b0b21862c",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0c45741857447c8f232ed7cb2968338b0b21862c/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "e81d74291b2fc4579c52ecfb234ebb6fba124e0b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/e81d74291b2fc4579c52ecfb234ebb6fba124e0b",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/e81d74291b2fc4579c52ecfb234ebb6fba124e0b"
+        }
+      ]
+    },
+    {
+      "sha": "58239e192d0d8264d3c587a9d26447118512bab0",
+      "node_id": "C_kwDOUS7UsdoAKDU4MjM5ZTE5MmQwZDgyNjRkM2M1ODdhOWQyNjQ0NzExODUxMmJhYjA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:32:12Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "docs: detail first dogfood admission and complete product closure",
+        "tree": {
+          "sha": "a4a800a714d82112d1b8b770d6036fb6be3d5b59",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/a4a800a714d82112d1b8b770d6036fb6be3d5b59"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/58239e192d0d8264d3c587a9d26447118512bab0",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/58239e192d0d8264d3c587a9d26447118512bab0",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/58239e192d0d8264d3c587a9d26447118512bab0",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/58239e192d0d8264d3c587a9d26447118512bab0/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "0c45741857447c8f232ed7cb2968338b0b21862c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/0c45741857447c8f232ed7cb2968338b0b21862c",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/0c45741857447c8f232ed7cb2968338b0b21862c"
+        }
+      ]
+    },
+    {
+      "sha": "3ad7757a2d88db72e508655a5582536e1230a02d",
+      "node_id": "C_kwDOUS7UsdoAKDNhZDc3NTdhMmQ4OGRiNzJlNTA4NjU1YTU1ODI1MzZlMTIzMGEwMmQ",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:36:44Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "docs: retain current CI failures and scoped acceptances",
+        "tree": {
+          "sha": "b95ba4eea80167a12d24a66781282c0e112f5f7e",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/b95ba4eea80167a12d24a66781282c0e112f5f7e"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/3ad7757a2d88db72e508655a5582536e1230a02d",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/3ad7757a2d88db72e508655a5582536e1230a02d",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/3ad7757a2d88db72e508655a5582536e1230a02d",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/3ad7757a2d88db72e508655a5582536e1230a02d/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "58239e192d0d8264d3c587a9d26447118512bab0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/58239e192d0d8264d3c587a9d26447118512bab0",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/58239e192d0d8264d3c587a9d26447118512bab0"
+        }
+      ]
+    },
+    {
+      "sha": "8927a0fffe3a694b46d1c5ed578a1dfa829a7a56",
+      "node_id": "C_kwDOUS7UsdoAKDg5MjdhMGZmZmUzYTY5NGI0NmQxYzVlZDU3OGExZGZhODI5YTdhNTY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-11T23:49:12Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:03Z"
+        },
+        "message": "docs: document current Bullet console setup and daily controls",
+        "tree": {
+          "sha": "fe600a6a8d1b2676d98a263ee6004653bfe44e6c",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/fe600a6a8d1b2676d98a263ee6004653bfe44e6c"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/8927a0fffe3a694b46d1c5ed578a1dfa829a7a56",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/8927a0fffe3a694b46d1c5ed578a1dfa829a7a56",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/8927a0fffe3a694b46d1c5ed578a1dfa829a7a56",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/8927a0fffe3a694b46d1c5ed578a1dfa829a7a56/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "3ad7757a2d88db72e508655a5582536e1230a02d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/3ad7757a2d88db72e508655a5582536e1230a02d",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/3ad7757a2d88db72e508655a5582536e1230a02d"
+        }
+      ]
+    },
+    {
+      "sha": "30c00d476812d5a7d429b3bb53e8764371aaf573",
+      "node_id": "C_kwDOUS7UsdoAKDMwYzAwZDQ3NjgxMmQ1YTdkNDI5YjNiYjUzZTg3NjQzNzFhYWY1NzM",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T00:02:45Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:10Z"
+        },
+        "message": "Reject development-host lanes in hosted workflow policy",
+        "tree": {
+          "sha": "ea54c622fe1231870a22a45aba25bb8348d163a3",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/ea54c622fe1231870a22a45aba25bb8348d163a3"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/30c00d476812d5a7d429b3bb53e8764371aaf573",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/30c00d476812d5a7d429b3bb53e8764371aaf573",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/30c00d476812d5a7d429b3bb53e8764371aaf573",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/30c00d476812d5a7d429b3bb53e8764371aaf573/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "8927a0fffe3a694b46d1c5ed578a1dfa829a7a56",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/8927a0fffe3a694b46d1c5ed578a1dfa829a7a56",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/8927a0fffe3a694b46d1c5ed578a1dfa829a7a56"
+        }
+      ]
+    },
+    {
+      "sha": "c2ca46ca578fc81fa22e67a7876262caf0fcccaf",
+      "node_id": "C_kwDOUS7UsdoAKGMyY2E0NmNhNTc4ZmM4MWZhMjJlNjdhNzg3NjI2MmNhZjBmY2NjYWY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T00:39:22Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:10Z"
+        },
+        "message": "docs: specify durable TUI tasking and restore installation status",
+        "tree": {
+          "sha": "fd5dbe744645e36a4693c81c85358c41ed24ab3b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/fd5dbe744645e36a4693c81c85358c41ed24ab3b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/c2ca46ca578fc81fa22e67a7876262caf0fcccaf",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c2ca46ca578fc81fa22e67a7876262caf0fcccaf",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/c2ca46ca578fc81fa22e67a7876262caf0fcccaf",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c2ca46ca578fc81fa22e67a7876262caf0fcccaf/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "30c00d476812d5a7d429b3bb53e8764371aaf573",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/30c00d476812d5a7d429b3bb53e8764371aaf573",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/30c00d476812d5a7d429b3bb53e8764371aaf573"
+        }
+      ]
+    },
+    {
+      "sha": "4a5e4f12ac810fa60168946c8bba52de6cf0c550",
+      "node_id": "C_kwDOUS7UsdoAKDRhNWU0ZjEyYWM4MTBmYTYwMTY4OTQ2YzhiYmE1MmRlNmNmMGM1NTA",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:03:23Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:10Z"
+        },
+        "message": "docs: explain the installer family-lock refusal",
+        "tree": {
+          "sha": "c975bc76a6c28816f3e7893281356ad70e68d9b8",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/c975bc76a6c28816f3e7893281356ad70e68d9b8"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/4a5e4f12ac810fa60168946c8bba52de6cf0c550",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4a5e4f12ac810fa60168946c8bba52de6cf0c550",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/4a5e4f12ac810fa60168946c8bba52de6cf0c550",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4a5e4f12ac810fa60168946c8bba52de6cf0c550/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "c2ca46ca578fc81fa22e67a7876262caf0fcccaf",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/c2ca46ca578fc81fa22e67a7876262caf0fcccaf",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/c2ca46ca578fc81fa22e67a7876262caf0fcccaf"
+        }
+      ]
+    },
+    {
+      "sha": "9998f7b70f8563a3c970827a2f7cd117b0239d16",
+      "node_id": "C_kwDOUS7UsdoAKDk5OThmN2I3MGY4NTYzYTNjOTcwODI3YTJmN2NkMTE3YjAyMzlkMTY",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:25:03Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:33Z"
+        },
+        "message": "test(hub): verify configurable Portal launcher and signing order",
+        "tree": {
+          "sha": "68307b84761d8066759b359b1644ee3b8660050d",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/68307b84761d8066759b359b1644ee3b8660050d"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/9998f7b70f8563a3c970827a2f7cd117b0239d16",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/9998f7b70f8563a3c970827a2f7cd117b0239d16",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/9998f7b70f8563a3c970827a2f7cd117b0239d16",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/9998f7b70f8563a3c970827a2f7cd117b0239d16/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "4a5e4f12ac810fa60168946c8bba52de6cf0c550",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/4a5e4f12ac810fa60168946c8bba52de6cf0c550",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/4a5e4f12ac810fa60168946c8bba52de6cf0c550"
+        }
+      ]
+    },
+    {
+      "sha": "7dcea3076840a7cbe64aa33067d95fe0db31fd82",
+      "node_id": "C_kwDOUS7UsdoAKDdkY2VhMzA3Njg0MGE3Y2JlNjRhYTMzMDY3ZDk1ZmUwZGIzMWZkODI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:37:58Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:33Z"
+        },
+        "message": "test(hub): synchronize recorder readiness and refresh partial anchors",
+        "tree": {
+          "sha": "207c36baafac80a4683e2a2ccb68411fe37e1e0b",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/207c36baafac80a4683e2a2ccb68411fe37e1e0b"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/7dcea3076840a7cbe64aa33067d95fe0db31fd82",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/7dcea3076840a7cbe64aa33067d95fe0db31fd82",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/7dcea3076840a7cbe64aa33067d95fe0db31fd82",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/7dcea3076840a7cbe64aa33067d95fe0db31fd82/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "9998f7b70f8563a3c970827a2f7cd117b0239d16",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/9998f7b70f8563a3c970827a2f7cd117b0239d16",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/9998f7b70f8563a3c970827a2f7cd117b0239d16"
+        }
+      ]
+    },
+    {
+      "sha": "34832c9f973d429c74c1074261b86e23d45c9ad9",
+      "node_id": "C_kwDOUS7UsdoAKDM0ODMyYzlmOTczZDQyOWM3NGMxMDc0MjYxYjg2ZTIzZDQ1YzlhZDk",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-12T01:41:55Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:34:33Z"
+        },
+        "message": "ci: bound fast concurrency and serialize native media tests",
+        "tree": {
+          "sha": "6c9b23da9137bdc21d0bfd70d6e0b849971e01b0",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/6c9b23da9137bdc21d0bfd70d6e0b849971e01b0"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/34832c9f973d429c74c1074261b86e23d45c9ad9",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/34832c9f973d429c74c1074261b86e23d45c9ad9",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/34832c9f973d429c74c1074261b86e23d45c9ad9",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/34832c9f973d429c74c1074261b86e23d45c9ad9/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "7dcea3076840a7cbe64aa33067d95fe0db31fd82",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/7dcea3076840a7cbe64aa33067d95fe0db31fd82",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/7dcea3076840a7cbe64aa33067d95fe0db31fd82"
+        }
+      ]
+    },
+    {
+      "sha": "12374d5e6c176b872f12ef78fde1381c187c320b",
+      "node_id": "C_kwDOUS7UsdoAKDEyMzc0ZDVlNmMxNzZiODcyZjEyZWY3OGZkZTEzODFjMTg3YzMyMGI",
+      "commit": {
+        "author": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:44:40Z"
+        },
+        "committer": {
+          "name": "jekko",
+          "email": "bot@jekko.ai",
+          "date": "2026-09-18T14:44:40Z"
+        },
+        "message": "docs: index the latest assurance audit",
+        "tree": {
+          "sha": "d68d10d08ed89fec9dadcd48577f933529b8f5c6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/trees/d68d10d08ed89fec9dadcd48577f933529b8f5c6"
+        },
+        "url": "https://api.github.com/repos/neverhuman/bullet-farm/git/commits/12374d5e6c176b872f12ef78fde1381c187c320b",
+        "comment_count": 0,
+        "verification": {
+          "verified": false,
+          "reason": "unsigned",
+          "signature": null,
+          "payload": null,
+          "verified_at": null
+        }
+      },
+      "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/12374d5e6c176b872f12ef78fde1381c187c320b",
+      "html_url": "https://github.com/neverhuman/bullet-farm/commit/12374d5e6c176b872f12ef78fde1381c187c320b",
+      "comments_url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/12374d5e6c176b872f12ef78fde1381c187c320b/comments",
+      "author": null,
+      "committer": null,
+      "parents": [
+        {
+          "sha": "34832c9f973d429c74c1074261b86e23d45c9ad9",
+          "url": "https://api.github.com/repos/neverhuman/bullet-farm/commits/34832c9f973d429c74c1074261b86e23d45c9ad9",
+          "html_url": "https://github.com/neverhuman/bullet-farm/commit/34832c9f973d429c74c1074261b86e23d45c9ad9"
+        }
+      ]
+    }
+  ]
+]

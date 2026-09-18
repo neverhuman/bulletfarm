@@ -1,0 +1,44 @@
+[
+  [
+    {
+      "id": 5250176228,
+      "node_id": "PRR_kwDOUd_zl88AAAABOO9U5A",
+      "user": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?u=d8ba693efa8c35dbc24d720d76e93e1d34535708&v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "body": "REVIEW: approve d9a08d80763a9972275e29a1f87483a169ae7ae1 \u2014 read-only review of CLI skeleton: every verb in clap, lock-free doctor (no hub.lock), unimplemented verbs return Other('not implemented yet (plan PR \u2026)') mapped to exit 3, ttl/provider/release validation exit 64, bare bf prints AGENTS (0) then exit 3, identity classify+ancestor tests, stubs only. Hosted check SUCCESS. Reviewer vendor: grok. Author vendor: claude.",
+      "state": "COMMENTED",
+      "html_url": "https://github.com/neverhuman/bf/pull/4#pullrequestreview-5250176228",
+      "pull_request_url": "https://api.github.com/repos/neverhuman/bf/pulls/4",
+      "author_association": "OWNER",
+      "_links": {
+        "html": {
+          "href": "https://github.com/neverhuman/bf/pull/4#pullrequestreview-5250176228"
+        },
+        "pull_request": {
+          "href": "https://api.github.com/repos/neverhuman/bf/pulls/4"
+        }
+      },
+      "submitted_at": "2026-09-18T16:33:38Z",
+      "commit_id": "d9a08d80763a9972275e29a1f87483a169ae7ae1"
+    }
+  ]
+]

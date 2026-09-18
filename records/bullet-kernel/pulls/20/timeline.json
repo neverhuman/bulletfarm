@@ -1,0 +1,176 @@
+[
+  [
+    {
+      "sha": "1feaacaab844b6d26ae7d49ccd121b5a95904a6f",
+      "node_id": "C_kwDOUS7UytoAKDFmZWFhY2FhYjg0NGI2ZDI2YWU3ZDQ5Y2NkMTIxYjVhOTU5MDRhNmY",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/1feaacaab844b6d26ae7d49ccd121b5a95904a6f",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/1feaacaab844b6d26ae7d49ccd121b5a95904a6f",
+      "author": {
+        "name": "neverhuman",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:38:21Z"
+      },
+      "committer": {
+        "name": "neverhuman",
+        "email": "bot@jekko.ai",
+        "date": "2026-09-11T23:38:21Z"
+      },
+      "tree": {
+        "sha": "305ee70020e097f92ae90bf5ba99300008550d32",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/305ee70020e097f92ae90bf5ba99300008550d32"
+      },
+      "message": "Document how to actually run and use Bullet.\n\nThe README opened on a source build and a simulator demo, which answers\n\"how do I prove this checkout\" and not \"how do I use this\". Someone who\nruns `bullet tui` first had no way to learn what the panes are, which keys\ndo anything, or why the screen is empty.\n\nAdds an operator tutorial: prerequisites, starting the console,\nauthenticating without putting a token in argv, the full TUI keymap, what\neach view reads, the web Portal, and how to seed a ledger so the views are\nnot empty.\n\nIt also states plainly what does not work yet - submissions are accepted\nand then settle UNKNOWN, and neither surface can approve, retry or cancel\n- and carries a troubleshooting table for the refusals a first run\nactually produces.\n\nCo-Authored-By: Claude Opus 5 (1M context) <noreply@anthropic.com>",
+      "parents": [
+        {
+          "sha": "088e53ad81cdb9bf67fba92e4251fbc2b1e9dab6",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/088e53ad81cdb9bf67fba92e4251fbc2b1e9dab6",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/088e53ad81cdb9bf67fba92e4251fbc2b1e9dab6"
+        }
+      ],
+      "verification": {
+        "verified": false,
+        "reason": "unsigned",
+        "signature": null,
+        "payload": null,
+        "verified_at": null
+      },
+      "event": "committed"
+    },
+    {
+      "sha": "68b1f1f14dd5714442f3e21fe8306086e882ffad",
+      "node_id": "C_kwDOUS7UytoAKDY4YjFmMWYxNGRkNTcxNDQ0MmYzZTIxZmU4MzA2MDg2ZTg4MmZmYWQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/68b1f1f14dd5714442f3e21fe8306086e882ffad",
+      "html_url": "https://github.com/neverhuman/bullet-kernel/commit/68b1f1f14dd5714442f3e21fe8306086e882ffad",
+      "author": {
+        "name": "NeverHuman",
+        "email": "jepson@veox.ai",
+        "date": "2026-09-11T23:45:38Z"
+      },
+      "committer": {
+        "name": "GitHub",
+        "email": "noreply@github.com",
+        "date": "2026-09-11T23:45:38Z"
+      },
+      "tree": {
+        "sha": "58543e1a86f81517b7b192aa3dc63f1e8031266b",
+        "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/trees/58543e1a86f81517b7b192aa3dc63f1e8031266b"
+      },
+      "message": "Merge branch 'main' into claude/readme-operator-tutorial",
+      "parents": [
+        {
+          "sha": "1feaacaab844b6d26ae7d49ccd121b5a95904a6f",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/1feaacaab844b6d26ae7d49ccd121b5a95904a6f",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/1feaacaab844b6d26ae7d49ccd121b5a95904a6f"
+        },
+        {
+          "sha": "2ff048fd558807c55aea83b6ad0ef2c6ed04b123",
+          "url": "https://api.github.com/repos/neverhuman/bullet-kernel/git/commits/2ff048fd558807c55aea83b6ad0ef2c6ed04b123",
+          "html_url": "https://github.com/neverhuman/bullet-kernel/commit/2ff048fd558807c55aea83b6ad0ef2c6ed04b123"
+        }
+      ],
+      "verification": {
+        "verified": true,
+        "reason": "valid",
+        "signature": "-----BEGIN PGP SIGNATURE-----\n\nwsFcBAABCAAQBQJqpJKiCRC1aQ7uu5UhlAAAZmoQAHhKU0Lt5zvEcf9Das7RMkCN\npjB2fLlkdO1szx4TdNZDpyg1oeBVAsfp0UEJvXcBFBwzyEOH/smSYw9MEyJpZOxD\nA1KrDcjo+fXDk3CcZG4eDH1WMSlGblWPdrmMZI/MxFf+cQq63KnaSkX7LiRvgg+L\nIOhCPs11rLirF0XfBRURX7S48D0MDlJ4e1mncjf41L8rhK/w53xpQLhbyKHDOMQF\nXBUrtQhV6K5sGLGEhTyHspmIbWcbeXymBvdxIEkfTUlU9zY+xZFLAJKA2ROr8XLK\njIxC4YQjozJJ6fY+dWv8R9PLKY4Y70ty5KaTJepIFgrOTxyigUSVmmjXtPShB2wA\nk8Mkin1PRVwaMY/OtzTuHTSwydFyGXQV8Fq+cuO7FVqxFPvUrQBaY6DsXTCu0OOf\nvkNSIifZ1qgru20aizjqTFE3ywncDAKT1JEFIPr0Z0gxZVw7hjCtit+b7cMFcCty\nR2byA52BfKo63xsbTv/ex0gC4m09RKlUt/5CtR+KOUUBMiS2QvswiD/A6yXggLeK\n6EbRTnLgcoLKLdTNKITbm4wGJFEyNYCndMgmRoWxeeKOtxkTKttLUqfKQdCsAa7l\n4pZ34cnZKnJkMW0Pe/2Bnc3ZmYrWUyotP2MtHMK6imzaWE1ZAqQ+qUNXJHe5C96t\n5Gr5M5TnV1UUCP8WGHUZ\n=kWUM\n-----END PGP SIGNATURE-----\n",
+        "payload": "tree 58543e1a86f81517b7b192aa3dc63f1e8031266b\nparent 1feaacaab844b6d26ae7d49ccd121b5a95904a6f\nparent 2ff048fd558807c55aea83b6ad0ef2c6ed04b123\nauthor NeverHuman <jepson@veox.ai> 1789170338 -0600\ncommitter GitHub <noreply@github.com> 1789170338 -0600\n\nMerge branch 'main' into claude/readme-operator-tutorial",
+        "verified_at": "2026-09-11T23:45:38Z"
+      },
+      "event": "committed"
+    },
+    {
+      "id": 31005032740,
+      "node_id": "ME_lADOUS7Uys8AAAABQ6UsqM8AAAAHOAtBJA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/31005032740",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "merged",
+      "commit_id": "12b0511bffa813058c835d9c22fc78fc7103eaf8",
+      "commit_url": "https://api.github.com/repos/neverhuman/bullet-kernel/commits/12b0511bffa813058c835d9c22fc78fc7103eaf8",
+      "created_at": "2026-09-11T23:52:11Z",
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31005032808,
+      "node_id": "CE_lADOUS7Uys8AAAABQ6UsqM8AAAAHOAtBaA",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/31005032808",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "closed",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T23:52:11Z",
+      "state_reason": null,
+      "intent": null,
+      "performed_via_github_app": null
+    },
+    {
+      "id": 31005033665,
+      "node_id": "HRDE_lADOUS7Uys8AAAABQ6UsqM8AAAAHOAtEwQ",
+      "url": "https://api.github.com/repos/neverhuman/bullet-kernel/issues/events/31005033665",
+      "actor": {
+        "login": "neverhuman",
+        "id": 219957145,
+        "node_id": "U_kgDODRxHmQ",
+        "avatar_url": "https://avatars.githubusercontent.com/u/219957145?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/neverhuman",
+        "html_url": "https://github.com/neverhuman",
+        "followers_url": "https://api.github.com/users/neverhuman/followers",
+        "following_url": "https://api.github.com/users/neverhuman/following{/other_user}",
+        "gists_url": "https://api.github.com/users/neverhuman/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/neverhuman/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/neverhuman/subscriptions",
+        "organizations_url": "https://api.github.com/users/neverhuman/orgs",
+        "repos_url": "https://api.github.com/users/neverhuman/repos",
+        "events_url": "https://api.github.com/users/neverhuman/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/neverhuman/received_events",
+        "type": "User",
+        "user_view_type": "public",
+        "site_admin": false
+      },
+      "event": "head_ref_deleted",
+      "commit_id": null,
+      "commit_url": null,
+      "created_at": "2026-09-11T23:52:13Z",
+      "performed_via_github_app": null
+    }
+  ]
+]
