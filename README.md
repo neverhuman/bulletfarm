@@ -14,11 +14,12 @@ The [implementation plan](docs/implementation-plan.md) governs development again
 [canonical 3.0 specification](docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md).
 The [complete gap-closure plan](docs/closure-plan.md) reconciles the full supplied
 `tips/*.md` set, maps every BF3 package/acceptance/scenario, and defines the serialized path
-to zero open issues and pull requests. The truthful current snapshot is
+to zero open issues and pull requests. Its [acceptance-status ledger](docs/acceptance-status.md)
+records current-main evidence for all 90 criteria. The truthful current snapshot is
 [`BUILD_CHECKPOINT.json`](BUILD_CHECKPOINT.json); no BF3 package is complete yet.
 The browser is the primary interface being built; the existing TUI remains an optional client.
 
-During migration PR A the executable is still `bf`. PR B makes `bulletfarm` the documented
+Repository-establishment PR #1 is merged. The next runtime PR makes `bulletfarm` the documented
 command and retains `bf` as an alias using the same `~/.bf` data and `BF_DATA_DIR` override.
 
 ```bash

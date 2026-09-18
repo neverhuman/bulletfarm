@@ -33,30 +33,30 @@ their original numbers, titles, bodies, head SHAs, reviews, comments and check r
 GitHub URLs in those records are provenance and will stop resolving after deletion.
 These exports are historical evidence, not new native GitHub approvals.
 
-The pending documentation proposal is preserved at `archive/bf/pull/12/head`, exact
+The former documentation proposal is preserved at `archive/bf/pull/12/head`, exact
 head `b9bd7227ab9ce3dde8959dd0082a3848ed778673`. Its two review exchanges are preserved
 under `records/bf/pulls/12/`, with discussion in `records/bf/issue-comments.json`.
-PR A carries its implementation plan, current user instructions and canonical specification
-forward with repository references updated. The specification remains byte-for-byte:
+The original PR was closed as superseded after capture was verified. Bulletfarm PR #1 carried its
+implementation plan, current user instructions and canonical specification forward with repository
+references updated. The specification remains byte-for-byte:
 SHA-256 `1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb`.
-Close the original PR as superseded only after its capture is verified.
 
 Private mirrors and local working-state backups are retained outside this checkout.
 Local configuration, credentials, databases and launchers are never published. Readable
 JSON manifests identify exported records; compressed logs and artifacts retain their bytes
 and SHA-256 checksums. Split archive files exceeding 50 MiB into ordered indexed parts.
 Record expired or unavailable material explicitly. Failure to capture anything currently
-available blocks retirement. The initial inventory contains 1,766 unexpired CI artifacts.
+available blocks retirement. The verified inventory contains 1,766 CI artifact archives among
+2,997 evidence files, 68 PR records and 368 workflow-run records.
 
 ## Serialized changes
 
-**PR A — establish this repository.** Start from the existing `bulletfarm/main`, preserve
-all six source histories and browsable snapshots, then import the frozen application main
-tree. Keep runtime source unchanged; record every repository-identity/documentation
-exception in `source-import.json`. Replace the obsolete split manifest and private-plan
-instructions. Preserve working CI, toolchain pins, dependency caching, bounded concurrency
-and embedded-asset checks. Require GitHub Actions `check`, an up-to-date branch, linear
-history and administrator enforcement. Merge A before beginning B.
+**PR A — establishment completed.** Bulletfarm PR #1 preserved all six source histories and
+browsable snapshots, imported the frozen application tree without runtime drift, replaced the
+obsolete split instructions and retained CI/toolchain behavior. Local, fresh-checkout and hosted
+checks plus exact-head different-vendor review passed. It was rebase-merged as
+`1ea7aa60f536e3f3fe8ca186acd64b8433acc294`; the source import exceptions are recorded in
+`source-import.json`. The closure-plan documentation PR is the only intervening change before B.
 
 **PR B — command and installation cutover.** Rename the package and primary binary to
 `bulletfarm`, keep Rust library name `bf`, and install `bf` as an alias to the same executable.
@@ -75,7 +75,7 @@ GitHub approvals. Material edits require affected checks and review again.
 
 ## Cutover and retirement gates
 
-After both PRs merge, install the verified build, update parent workspace instructions and
+After the establishment and command PRs merge, install the verified build, update parent workspace instructions and
 active agent entry points, release old-path claims normally and acquire new-path claims.
 Preserve the generated coordination digest, its symlink and history; never rewrite historical
 claims or terminate other agents. Disable pushes from retired local checkouts and label them

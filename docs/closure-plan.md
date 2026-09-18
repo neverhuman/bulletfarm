@@ -5,7 +5,8 @@ Status date: 2026-09-18. This is the execution companion to the canonical
 repository consolidation, command identity, every canonical BF3 package, every acceptance
 criterion and every runtime scenario. The more narrative [implementation plan](implementation-plan.md)
 remains useful for product journey and engineering rationale; this document is the exhaustive
-queue, exit criteria and truthful current-state register.
+queue and exit criteria. The [acceptance-status ledger](acceptance-status.md) records the
+done/partial/missing state and current-main code evidence for each of the 90 criteria.
 
 The current human instruction is to close all gaps between `neverhuman/bulletfarm` and the
 supplied `tips/*.md`, close every remaining feature/issue, merge the current PR, and leave no
@@ -16,10 +17,12 @@ require the existing human-controlled authority, enrollment, grants and HOLD rel
 
 ## 1. Queue rule and definition of done
 
-There is one product repository and one implementation queue. At this snapshot GitHub has
-zero open issues across all six old/current repositories and exactly one open PR:
-`neverhuman/bulletfarm#1` at `3b42a64372ab59b57a8d015c32426ee7de412462`.
-The other five repositories have zero open PRs.
+There is one product repository and one implementation queue. PR #1 was independently reviewed,
+rebase-merged and deleted; its result is
+`neverhuman/bulletfarm@1ea7aa60f536e3f3fe8ca186acd64b8433acc294`. Immediately after that
+merge, GitHub had zero open issues and zero open PRs across `bulletfarm` and all five retiring
+repositories. The documentation PR carrying this plan must be the only open product PR until it
+is reviewed and merged, after which the queue returns to zero before command work begins.
 
 From now on:
 
@@ -47,7 +50,7 @@ From now on:
 
 | Gap | Observed state | Required closure | Gate |
 | --- | --- | --- | --- |
-| GAP-001 — incomplete tips mirror | The PR carried only the canonical 3.0 specification. | Preserve all three supplied Markdown files byte-for-byte with hashes and identify canonical versus provenance. | PR A |
+| GAP-001 — incomplete tips mirror | Merged PR #1 carried only the canonical 3.0 specification. | Preserve all three supplied Markdown files byte-for-byte with hashes and identify canonical versus provenance. | Closure-plan PR |
 | GAP-002 — referenced package files absent | `START_HERE.md` names seven schemas, nine examples, a backlog, requirements file, validator and report, but `tips/` contains only three Markdown files. | Record absence now. Recreate normative v3 schemas/examples and a repository-owned validator from the canonical spec under BF3-002; never claim the unavailable original validator ran. | BF3-002 |
 | GAP-003 — active source is a reduced shell | Current code provides discovery, coordination board, TUI, PR listing, process stop, a bounded SQLite worker, bootstrap/session skeleton and embedded React assets. It lacks the delivery controller removed after `9f03362`. | Selectively restore conforming pieces with new tests and migrations. Do not reset `main` or import historical completion claims. | BF3-001–013 |
 | GAP-004 — browser calls missing routes | React requests projects, drafts, work and events; current server exposes root/bootstrap/session/doctor/commands/operation only. | Add owner-scoped typed reads, paginated projections and bounded event recovery before calling the workbench functional. | BF3-017–018 |
@@ -60,7 +63,7 @@ From now on:
 | GAP-011 — no browser-to-PR release proof | No installed browser-driven real task has survived interruption and produced an independently checked draft PR. | Complete the first useful task and recorded recovery demonstration before claiming G1/release. | BF3-013 |
 | GAP-012 — team and planning surface incomplete | Two owners/providers, takeover/return, fair lanes, Foreman planning, shared API, integration, accounting and restore are incomplete. | Close BF3-014–022 in dependency order and run the independent rebuild gate. | G2 |
 | GAP-013 — measured extensions absent | Learning, Grok Build, production pipeline, thin clients, OpenJarvis trial, architecture decision and forge improvement are unimplemented/evaluations outstanding. | Close BF3-023–030 with measured decisions; optional experiments close through evidence-backed rejection/no-need as allowed by their acceptance. | G3 |
-| GAP-014 — repository/command identity split | Package/binary is `bf`; installed `bulletfarm` points to the legacy `bullet`; parent instructions and old repository descriptions still identify retired paths. | Complete PR B, install one executable with `bf` alias, preserve `~/.bf`/`BF_DATA_DIR`, map only five retired identities in PR discovery, update active entry points and retire the legacy launcher. | Consolidation |
+| GAP-014 — repository/command identity split | Package/binary is `bf`; installed `bulletfarm` points to the legacy `bullet`; parent instructions and old repository descriptions still identify retired paths. | Complete the command-identity PR, install one executable with `bf` alias, preserve `~/.bf`/`BF_DATA_DIR`, map only five retired identities in PR discovery, update active entry points and retire the legacy launcher. | Consolidation |
 | GAP-015 — five redundant GitHub repositories | `bf` and four `bullet-*` repositories remain public and unarchived; descriptions point to `neverhuman/bf`. | After all preservation/cutover gates, update descriptions to `bulletfarm`, archive, recheck, obtain `delete_repo`, delete exactly those five, and verify only `neverhuman/bulletfarm` remains. | Consolidation |
 
 ### Provenance backlog reconciliation
@@ -110,25 +113,34 @@ recovery identity, non-leaking human authority and paused legacy import.
 
 ## 3. Merge and consolidation sequence
 
-### A. Finish and merge PR A
+### A. Completed repository-establishment PR
 
-1. Add this closure plan, the complete byte-identical `tips/*.md` mirror, its hash/authority
-   index, and a truthful `BUILD_CHECKPOINT.json`. Update the implementation plan and README
-   to link them. Runtime source stays unchanged.
+PR #1 preserved the existing `bulletfarm` history, imported the current application without
+runtime drift, carried forward the browser/controller roadmap, published the historical archive
+index and verified the independent private backup. It passed local, fresh-checkout and hosted
+checks plus different-vendor exact-head process review. The reviewer rebase-merged it as
+`1ea7aa60f536e3f3fe8ca186acd64b8433acc294` and deleted the branch. This completed
+repository establishment only; it did not certify a BF3 runtime package.
+
+### B. Merge this closure-plan PR
+
+1. Add this closure plan, the per-criterion evidence ledger, complete byte-identical
+   `tips/*.md` mirror, hash/authority index and truthful `BUILD_CHECKPOINT.json`. Update active
+   instructions and documentation links. Runtime source stays unchanged.
 2. Verify the tip copies with `cmp` and SHA-256. Verify the checkpoint contains exactly
    BF3-001–030, 90 unique AC IDs, AT-001–052, HF01–HF20 and CF01–CF08 exactly once in its
-   coverage inventory. Verify no supplied artifact is represented as available when absent.
+   coverage inventory. Verify each AC has one explicit status in the ledger and that no supplied
+   artifact is represented as available when absent.
 3. Run `scripts/check` with pinned Node/npm, source-import blob/mode verification, archive
-   ref/evidence verification, `git diff --check` excluding only preserved Markdown hard-break
-   whitespace, and a fresh-checkout build.
+   ref/evidence verification, `git diff --check` excluding only byte-preserved Markdown
+   hard-break whitespace, and a fresh-checkout build.
 4. Push one final head. Obtain a different-vendor `REVIEW: approve <exact-sha>` against the
    current instruction and hosted `check`. If review finds a concrete defect, fix it, rerun
-   affected proof, and request review of the new head. Do not use an admin override to invent
-   process approval.
-5. The reviewer rebases/merges and deletes the branch. Fetch `origin/main`, verify the merge
-   contains the active tree and archive refs, then prove all six PR and issue queues are empty.
+   affected proof and request review of the new head.
+5. The reviewer rebases/merges and deletes the branch. Fetch `origin/main`, verify the merge,
+   then prove all six PR and issue queues are empty before the first runtime slice.
 
-### B. One command-and-cutover PR
+### C. One command-and-cutover PR
 
 1. Branch from merged `main`; claim only the root package, installer, PR discovery, UI branding,
    active docs and identity tests. Do not begin controller restoration in this PR.
@@ -153,7 +165,7 @@ recovery identity, non-leaking human authority and paused legacy import.
    delete the branch, install from merged `main`, run the dual-name/data tests against the real
    preserved board, and prove the PR/issue queues return to zero.
 
-### C. Cut over the host and retire repositories
+### D. Cut over the host and retire repositories
 
 1. Change `/home/ubuntu/bullet/{AGENTS.md,README.md,repos.manifest.toml}` and active launch
    entry points to the sole checkout `/home/ubuntu/bulletfarm`; keep the coordination digest
@@ -223,7 +235,8 @@ itself is reviewed and merged or explicitly closed after its evidence is capture
 
 G2 exit: two people, two qualified runners and two coding-provider families use the browser/shared
 API with fair ownership, takeover, planning, integration, complete accounting and proven restore.
-All 22 core packages and every AT-001–052, HF01–HF20 and CF01–CF08 scenario are current-green.
+BF3-001–022 and every scenario linked to those packages are current-green. Scenarios assigned to
+the measured G3 extensions remain open until the corresponding evaluation closes.
 
 ### G3 — measured extensions and explicit architecture decisions
 
