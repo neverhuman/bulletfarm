@@ -9,10 +9,16 @@
     "Cargo.toml": "Only repository URL changed; package, binary, library and dependencies unchanged."
   },
   "added": [
+    "BUILD_CHECKPOINT.json",
+    "docs/closure-plan.md",
     "docs/implementation-plan.md",
     "docs/migration/README.md",
     "docs/migration/source-import.json",
-    "docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md"
+    "docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md",
+    "docs/spec/tips/BULLETFARM_FINAL_ENGINEERING_SPEC(1).md",
+    "docs/spec/tips/BULLETFARM_FINAL_ENGINEERING_SPEC.md",
+    "docs/spec/tips/README.md",
+    "docs/spec/tips/START_HERE.md"
   ],
   "preserved_spec_sha256": "1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb",
   "verification": "Every other source path, mode and blob ID matches the archived bf/main tree; no runtime changes."
