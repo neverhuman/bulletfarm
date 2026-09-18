@@ -11,6 +11,7 @@
   "added": [
     "docs/implementation-plan.md",
     "docs/migration/README.md",
+    "docs/migration/source-import.json",
     "docs/spec/BULLETFARM_FINAL_ENGINEERING_SPEC.md"
   ],
   "preserved_spec_sha256": "1d8064b40041e9383b66b790eb8eaa41924657db5f5d1bb0a5373fc5c501b9eb",
