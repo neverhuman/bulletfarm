@@ -86,9 +86,34 @@ fn origin_slug(dir: &Path) -> Option<String> {
     slug_from_origin(&url)
 }
 
+/// Product identities retired by the 2026-09-18 consolidation. Their GitHub
+/// `owner/name` still appears on historical claims and local remotes; PR
+/// discovery maps only these five onto `neverhuman/bulletfarm`. Unrelated
+/// repositories and historical note text keep their original identities.
+const RETIRED_PRODUCT_SLUGS: &[&str] = &[
+    "neverhuman/bf",
+    "neverhuman/bullet-farm",
+    "neverhuman/bullet-kernel",
+    "neverhuman/bullet-git",
+    "neverhuman/bullet-portal",
+];
+const CANONICAL_PRODUCT_SLUG: &str = "neverhuman/bulletfarm";
+
+/// Map a retired product identity onto `neverhuman/bulletfarm`; leave every
+/// other `owner/name` unchanged (including Jeryu, jankurai, RedlineDB, …).
+pub fn canonicalize_product_slug(slug: &str) -> String {
+    if RETIRED_PRODUCT_SLUGS.contains(&slug) {
+        CANONICAL_PRODUCT_SLUG.to_owned()
+    } else {
+        slug.to_owned()
+    }
+}
+
 /// Distinct, sorted `owner/name` slugs: every repository behind an active claim or any board entry
 /// in the last week, plus the current directory's repository. Repositories that are not git or
 /// have no GitHub origin are skipped; a missing or unreadable board only leaves the cwd.
+/// The five retired product identities collapse to `neverhuman/bulletfarm` so `gh` is not
+/// asked twice for the same queue.
 pub fn repos_from_board(board_path: &Path) -> Vec<String> {
     let mut dirs = BTreeSet::new();
     if board_path.is_file() {
@@ -100,12 +125,13 @@ pub fn repos_from_board(board_path: &Path) -> Vec<String> {
     let mut slugs: BTreeSet<String> = dirs
         .iter()
         .filter_map(|d| origin_slug(Path::new(d)))
+        .map(|s| canonicalize_product_slug(&s))
         .collect();
     if let Some(slug) = std::env::current_dir()
         .ok()
         .and_then(|cwd| origin_slug(&cwd))
     {
-        slugs.insert(slug);
+        slugs.insert(canonicalize_product_slug(&slug));
     }
     slugs.into_iter().collect()
 }

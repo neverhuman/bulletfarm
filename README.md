@@ -19,15 +19,15 @@ records current-main evidence for all 90 criteria. The truthful current snapshot
 [`BUILD_CHECKPOINT.json`](BUILD_CHECKPOINT.json); no BF3 package is complete yet.
 The browser is the primary interface being built; the existing TUI remains an optional client.
 
-Repository-establishment PR #1 is merged. The next runtime PR makes `bulletfarm` the documented
-command and retains `bf` as an alias using the same `~/.bf` data and `BF_DATA_DIR` override.
+The documented command is `bulletfarm`. `bf` is the same executable (same version, same
+`~/.bf` / `BF_DATA_DIR`). No database is created or copied for the alias.
 
 ```bash
 git clone https://github.com/neverhuman/bulletfarm.git /home/ubuntu/bulletfarm
 cd /home/ubuntu/bulletfarm
-cargo build --locked --release --bin bf
+cargo build --locked --release --bin bulletfarm --bin bf
+./target/release/bulletfarm doctor
 ./target/release/bf doctor
-./target/release/bf web
 ```
 
 Current main discovers local Claude, Codex, Cursor and Grok sessions and provides claims,
