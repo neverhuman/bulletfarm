@@ -58,11 +58,6 @@ fn unimplemented_verbs_exit_three_and_name_their_pr() {
     let dir = tempfile::tempdir().unwrap();
     let d = dir.path().to_str().unwrap();
     for args in [
-        vec!["board"],
-        vec!["claim", "src/", "-m", "x"],
-        vec!["heartbeat", "c-1"],
-        vec!["release", "c-1", "-m", "done"],
-        vec!["note", "-m", "hi", "--to", "codex-1"],
         vec!["stop", "1"],
         vec!["prs"],
         vec!["run", "claude", "hello"],
@@ -109,6 +104,11 @@ fn bare_bf_without_a_tty_prints_the_plain_snapshot() {
         .args(["--data-dir", dir.path().to_str().unwrap()])
         .output()
         .unwrap();
-    assert_eq!(out.status.code(), Some(3));
+    assert_eq!(
+        out.status.code(),
+        Some(0),
+        "{}",
+        String::from_utf8_lossy(&out.stderr)
+    );
     assert!(String::from_utf8_lossy(&out.stdout).contains("AGENTS (0)"));
 }
