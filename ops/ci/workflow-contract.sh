@@ -481,7 +481,7 @@ validate_scheduled_uploads() {
   expect_upload_paths "$workflow" portable-refusal '.ci-artifacts/observations/portable-${{ matrix.os }}.json' || return 1
   expect_upload_paths "$workflow" audit '.ci-artifacts/observations/audit.json' || return 1
   actual="$(sha256sum "$workflow" | awk '{ print $1 }')"
-  [[ "$actual" == b703dc10751eb777347511bafae7b9d125752c5b75d590135fcf2156f698f0ff ]] \
+  [[ "$actual" == 6662e3b9c3840353087dbac1754260737191dae6442a6e932b9d62d6fa5fe655 ]] \
     || { refuse HOSTED_SCHEDULED_CONTEXT_DRIFT "$actual"; return 1; }
 }
 

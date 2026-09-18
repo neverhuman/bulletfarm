@@ -40,6 +40,8 @@ jobs:
           mkdir -p "$tools"
           tar -xzf "$archive" -C "$tools" gitleaks
           printf '%s\n' "$tools" >>"$GITHUB_PATH"
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
       - id: lane
         if: ${{ !cancelled() }}
         run: |
@@ -75,6 +77,8 @@ jobs:
         with:
           tool: lychee@0.24.0
           fallback: none
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
       - id: lane
         if: ${{ !cancelled() }}
         run: |
@@ -127,6 +131,8 @@ jobs:
           mkdir -p "$tools"
           tar -xzf "$archive" -C "$tools" gitleaks
           printf '%s\n' "$tools" >>"$GITHUB_PATH"
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
       - id: lane
         if: ${{ !cancelled() }}
         run: |
@@ -166,6 +172,8 @@ jobs:
         with:
           tool: cargo-nextest@0.9.137,cargo-llvm-cov@0.8.7
           fallback: none
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
       - id: lane
         if: ${{ !cancelled() }}
         run: |
@@ -217,6 +225,8 @@ jobs:
           mkdir -p "$tools"
           tar -xzf "$archive" -C "$tools" gitleaks
           printf '%s\n' "$tools" >>"$GITHUB_PATH"
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
       - id: lane
         if: ${{ !cancelled() }}
         run: |
@@ -288,6 +298,8 @@ jobs:
       - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
           persist-credentials: false
+      - name: Install checksum-pinned ripgrep 14.1.1
+        run: bash ops/ci/install-ripgrep.sh
       - id: lane
         if: ${{ !cancelled() }}
         run: |

@@ -169,6 +169,11 @@ expect_scheduled_failure HOSTED_ACTION_INVENTORY_DRIFT
 sed -i '0,/^    steps:$/{s|^    steps:$|&\n      - uses: "actions/upload-artifact\\u0040ea165f8d65b6e75b540449e92b4886f43607fa02"\n        with: { name: broad-upload, path: .ci-artifacts/** }|}' \
   "$workflow_test_root/scheduled.yml"
 expect_scheduled_failure HOSTED_SCHEDULED_CONTEXT_DRIFT
+# Missing scheduled source-scan tooling must never pass the workflow contract.
+sed -i '0,/^        run: bash ops\/ci\/install-ripgrep.sh$/{s//        run: true/}' \
+  "$workflow_test_root/scheduled.yml"
+expect_scheduled_failure HOSTED_SCHEDULED_CONTEXT_DRIFT
+
 # Hosted audit job: the lane must execute, observe, and be neutral only through
 # the lane script's exact typed refusal.
 sed -i '0,/^          bash scripts\/ci-local\.sh audit$/{s//          true # bash scripts\/ci-local.sh audit/}' \
