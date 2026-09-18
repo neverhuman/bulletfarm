@@ -33,9 +33,9 @@
   ],
   "checks": {
     "local_scripts_check": "passed on the documentation candidate: embedded assets, formatting, Clippy, 53 passing Rust tests and one web test; one benchmark ignored",
-    "fresh_checkout_scripts_check": "pending on this documentation candidate; passed on merged establishment PR #1",
-    "hosted_check": "pending on this documentation candidate; passed on merged establishment PR #1",
-    "note": "This documentation head requires fresh-checkout check, hosted check and different-vendor exact-head review before merge."
+    "fresh_checkout_scripts_check": "required on the exact pushed head; result is attached to its PR review evidence",
+    "hosted_check": "required on the exact pushed head; result is attached to its GitHub commit status",
+    "note": "Merge is forbidden until both exact-head checks and different-vendor process review pass."
   },
   "coverage": {
     "acceptance_status_counts": {
