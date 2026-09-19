@@ -2,7 +2,7 @@ use crate::digest::sha256_hex;
 use crate::storage::Database;
 use crate::{Error, Result};
 use chrono::{Duration, Utc};
-use rusqlite::params;
+use rusqlite::{params, Connection, OptionalExtension};
 use serde::{Deserialize, Serialize};
 use serde_json::{json, Value};
 use std::fs::{self, File, OpenOptions};
@@ -63,10 +63,14 @@ impl Hub {
             .call(|c| Ok(c.query_row("SELECT sqlite_version()", [], |r| r.get(0))?))
     }
 
+    /// Principal kinds the hub can hold (migrations/002_kernel.sql CHECK).
+    pub const PRINCIPAL_KINDS: &'static [&'static str] =
+        &["human", "agent", "runner", "verifier", "publisher"];
+
+    /// Mint a session for an existing active principal. Bootstrap uses this for `owner`.
     pub fn ensure_session(&self, principal: &str) -> Result<String> {
         let principal = principal.to_owned();
-        let token = format!("{}{}", Uuid::new_v4().simple(), Uuid::new_v4().simple());
-        let digest = sha256_hex(token.as_bytes());
+        let (token, digest) = new_token();
         self.db.call(move |c| {
             let active: i64 = c.query_row(
                 "SELECT COUNT(*) FROM principals WHERE id=?1 AND active=1",
@@ -76,18 +80,68 @@ impl Hub {
             if active == 0 {
                 return Err(Error::AuthRequired);
             }
-            c.execute(
-                "INSERT INTO sessions(token,principal_id,created_at,expires_at) VALUES(?1,?2,?3,?4)",
-                params![
-                    digest,
-                    principal,
-                    Utc::now().to_rfc3339(),
-                    (Utc::now() + Duration::hours(8)).to_rfc3339()
-                ],
-            )?;
+            insert_session(c, &digest, &principal)
+        })?;
+        Ok(token)
+    }
+
+    /// Hub-internal: create `principal` with `kind` if absent (a present principal must
+    /// already have that kind), then mint a session. Not reachable over HTTP; enrollment
+    /// (BF3-004-AC03) will replace it.
+    pub fn ensure_session_kind(&self, principal: &str, kind: &str) -> Result<String> {
+        if !Self::PRINCIPAL_KINDS.contains(&kind) {
+            return Err(Error::InvalidContract(format!(
+                "unknown principal kind {kind}"
+            )));
+        }
+        let principal = principal.to_owned();
+        let kind = kind.to_owned();
+        let (token, digest) = new_token();
+        self.db.call(move |c| {
+            let tx = c.transaction()?;
+            let existing: Option<(String, i64)> = tx
+                .query_row(
+                    "SELECT kind, active FROM principals WHERE id=?1",
+                    [&principal],
+                    |r| Ok((r.get(0)?, r.get(1)?)),
+                )
+                .optional()?;
+            match existing {
+                None => {
+                    tx.execute(
+                        "INSERT INTO principals(id,kind,active) VALUES(?1,?2,1)",
+                        params![principal, kind],
+                    )?;
+                }
+                Some((found, _)) if found != kind => {
+                    return Err(Error::PolicyDenied(format!(
+                        "principal {principal} is a {found}, not a {kind}"
+                    )));
+                }
+                Some((_, 0)) => return Err(Error::AuthRequired),
+                Some(_) => {}
+            }
+            insert_session(&tx, &digest, &principal)?;
+            tx.commit()?;
             Ok(())
         })?;
         Ok(token)
+    }
+
+    /// Hub-internal: activate or deactivate a principal. Existing sessions stop
+    /// authenticating and historical replays stop resolving while inactive.
+    pub fn set_principal_active(&self, principal: &str, active: bool) -> Result<()> {
+        let principal = principal.to_owned();
+        self.db.call(move |c| {
+            let changed = c.execute(
+                "UPDATE principals SET active=?1 WHERE id=?2",
+                params![active as i64, principal],
+            )?;
+            if changed == 0 {
+                return Err(Error::AuthRequired);
+            }
+            Ok(())
+        })
     }
 
     pub fn lookup_session(&self, token: &str) -> Result<String> {
@@ -140,6 +194,25 @@ impl Drop for Hub {
         self.db.shutdown();
         let _ = self._instance.unlock();
     }
+}
+
+fn new_token() -> (String, String) {
+    let token = format!("{}{}", Uuid::new_v4().simple(), Uuid::new_v4().simple());
+    let digest = sha256_hex(token.as_bytes());
+    (token, digest)
+}
+
+fn insert_session(c: &Connection, digest: &str, principal: &str) -> Result<()> {
+    c.execute(
+        "INSERT INTO sessions(token,principal_id,created_at,expires_at) VALUES(?1,?2,?3,?4)",
+        params![
+            digest,
+            principal,
+            Utc::now().to_rfc3339(),
+            (Utc::now() + Duration::hours(8)).to_rfc3339()
+        ],
+    )?;
+    Ok(())
 }
 
 fn probe(bin: &str) -> Value {
