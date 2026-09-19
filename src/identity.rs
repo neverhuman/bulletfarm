@@ -17,7 +17,10 @@ pub fn classify(exe: &str, cmdline: &str, comm: &str) -> Option<&'static str> {
     if cmdline.contains("cursor-agent/versions/") || cmdline.contains("cursor-agent") {
         return Some("cursor");
     }
-    if comm == "codex" || exe.ends_with("/codex") || cmdline.contains("@openai/codex") {
+    // The Codex CLI binary only. Do not match helpers that live under
+    // `node_modules/@openai/codex/...` (`codex-code-mode-host`, `rg`, the node
+    // wrapper): those share the path substring and were counted as extra sessions.
+    if comm == "codex" || Path::new(exe).file_name().is_some_and(|n| n == "codex") {
         return Some("codex");
     }
     if comm == "claude" || exe.ends_with("/claude") {
@@ -122,6 +125,32 @@ mod tests {
         );
         assert_eq!(classify("/x/codex", "codex --yolo", "codex"), Some("codex"));
         assert_eq!(
+            classify(
+                "/home/u/.nvm/versions/node/v26.1.0/bin/node",
+                "node /home/u/.npm-global/bin/codex --yolo",
+                "node-MainThread"
+            ),
+            None,
+            "node wrapper is not the CLI"
+        );
+        assert_eq!(
+            classify(
+                "/home/u/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/bin/codex-code-mode-host",
+                "codex-code-mode-host",
+                "codex-code-mode"
+            ),
+            None,
+            "code-mode host is a child, not a session"
+        );
+        assert_eq!(
+            classify(
+                "/home/u/.npm-global/lib/node_modules/@openai/codex/node_modules/@openai/codex-linux-x64/vendor/x86_64-unknown-linux-musl/codex-path/rg",
+                "rg --json",
+                "rg"
+            ),
+            None
+        );
+        assert_eq!(
             classify("/home/u/.local/bin/claude", "claude --resume", "claude"),
             Some("claude")
         );
@@ -155,6 +184,36 @@ mod tests {
         assert_eq!(named.agent, "claude-orch");
         assert_eq!(named.pid, Some(100));
     }
+    #[test]
+    fn codex_helper_walks_to_the_cli() {
+        let d = fake_proc(&[
+            (1, 0, "/sbin/init", "init", "init"),
+            (
+                11,
+                1,
+                "/opt/codex/bin/codex",
+                "codex --yolo resume sess-1",
+                "codex",
+            ),
+            (
+                12,
+                11,
+                "/opt/codex/bin/codex-code-mode-host",
+                "codex-code-mode-host",
+                "codex-code-mode",
+            ),
+        ]);
+        assert_eq!(detect_ancestor(d.path(), 12), Some(("codex", 11)));
+        assert_eq!(
+            classify(
+                "/opt/codex/bin/codex-code-mode-host",
+                "codex-code-mode-host",
+                "codex-code-mode"
+            ),
+            None
+        );
+    }
+
     #[test]
     fn operator_shell_is_human() {
         let d = fake_proc(&[

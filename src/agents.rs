@@ -175,21 +175,22 @@ fn overlay_codex(env: &Env, live: &mut BTreeMap<i64, Agent>) {
                 .to_owned(),
         ));
     }
-    rows.sort();
-    rows.reverse();
-    let mut rows = rows.into_iter();
+    let by_id: BTreeMap<String, (String, String)> = rows
+        .into_iter()
+        .map(|(updated, id, title)| (id, (updated, title)))
+        .collect();
     for agent in live.values_mut().filter(|a| a.provider == "codex") {
-        if agent.session_id.is_some() {
+        let Some(sid) = agent.session_id.as_deref() else {
             continue;
+        };
+        let Some((updated, title)) = by_id.get(sid) else {
+            continue;
+        };
+        if agent.title.is_none() && !title.is_empty() {
+            agent.title = Some(title.clone());
         }
-        if let Some((updated, id, title)) = rows.next() {
-            agent.session_id = Some(id);
-            if !title.is_empty() {
-                agent.title = Some(title);
-            }
-            if !updated.is_empty() {
-                agent.last_activity_at = Some(updated);
-            }
+        if !updated.is_empty() {
+            agent.last_activity_at = Some(updated.clone());
         }
     }
 }
@@ -229,13 +230,22 @@ fn overlay_grok(env: &Env, live: &mut BTreeMap<i64, Agent>) {
 }
 
 fn resume_id(cmdline: &str) -> Option<String> {
-    let rest = cmdline.split("--resume=").nth(1)?;
-    let id = rest.split_whitespace().next()?.trim();
-    if id.is_empty() {
-        None
-    } else {
-        Some(id.to_owned())
+    if let Some(rest) = cmdline.split("--resume=").nth(1) {
+        let id = rest.split_whitespace().next().unwrap_or("").trim();
+        if !id.is_empty() {
+            return Some(id.to_owned());
+        }
     }
+    // Codex CLI: `codex resume <id>` or `codex --yolo resume <id>`.
+    let parts: Vec<&str> = cmdline.split_whitespace().collect();
+    if let Some(i) = parts.iter().position(|p| *p == "resume") {
+        if let Some(id) = parts.get(i + 1) {
+            if !id.is_empty() && !id.starts_with('-') {
+                return Some((*id).to_owned());
+            }
+        }
+    }
+    None
 }
 
 fn read_nul(path: &Path) -> String {
