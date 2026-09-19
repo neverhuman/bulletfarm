@@ -60,6 +60,13 @@ pub fn router(state: AppState) -> Router {
         .route("/v3/doctor", get(doctor))
         .route("/v3/commands", post(commands))
         .route("/v3/operations/{id}", get(operation))
+        // Embedded page reads. Empty owner-scoped lists until BF3-017/018 land;
+        // authenticated 200 beats the static-asset fallback 404.
+        .route("/v3/projects", get(empty_items))
+        .route("/v3/drafts", get(empty_items))
+        .route("/v3/drafts/{id}", get(empty_detail))
+        .route("/v3/work", get(empty_items))
+        .route("/v3/events", get(events))
         .fallback(get(asset))
         .with_state(state)
 }
@@ -145,7 +152,50 @@ async fn logout(State(s): State<AppState>, h: HeaderMap) -> Result<Json<Value>> 
 }
 
 async fn doctor(State(s): State<AppState>, h: HeaderMap) -> Result<Json<Value>> {
-    call(s, h, |hub, _| Ok(Json(hub.doctor()))).await
+    call(s, h, |hub, _| {
+        let mut body = hub.doctor();
+        // The page reads `provider`; the hub currently probes CLIs under `clis`.
+        if body.get("provider").is_none() {
+            body["provider"] = json!({
+                "installed": body["clis"]["codex"],
+                "authenticated": "not_checked",
+                "expired": "unknown",
+            });
+        }
+        Ok(Json(body))
+    })
+    .await
+}
+
+async fn empty_items(State(s): State<AppState>, h: HeaderMap) -> Result<Json<Value>> {
+    call(s, h, |_, _| Ok(Json(json!({"items": []})))).await
+}
+
+async fn empty_detail(
+    State(s): State<AppState>,
+    h: HeaderMap,
+    axum::extract::Path(_id): axum::extract::Path<String>,
+) -> Result<Json<Value>> {
+    call(s, h, |_, _| {
+        Ok(Json(json!({"conversation": [], "jobs": []})))
+    })
+    .await
+}
+
+/// One snapshot frame then close. The page reconnects; that is cheaper than a
+/// hanging stream, and oneshot tests can collect the body.
+async fn events(State(s): State<AppState>, h: HeaderMap) -> Result<Response> {
+    let token = credential(&s, &h)?;
+    let hub = s.hub.clone();
+    tokio::task::spawn_blocking(move || hub.lookup_session(&token))
+        .await
+        .map_err(|_| Error::StorageUnavailable("request worker stopped".into()))??;
+    Ok(Response::builder()
+        .status(StatusCode::OK)
+        .header(header::CONTENT_TYPE, "text/event-stream")
+        .header("Cache-Control", "no-store")
+        .body(Body::from("data: {\"cursor\":0}\n\n"))
+        .expect("event-stream response"))
 }
 
 async fn operation(

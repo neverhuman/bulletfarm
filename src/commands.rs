@@ -8,14 +8,25 @@ use uuid::Uuid;
 
 /// Every kind the endpoint accepts. Semantics land in later PRs: each records a durable
 /// operation whose result is NOT_IMPLEMENTED once the actor passes the per-kind policy.
+/// Hub receipts plus every kind the embedded page may POST (`web/src/wire.ts`).
+/// Semantics stay NOT_IMPLEMENTED; unknown kinds remain INVALID_CONTRACT.
 const KINDS: &[&str] = &[
     "note",
     "release",
+    "run",
+    "remember_project",
+    "edit_draft",
+    "start_work",
+    "retry_task",
+    "create_mission",
+    "pause",
     "stop",
-    "grant_allowance",
-    "resolve_decision",
+    "cancel",
+    "resume",
     "take",
     "submit_human",
+    "grant_allowance",
+    "resolve_decision",
 ];
 
 /// Spec §20.2 human-only set. Checked on the authenticated actor's kind, never on whoever
