@@ -337,3 +337,94 @@ async fn error_bodies_carry_a_fresh_correlation_id() {
     assert_eq!(status, StatusCode::BAD_REQUEST);
     assert_error(&bad, "INVALID_CONTRACT");
 }
+
+async fn get_authed(app: &Router, token: &str, path: &str) -> axum::http::Response<Body> {
+    app.clone()
+        .oneshot(
+            Request::get(format!("{ORIGIN}{path}"))
+                .header("host", "127.0.0.1:9")
+                .header("authorization", format!("Bearer {token}"))
+                .body(Body::empty())
+                .unwrap(),
+        )
+        .await
+        .unwrap()
+}
+
+#[tokio::test]
+async fn page_reads_are_empty_authenticated_lists_not_404() {
+    let dir = TempDir::new().unwrap();
+    let hub = Arc::new(Hub::open(dir.path()).unwrap());
+    let app = app(&hub);
+
+    let (status, body) = send(
+        &app,
+        Request::get(format!("{ORIGIN}/v3/projects"))
+            .header("host", "127.0.0.1:9")
+            .body(Body::empty())
+            .unwrap(),
+    )
+    .await;
+    assert_eq!(status, StatusCode::UNAUTHORIZED);
+    assert_error(&body, "AUTH_REQUIRED");
+
+    let owner = bootstrap(&app).await;
+    for path in ["/v3/projects", "/v3/drafts", "/v3/work"] {
+        let response = get_authed(&app, &owner, path).await;
+        assert_eq!(response.status(), StatusCode::OK, "{path}");
+        let bytes = response.into_body().collect().await.unwrap().to_bytes();
+        let value: Value = serde_json::from_slice(&bytes).unwrap();
+        assert_eq!(value["items"], json!([]), "{path}: {value}");
+    }
+    let response = get_authed(&app, &owner, "/v3/drafts/missing").await;
+    assert_eq!(response.status(), StatusCode::OK);
+    let bytes = response.into_body().collect().await.unwrap().to_bytes();
+    let value: Value = serde_json::from_slice(&bytes).unwrap();
+    assert_eq!(value["conversation"], json!([]));
+    assert_eq!(value["jobs"], json!([]));
+
+    let response = get_authed(&app, &owner, "/v3/events").await;
+    assert_eq!(response.status(), StatusCode::OK);
+    let ctype = response
+        .headers()
+        .get("content-type")
+        .and_then(|v| v.to_str().ok())
+        .unwrap_or("");
+    assert!(
+        ctype.starts_with("text/event-stream"),
+        "content-type {ctype}"
+    );
+    let bytes = response.into_body().collect().await.unwrap().to_bytes();
+    let text = String::from_utf8(bytes.to_vec()).unwrap();
+    assert!(text.contains("data: {\"cursor\":0}"), "sse body:\n{text}");
+
+    let doctor = get_authed(&app, &owner, "/v3/doctor").await;
+    let bytes = doctor.into_body().collect().await.unwrap().to_bytes();
+    let value: Value = serde_json::from_slice(&bytes).unwrap();
+    assert!(value["provider"].is_object(), "{value}");
+}
+
+#[tokio::test]
+async fn page_command_kinds_are_accepted_as_not_implemented() {
+    let dir = TempDir::new().unwrap();
+    let hub = Arc::new(Hub::open(dir.path()).unwrap());
+    let app = app(&hub);
+    let owner = bootstrap(&app).await;
+    for kind in [
+        "run",
+        "remember_project",
+        "edit_draft",
+        "start_work",
+        "retry_task",
+        "create_mission",
+        "pause",
+        "stop",
+        "cancel",
+        "resume",
+    ] {
+        let (status, body) =
+            post_command(&app, &owner, &command(&format!("pg-{kind}"), kind, "x")).await;
+        assert_eq!(status, StatusCode::ACCEPTED, "{kind}: {body}");
+        assert_eq!(body["result"]["error"], "NOT_IMPLEMENTED", "{kind}: {body}");
+    }
+}
