@@ -1,8 +1,3 @@
-use axum::http::StatusCode;
-use axum::response::{IntoResponse, Response};
-use axum::Json;
-use serde_json::json;
-
 #[derive(Debug, thiserror::Error)]
 pub enum Error {
     #[error("INVALID_CONTRACT: {0}")]
@@ -33,7 +28,11 @@ pub enum Error {
     OutcomeUnknown(String),
     #[error("STORAGE_UNAVAILABLE: {0}")]
     StorageUnavailable(String),
-    #[error("conflict: same command_id with a different body")]
+    /// The same (actor, command_id) was reused with different bytes. On the wire this is
+    /// the spec's `RESOURCE_CONFLICT` (§20.2-d closed code list): the conflicting resource
+    /// is the actor's command id. The variant stays distinct so the kernel and CLI can
+    /// tell key reuse from other conflicts.
+    #[error("RESOURCE_CONFLICT: same command_id with a different body")]
     CommandConflict,
     #[error("{0}")]
     Other(String),
@@ -53,15 +52,16 @@ impl Error {
             Self::PolicyDenied(_) => "POLICY_DENIED",
             Self::AuthRequired => "AUTH_REQUIRED",
             Self::BudgetUnavailable(_) => "BUDGET_UNAVAILABLE",
-            Self::ResourceConflict(_) => "RESOURCE_CONFLICT",
+            Self::ResourceConflict(_) | Self::CommandConflict => "RESOURCE_CONFLICT",
             Self::OutcomeUnknown(_) => "OUTCOME_UNKNOWN",
             Self::StorageUnavailable(_) => "STORAGE_UNAVAILABLE",
-            Self::CommandConflict => "COMMAND_CONFLICT",
             Self::Other(_) => "ERROR",
         }
     }
 
-    fn status(&self) -> StatusCode {
+    /// HTTP status for the code. Rendering (body, correlation id, log line) lives in `api.rs`.
+    pub(crate) fn status(&self) -> axum::http::StatusCode {
+        use axum::http::StatusCode;
         match self {
             Self::AuthRequired => StatusCode::UNAUTHORIZED,
             Self::PolicyDenied(_) => StatusCode::FORBIDDEN,
@@ -92,16 +92,6 @@ impl From<std::io::Error> for Error {
 impl From<serde_json::Error> for Error {
     fn from(value: serde_json::Error) -> Self {
         Self::InvalidContract(value.to_string())
-    }
-}
-
-impl IntoResponse for Error {
-    fn into_response(self) -> Response {
-        let body = json!({
-            "error": self.code(),
-            "message": self.to_string(),
-        });
-        (self.status(), Json(body)).into_response()
     }
 }
 

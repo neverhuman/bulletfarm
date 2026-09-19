@@ -2,11 +2,55 @@ use crate::digest::{parse_strict_json, require_utf8, sha256_hex};
 use crate::hub::{Hub, Operation};
 use crate::{Error, Result};
 use chrono::Utc;
-use rusqlite::{params, OptionalExtension};
+use rusqlite::{params, Connection, OptionalExtension};
 use serde_json::{json, Value};
 use uuid::Uuid;
 
-const KINDS: &[&str] = &["note", "release", "stop"];
+/// Every kind the endpoint accepts. Semantics land in later PRs: each records a durable
+/// operation whose result is NOT_IMPLEMENTED once the actor passes the per-kind policy.
+const KINDS: &[&str] = &[
+    "note",
+    "release",
+    "stop",
+    "grant_allowance",
+    "resolve_decision",
+    "take",
+    "submit_human",
+];
+
+/// Spec §20.2 human-only set. Checked on the authenticated actor's kind, never on whoever
+/// initiated it (CF06, HF17), before any row is written.
+const HUMAN_ONLY: &[&str] = &[
+    "grant_allowance",
+    "resolve_decision",
+    "take",
+    "submit_human",
+];
+
+fn authorize(actor_kind: &str, kind: &str) -> Result<()> {
+    match actor_kind {
+        "human" => Ok(()),
+        "agent" if !HUMAN_ONLY.contains(&kind) => Ok(()),
+        "agent" => Err(Error::PolicyDenied(format!(
+            "{kind} requires a human actor"
+        ))),
+        other => Err(Error::PolicyDenied(format!(
+            "{other} principals cannot submit commands yet"
+        ))),
+    }
+}
+
+/// The actor's kind if the principal is still active; rechecked inside every command
+/// transaction so a historical replay by a deactivated principal fails (BF3-004-AC02).
+fn active_kind(c: &Connection, actor: &str) -> Result<String> {
+    c.query_row(
+        "SELECT kind FROM principals WHERE id=?1 AND active=1",
+        [actor],
+        |r| r.get(0),
+    )
+    .optional()?
+    .ok_or(Error::AuthRequired)
+}
 
 pub(crate) fn submit(hub: &Hub, actor: &str, raw: &[u8]) -> Result<Operation> {
     let text = require_utf8(raw)?;
@@ -31,21 +75,21 @@ pub(crate) fn submit(hub: &Hub, actor: &str, raw: &[u8]) -> Result<Operation> {
     let actor = actor.to_owned();
     let raw_text = text.to_owned();
     hub.db.call(move |c| {
-        let existing: Option<(String, String, String)> = c
+        // One transaction: authorize -> replay lookup -> command -> event -> operation.
+        // Any error drops `tx`, rolling back every row written so far.
+        let tx = c.transaction()?;
+        let actor_kind = active_kind(&tx, &actor)?;
+        authorize(&actor_kind, &kind)?;
+        let existing: Option<(String, String, String, String)> = tx
             .query_row(
-                "SELECT o.id, o.status, o.result_json FROM commands cmd
-                 JOIN operations o ON o.command_id=cmd.command_id
-                 WHERE cmd.command_id=?1",
-                [&command_id],
-                |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?)),
+                "SELECT cmd.body_sha, o.id, o.status, o.result_json FROM commands cmd
+                 JOIN operations o ON o.actor_id=cmd.actor_id AND o.command_id=cmd.command_id
+                 WHERE cmd.actor_id=?1 AND cmd.command_id=?2",
+                params![actor, command_id],
+                |r| Ok((r.get(0)?, r.get(1)?, r.get(2)?, r.get(3)?)),
             )
             .optional()?;
-        if let Some((id, status, result_json)) = existing {
-            let stored: String = c.query_row(
-                "SELECT body_sha FROM commands WHERE command_id=?1",
-                [&command_id],
-                |r| r.get(0),
-            )?;
+        if let Some((stored, id, status, result_json)) = existing {
             if stored != digest {
                 return Err(Error::CommandConflict);
             }
@@ -60,19 +104,33 @@ pub(crate) fn submit(hub: &Hub, actor: &str, raw: &[u8]) -> Result<Operation> {
             "ok": false,
             "error": "NOT_IMPLEMENTED",
             "kind": kind,
-            "note": "board/stop land in later PRs; this records the command for replay"
+            "note": "command semantics land in later PRs; this records the command for replay"
         });
         let now = Utc::now().to_rfc3339();
-        c.execute(
-            "INSERT INTO commands(command_id,actor_id,kind,body_sha,raw_json,created_at)
+        tx.execute(
+            "INSERT INTO commands(actor_id,command_id,actor_kind,kind,body_sha,raw_json,created_at)
+             VALUES(?1,?2,?3,?4,?5,?6,?7)",
+            params![actor, command_id, actor_kind, kind, digest, raw_text, now],
+        )?;
+        tx.execute(
+            "INSERT INTO events(at,actor_id,kind,command_id,operation_id,payload_json)
              VALUES(?1,?2,?3,?4,?5,?6)",
-            params![command_id, actor, kind, digest, raw_text, now],
+            params![
+                now,
+                actor,
+                kind,
+                command_id,
+                op_id,
+                json!({"actor_kind": actor_kind, "status": "accepted", "result": result})
+                    .to_string()
+            ],
         )?;
-        c.execute(
-            "INSERT INTO operations(id,command_id,actor_id,status,result_json)
-             VALUES(?1,?2,?3,'accepted',?4)",
-            params![op_id, command_id, actor, result.to_string()],
+        tx.execute(
+            "INSERT INTO operations(id,actor_id,command_id,actor_kind,status,result_json)
+             VALUES(?1,?2,?3,?4,'accepted',?5)",
+            params![op_id, actor, command_id, actor_kind, result.to_string()],
         )?;
+        tx.commit()?;
         Ok(Operation {
             id: op_id,
             status: "accepted".into(),
@@ -134,6 +192,24 @@ mod tests {
                 br#"{"schema_version":3,"command_id":"c1","kind":"note","payload":{"text":"b"}}"#,
             )
             .unwrap_err();
-        assert_eq!(err.code(), "COMMAND_CONFLICT");
+        assert!(matches!(err, Error::CommandConflict));
+        assert_eq!(err.code(), "RESOURCE_CONFLICT");
+    }
+
+    #[test]
+    fn policy_is_per_principal_kind() {
+        assert!(authorize("human", "grant_allowance").is_ok());
+        assert!(authorize("agent", "note").is_ok());
+        for kind in HUMAN_ONLY {
+            assert_eq!(
+                authorize("agent", kind).unwrap_err().code(),
+                "POLICY_DENIED"
+            );
+        }
+        for actor in ["runner", "verifier", "publisher"] {
+            for kind in KINDS {
+                assert_eq!(authorize(actor, kind).unwrap_err().code(), "POLICY_DENIED");
+            }
+        }
     }
 }

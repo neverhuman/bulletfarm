@@ -10,7 +10,25 @@ use axum::{
 use serde_json::{json, Value};
 use std::sync::Arc;
 use tokio::sync::Semaphore;
+use uuid::Uuid;
 include!(concat!(env!("OUT_DIR"), "/web_assets.rs"));
+
+/// Every failing request answers `{error, message, correlation_id}` (spec §20.2-d) and
+/// logs the id and code once to stderr, so an operator can join a client report to the
+/// hub log without the body carrying more than the smallest authorized explanation.
+impl IntoResponse for Error {
+    fn into_response(self) -> Response {
+        let correlation_id = Uuid::new_v4().to_string();
+        let code = self.code();
+        eprintln!("bf api: error={code} correlation_id={correlation_id} {self}");
+        let body = json!({
+            "error": code,
+            "message": self.to_string(),
+            "correlation_id": correlation_id,
+        });
+        (self.status(), Json(body)).into_response()
+    }
+}
 
 #[derive(Clone)]
 pub struct AppState {
